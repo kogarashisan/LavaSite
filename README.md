@@ -2,5 +2,5 @@
 
 http://www.lava-framework.com/
 
-Core repository is here:
+Main repository is here:
 https://github.com/kogarashisan/LiquidLava/
