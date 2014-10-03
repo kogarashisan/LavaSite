@@ -1,0 +1,1 @@
+Uses an IF view with refresher, so in collapsed state the content is removed from DOM.
