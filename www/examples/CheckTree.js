@@ -43,7 +43,7 @@ return (this._binds[0].getValue());
 									static_properties: {unselectable: "on"},
 									class_bindings: {
 										"0": {
-											evaluator: function() {
+											evaluator: function () {
 return ('level-' + this._binds[0].getValue());
 },
 											binds: [{property_name: "level"}]
@@ -102,7 +102,7 @@ return (this._binds[0].getValue());
 										type: "view",
 										"class": "Expression",
 										argument: {
-											evaluator: function() {
+											evaluator: function () {
 return (this._binds[0].getValue());
 },
 											flags: {isScopeEval: true},
@@ -131,7 +131,7 @@ return (this._binds[0].getValue());
 											},
 											class_bindings: {
 												"0": {
-													evaluator: function() {
+													evaluator: function () {
 return ('lava-tree' + ((this._binds[0].getValue() == this._binds[1].getValue() - 1) ? '-bottom' : '-middle') + (this._binds[2].getValue() ? (this._binds[3].getValue() ? '-expanded' : '-collapsed') : '-node'));
 },
 													binds: [

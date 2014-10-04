@@ -1,42 +1,33 @@
 
+/*
+ Perfection kills. Even God needs to rest sometimes. Amen.
+ */
+global.LAVA_CORE_DIRECTORY = 'D:/LiquidLava/';
+
 module.exports = function(grunt) {
 
-	global.LavaBuild = {
-		//grunt: grunt,
-		highlight_js: require('highlight.js'),
-		fs: require('fs'),
-		marked: require('marked'),
-		exportClasses: function() {
-			var export_classes_result = '';
-			var exported_paths = [];
-			var Lava = global.Lava;
+	require(global.LAVA_CORE_DIRECTORY + 'build/temp/lava_module.js');
 
-			function export_path(path) {
+	var fs = require('fs'),
+		highlight_js = require('highlight.js'),
+		marked = require('marked'),
+		Lava = global.Lava,
+		Firestorm = global.Firestorm,
+		LAVA_CORE_DIRECTORY = global.LAVA_CORE_DIRECTORY;
 
-				var exported = Lava.ClassManager.exportClass(path);
+	eval(grunt.file.read(LAVA_CORE_DIRECTORY + 'build/temp/lava_widgets.js'));
 
-				if (exported.extends && exported_paths.indexOf(exported.extends) == -1) {
-					export_path(exported.extends);
-				}
+	var LavaBuild = {
 
-				delete exported.skeleton;
-				delete exported.source_object;
-				export_classes_result += "Lava.ClassManager.loadClass(" + Lava.Serializer.serialize(exported) + ");\n\n";
-				exported_paths.push(path);
-
-			}
-
-			var class_names = Lava.ClassManager.getClassNames();
-			for (var i = 0, count = class_names.length; i < count; i++) {
-
-				if (exported_paths.indexOf(class_names[i]) == -1) {
-					export_path(class_names[i]);
-				}
-
-			}
-
-			return export_classes_result;
+		// height of line in <code> from CSS
+		CSS_CODE_LINE_HEIGHT: 18,
+		links: {}, // target -> descriptor
+		_page_links: {
+			'api': '/www/doc.html',
+			'reference': '/www/doc.html',
+			'tutorials': '/www/doc.html'
 		},
+		has_errors: false,
 
 		wrapHighlightedCode: function(code, type, line_numbers, overlay_lines, tooltip_lines) {
 
@@ -87,8 +78,6 @@ module.exports = function(grunt) {
 
 		},
 
-		CSS_CODE_LINE_HEIGHT: 18,
-
 		parseHighlight: function(type, text) {
 
 			text = text.trim();
@@ -130,7 +119,7 @@ module.exports = function(grunt) {
 				}
 			}
 
-			var highlighted = this.highlight_js.highlight(type, text).value;
+			var highlighted = highlight_js.highlight(type, text).value;
 
 			if (type == 'xml') {
 				// make control attributes red
@@ -192,34 +181,27 @@ module.exports = function(grunt) {
 		 */
 		smartSerialize: function(value) {
 
-			var original = global.Lava.Serializer._serializeFunction;
-			global.Lava.Serializer._serializeFunction = this._serializeFunction;
-			var result = global.Lava.Serializer.serialize(value);
-			global.Lava.Serializer._serializeFunction = original;
+			var original = Lava.Serializer._serializeFunction;
+			Lava.Serializer._serializeFunction = this._serializeFunction;
+			var result = Lava.Serializer.serialize(value);
+			Lava.Serializer._serializeFunction = original;
 			return result;
 
 		},
 
 		recursiveRemoveDirectory: function(path) {
 			var self = this;
-			if(this.fs.existsSync(path) ) {
-				this.fs.readdirSync(path).forEach(function(file){
+			if(fs.existsSync(path) ) {
+				fs.readdirSync(path).forEach(function(file){
 					var curPath = path + "/" + file;
-					if(self.fs.lstatSync(curPath).isDirectory()) {
+					if(fs.lstatSync(curPath).isDirectory()) {
 						self.recursiveRemoveDirectory(curPath);
 					} else {
-						self.fs.unlinkSync(curPath);
+						fs.unlinkSync(curPath);
 					}
 				});
-				this.fs.rmdirSync(path);
+				fs.rmdirSync(path);
 			}
-		},
-
-		links: {}, // target -> descriptor
-		_page_links: {
-			'api': '/www/doc.html',
-			'reference': '/www/doc.html',
-			'tutorials': '/www/doc.html'
 		},
 
 		registerLink: function(target, descriptor) {
@@ -227,8 +209,6 @@ module.exports = function(grunt) {
 			if (target in this.links) throw new Error('link is already registered. probably, missing @ignore');
 			this.links[target] = descriptor;
 		},
-
-		has_errors: false,
 
 		generateLink: function(type, link_target, linktitle) {
 			if (!(link_target in this.links)) {
@@ -246,6 +226,7 @@ module.exports = function(grunt) {
 		},
 
 		objects_with_processed_markdown: [],
+
 		processDescriptorMarkdown: function(descriptor) {
 			if (this.objects_with_processed_markdown.indexOf(descriptor) == -1) {
 				this.objects_with_processed_markdown.push(descriptor);
@@ -287,7 +268,7 @@ module.exports = function(grunt) {
 			});
 			content = content.replace(/\<str\>([\s\S]+?)\<\/str\>/g, function(match, inner) {
 				return '<span class="api-string">'
-					+ global.Firestorm.String.escape(inner, global.Firestorm.String.HTML_ESCAPE_REGEX)
+					+ Firestorm.String.escape(inner, Firestorm.String.HTML_ESCAPE_REGEX)
 					+ '</span>';
 			});
 			content = content.replace(/\<wp\>([\s\S]+?)\<\/wp\>/g, function(match, inner) {
@@ -348,7 +329,7 @@ module.exports = function(grunt) {
 
 			// for dynamic content generation (tables, etc). Eval the given piece of code and return result.
 			content = content.replace(/\<script[^\>]+?type=\"lavabuild\/eval\"[\S\s]+?\<\/script>/g, function(region){
-				var ast = global.Lava.TemplateParser.parseRaw(region);
+				var ast = Lava.TemplateParser.parseRaw(region);
 				var result;
 				eval(ast[0].content[0]);
 				return result;
@@ -356,7 +337,7 @@ module.exports = function(grunt) {
 
 			// eval the code and make a box with 2 sections: 'source' and 'result'
 			content = content.replace(/\<script[^\>]+?type=\"lavabuild\/source_result\"[\S\s]+?\<\/script>/g, function(region){
-				var ast = global.Lava.TemplateParser.parseRaw(region);
+				var ast = Lava.TemplateParser.parseRaw(region);
 				if (ast.length != 1 || !ast[0].attributes) throw new Error('wrong lavabuild/js region format');
 				var region_content = ast[0].content[0];
 
@@ -377,7 +358,7 @@ module.exports = function(grunt) {
 				while(true) {
 					var matches = re.exec(inner_content);
 					if (!matches) break;
-					var tag_ast = global.Lava.TemplateParser.parseRaw(matches[1] + matches[3])[0]; // extract attributes
+					var tag_ast = Lava.TemplateParser.parseRaw(matches[1] + matches[3])[0]; // extract attributes
 					if (!tag_ast.attributes) throw new Error('codeblock without attributes');
 					var lang = tag_ast.attributes.lang || 'javascript';
 					parsed_blocks.push(self._packCode(lang, tag_ast.attributes.title, tag_ast.attributes.class, matches[2]));
@@ -387,16 +368,16 @@ module.exports = function(grunt) {
 			});
 
 			content = content.replace(/\<lavabuild\:template_result[^\>]*?\>([\s\S]+?)\<\/lavabuild\:template_result\>/g, function(region, region_content_text){
-				var ast = global.Lava.TemplateParser.parseRaw(region);
+				var ast = Lava.TemplateParser.parseRaw(region);
 				if (ast.length != 1 || !ast[0].content) throw new Error('wrong lavabuild/template_result region format');
 				var region_content;
 				var as = ast[0].attributes ? ast[0].attributes.as : '';
 				switch (as) {
 					case 'single_view':
-						region_content = global.Lava.parsers.Common.compileAsView(ast[0].content);
+						region_content = Lava.parsers.Common.compileAsView(ast[0].content);
 						break;
 					default:
-						region_content = global.Lava.parsers.Common.compileTemplate(ast[0].content)
+						region_content = Lava.parsers.Common.compileTemplate(ast[0].content)
 				}
 
 				var serialized_eval_result = self.smartSerialize(region_content);
@@ -418,7 +399,7 @@ module.exports = function(grunt) {
 			content = this._replaceMarkers(content);
 			content = this._replaceCodes(content);
 			content = this._replaceLinks(content);
-			var result = this.marked(content);
+			var result = marked(content);
 			this.for_template = false;
 			return result;
 
@@ -439,7 +420,7 @@ module.exports = function(grunt) {
 
 		_expand: function(base_path, path, extension) {
 
-			var names = this.fs.readdirSync(path),
+			var names = fs.readdirSync(path),
 				full_name,
 				relative_path,
 				filename,
@@ -449,7 +430,7 @@ module.exports = function(grunt) {
 
 			for (; i < count; i++) {
 				full_name = path + names[i];
-				if (this.fs.lstatSync(full_name).isDirectory()) {
+				if (fs.lstatSync(full_name).isDirectory()) {
 					this._expand(base_path, full_name + '/', extension);
 				} else {
 					if (names[i].substr(-extension.length) != extension) throw new Error();
@@ -472,8 +453,7 @@ module.exports = function(grunt) {
 
 	};
 
-	var LavaBuild = global.LavaBuild;
-	LavaBuild.marked.Renderer.prototype.code = function(code, lang, escaped) {
+	marked.Renderer.prototype.code = function(code, lang, escaped) {
 
 		var result = '';
 		if (!lang) throw new Error('highlight: no language specified');
@@ -490,11 +470,25 @@ module.exports = function(grunt) {
 
 	};
 
+	global.LavaBuild = LavaBuild;
+
+	// workaround for a bug in Grunt, https://github.com/gruntjs/grunt/issues/1135
+	global.bug1135 = function(callback) {
+		return function() {
+			try {
+				return callback();
+			} catch (e) {
+				if (typeof(e) == 'string' || typeof(e) == 'number') throw new Error(e);
+				throw e;
+			}
+		}
+	};
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	grunt.initConfig({
 
-		js_files: grunt.file.readJSON('build/js_files.json'),
+		js_files: grunt.file.readJSON(global.LAVA_CORE_DIRECTORY + 'build/js_files.json'),
 		www_files: grunt.file.readJSON('build/www_files.json'),
 
 		concat: {
@@ -505,14 +499,14 @@ module.exports = function(grunt) {
 				files: [
 					{
 						src: [
-							"./build/css/bootstrap/bootstrap.css",
-							"./build/css/bootstrap/bootstrap-theme.min.css",
-							"./build/css/bootstrap/partial-docs.css",
-							"./build/css/site.css",
-							"./dist/lava-widgets.css",
-							"./build/css/highlightjs/vs.css"
+							"css/bootstrap/bootstrap.css",
+							"css/bootstrap/bootstrap-theme.min.css",
+							"css/bootstrap/partial-docs.css",
+							"css/site.css",
+							LAVA_CORE_DIRECTORY + "dist/lava-widgets.css",
+							"css/highlightjs/vs.css"
 						],
-						dest: './www/css/site.css'
+						dest: 'www/css/site.css'
 					}
 				]
 			},
@@ -520,22 +514,29 @@ module.exports = function(grunt) {
 				files: [
 					{
 						src: [
-							"./build/src/site.js",
-							"./build/src/sample_data.js",
-							"./build/src/EditableTableExample.class.js",
-							"./build/src/ContentLoader.class.js",
-							"./build/src/ChangelogPage.class.js",
-							"./build/src/DocPage.class.js",
-							"./build/src/ExamplesPage.class.js",
-							"./build/src/WidgetsPage.class.js",
-							"./build/src/ApiCommon.js",
-							"./build/src/MooTools/More.js",
-							"./build/src/MooTools/Fx.Scroll.js",
-							"./build/temp/site_widgets.js"
+							"src/site.js",
+							"src/sample_data.js",
+							"src/EditableTableExample.class.js",
+							"src/ContentLoader.class.js",
+							"src/ChangelogPage.class.js",
+							"src/DocPage.class.js",
+							"src/ExamplesPage.class.js",
+							"src/WidgetsPage.class.js",
+							"src/ApiCommon.js",
+							"src/MooTools/More.js",
+							"src/MooTools/Fx.Scroll.js",
+							"build/temp/site_widgets.js"
 						],
-						dest: './www/js/site.js'
+						dest: 'www/js/site.js'
 					}
 				]
+			}
+		},
+
+		copy: {
+			main: {
+				src: LAVA_CORE_DIRECTORY + 'dist/lava-master-DEBUG.js',
+				dest: 'lib/lava-master-DEBUG.js'
 			}
 		}
 
@@ -543,10 +544,11 @@ module.exports = function(grunt) {
 
 	grunt.option('stack', true);
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadTasks('build/tasks/');
 
 	// Note: all tasks depend on previous tasks
-	grunt.registerTask('default', ['buildLava', 'buildIncludes', 'buildExamples', 'buildWeb', 'buildTasksPage', 'concat']);
-	grunt.registerTask('doc', ['jsdocExport', 'buildSugar', 'buildDoc', 'buildSupport']);
+	grunt.registerTask('default', ['copy', 'buildSiteWidgets', 'buildExamples', 'buildWeb', 'buildTasksPage', 'concat']);
+	grunt.registerTask('doc', ['buildSugar', 'buildDoc', 'buildSupport']);
 
 };

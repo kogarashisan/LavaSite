@@ -187,7 +187,7 @@ return (this._binds[0].getValue());
 								type: "view",
 								"class": "If",
 								argument: {
-									evaluator: function() {
+									evaluator: function () {
 return (this._binds[0].getValue() && this._binds[1].getValue());
 },
 									binds: [
@@ -213,7 +213,7 @@ return (this._binds[0].getValue() && this._binds[1].getValue());
 								refresher: {"class": "Standard"},
 								assigns: {
 									pad: {
-										evaluator: function() {
+										evaluator: function () {
 return ((this._binds[0].getValue() == this._binds[1].getValue() - 1) ? this._binds[2].getValue() + '<div class="lava-tree-pad"></div>' : this._binds[3].getValue() + '<div class="lava-tree-pad-line"></div>');
 },
 										binds: [
@@ -224,7 +224,7 @@ return ((this._binds[0].getValue() == this._binds[1].getValue() - 1) ? this._bin
 										]
 									},
 									level: {
-										evaluator: function() {
+										evaluator: function () {
 return (this._binds[0].getValue() + 1);
 },
 										binds: [{
@@ -240,7 +240,7 @@ return (this._binds[0].getValue() + 1);
 										type: "view",
 										"class": "Foreach",
 										argument: {
-											evaluator: function() {
+											evaluator: function () {
 return (this._binds[0].getValue());
 },
 											flags: {isScopeEval: true},
