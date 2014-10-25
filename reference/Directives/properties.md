@@ -1,6 +1,8 @@
 
 #x:properties directive
 
+<script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('properties');</script>
+
 Allows to set {@link _cWidget#properties}. Same as &lt;options&gt;.
 
 ###Example
@@ -15,3 +17,5 @@ Allows to set {@link _cWidget#properties}. Same as &lt;options&gt;.
 	</x:properties>
 </checkbox>
 </lavabuild:template_result>
+
+You can have both x:property and x:properties directives at the same time.

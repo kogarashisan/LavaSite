@@ -1,6 +1,8 @@
 
 #x:static_eval directive
 
+<script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('static_eval');</script>
+
 Define an argument, that will be evaluated once (at the moment of {@link Lava.system.Template} creation),
 and inserted into the template as a string.
 It's faster that using Expression view, but such string will not refresh it's value, when dependencies change. Use with care.

@@ -1,6 +1,8 @@
 
 #x:attach_directives directive
 
+<script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('attach_directives');</script>
+
 Allows to attach directives to a void tag.
 
 ###Example

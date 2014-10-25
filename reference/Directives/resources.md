@@ -1,6 +1,8 @@
 
 #x:resources directive
 
+<script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('resources');</script>
+
 Defines {@link _cWidget#resources} for a widget
 
 ###Example

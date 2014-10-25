@@ -93,8 +93,8 @@ module.exports = function(grunt) {
 					case 'targets_option':
 						tooltip = 'Option\nType: &amp;lt;targets&amp;gt;';
 						break;
-					case 'expression_option':
-						tooltip = 'Option\nType: &amp;lt;expression&amp;gt;';
+					case 'expressions_option':
+						tooltip = 'Option\nType: &amp;lt;expressions&amp;gt;';
 						break;
 					// object
 					case 'lava_type':
@@ -163,7 +163,7 @@ module.exports = function(grunt) {
 		var fs = require('fs'),
 			Lava = global.Lava,
 			LavaBuild = global.LavaBuild,
-			result = '',
+			result = 'See <a href="#reference=Sugar">Sugar</a> reference for info about sugar structure and attributes.\n\n',
 			associated_widgets_by_controller = {}, // exported
 			widgets_without_sugar = [];
 
@@ -265,6 +265,8 @@ module.exports = function(grunt) {
 		fs.mkdirSync('www/api/');
 		LavaBuild.recursiveRemoveDirectory('www/reference/');
 		fs.mkdirSync('www/reference/');
+		LavaBuild.recursiveRemoveDirectory('www/tutorials/');
+		fs.mkdirSync('www/tutorials/');
 
 		var temp = JSON.stringify({
 			description: result

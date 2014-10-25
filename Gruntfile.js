@@ -4,6 +4,37 @@
  */
 global.LAVA_CORE_DIRECTORY = 'D:/LiquidLava/';
 
+global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS = ['sugar', 'storage', 'storage_schema', 'edit_template', 'include'];
+global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS = ['bind', 'assign', 'option', 'property', 'options', 'properties', 'roles', 'resources', 'default_events', 'broadcast'];
+global.WIDGET_ONLY_DIRECTIVES = ['broadcast', 'bind', 'property', 'properties', 'property_string', 'resources', 'default_events'];
+global.DIRECTIVE_NAMES = ['define', 'define_resources', 'widget', 'static_value', 'static_eval', 'attach_directives',
+	'assign', 'roles', 'container_config', 'refresher', 'option', 'options'].concat(global.WIDGET_ONLY_DIRECTIVES);
+global.DIRECTIVES_WITH_RESULT = ['widget', 'static_value', 'static_eval', 'attach_directives'];
+global.DIRECTIVE_MULTIPLICITY = {
+	// multiple
+	assign: true,
+	bind: true,
+	option: true,
+	property: true,
+	property_string: true,
+	resources: true,
+	// singular
+	broadcast: false,
+	default_events: false,
+	options: false,
+	properties: false,
+	refresher: false,
+	roles: false,
+	container_config: false,
+	// n/a
+	define: null,
+	define_resources: null,
+	widget: null,
+	static_value: null,
+	static_eval: null,
+	attach_directives: null
+};
+
 module.exports = function(grunt) {
 
 	require(global.LAVA_CORE_DIRECTORY + 'build/temp/lava_module.js');
@@ -204,9 +235,13 @@ module.exports = function(grunt) {
 			}
 		},
 
+		hasLink: function(target) {
+			return (target in this.links);
+		},
+
 		registerLink: function(target, descriptor) {
 			if (!(descriptor.page in this._page_links)) throw new Error('1');
-			if (target in this.links) throw new Error('link is already registered. probably, missing @ignore');
+			if (target in this.links) throw new Error('link is already registered. probably, missing @ignore:' + target);
 			this.links[target] = descriptor;
 		},
 
@@ -265,6 +300,9 @@ module.exports = function(grunt) {
 
 			content = content.replace(/\<kw\>([\s\S]+?)\<\/kw\>/g, function(match, inner) {
 				return '<span class="api-keyword">' + inner + '</span>';
+			});
+			content = content.replace(/\<var\>([\s\S]+?)\<\/var\>/g, function(match, inner) {
+				return '<span class="api-var">' + inner + '</span>';
 			});
 			content = content.replace(/\<str\>([\s\S]+?)\<\/str\>/g, function(match, inner) {
 				return '<span class="api-string">'
@@ -350,6 +388,7 @@ module.exports = function(grunt) {
 			});
 
 			// several highlighted blocks of code with headers
+			// lavabuild:codeblocks > codeblock[lang,title]
 			content = content.replace(/\<lavabuild\:codeblocks\>([\s\S]+?)\<\/lavabuild\:codeblocks\>/g, function(region, inner_content){
 				// regex includes cases for "\>" inside strings
 				var re = /(\<codeblock(?:[^\"\'\>]|\"(?:\\\"|[^"])*\"|\'(?:\\\'|[^'])*\')*\>)([\s\S]+?)(\<\/codeblock\>)/g;
@@ -361,7 +400,8 @@ module.exports = function(grunt) {
 					var tag_ast = Lava.TemplateParser.parseRaw(matches[1] + matches[3])[0]; // extract attributes
 					if (!tag_ast.attributes) throw new Error('codeblock without attributes');
 					var lang = tag_ast.attributes.lang || 'javascript';
-					parsed_blocks.push(self._packCode(lang, tag_ast.attributes.title, tag_ast.attributes.class, matches[2]));
+					if (!tag_ast.attributes.title) throw new Error();
+					parsed_blocks.push(self._packCode(lang, tag_ast.attributes.title, tag_ast.attributes.class || 'api-code-header-blue', matches[2]));
 				}
 
 				return self.wrapHighlightedBlocks(parsed_blocks);
@@ -374,7 +414,7 @@ module.exports = function(grunt) {
 				var as = ast[0].attributes ? ast[0].attributes.as : '';
 				switch (as) {
 					case 'single_view':
-						region_content = Lava.parsers.Common.compileAsView(ast[0].content);
+						region_content = [Lava.parsers.Common.compileAsView(ast[0].content)];
 						break;
 					default:
 						region_content = Lava.parsers.Common.compileTemplate(ast[0].content)
@@ -405,51 +445,19 @@ module.exports = function(grunt) {
 
 		},
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// lava-style search for files in directory
-
-		_expand_result: [],
-
-		expand: function(base_path, extension) {
-
-			this._expand_result = [];
-			this._expand(base_path, base_path, extension);
-			return this._expand_result;
-
-		},
-
-		_expand: function(base_path, path, extension) {
-
-			var names = fs.readdirSync(path),
-				full_name,
-				relative_path,
-				filename,
-				i = 0,
-				count = names.length,
-				parts;
-
-			for (; i < count; i++) {
-				full_name = path + names[i];
-				if (fs.lstatSync(full_name).isDirectory()) {
-					this._expand(base_path, full_name + '/', extension);
-				} else {
-					if (names[i].substr(-extension.length) != extension) throw new Error();
-					relative_path = path.substr(base_path.length) + names[i].substr(0, names[i].length - extension.length);
-					parts = relative_path.split('/');
-					filename = parts.pop();
-					this._expand_result.push({
-						name: filename,
-						path_segments: parts.length ? parts : null,
-						full_name: full_name,
-						relative_path: relative_path
-					});
-				}
-			}
-
+		generateDirectiveInfoBox: function(directive_name) {
+			if (!(directive_name in global.DIRECTIVE_MULTIPLICITY)) throw new Error("directive is not in global.DIRECTIVE_MULTIPLICITY: " + directive_name);
+			var multiplicity = 'N/A';
+			if (global.DIRECTIVE_MULTIPLICITY[directive_name] == true) multiplicity = 'Allowed';
+			if (global.DIRECTIVE_MULTIPLICITY[directive_name] == false) multiplicity = 'Disallowed';
+			if (global.DIRECTIVE_NAMES.indexOf(directive_name) == -1) throw "unknown directive: " + directive_name;
+			return '<table class="api-member-table doc-directive-quick-facts"><thead><tr><td>Quick facts</td><td></td></tr></thead><tbody>'
+				+ '<tr><td>Has analog in widget definition tags</td><td>' + (global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS.indexOf(directive_name) != -1 ? 'Yes' : 'No')  + '</td></tr>'
+				+ '<tr><td>Produces result</td><td>' + (global.DIRECTIVES_WITH_RESULT.indexOf(directive_name) != -1 ? 'Yes' : 'No') + '</td></tr>'
+				+ '<tr><td>Widget only directive</td><td>' + (global.WIDGET_ONLY_DIRECTIVES.indexOf(directive_name) != -1 ? 'Yes' : 'No') + '</td></tr>'
+				+ '<tr><td>Multiple usage</td><td>' + multiplicity + '</td></tr>'
+				+ '</tbody></table>\n\n';
 		}
-
-		//
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	};
 
@@ -538,7 +546,35 @@ module.exports = function(grunt) {
 				src: LAVA_CORE_DIRECTORY + 'dist/lava-master-DEBUG.js',
 				dest: 'lib/lava-master-DEBUG.js'
 			}
-		}
+		},
+
+		reference_list: [
+			'reference/BrowserFeatures.md',
+			'reference/Classes.md',
+			'reference/Data.md',
+			'reference/Containers.md',
+
+			'reference/ElementSyntax.md',
+			'reference/DirectivesOverview.md',
+			'reference/Directives/*.md',
+			'reference/Resources.md',
+			'reference/ResourcesDefinition.md',
+			'reference/Storage.md',
+			'reference/Sugar.md',
+
+			'reference/ScopeLayer.md',
+
+			'reference/ConfigExtension.md',
+			'reference/Packages.md',
+			'reference/Animation.md',
+			'reference/APIRemarksList.md',
+			'reference/FAQ.md'
+		],
+
+		tutorials_list: [
+			'tutorials/Classes.md',
+			'tutorials/PropertiesEvents.md'
+		]
 
 	});
 

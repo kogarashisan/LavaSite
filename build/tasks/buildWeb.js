@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 			includes[name] = grunt.file.read('includes/' + name);
 		}
 
-		// replace includes in html files. Currently, all content is pure html files, need to update it somehow.
+		// replace includes in html files.
 		function processWebFile(filename) {
 			var content = grunt.file.read(filename);
 			var was_modified = false;
@@ -28,16 +28,8 @@ module.exports = function(grunt) {
 				/<!--LAVA_BUILD_INCLUDE:([a-zA-Z0-9\.\_]+)-->\s*([\s\S]*?)\s*<!--LAVA_BUILD_INCLUDE_END-->/g,
 				function() {
 					var include_name = arguments[1];
-					var www_prefix = '';
-					var dist_prefix = '../';
-					if (filename == 'index.html') {
-						www_prefix = 'www/';
-						dist_prefix = '';
-					}
-					var required_include_content = includes[include_name].trim();
-					required_include_content = required_include_content.replace(/\{\$www_prefix\}/g, www_prefix);
-					required_include_content = required_include_content.replace(/\{\$dist_prefix\}/g, dist_prefix);
-					required_include_content = required_include_content.replace(/\{\$pagename\}/g, filename);
+					// !
+					var required_include_content = includes[include_name].trim().replace(/\{\$pagename\}/g, filename);
 
 					var page_include_content = arguments[2].trim();
 					if (page_include_content != required_include_content) {

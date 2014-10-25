@@ -1,6 +1,8 @@
 
 #x:roles directive
 
+<script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('roles');</script>
+
 Directive sets {@link _cView#roles} for view or widget config.
 
 Note: there must be no empty space
@@ -14,3 +16,6 @@ Note: there must be no empty space
 	</x:roles>
 {/view}
 </lavabuild:template_result>
+
+You can set roles for a global widget in x:define (via &lt;roles&gt; tag),
+but it's recommended to move them to inline widget definition.

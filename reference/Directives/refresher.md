@@ -1,6 +1,8 @@
 
 #x:refresher directive
 
+<script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('refresher');</script>
+
 Directive sets {@link _cView#refresher} config property for views and widgets.
 
 Content of the directive must be a valid JavaScript object.

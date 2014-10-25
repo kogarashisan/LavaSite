@@ -1,6 +1,8 @@
 
 #x:static_value directive
 
+<script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('static_value');</script>
+
 Insert a resource value by it's resource_id. Result is evaluated at the moment of {@link Lava.system.Template} creation.
 
 Allowed resource types: 'string', 'number', 'boolean' and 'translate'.

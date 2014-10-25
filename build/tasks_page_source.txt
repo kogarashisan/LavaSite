@@ -48,6 +48,10 @@ System-wide or uncategorized
 	- [P2,Refactoring] remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender
 		// if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.
 	- [P5,Refactoring] each destroy() must call parent's destroy() in the end (not earlier)
+	- [P5,Feature] (experimental) create a lighter fork of the framework: without Refreshable mixin.
+	- [P2,Performance] Optimize config extension: widgets configs without parent must be created with `is_extended = true`
+		// 1) widgets with static class name must have full class name in the "class" attribute.<br/>
+		// 2) with dynamic class name - must have locator gateway in 'class'.
 
 Lava.js
 	- [P2,Refactoring] simplify getWidgetSugarInstance(), get rid of _widget_title_to_sugar_instance
@@ -102,11 +106,15 @@ Firestorm/
 Parsers/
 	- [P2,Dev] make the text for exception "Text is not allowed in this context" inside asBlocks() more meaningful
 		// text should depend on context
+	- [P1,Dev] asBlocks should filter out HTML comments (to allow comments inside widget definitions)
 	- [P3,Feature] x:controller control attribute - similar to x:widget
 		// create an inline widget from element, with specified controller class. Also should work on sugar.
 	- [P5,Feature,Q] static_value directive should treat it's content as default value.
 	- [P3,Refactoring] use _include_locator_regex instead of _locator_regex, and check in code for disallowed symbols. Same for _identifier_regex.
 		// _include_locator_regex includes "$", which should not be in _locator_regex.
+	- [P2,Dev] When creating x:type="view" and other views from HTML tags - check that there is no properties and styles,
+		which are bound and have a static value at the same time
+		// See x:type-"container": if (('static_styles' in container_config) && ('style_bindings' in container_config)) ...
 Parsers/Directives.js
 	- [P5,Feature] x:classBinding directive - alternative form for x:class attribute
 	- [P5,Dev,Q] resources: need &lt;component path="..."&gt; tag inside &lt;resources&gt; to shorten paths
@@ -121,10 +129,13 @@ Parsers/Directives.js
 	- [P3,Fix] x:attach_directives creates empty content template on wrapped tag. Must not create a template.
 	- [P2,Refactoring] Lots of checks of data validity inside directives should be moved to processDirective().
 		Get rid of is_top_directive switch (it equals to view_config_presence switch).
+		// Also, try to gather data validity checks for resources in the resource tag handler
 	- [P3,Fix,Q] Empty space between top directives should be removed
 		// currently compile process does not remove it. See parse result on the reference page for x:option directive
+	- [P4,Dev] For plural string definitions in resources: add check that number of strings matches number of plural forms in the locale
 Parsers/ObjectParser.js
-	- [P5,Feature] allow RegExp type in objects
+	- [P5,Feature,Q] allow Date and RegExp type in objects. Date will be created with "new" operator.
+	- [P5,Feature] allow JavaScript comments
 Parsers/TemplateParser.js
 	- [P5,Feature,Q] allow to set class for widget extenders
 	- [P4,Feature] implement removal of empty space from templates
@@ -171,6 +182,8 @@ System/Sugar.class.js
 		// solution: descriptor for alias property has flag "isAlias", for example: {active: {type: "Switch", isAlias: true}, ...}.
 		// Before &lt;storage&gt; tag and sugar parses the raw AST - they first collect a list of attributes,
 		// which have an alias, to restrict them. When TemplateWalker walks a template - it ignores properties with isAlias flag.
+	- [P4,Feature] sugar: allow content type that can map certain tags to items in storage collections.
+		Aim: you will not need to write &lt;panels&gt; in &lt;accordion&gt;, just &lt;panel&gt;
 System/Template.class.js
 	- [P5,Performance,Q] render() function compilation.
 		// Take into account that code may be compressed
@@ -324,6 +337,36 @@ Inputs
 	- [P5,Feature] code coverage for unit tests, that can be viewed online
 	- [P2,Refactoring] code in examples on main page is a bit messy, build process is complicated. Correct it.
 	- [P5,Feature] create "codestyle" document
+	- [P2,Feature] Replace images in the tree, gif -&gt; png
+		// other images should also be png
+
+#Documentation
+	- [P4,Feature] Display @throws for methods
+	- [P4,Feature] Box with source code should have language indication (js, xml, ...)
+	- [P3,Feature] Document global events (those, fired from App)
+		// events may be marked with "@lava-global-event" tag
+	- [P3,Fix] Collapsible widget: unable to describe it's option, as it does not have a constructor.
+	- [P3,Feature] Paragraphs in Reference must also have links, which can be referenced by @link tag
+	- [P5,Refactoring] Refactor DocPage.class.js, move operations with hash into ContentLoader.class.js
+	- [P2,Feature] Display values for most class properties either in their "value" column, or in their extended description.
+		// Regular expressions, short arrays, callback maps. Example: Lava.ObjectParser.yy.allowed_globals.
+		// This means that some properties will have extended description, like methods.
+	- [P3,Feature] On Widgets page: show widget sources in collapsible panels
+	- [P5,Feature] Check: if function returns a value - than it must be described in @returns JSDoc comment
+		// this can be done with Esprima
+	- [P5,Feature] If parent method has @returns and inherited has JSDoc block - than JSDoc block of inherited method
+		must also contain @returns
+	- [P2,Feature] Show source code for classes and make ability to reference lines of code.
+		Link all members to their source.
+	- [P2,Feature] Ability to filter classes and class members
+	- [P2,Feature] Ability to create links to class members from user interface
+		// hovering a member must show a link to it
+	- [P5,Feature] Versioning of the documentation
+	- [P2,Feature] Display "defined" and "overridden" fields for each member.
+	- [P2,Feature] Tables with members must be collapsible. Tables with mixins must be collapsed by default.
+	- [P1,Feature] Links to members must have "short" "middle" and "long" titles. Versions can be chosen by @sl (short link) and @fl (full link) tags.
+		// Example: "Lava.mixin.Properties#on" - long, "Properties#on" - middle, "on" - short.
+		// Also correct all links with title.
 
 #Maintenance
 	- [P5,Feature] Automatic on-commit codestyle validation

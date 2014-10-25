@@ -3,7 +3,7 @@
 
 Animations change CSS properties of elements over time, like: position, width or color.
 
-##Useful features
+##Quick facts
 
 - Animations can be reversed at any time. You can call {@link Lava.animation.Abstract#reverseDirection} to run it backwards.
 - You can animate several properties simultaneously
@@ -46,8 +46,8 @@ Animations and classes are the most time-critical parts of any framework, so the
 - When animation starts - it adds itself to the list of active tasks via call to {@link Lava.Cron#acceptTask}.
 - When first task is added to {@link Lava.Cron} - it starts a timer, which periodically calls it's {@link Lava.Cron#onTimer} callback.
 - Cron's `onTimer` than calls `onTimer()` method of all active tasks.
-- At the same time, Cron asks every animation if it's still active via call to `isRunning()`. When animation is not active anymore
-	- Cron removes it from it's list of active tasks.
+- At the same time, Cron asks every animation if it's still active via call to `isRunning()`. When animation stops -
+Cron removes it from it's list of active tasks.
 - When there are no more active tasks - timer stops.
 
 Each animation has a "transition" function (analog of JQuery's "easings"). Transition determines the actual animation's
@@ -60,7 +60,8 @@ Inside animation instance:
 	`transition_value` is usually between 0 and 1, but may exceed those bounds.
 - Finally, `transition_value` is passed to animators, which set properties on animation's DOM elements
 
-Animator is a class, that knows, how to set the desired properties. For example, color values must be rounded and written in `rgb(...)` form.
+Animator is a class, that knows, how to set the desired properties.
+For example, color values must be rounded and written in `rgb(...)` form.
 
 ##Emulated animations
 

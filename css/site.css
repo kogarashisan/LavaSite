@@ -102,6 +102,7 @@ footer .container {background: #f7f5fa;}
 .lava-tree-icon-class {padding: 2px 5px 3px 1px;}
 .lava-tree-icon-object {padding: 3px 5px 2px 1px;}
 .lava-tree-icon-reference {padding: 1px 0;}
+.lava-tree-icon-tutorial {padding: 3px 6px 2px 1px;}
 
 /* =============== API page ================ */
 .api-node-selected {background-color: #DFEAFF !important;}
@@ -110,6 +111,7 @@ footer .container {background: #f7f5fa;}
 .api-filter-box {clear:both;background: #dfe9ff;padding: 0.5em;border: 1px solid gray}
 .api-support-interface-tag {background: #800043;color:white;font-size: 0.5em;padding: 2px 6px;border-radius: 5px;}
 .api-support-extends-list {color: gray;font-size: 0.8em}
+.doc-directive-quick-facts {margin-bottom: 1em}
 
 /* API page: extends box*/
 .api-extends-box {background: rgb(215, 231, 236);padding: 1em;border: 2px solid lightgray;float: right;margin-bottom: 1em}
@@ -148,6 +150,7 @@ footer .container {background: #f7f5fa;}
 
 /* cell content styles */
 .api-keyword {color: rgb(0,0,128);}
+.api-var {color: #800043;}
 .api-string {color: rgb(0,128,0);}
 .api-widget-property {font-style: italic; font-weight: bold}
 .api-highlight-gray {color: gray;font-weight: bold;}

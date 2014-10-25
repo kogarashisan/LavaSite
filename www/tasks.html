@@ -16,9 +16,9 @@
 	<![endif]-->
 
 	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.0/mootools-yui-compressed.js"></script>
-	<link rel="stylesheet" href="css/site.css">
+	<link rel="stylesheet" href="/www/css/site.css">
 	<script src="/lib/lava-master-DEBUG.js"></script>
-	<script src="js/site.js"></script>
+	<script src="/www/js/site.js"></script>
 	<link rel="canonical" href="http://www.lava-framework.com/www/tasks.html"/>
 	<script>
 		if (window.location.href.indexOf('http://kogarashisan.github.io/LiquidLava') == 0) {
@@ -169,6 +169,8 @@
 <li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span> fixes for old IE: check if event delegation for "change" event and others works in IE 8 and less.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender<span class="task-comment">if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> each destroy() must call parent's destroy() in the end (not earlier)</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> (experimental) create a lighter fork of the framework: without Refreshable mixin.</li>
+<li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span> Optimize config extension: widgets configs without parent must be created with `is_extended = true`<span class="task-comment">1) widgets with static class name must have full class name in the "class" attribute.<br/><br/> 2) with dynamic class name - must have locator gateway in 'class'.</span></li>
 </ul>
 <h3>Lava.js</h3>
 <ul>
@@ -235,9 +237,11 @@
 <h3>Parsers/</h3>
 <ul>
 <li><span class="tag-P2">P2</span><span class="tag-Dev">Dev</span> make the text for exception "Text is not allowed in this context" inside asBlocks() more meaningful<span class="task-comment">text should depend on context</span></li>
+<li><span class="tag-P1">P1</span><span class="tag-Dev">Dev</span> asBlocks should filter out HTML comments (to allow comments inside widget definitions)</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> x:controller control attribute - similar to x:widget<span class="task-comment">create an inline widget from element, with specified controller class. Also should work on sugar.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> static_value directive should treat it's content as default value.</li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> use _include_locator_regex instead of _locator_regex, and check in code for disallowed symbols. Same for _identifier_regex.<span class="task-comment">_include_locator_regex includes "$", which should not be in _locator_regex.</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Dev">Dev</span> When creating x:type="view" and other views from HTML tags - check that there is no properties and styles,<br/>which are bound and have a static value at the same time<span class="task-comment">See x:type-"container": if (('static_styles' in container_config) && ('style_bindings' in container_config)) ...</span></li>
 </ul>
 <h3>Parsers/Directives.js</h3>
 <ul>
@@ -249,12 +253,14 @@
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> known tasks for edit_template: move into separate object. Rename 'known' -> 'predefined'</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Refactoring of &lt;x:refresher&gt; directive<span class="task-comment">1) Allow attributes like 'class'.<br/> 2) Allow packages for view refreshers (&lt;x:refresher class="$classname/RefresherName"&gt;)</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span> x:attach_directives creates empty content template on wrapped tag. Must not create a template.</li>
-<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Lots of checks of data validity inside directives should be moved to processDirective().<br/>Get rid of is_top_directive switch (it equals to view_config_presence switch).</li>
+<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Lots of checks of data validity inside directives should be moved to processDirective().<br/>Get rid of is_top_directive switch (it equals to view_config_presence switch).<span class="task-comment">Also, try to gather data validity checks for resources in the resource tag handler</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span><span class="tag-Q">Q</span> Empty space between top directives should be removed<span class="task-comment">currently compile process does not remove it. See parse result on the reference page for x:option directive</span></li>
+<li><span class="tag-P4">P4</span><span class="tag-Dev">Dev</span> For plural string definitions in resources: add check that number of strings matches number of plural forms in the locale</li>
 </ul>
 <h3>Parsers/ObjectParser.js</h3>
 <ul>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> allow RegExp type in objects</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> allow Date and RegExp type in objects. Date will be created with "new" operator.</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> allow JavaScript comments</li>
 </ul>
 <h3>Parsers/TemplateParser.js</h3>
 <ul>
@@ -297,6 +303,7 @@
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> when parsing sugar inside x:define and x:widget: sugar config must be merged with parent,<br/>and class name of sugar must be taken from config.</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> Allow to create "alias" properties in storage objects. Reason: this will allow to create better-looking attribute names for sugar.<br/>For example: main attribute is called "is_active" (Boolean), alias will be called "active" (switch).<span class="task-comment">solution: descriptor for alias property has flag "isAlias", for example: {active: {type: "Switch", isAlias: true}, ...}.<br/> Before &lt;storage&gt; tag and sugar parses the raw AST - they first collect a list of attributes,
  which have an alias, to restrict them. When TemplateWalker walks a template - it ignores properties with isAlias flag.</span></li>
+<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> sugar: allow content type that can map certain tags to items in storage collections.<br/>Aim: you will not need to write &lt;panels&gt; in &lt;accordion&gt;, just &lt;panel&gt;</li>
 </ul>
 <h3>System/Template.class.js</h3>
 <ul>
@@ -455,6 +462,27 @@
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> code coverage for unit tests, that can be viewed online</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> code in examples on main page is a bit messy, build process is complicated. Correct it.</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> create "codestyle" document</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Replace images in the tree, gif -&gt; png<span class="task-comment">other images should also be png</span></li>
+</ul>
+<h2>Documentation</h2>
+<ul>
+<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> Display @throws for methods</li>
+<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> Box with source code should have language indication (js, xml, ...)</li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Document global events (those, fired from App)<span class="task-comment">events may be marked with "@lava-global-event" tag</span></li>
+<li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span> Collapsible widget: unable to describe it's option, as it does not have a constructor.</li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Paragraphs in Reference must also have links, which can be referenced by @link tag</li>
+<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> Refactor DocPage.class.js, move operations with hash into ContentLoader.class.js</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Display values for most class properties either in their "value" column, or in their extended description.<span class="task-comment">Regular expressions, short arrays, callback maps. Example: Lava.ObjectParser.yy.allowed_globals.<br/> This means that some properties will have extended description, like methods.</span></li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> On Widgets page: show widget sources in collapsible panels</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Check: if function returns a value - than it must be described in @returns JSDoc comment<span class="task-comment">this can be done with Esprima</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> If parent method has @returns and inherited has JSDoc block - than JSDoc block of inherited method<br/>must also contain @returns</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Show source code for classes and make ability to reference lines of code.<br/>Link all members to their source.</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Ability to filter classes and class members</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Ability to create links to class members from user interface<span class="task-comment">hovering a member must show a link to it</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Versioning of the documentation</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Display "defined" and "overridden" fields for each member.</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Tables with members must be collapsible. Tables with mixins must be collapsed by default.</li>
+<li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> Links to members must have "short" "middle" and "long" titles. Versions can be chosen by @sl (short link) and @fl (full link) tags.<span class="task-comment">Example: "Lava.mixin.Properties#on" - long, "Properties#on" - middle, "on" - short.<br/> Also correct all links with title.</span></li>
 </ul>
 <h2>Maintenance</h2>
 <ul>

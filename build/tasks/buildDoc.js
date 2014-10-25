@@ -9,6 +9,12 @@ Beware of skeletons! (use this holy search spell to protect you: Ctrl+F 'skeleto
 */
 
 /*
+Notes:
+- links to same class member exist for every inherited class. Example: getDataBinding is defined in view.Abstract,
+	but links also exist in view.View and widget.Standard.
+ */
+
+/*
 directory (short) // for the navigation tree
 	type: 'folder',
 	name
@@ -85,9 +91,120 @@ member descriptor:
 
  */
 
-var ApiHelper = global.ApiHelper;
+function __debug(arg){ // fuck the node!
+	debugger;
+}
 
 module.exports = function(grunt) {
+
+	var ApiHelper = global.ApiHelper,
+		LavaBuild = global.LavaBuild,
+		fs = require('fs');
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+
+	function NavTree() { // @todo use this for Lava and Firestorm trees
+
+		this.directories_by_path = {};
+		this.root = [];
+		this.entries_by_name = {};
+		this.all_items = [];
+
+	}
+
+	NavTree.prototype.getDirectory = function(path_array) {
+
+		var dirname = path_array.join('/'),
+			descriptor,
+			parent_path;
+
+		if (!(dirname in this.directories_by_path)) {
+			descriptor = {
+				type: 'folder',
+				name: path_array[path_array.length - 1],
+				title: path_array[path_array.length - 1],
+				children: []
+			};
+
+			if (path_array.length > 1) { // has parent
+				parent_path = path_array.slice();
+				parent_path.pop();
+				this.getDirectory(parent_path).children.push(descriptor);
+			} else { // ==1
+				this.root.push(descriptor);
+			}
+
+			this.directories_by_path[dirname] = descriptor;
+		}
+
+		return this.directories_by_path[dirname];
+
+	};
+
+	NavTree.prototype.putEntry = function(path, entry) {
+		if (path && path.length) {
+			this.getDirectory(path).children.push(entry);
+		} else {
+			this.root.push(entry);
+		}
+		if (this.entries_by_name[entry.name]) throw new Error('duplicate name in tree: ' + entry.name);
+		this.entries_by_name[entry.name] = entry;
+		this.all_items.push(entry);
+	};
+
+	NavTree.prototype.loadDocs = function(raw_list, link_prefix, page) {
+		var self = this;
+		raw_list.forEach(function(path){
+			// grunt silently removes files that do not exist.
+			// This is NOT the expected behaviour.
+			if (path.indexOf('*') == -1 && !fs.existsSync(path)) throw new Error('reference file not found: ' + path);
+		});
+		var expanded_list = grunt.file.expand(raw_list);
+
+		// check that all real files from source directory are in the list
+		var directory_contents = grunt.file.expand(page + '/**/*.md');
+		directory_contents.forEach(function(path){
+			if (expanded_list.indexOf(path) == -1) throw new Error('Reference file is not listed: ' + path);
+		});
+
+		var doc_file_contents = {};
+		expanded_list.forEach(function(path){
+
+			var parts = path.split(/[\/\.]/);
+			parts.shift(); // remove "reference/"
+			if (parts.pop() != 'md') throw new Error();
+			var full_name = parts.join('.');
+			var filename = parts.pop();
+			if (filename.indexOf(' ') != -1) throw new Error('doc: file names must not contain spaces');
+			var article_title = filename;
+			doc_file_contents[full_name] = grunt.file.read(path).replace(/^\<lavabuild\:title\>(.*?)\<\/lavabuild\:title\>/, function(_, title){
+				article_title = title;
+				return '';
+			});
+
+			var reference_descriptor = {
+				type: link_prefix,
+				name: full_name,
+				title: article_title,
+				relative_path: full_name
+			};
+
+			self.putEntry(parts, reference_descriptor);
+
+			LavaBuild.registerLink(link_prefix + ':' + full_name, {
+				hash: link_prefix + '=' + full_name,
+				page: page,
+				title: article_title,
+				type: link_prefix
+			});
+
+		});
+		return doc_file_contents;
+	};
+
+	//
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	grunt.registerTask('buildDoc', global.bug1135(function() {
 
@@ -215,6 +332,20 @@ module.exports = function(grunt) {
 
 		}
 
+		function registerMemberLink(path, name, type) {
+			var last_dot_index = path.lastIndexOf('.');
+			var title = path + '#' + name;
+			if (last_dot_index != -1) {
+				title = path.substr(last_dot_index + 1) + '#' + name;
+			}
+			LavaBuild.registerLink(path + '#' + name, { // the name in {@link} directives
+				hash: type + '=' + path + ';member=' + name, // the hash in browser
+				page: 'api',
+				title: title,
+				type: 'member'
+			});
+		}
+
 		function buildMemberDocs(cd) {
 
 			var skeleton = cd.skeleton,
@@ -310,17 +441,7 @@ module.exports = function(grunt) {
 			}
 
 			for (name in result) {
-				var last_dot_index = cd.path.lastIndexOf('.');
-				var title = cd.path + '#' + name;
-				if (last_dot_index != -1) {
-					title = cd.path.substr(last_dot_index + 1) + '#' + name;
-				}
-				LavaBuild.registerLink(cd.path + '#' + name, { // the name in {@link} directives
-					hash: 'class=' + cd.path + ';member=' + name, // the hash in browser
-					page: 'api',
-					title: title,
-					type: 'member'
-				});
+				registerMemberLink(cd.path, name, 'class');
 			}
 
 			return result;
@@ -330,6 +451,7 @@ module.exports = function(grunt) {
 		// short descriptors for classes (Lava.define). full_class_name => descriptor
 		var class_descriptors = {};
 		var extended_class_descriptors = {};
+		var attached_api_docs_files = [];
 
 		function create_docs(path) {
 
@@ -343,6 +465,7 @@ module.exports = function(grunt) {
 
 			if (grunt.file.exists('api_docs/' + path + '.md')) {
 				extended_class_descriptor.description = grunt.file.read('api_docs/' + path + '.md'); // long description, 'remarks'
+				attached_api_docs_files.push('api_docs/' + path + '.md');
 			}
 
 			var current_class_member_docs_block = {
@@ -397,11 +520,10 @@ module.exports = function(grunt) {
 			// inherit member documentation
 			if (cd.extends) {
 
-				// copy inheritance blocks from parent's class and filter them to hide overridden members
 				parent_class_ext_descriptor.doc_chain.forEach(function(doc_block) {
 					doc_block = Firestorm.Object.copy(doc_block);
-					extended_class_descriptor.doc_chain.push(doc_block);
 					doc_block.descriptors_hash = Firestorm.Object.copy(doc_block.descriptors_hash);
+					extended_class_descriptor.doc_chain.push(doc_block);
 				});
 
 			}
@@ -425,6 +547,12 @@ module.exports = function(grunt) {
 						// set 'overridden' flag to the local member descriptor
 						member_descriptors_hash[name].is_overridden = true;
 						// if (doc_block.is_implements) member_descriptors_hash[name].is_implemented = true;
+					}
+				}
+				for (name in doc_block.descriptors_hash) {
+					// link may be already registered, if member was overridden
+					if (!LavaBuild.hasLink(cd.path + '#' + name)) {
+						registerMemberLink(cd.path, name, 'class');
 					}
 				}
 			});
@@ -548,6 +676,7 @@ module.exports = function(grunt) {
 
 			if (grunt.file.exists('api_docs/' + source_object_name + '.md')) {
 				extended_descriptor.description = grunt.file.read('api_docs/' + source_object_name + '.md'); // long description, 'remarks'
+				attached_api_docs_files.push('api_docs/' + source_object_name + '.md');
 			}
 
 			LavaBuild.registerLink(short_descriptor.name, {
@@ -606,17 +735,7 @@ module.exports = function(grunt) {
 					}];
 				}
 
-				var last_dot_index = source_object_name.lastIndexOf('.');
-				var title = source_object_name + '.' + name;
-				if (last_dot_index != -1) {
-					title = source_object_name.substr(last_dot_index + 1) + '.' + name;
-				}
-				LavaBuild.registerLink(source_object_name + '#' + name, {
-					hash: 'object=' + source_object_name + ';member=' + name,
-					page: 'api',
-					title: title,
-					type: 'member'
-				});
+				registerMemberLink(source_object_name, name, 'object');
 
 			}
 
@@ -925,78 +1044,15 @@ module.exports = function(grunt) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// build reference:
-
-		function NavTree() { // @todo use this for Lava and Firestorm trees
-
-			this.directories_by_path = {};
-			this.root = [];
-			this.entries_by_name = [];
-
-		}
-
-		NavTree.prototype.getDirectory = function(path_array) {
-
-			var dirname = path_array.join('/'),
-				descriptor,
-				parent_path;
-
-			if (!(dirname in this.directories_by_path)) {
-				descriptor = {
-					type: 'folder',
-					name: path_array[path_array.length - 1],
-					title: path_array[path_array.length - 1],
-					children: []
-				};
-
-				if (path_array.length > 1) { // has parent
-					parent_path = path_array.slice();
-					parent_path.pop();
-					this.getDirectory(parent_path).children.push(descriptor);
-				} else { // ==1
-					this.root.push(descriptor);
-				}
-
-				this.directories_by_path[dirname] = descriptor;
-			}
-
-			return this.directories_by_path[dirname];
-
-		};
-
-		NavTree.prototype.putEntry = function(path, entry) {
-			if (path) {
-				this.getDirectory(path).children.push(entry);
-			} else {
-				this.root.push(entry);
-			}
-			if (this.entries_by_name[entry.name]) throw new Error('duplicate name in tree: ' + entry.name);
-			this.entries_by_name[entry.name] = entry;
-		};
+		// load reference and tutorials:
 
 		var reference_nav_tree = new NavTree();
-		var names_ext = LavaBuild.expand('reference/', '.md');
-		reference_nav_tree.names_ext = names_ext;
+		var reference_file_contents = reference_nav_tree.loadDocs(grunt.config('reference_list'), 'reference', 'reference');
 
-		for (i = 0, count = names_ext.length; i < count; i++) {
+		var tutorials_nav_tree = new NavTree();
+		var tutorials_file_contents = tutorials_nav_tree.loadDocs(grunt.config('tutorials_list'), 'tutorial', 'tutorials');
 
-			reference_nav_tree.putEntry(names_ext[i].path_segments, {
-				type: 'reference',
-				name: names_ext[i].name,
-				title: names_ext[i].name,
-				relative_path: names_ext[i].relative_path
-			});
-
-			LavaBuild.registerLink('reference:' + names_ext[i].name, {
-				hash: 'reference=' + names_ext[i].name,
-				page: 'reference',
-				title: names_ext[i].name,
-				type: 'reference'
-			});
-
-		}
-
-		// end: build reference
+		// end: load reference and tutorials
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1165,21 +1221,23 @@ module.exports = function(grunt) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// write reference
 
-		names_ext = reference_nav_tree.names_ext;
-		for (i = 0, count = names_ext.length; i < count; i++) {
+		function writeDocs(file_contents, dir_path, src_path) {
+			for (var relative_path in file_contents) {
+				var content = file_contents[relative_path];
+				var markdown = LavaBuild.processMarkdown(content, true);
+				var widget_config = {
+					type: 'widget',
+					is_extended: true,
+					template: Lava.TemplateParser.parse(markdown),
+					container: {'class': 'Element', tag_name: 'div'}
+				};
 
-			var content = grunt.file.read(names_ext[i].full_name);
-			var markdown = LavaBuild.processMarkdown(content, true);
-			var widget_config = {
-				type: 'widget',
-				is_extended: true,
-				template: Lava.TemplateParser.parse(markdown),
-				container: {'class': 'Element', tag_name: 'div'}
-			};
-
-			grunt.file.write('www/reference/' + names_ext[i].relative_path + '.js', Lava.Serializer.serialize(widget_config));
-
+				grunt.file.write(dir_path + relative_path + '.js', Lava.Serializer.serialize(widget_config));
+			}
 		}
+
+		writeDocs(reference_file_contents, 'www/reference/', 'reference/');
+		writeDocs(tutorials_file_contents, 'www/tutorials/', 'tutorials/');
 
 		// end: write reference
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1189,6 +1247,7 @@ module.exports = function(grunt) {
 			'var api_tree_source = ' + JSON.stringify(root) + ';\n\n'
 				+ 'var firestorm_api_tree_source = ' + JSON.stringify(firestorm_nav_root) + ';\n\n'
 				+ 'var reference_nav_tree_source = ' + JSON.stringify(reference_nav_tree.root) + ';\n\n'
+				+ 'var tutorials_nav_tree_source = ' + JSON.stringify(tutorials_nav_tree.root) + ';\n\n'
 		);
 
 		missing_descriptions_log = Lava.algorithms.sorting[Lava.schema.DEFAULT_UNSTABLE_SORT_ALGORITHM](missing_descriptions_log, function(a, b) {
@@ -1201,6 +1260,11 @@ module.exports = function(grunt) {
 		});
 		grunt.log.ok('Total warnings: ' + missing_descriptions_log_count);
 
-	}));
+		var api_docs_files = grunt.file.expand('api_docs/**/*');
+		api_docs_files.forEach(function(path){
+			if (attached_api_docs_files.indexOf(path) == -1) throw new Error('file was not attached: ' + path);
+		})
+
+	}))
 
 };

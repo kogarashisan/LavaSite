@@ -27,6 +27,7 @@ Lava.define(
 		// another navigation tree - for Firestorm API
 		firestorm_api_tree: null,
 		reference_nav_tree: null,
+		tutorials_nav_tree: null,
 		meta_storage: null,
 
 		sugar_descriptor: null, // short descriptors for links in navigation tree
@@ -53,7 +54,7 @@ Lava.define(
 		object: 'api/',
 		'class': 'api/',
 		reference: 'reference/',
-		tutorial: 'tutorial/'
+		tutorial: 'tutorials/'
 	},
 
 	_tabs_widget: null, // registered via role
@@ -65,9 +66,12 @@ Lava.define(
 	_tab_hash_data: {api: {}, reference: {}, tutorials: {}},
 	_tab_content_widgets: {},
 	_tab_items: {},
+	// the name of tab, which is owner of the widget with current content
 	_active_tab_name: 'reference',
 
 	init: function(config, widget, parent_view, template, properties) {
+
+		var hash_data;
 
 		this._color_animation = new Lava.animation.Standard({
 			duration: 1500,
@@ -85,6 +89,8 @@ Lava.define(
 		this._prepareTree(this._name_groups.api, this._properties.firestorm_api_tree, 'api', null);
 		this._properties.reference_nav_tree = Examples.makeLive(reference_nav_tree_source);
 		this._prepareTree(this._name_groups.reference, this._properties.reference_nav_tree, 'reference', null);
+		this._properties.tutorials_nav_tree = Examples.makeLive(tutorials_nav_tree_source);
+		this._prepareTree(this._name_groups.tutorials, this._properties.tutorials_nav_tree, 'tutorials', null);
 
 		this._tab_content_widgets.api = Lava.createWidget('ClassContent');
 		this._properties.sugar_descriptor = new Lava.mixin.Properties({
@@ -100,7 +106,11 @@ Lava.define(
 
 		this._hashchange_listener = Lava.Core.addGlobalHandler('hashchange', this._onHashChange, this);
 		if (window.location.hash) {
-			this._loadItemByHash(window.location.hash);
+			hash_data = this._parseHash(window.location.hash);
+			if (hash_data['tab']) {
+				this._active_tab_name = hash_data['tab'];
+			}
+			this._loadItemByHash(hash_data);
 		}
 
 	},
@@ -211,7 +221,7 @@ Lava.define(
 
 			short_descriptor.set('extended_descriptor', extended_descriptor);
 
-		} else if (type == 'reference' || type == 'tutorials') {
+		} else if (type == 'reference' || type == 'tutorial') {
 
 			short_descriptor.set('widget_config', eval('(' + text + ')'));
 
@@ -286,12 +296,9 @@ Lava.define(
 
 	},
 
-	_loadItemByHash: function(hash) {
+	_loadItemByHash: function(hash_data) {
 
-		var hash_data = this._parseHash(hash),
-			item = hash_data['item'];
-
-		if (hash_data['tab']) this._selectTab(hash_data['tab']);
+		var item = hash_data['item'];
 
 		if (item) {
 
@@ -312,6 +319,10 @@ Lava.define(
 
 			window.alert('Invalid URL: ' + hash);
 
+		} else if (hash_data['tab'] && this._tabs_widget) {
+
+			this._tabs_widget.getTabObjects()[this._tab_names.indexOf(hash_data['tab'])].set('is_active', true);
+
 		}
 
 	},
@@ -326,8 +337,8 @@ Lava.define(
 			tab_widget = this._tab_content_widgets[item_tab];
 
 		this._selectTab(item_tab);
-		if (is_item_changed || is_tab_changed) {
-			if (item_tab != 'api' && active_widget && active_widget.isInDOM()) active_widget.remove();
+		if (is_tab_changed || (is_item_changed && item_tab != 'api')) {
+			if (active_widget && active_widget.isInDOM()) active_widget.remove();
 		}
 
 		if (is_item_changed) {
@@ -420,7 +431,7 @@ Lava.define(
 
 		if (this._request == null && window.location.hash) {
 
-			this._loadItemByHash(window.location.hash);
+			this._loadItemByHash(this._parseHash(window.location.hash));
 
 		}
 
@@ -463,7 +474,7 @@ Lava.define(
 
 	_getFilePath: function(item) {
 
-		var path = item.get('type') == 'reference' ? item.get('relative_path') : item.get('name');
+		var path = item.get('name');
 		return this.DIRS[item.get('type')] + path + '.js';
 
 	},
@@ -481,7 +492,7 @@ Lava.define(
 		window.location.hash = new_hash;
 		Lava.resumeListener(this._hashchange_listener);
 	},
-	
+
 	_selectTab: function(tab_name) {
 
 		if (this._tabs_widget) {

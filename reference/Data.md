@@ -9,8 +9,9 @@ Data layer includes:
 - Records have {@link Lava.data.field.Abstract|Fields}
 
 You can create modules and records with custom functionality, as well as custom fields.
+Modules can be referenced by their name, all module instances are global.
 
-###Example: using modules
+###Advanced usage example
 
 ```javascript
 // configs are global
@@ -20,7 +21,7 @@ Lava.schema.modules['DemoFiles'] = {
 		id: {type: 'Id'},
 		title: {type: 'Basic', 'default': ''},
 		// Virtual field. References a record from another module.
-		// Id of that record is stored in `directory_id` field
+		// Id of that record is stored in "directory_id" field
 		directory: {type: 'Record', module: 'DemoFolders', foreign_key_field: 'directory_id'},
 		directory_id: {type: 'ForeignKey'}
 	}
@@ -32,7 +33,7 @@ Lava.schema.modules['DemoFolders'] = {
 		title: {type: 'Basic', 'default': ''},
 		// id of the parent directory
 		parent_id: {type: 'ForeignKey'},
-		// virtual field: parent directory. References record from this module, by id from `parent_id` field
+		// virtual field: parent directory. References record from this module, by id from "parent_id" field
 		parent: {type: 'Record', module: 'this', foreign_key_field: 'parent_id'},
 		// virtual field. Collection of "child" directories
 		// (who's parent_id refers to this instance)
@@ -86,16 +87,22 @@ folders_module.getRecordById(3).get('files').getValueAt(0) == file; // true
 Lava.app.getModule('DemoFiles').getRecordById(2) == file; // true
 ```
 
+In this example, when we retrieved DemoFolders module, the other one was created automatically
+(cause they depend on each other). Also notice how DemoFolders loaded records into DemoFiles, in `files` from import.
+
+Note: Collection field does not need Id and ForeignKey fields to function properly,
+so if you don't need them - they can be removed.
+
 ##Architecture
 
 - In it's constructor, {@link Lava.data.Module} creates all fields, than calls onModuleFieldsCreated of each field,
-	and passes an object with default record's properties.
-- Default record's properties than are serialized into a constructor.
-	Each time a new record is created - it receives a new instance of it's properties from module.
+and passes an object with default record's properties.
+- Default record's properties then are serialized into a constructor.
+Each time a new record is created - it receives a new instance of it's properties from module.
 - All record's properties are stored in module's internal hash - {@link Lava.data.ModuleAbstract#_properties_by_guid}.
-	All fields have a reference to that hash - this way every field has access to properties of all records, that belong to it's module.
+All fields have a reference to that hash - this way every field has access to properties of all records, that belong to it's module.
 - All records have a reference to their module's fields object.
-	Record's getter and setter call {@link Lava.data.field.Abstract#getValue} and {@link Lava.data.field.Abstract#setValue} of corresponding fields.
+Record's getter and setter call {@link Lava.data.field.Abstract#getValue} and {@link Lava.data.field.Abstract#setValue} of corresponding fields.
 
 As was mentioned, fields have access to all properties of all records of their module.
 Any field can read properties of other fields directly, but fields should not modify properties, that don't belong to them.
@@ -142,3 +149,47 @@ Example: a cheese titled "Fontina Val d'Aosta" could have name "fontina_val_d_ao
 
 Example 2: you have two records in your database, titled "Nokia Lumia 1020".
 But one is named "nokia_lumia_1020_black", and other is "nokia_lumia_1020_white".
+
+##Record and Collection fields
+
+Record field holds a record, usually from another module. Collection field holds an Enumerable with records.
+Module which owns the field is called "local" module, and module which owns the records
+from these fields is called "external" or "foreign module".
+
+Foreign module may be the same as local (field references another record from it's own module).
+In this case, you need to supply <str>"this"</str> as referenced module name:
+
+```javascript
+Lava.schema.modules['DemoTree'] = {
+	fields: {
+		title: {type: 'Basic', 'default': ''},
+		parent: {type: 'Record', module: 'this'},
+		children: {type: 'Collection', module: 'this', record_field: 'parent'}
+	}
+};
+```
+
+Collection field needs corresponding Record field to function.
+In config you must provide the name of it's `record_field` in foreign module.
+Setting Record field to new value moves the record to new Enumerable in corresponding Collection field.
+
+Collection fields are readonly, you can not assign a new Enumerable to record's "children".
+Instead, you must iterate over collection records and set their "parent" to new value.
+You can also add and remove records directly from
+Enumerable instances, and corresponding Record fields will also be updated.
+
+Each Record field may have an attached ForeignKey field from the same module.
+Setting Record field to new value also updates corresponding ForeignKey field
+(which in turn moves record to new Enumerable), and vice versa.
+
+```javascript
+Lava.schema.modules['DemoTree'] = {
+	fields: {
+		id: {type: 'Id'},
+		title: {type: 'Basic', 'default': ''},
+		parent: {type: 'Record', module: 'this', foreign_key_field: 'parent_id'},
+		parent_id: {type: 'ForeignKey'},
+		children: {type: 'Collection', module: 'this', record_field: 'parent'}
+	}
+};
+```

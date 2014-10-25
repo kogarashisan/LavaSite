@@ -1,6 +1,8 @@
 
 #x:container_config directive
 
+<script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('container_config');</script>
+
 For views and widgets: directive extends {@link _cView#container} config property with provided options.
 
 Content of the directive must be a valid JavaScript object. <b>Only 'class' and 'options' properties are allowed.</b>
