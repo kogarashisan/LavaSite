@@ -975,7 +975,7 @@ Lava.define(
 			type: 'widget',
 			is_extended: true,
 			template: package_content.template,
-			container: {class: 'Morph'}
+			container: {type: 'Morph'}
 		};
 
 		example.set('widget_config', widget_config);
@@ -1463,7 +1463,7 @@ Lava.widgets["Example"] = {
 		"\r\n\t\t"
 	],
 	container: {
-		"class": "Element",
+		type: "Element",
 		tag_name: "div",
 		static_classes: ["bs-example"]
 	},
@@ -1487,7 +1487,7 @@ Lava.widgets["FolderTree"] = {
 				type: "view",
 				"class": "View",
 				container: {
-					"class": "Element",
+					type: "Element",
 					tag_name: "img",
 					static_classes: ["lava-tree-icon"],
 					property_bindings: {
@@ -1569,7 +1569,7 @@ return (this._binds[0].getValue());
 								type: "view",
 								"class": "View",
 								container: {
-									"class": "Element",
+									type: "Element",
 									tag_name: "td"
 								},
 								template: [
@@ -1621,7 +1621,7 @@ return (this._binds[0].getValue() == this._binds[1].getValue());
 							"\r\n\t\t\t\t\t"
 						],
 						container: {
-							"class": "Element",
+							type: "Element",
 							tag_name: "tr",
 							events: {
 								click: [{
@@ -1639,7 +1639,7 @@ return (this._binds[0].getValue() == this._binds[1].getValue());
 					"\r\n\t\t\t"
 				],
 				container: {
-					"class": "Element",
+					type: "Element",
 					tag_name: "tbody",
 					resource_id: {
 						locator_type: "Name",

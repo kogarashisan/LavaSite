@@ -40,7 +40,7 @@ return (this._binds[0].getValue());
 										tail: ["tree"]
 									}]
 								},
-								container: {"class": "Morph"},
+								container: {type: "Morph"},
 								as: "node",
 								template: [
 									"\r\n\t\t\t\t\t",
@@ -56,7 +56,7 @@ return (this._binds[0].getValue());
 							"\r\n\t\t\t"
 						],
 						container: {
-							"class": "Element",
+							type: "Element",
 							tag_name: "div",
 							static_styles: {border: "1px solid black"}
 						},
@@ -77,7 +77,7 @@ return (this._binds[0].getValue());
 										}]
 									},
 									container: {
-										"class": "Element",
+										type: "Element",
 										tag_name: "div",
 										static_styles: {border: "1px solid black"},
 										events: {
@@ -129,7 +129,7 @@ return (this._binds[0].getValue() && this._binds[1].getValue());
 											}
 										]
 									},
-									container: {"class": "Morph"},
+									container: {type: "Morph"},
 									template: [
 										"\r\n\t\t\t\t",
 										{
@@ -157,7 +157,7 @@ return (this._binds[0].getValue());
 												"\r\n\t\t\t\t\t"
 											],
 											container: {
-												"class": "Element",
+												type: "Element",
 												tag_name: "div",
 												static_styles: {"padding-left": "2em"}
 											}

@@ -5,17 +5,17 @@
 
 For views and widgets: directive extends {@link _cView#container} config property with provided options.
 
-Content of the directive must be a valid JavaScript object. <b>Only 'class' and 'options' properties are allowed.</b>
+Content of the directive must be a valid JavaScript object. <b>Only 'type' and 'options' properties are allowed.</b>
 'options' property is merged with existing one.
 
 ###Example
 
 <lavabuild:template_result as="single_view">
 {$if(is_expanded)}
-	<x:refresher>{class: 'Standard'}</x:refresher>
+	<x:refresher>{type: 'Standard'}</x:refresher>
 	<x:container_config>
 		{
-			class: "Emulated",
+			type: "Emulated",
 			options: {
 				appender: 'AfterPrevious'
 			}
@@ -29,7 +29,7 @@ Using with element containers:
 
 <lavabuild:template_result as="single_view">
 <div x:type="container">
-	<x:container_config>{class: "MyElementContainer"}</x:container_config>
+	<x:container_config>{type: "MyElementContainer"}</x:container_config>
 	{#> "Hello world" }
 </div>
 </lavabuild:template_result>

@@ -50,7 +50,7 @@ return ("x: " + this._binds[0].getValue() + ", y: " + this._binds[1].getValue())
 							"\r\n\t\t\t\t"
 						],
 						container: {
-							"class": "Element",
+							type: "Element",
 							tag_name: "div",
 							static_classes: ["lava-unselectable"],
 							static_styles: {

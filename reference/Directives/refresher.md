@@ -11,10 +11,10 @@ Content of the directive must be a valid JavaScript object.
 
 <lavabuild:template_result as="single_view">
 {$if(is_expanded)}
-	<x:refresher>{class: 'Standard'}</x:refresher>
+	<x:refresher>{type: 'Standard'}</x:refresher>
 	<x:container_config>
 		{
-			class: "Emulated",
+			type: "Emulated",
 			options: {
 				appender: 'AfterPrevious'
 			}

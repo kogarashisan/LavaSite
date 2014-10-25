@@ -27,7 +27,7 @@
 								type: "view",
 								"class": "View",
 								container: {
-									"class": "Element",
+									type: "Element",
 									tag_name: "div",
 									static_styles: {
 										background: "lightyellow",
@@ -49,7 +49,7 @@
 								type: "view",
 								"class": "View",
 								container: {
-									"class": "Element",
+									type: "Element",
 									tag_name: "div",
 									static_styles: {border: "1px solid black"},
 									style_bindings: {

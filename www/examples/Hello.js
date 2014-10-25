@@ -36,7 +36,7 @@ return (this._binds[0].getValue());
 					flags: {isScopeEval: true},
 					binds: [{property_name: "your_name"}]
 				},
-				container: {"class": "Morph"}
+				container: {type: "Morph"}
 			},
 			"!</h1>\r\n\t"
 		],

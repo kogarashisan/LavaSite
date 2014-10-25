@@ -1229,7 +1229,7 @@ module.exports = function(grunt) {
 					type: 'widget',
 					is_extended: true,
 					template: Lava.TemplateParser.parse(markdown),
-					container: {'class': 'Element', tag_name: 'div'}
+					container: {type: 'Element', tag_name: 'div'}
 				};
 
 				grunt.file.write(dir_path + relative_path + '.js', Lava.Serializer.serialize(widget_config));

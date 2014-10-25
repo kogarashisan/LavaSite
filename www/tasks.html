@@ -251,7 +251,7 @@
 2) allow to use user-defined function as filter condition <br/>
 3) allow to select several items at once</li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> known tasks for edit_template: move into separate object. Rename 'known' -> 'predefined'</li>
-<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Refactoring of &lt;x:refresher&gt; directive<span class="task-comment">1) Allow attributes like 'class'.<br/> 2) Allow packages for view refreshers (&lt;x:refresher class="$classname/RefresherName"&gt;)</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Refactoring of &lt;x:refresher&gt; directive<span class="task-comment">1) Allow attributes like 'class'.<br/> 2) Allow packages for view refreshers (&lt;x:refresher type="$classname/RefresherName"&gt;)</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span> x:attach_directives creates empty content template on wrapped tag. Must not create a template.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Lots of checks of data validity inside directives should be moved to processDirective().<br/>Get rid of is_top_directive switch (it equals to view_config_presence switch).<span class="task-comment">Also, try to gather data validity checks for resources in the resource tag handler</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span><span class="tag-Q">Q</span> Empty space between top directives should be removed<span class="task-comment">currently compile process does not remove it. See parse result on the reference page for x:option directive</span></li>

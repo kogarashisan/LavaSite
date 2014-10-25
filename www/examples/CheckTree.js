@@ -37,7 +37,7 @@ return (this._binds[0].getValue());
 								type: "view",
 								"class": "View",
 								container: {
-									"class": "Element",
+									type: "Element",
 									tag_name: "div",
 									static_classes: ["lava-tree-node"],
 									static_properties: {unselectable: "on"},
@@ -115,7 +115,7 @@ return (this._binds[0].getValue());
 										type: "view",
 										"class": "View",
 										container: {
-											"class": "Element",
+											type: "Element",
 											tag_name: "i",
 											static_classes: ["lava-tree-expander"],
 											events: {

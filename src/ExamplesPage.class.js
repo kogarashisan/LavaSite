@@ -63,7 +63,7 @@ Lava.define(
 			type: 'widget',
 			is_extended: true,
 			template: package_content.template,
-			container: {class: 'Morph'}
+			container: {type: 'Morph'}
 		};
 
 		example.set('widget_config', widget_config);

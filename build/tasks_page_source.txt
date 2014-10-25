@@ -125,7 +125,7 @@ Parsers/Directives.js
 	- [P3,Refactoring] known tasks for edit_template: move into separate object. Rename 'known' -> 'predefined'
 	- [P2,Feature] Refactoring of &lt;x:refresher&gt; directive
 		// 1) Allow attributes like 'class'.
-		// 2) Allow packages for view refreshers (&lt;x:refresher class="$classname/RefresherName"&gt;)
+		// 2) Allow packages for view refreshers (&lt;x:refresher type="$classname/RefresherName"&gt;)
 	- [P3,Fix] x:attach_directives creates empty content template on wrapped tag. Must not create a template.
 	- [P2,Refactoring] Lots of checks of data validity inside directives should be moved to processDirective().
 		Get rid of is_top_directive switch (it equals to view_config_presence switch).

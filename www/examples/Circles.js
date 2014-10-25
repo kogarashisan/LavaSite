@@ -19,7 +19,7 @@
 					type: "view",
 					"class": "View",
 					container: {
-						"class": "Element",
+						type: "Element",
 						tag_name: "div",
 						static_styles: {
 							width: "500px",
@@ -46,7 +46,7 @@ return (this._binds[0].getValue());
 									tail: ["circles"]
 								}]
 							},
-							container: {"class": "Morph"},
+							container: {type: "Morph"},
 							as: "circle",
 							template: [
 								"\r\n\t\t\t\t",
@@ -54,7 +54,7 @@ return (this._binds[0].getValue());
 									type: "view",
 									"class": "View",
 									container: {
-										"class": "Element",
+										type: "Element",
 										tag_name: "div",
 										static_classes: [
 											"example-circle",
@@ -128,7 +128,7 @@ return ((this._binds[0].getValue() == this._binds[1].getValue()) ? 'example-circ
 					type: "view",
 					"class": "View",
 					container: {
-						"class": "Element",
+						type: "Element",
 						tag_name: "button",
 						static_classes: [
 							"btn",
@@ -150,7 +150,7 @@ return ((this._binds[0].getValue() == this._binds[1].getValue()) ? 'example-circ
 					type: "view",
 					"class": "View",
 					container: {
-						"class": "Element",
+						type: "Element",
 						tag_name: "button",
 						static_classes: [
 							"btn",
@@ -179,7 +179,7 @@ return (this._binds[0].getValue());
 						flags: {isScopeEval: true},
 						binds: [{property_name: "selected_circle"}]
 					},
-					container: {"class": "Morph"},
+					container: {type: "Morph"},
 					template: [
 						"\r\n\t\t\t<div style=\"padding-top:0.5em\">\r\n\t\t\t\tSelected circle:<br/>\r\n\t\t\t\tx: ",
 						{
@@ -195,7 +195,7 @@ return (this._binds[0].getValue());
 									tail: ["x"]
 								}]
 							},
-							container: {"class": "Morph"}
+							container: {type: "Morph"}
 						},
 						"<br/>\r\n\t\t\t\ty: ",
 						{
@@ -211,7 +211,7 @@ return (this._binds[0].getValue());
 									tail: ["y"]
 								}]
 							},
-							container: {"class": "Morph"}
+							container: {type: "Morph"}
 						},
 						"<br/>\r\n\t\t\t\tTooltip text:<br/>\r\n\t\t\t\t",
 						{

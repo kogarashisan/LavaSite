@@ -7,10 +7,10 @@
 				Click me!
 			</div>
 			{$if(is_expanded)}
-				<x:refresher>{class: 'Standard'}</x:refresher>{*H:Refresher removes the view from DOM*}
+				<x:refresher>{type: 'Standard'}</x:refresher>{*H:Refresher removes the view from DOM*}
 				{*H:Container knows how to insert it back*}<x:container_config>
 					{
-						class: "Emulated",
+						type: "Emulated",
 						options: {
 							appender: 'AfterPrevious'
 						}
