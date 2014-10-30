@@ -94,7 +94,7 @@ You should know:
 When an attribute is set to <kw>null</kw> - it's removed from DOM element. You can also return <kw>null</kw> 
 from binding arguments (and <kw>false</kw> for boolean attributes) to remove the attribute.
 
-Boolean <kw>true</kw> attributes are rendered in `&lt;name&gt;="&lt;name&gt;"` form (for example: `checked="checked"`).
+Boolean <kw>true</kw> attributes are rendered in `<name>="<name>"` form (for example: `checked="checked"`).
 
 <b>Important note on attribute validity</b>: it's not safe to bind your attributes to user input,
 and it's your responsibility to check user input to avoid XSS attacks.

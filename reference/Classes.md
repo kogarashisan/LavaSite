@@ -72,9 +72,10 @@ and described in {@link _cClassData} helper object. For example, have a look at:
 ```javascript
 // type in console
 Lava.widget.Standard.prototype.Class;
-// or inside class instance:
+
+// or inside a class instance:
 // this.Class
-``
+```
 
 Keep in mind, that everything inside <var>Class</var> is readonly.
 

@@ -14,14 +14,21 @@ This way, text inside the directive does not require to be quoted.
 </text_input>
 </lavabuild:template_result>
 
-Note: the content of the directive is parsed just like any other part of template, so this will <b>NOT</b> work:
+Note: the content of the directive is parsed just like any other part of template, so this will <b>NOT</b> work 
+(cause inside there is a character sequence which represents an opening block):
 
 ```xml
-<x:property_string name="value">this is a very {:L:}#bad(){:R:} string</x:property_string>
+<x:property_string name="value">this is a very {#bad()} string</x:property_string>
 ```
 
 The right way:
 
-```xml
-<x:property_string name="value">{:L:}literal:}this is a very {:L:}#bad(){:R:} string{:L:}:literal}</x:property_string>
-```
+<!-- closing 'literal' switch in code... -->
+{literal:}
+<div class="lava-code-container">
+<div class="lava-code">
+<pre class="lava-code-line-numbers">&nbsp;&nbsp;1</pre>
+<pre class="lava-code-content hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">x:property_string</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"value"</span>&gt;</span>&#123;literal:}this is a very {#bad()} string&#123;:literal}<span class="hljs-tag">&lt;/<span class="hljs-title">x:property_string</span>&gt;</span></pre>
+</div>
+</div>
+{:literal}

@@ -3,7 +3,7 @@
 
 <script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('options');</script>
 
-Set {_cView#options} on a view or widget config. Same as &lt;options&gt; tag in widget definition, but may be applied
+Set {@link _cView#options} on a view or widget config. Same as &lt;options&gt; tag in widget definition, but may be applied
 to views and sugar.
 
 Content of the directive must be a valid JavaScript object.

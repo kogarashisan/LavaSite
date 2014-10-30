@@ -11,7 +11,7 @@ There are two tags which describe it:
 - and &lt;storage&gt; - actual storage data
 In widget definition &lt;storage_schema&gt; must always precede &lt;storage&gt;.
 
-Tip: storage is parsed in {@Link Lava.parsers.Storage}.
+Tip: storage is parsed in {@link Lava.parsers.Storage}.
 
 ##Storage item types
 

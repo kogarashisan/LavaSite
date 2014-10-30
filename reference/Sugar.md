@@ -79,7 +79,7 @@ Here, &lt;accordion&gt; is transformed into config for Accordion widget and x:re
 
 ##Control attributes
 
-Several common control attributes are allowed on sugar tags:
+These control attributes are allowed on sugar tags:
 - `label` - sets {@link _cView#label}
 - `roles` - sets {@link _cView#roles}
 - `resource_id` - sets - sets {@link _cWidget#resource_id} (see {@link reference:Resources})

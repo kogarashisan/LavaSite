@@ -1,1 +1,1 @@
-{"method_chain":[{"descriptors":[{"name":"mergeSort","is_private":false,"type":"function","description":"<p>Stable sort algorithm (by definition). May not be called recursively</p>\n"}]}]}
+{"method_chain":[{"descriptors":[{"name":"mergeSort","is_private":false,"type":"function","description":"<p>Stable. Can not be called recursively</p>\n"}]}]}

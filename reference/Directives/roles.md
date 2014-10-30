@@ -5,8 +5,6 @@
 
 Directive sets {@link _cView#roles} for view or widget config.
 
-Note: there must be no empty space
-
 ###Example
 
 <lavabuild:template_result as="single_view">
