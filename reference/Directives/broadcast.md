@@ -3,7 +3,7 @@
 
 <script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('broadcast');</script>
 
-Sets {@link _cWidget#broadcast}
+Sets {@link _cWidget#broadcast}, which is handled in {@link Lava.widget.Standard#init}.
 
 ###Example
 

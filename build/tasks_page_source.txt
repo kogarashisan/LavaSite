@@ -348,6 +348,7 @@ Inputs
 	- [P3,Fix] Collapsible widget: unable to describe it's option, as it does not have a constructor.
 	- [P3,Feature] Paragraphs in Reference must also have links, which can be referenced by @link tag
 	- [P5,Refactoring] Refactor DocPage.class.js, move operations with hash into ContentLoader.class.js
+	- [P5,Refactoring] Refactor buildDoc.js task. Now it's too complex.
 	- [P2,Feature] Display values for most class properties either in their "value" column, or in their extended description.
 		// Regular expressions, short arrays, callback maps. Example: Lava.ObjectParser.yy.allowed_globals.
 		// This means that some properties will have extended description, like methods.
@@ -367,6 +368,7 @@ Inputs
 	- [P1,Feature] Links to members must have "short" "middle" and "long" titles. Versions can be chosen by @sl (short link) and @fl (full link) tags.
 		// Example: "Lava.mixin.Properties#on" - long, "Properties#on" - middle, "on" - short.
 		// Also correct all links with title.
+	- [P2,Refactoring] Rewrite doc.html - must use IF view instead of manual widget insertion (depends on "Include" view).
 
 #Maintenance
 	- [P5,Feature] Automatic on-commit codestyle validation
