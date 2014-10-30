@@ -170,7 +170,7 @@
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender<span class="task-comment">if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> each destroy() must call parent's destroy() in the end (not earlier)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> (experimental) create a lighter fork of the framework: without Refreshable mixin.</li>
-<li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span> Optimize config extension: widgets configs without parent must be created with `is_extended = true`<span class="task-comment">1) widgets with static class name must have full class name in the "class" attribute.<br/><br/> 2) with dynamic class name - must have locator gateway in 'class'.</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span> Optimize config extension: widget configs without parent must be created with `is_extended = true`<span class="task-comment">1) widgets with static class name must have full class name in the "class" attribute.<br/> 2) with dynamic class name - must have locator gateway in 'class'.</span></li>
 </ul>
 <h3>Lava.js</h3>
 <ul>
@@ -292,7 +292,7 @@
 </ul>
 <h3>System/PopoverManager.class.js</h3>
 <ul>
-<li><span class="tag-P3">P3</span><span class="tag-Bug">Bug</span> Tooltip blinks when moving cursor towards the tooltip</li>
+<li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span> Tooltip blinks when moving cursor towards the tooltip</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> add an option to show empty tooltips</li>
 </ul>
 <h3>System/Sugar.class.js</h3>

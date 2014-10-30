@@ -49,8 +49,8 @@ System-wide or uncategorized
 		// if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.
 	- [P5,Refactoring] each destroy() must call parent's destroy() in the end (not earlier)
 	- [P5,Feature] (experimental) create a lighter fork of the framework: without Refreshable mixin.
-	- [P2,Performance] Optimize config extension: widgets configs without parent must be created with `is_extended = true`
-		// 1) widgets with static class name must have full class name in the "class" attribute.<br/>
+	- [P2,Performance] Optimize config extension: widget configs without parent must be created with `is_extended = true`
+		// 1) widgets with static class name must have full class name in the "class" attribute.
 		// 2) with dynamic class name - must have locator gateway in 'class'.
 
 Lava.js
@@ -166,7 +166,7 @@ System/Enumerable.class.js
 	- [P2,Feature] - select(), selectFirst() - like filter, but returns array, instead of modifying the instance
 		// also, refactor the site:build/src/ContentLoader class for usage of new methods
 System/PopoverManager.class.js
-	- [P3,Bug] Tooltip blinks when moving cursor towards the tooltip
+	- [P3,Fix] Tooltip blinks when moving cursor towards the tooltip
 	- [P2,Feature] add an option to show empty tooltips
 System/Sugar.class.js
 	- [P5,Dev] always check that there are no redundant attributes on sugar tags
