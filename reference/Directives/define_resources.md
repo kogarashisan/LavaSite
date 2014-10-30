@@ -10,9 +10,9 @@ into `Lava.widgets['HelloWidget'].resources['en']`.
 
 ```xml
 <x:define_resources for="HelloWidget" locale="en">
-	<translate path="HELLO_STRING">
+	<string path="HELLO_STRING">
 		Hello world!
-	</translate>
+	</string>
 </x:define_resources>
 ```
 

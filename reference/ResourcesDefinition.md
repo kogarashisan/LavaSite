@@ -24,7 +24,7 @@ Content of the directive is parsed as any other options tag.
 </x:widget>
 </lavabuild:template_result>
 
-###&lt;translate&gt;
+###&lt;string&gt;
 
 Define a translatable string.
 
@@ -35,14 +35,14 @@ which are translated differently depending on context.
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
 	<resources locale="default">
-		<translate path="HELLO_STRING" description="Standard hello world message">
+		<string path="HELLO_STRING" description="Standard hello world message">
 			Hello world!
-		</translate>
+		</string>
 	</resources>
 </x:widget>
 </lavabuild:template_result>
 
-###&lt;ntranslate&gt;
+###&lt;plural_string&gt;
 
 Define a translatable plural string (string changes, depending on number).
 You can also use `description` attribute.
@@ -50,10 +50,10 @@ You can also use `description` attribute.
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
 	<resources locale="default">
-		<ntranslate path="MESSAGES_STRING" description="Test string">
+		<plural_string path="MESSAGES_STRING" description="Test string">
 			<string>There is one message in your inbox</string>
 			<string>There are $1 messages in your inbox</string>
-		</ntranslate>
+		</plural_string>
 	</resources>
 </x:widget>
 </lavabuild:template_result>

@@ -16,11 +16,11 @@ Here is an example of localized widget:
 </x:define>
 
 <x:define_resources for="HelloWidget" locale="en">
-	<translate path="HELLO_STRING">Hello world!</translate>
+	<string path="HELLO_STRING">Hello world!</string>
 </x:define_resources>
 
 <x:define_resources for="HelloWidget" locale="ru">
-	<translate path="HELLO_STRING">Привет мир!</translate>
+	<string path="HELLO_STRING">Привет мир!</string>
 </x:define_resources>
 ```
 
@@ -50,10 +50,10 @@ You can set resources to an inline widget with x:resources directive and &lt;res
 <lavabuild:template_result as="single_view">
 <x:widget extends="HelloWidget">
 	<resources locale="en">
-		<translate path="HELLO_STRING">Hi all!</translate>
+		<string path="HELLO_STRING">Hi all!</string>
 	</resources>
 	<resources locale="ru">
-		<translate path="HELLO_STRING">Здравствуйте!</translate>
+		<string path="HELLO_STRING">Здравствуйте!</string>
 	</resources>
 </x:widget>
 </lavabuild:template_result>
@@ -63,7 +63,7 @@ Resource values can have paths:
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
 	<resources locale="en">
-		<translate path="hello_widget.HELLO_STRING">Hi all!</translate>
+		<string path="hello_widget.HELLO_STRING">Hi all!</string>
 	</resources>
 </x:widget>
 </lavabuild:template_result>
@@ -84,10 +84,10 @@ and assigns `hello_widget` resource to HelloWidget:
 		<x:widget extends="HelloWidget" resource_id="$widget.hello_widget"></x:widget>
 	</main_template>
 	<resources locale="en">
-		<translate path="hello_widget.HELLO_STRING">Hi all!</translate>
+		<string path="hello_widget.HELLO_STRING">Hi all!</string>
 	</resources>
 	<resources locale="ru">
-		<translate path="hello_widget.HELLO_STRING">Здравствуйте!</translate>
+		<string path="hello_widget.HELLO_STRING">Здравствуйте!</string>
 	</resources>
 </x:widget>
 </lavabuild:template_result>
@@ -216,13 +216,13 @@ Common usage for it: provide some common locale-independent styles for container
 		<x:static_value resource_id="$widget.HELLO_STRING"></x:static_value>
 	</main_template>
 	<resources locale="default">
-		<translate path="HELLO_STRING">I'm a teapot!</translate>
+		<string path="HELLO_STRING">I'm a teapot!</string>
 	</resources>
 	<resources locale="en">
-		<translate path="HELLO_STRING">Hello world!</translate>
+		<string path="HELLO_STRING">Hello world!</string>
 	</resources>
 	<resources for="HelloWidget" locale="ru">
-		<translate path="HELLO_STRING">Привет мир!</translate>
+		<string path="HELLO_STRING">Привет мир!</string>
 	</resources>
 </x:define>
 ```
@@ -233,7 +233,7 @@ if locale is not "en" or "ru".
 <lavabuild:template_result as="single_view">
 <x:widget extends="HelloWidget">
 	<resources locale="default">
-		<translate path="HELLO_STRING">I'm a big teapot!</translate>
+		<string path="HELLO_STRING">I'm a big teapot!</string>
 	</resources>
 </x:widget>
 </lavabuild:template_result>
@@ -246,15 +246,15 @@ cause inline data overrides data from parent widgets.
 	<main_template>
 		<x:widget extends="HelloWidget" resource_id="$widget.hello_widget">
 			<resources locale="en">
-				<translate path="HELLO_STRING">Hi all!</translate>
+				<string path="HELLO_STRING">Hi all!</string>
 			</resources>
 		</x:widget>
 	</main_template>
 	<resources locale="default">
-		<translate path="hello_widget.HELLO_STRING">I'm a sunflower!</translate>
+		<string path="hello_widget.HELLO_STRING">I'm a sunflower!</string>
 	</resources>
 	<resources locale="en">
-		<translate path="hello_widget.HELLO_STRING">I'm a teapot!</translate>
+		<string path="hello_widget.HELLO_STRING">I'm a teapot!</string>
 	</resources>
 </x:widget>
 </lavabuild:template_result>
