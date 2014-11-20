@@ -100,7 +100,8 @@ Content of the directive must be an expression.
 
 ###x:bind
 
-Bi-directional binding to property of a widget.
+Bi-directional binding to property of a widget. TextInput widget has `value` property, which is bound to `your_name`
+from parent widget:
 
 ```xml
 <body lava-app="HelloApp">

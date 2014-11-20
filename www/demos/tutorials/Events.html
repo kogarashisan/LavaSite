@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+	<script src="http://lava-framework.com/lib/lava-master-DEBUG.js"></script>
+	<link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
+
+	<script>
+		Lava.define(
+		'Lava.widget.HelloApp',
+		{
+			Extends: 'Lava.widget.Standard',
+
+			_properties: {
+				count_clicked: 0
+			},
+
+			_event_handlers: {
+				button_click: '_onButtonClick'
+			},
+
+			_onButtonClick: function(dom_event_name, dom_event, view, template_arguments) {
+
+				this.set("count_clicked", this._properties.count_clicked + 1);
+
+			}
+		});
+
+		window.addEvent('load', function() {
+			Lava.bootstrap();
+		});
+	</script>
+</head>
+
+<body lava-app="HelloApp">
+<div x:type="view" x:event:click="$widget.button_click">
+	I was clicked {#> count_clicked} times
+</div>
+</body>
+
+</html>
