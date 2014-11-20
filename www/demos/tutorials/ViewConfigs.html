@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+	<script src="http://lava-framework.com/lib/lava-master-DEBUG.js"></script>
+	<link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
+
+	<script>
+		window.addEvent('load', function() {
+			Lava.bootstrap();
+			var widget = new Lava.widget.Standard({
+				is_extended: true,
+				container: {type: 'Element', tag_name: 'div'},
+				template: Lava.TemplateParser.parse("Hello {#> your_name}")
+			});
+			widget.set("your_name", "World");
+			widget.inject(document.body, 'Top');
+
+			// let's save it for future use
+			window.demo_widget = widget;
+		});
+	</script>
+</head>
+<body></body>
+</html>

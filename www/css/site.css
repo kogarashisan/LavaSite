@@ -7700,7 +7700,7 @@ footer .container {background: #f7f5fa;}
 
 .api-tabs-header {list-style: none;padding: 0;margin-top: 1em}
 .api-tabs-header-item {display: inline-block;}
-.api-tabs-header-link {margin-right: 2px;line-height: 1.428571429;border-bottom: 3px solid transparent;border-radius: 4px;position: relative;display: block;padding: 8px 10px;text-decoration: none;}
+.api-tabs-header-link {margin-right: 2px;line-height: 1.428571429;border-bottom: 3px solid transparent;border-radius: 4px;position: relative;display: block;padding: 8px 5px;text-decoration: none;}
 .api-tabs-header-link-active {color: #555555;cursor: default;border-bottom: 3px solid rgb(255, 153, 50);font-weight: bold;/*outline: 0!important*/}
 .api-tabs-container {}
 .api-tabs-tab {display: none}
@@ -7714,6 +7714,14 @@ footer .container {background: #f7f5fa;}
 .api-code-header-red {background: #f3a1a1 !important;}
 .api-code-header-green {background: #b8f3b3 !important;}
 .api-code-header-orange {background: #f3ba6f !important;}
+
+.doc-default-text-list {padding-left: 1.5em}
+.doc-default-text-list li {list-style: none;list-style-type: none}
+.doc-default-text-list span {display: inline-block; width: 33px;}
+
+@media (min-width: 1200px) {
+	.api-tabs-header-link {padding: 8px 10px;}
+}
 
 /*
 This file contains essential classes for some standard widgets.

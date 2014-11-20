@@ -185,8 +185,8 @@ This allows the container to use resources:
 </x:widget>
 </lavabuild:template_result>
 
-Static containers can also have properties, styles and classes, and they all can be overwritten 
-by &lt;container&gt; resource.
+If `x:resource_id` attribute is present on an element - then it can not have any static properties on it 
+(including styles and classes) - <b>they all must be moved to corresponding widget's &lt;container&gt; resource</b>.
 
 How it works: tag is compiled into a block of type {@link _cStaticTag}. When {@link Lava.system.Template} creates
 this kind of block - it retrieves it's resources, merges them with tag's own properties, and renders this tag as a string.

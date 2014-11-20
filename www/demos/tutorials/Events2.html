@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+	<script src="http://lava-framework.com/lib/lava-master-DEBUG.js"></script>
+	<link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
+
+	<script>
+		Lava.define(
+		'Lava.widget.HelloApp',
+		{
+			Extends: 'Lava.widget.Standard',
+			name: "hello_app",
+
+			_properties: {
+				selected_person: null,
+				people: [
+					{title: "Steve Jobs", birth_year: 1955},
+					{title: "Bill Gates", birth_year: 1955},
+					{title: "Linus Torvalds", birth_year: 1969}
+				]
+			},
+
+			_event_handlers: {
+				item_click: '_onItemClick'
+			},
+
+			_onItemClick: function(dom_event_name, dom_event, view, template_arguments) {
+
+				// template_arguments[0] is the first argument, which was passed to event
+				this.set("selected_person", template_arguments[0]);
+
+			}
+		});
+
+		window.addEvent('load', function() {
+			Lava.bootstrap();
+		});
+	</script>
+</head>
+
+<body lava-app="HelloApp">
+
+	{#foreach($hello_app.people) as=person}
+		<div x:type="container"
+			 x:style:background="(person == $hello_app.selected_person) ? 'yellow' : null"
+			 x:event:click="$hello_app.item_click(person)">
+			{#> person.title}
+		</div>
+	{/foreach}
+
+	<div x:type="view">
+		Selected person: {#> $hello_app.selected_person.title}<br/>
+		Birth year: {#> $hello_app.selected_person.birth_year}
+	</div>
+
+</body>
+
+</html>

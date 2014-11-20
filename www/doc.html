@@ -15,7 +15,7 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 	<![endif]-->
 
-	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.0/mootools-yui-compressed.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
 	<link rel="stylesheet" href="/www/css/site.css">
 	<script src="/lib/lava-master-DEBUG.js"></script>
 	<script src="/www/js/site.js"></script>
@@ -461,7 +461,7 @@
 		{/if}
 	</include>
 	<edit_template name="node_body">
-		<task type="known" name="add_class" node_type="View">
+		<task type="known" name="add_class_binding" node_type="View">
 			<arguments>
 				<expression>node.is_selected ? 'api-node-selected' : ''</expression>
 			</arguments>
@@ -548,6 +548,23 @@
 			<x:widget extends="ApiTabs">
 				<roles>$page.nav_tabs</roles>
 			</x:widget>
+		</div>
+		<div class="col-md-9" id="default_text">
+
+			<h1>Welcome to LiquidLava documentation</h1>
+
+			<p><b>LiquidLava</b> is an MVC framework with unique architecture, designed for rapid development of complex web applications.</p>
+
+			<p><b>Firestorm</b> is a low-level library, which does not modify prototypes of native JavaScript objects,
+				which makes it extremely reusable and simple.</p>
+
+			<p>Documentation is divided into the following sections:</p>
+			<ul class="doc-default-text-list">
+				<li><span><img src="/www/design/tree/tutorial.gif" /></span><a href="#tab=tutorials">Tutorials</a> - will help you to make your first steps with the framework</li>
+				<li><span><img src="/www/design/tree/reference.gif" /></span><a href="#tab=reference">Reference</a> - Detailed explanation of every aspect of the framework</li>
+				<li><span><img src="/www/design/tree/class.gif" /></span><a href="#tab=api">API</a> - Generated automatically from source code files</li>
+			</ul>
+
 		</div>
 		<div class="col-md-9" role="main" id="content_area" x:type="view" x:event:click="$page.content_area_click">
 

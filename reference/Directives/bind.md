@@ -3,7 +3,7 @@
 
 <script type="lavabuild/eval">result = global.LavaBuild.generateDirectiveInfoBox('bind');</script>
 
-Defines {@link _cWidget#bindings}
+Defines {@link _cWidget#bindings} - configs for {@link Lava.scope.Binding} class. Bindings are created in constructor.
 
 ##Example
 

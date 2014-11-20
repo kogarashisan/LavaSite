@@ -15,7 +15,7 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 	<![endif]-->
 
-	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.0/mootools-yui-compressed.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
 	<link rel="stylesheet" href="/www/css/site.css">
 	<script src="/lib/lava-master-DEBUG.js"></script>
 	<script src="/www/js/site.js"></script>
@@ -137,7 +137,7 @@
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> isLiteral - move to one place</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> "use strict"</li>
-<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> new selector for event and role targets: NameAndLabel<span class="task-comment">affects ExpressionParser, view.Abstract, ViewManager</span></li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> new selector for event and role targets: NameAndLabel<span class="task-comment">affects ExpressionParser, view.Abstract, ViewManager</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Performance">Performance</span> inside sleep() of the views it's not needed to turn off the argument listeners, only arguments themselves.</li>
 <li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Q">Q</span> turn off view bindings in sleep() (*)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> hard_refresh event for views hierarchy<span class="task-comment">to force refresh of views, which are bound to plain JS objects (like Angular refresh cycle)</span></li>
@@ -211,11 +211,11 @@
 </ul>
 <h3>Data/Field/</h3>
 <ul>
-<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span> Integer and Id fields: invent some better check than regex<span class="task-comment">this._shared.valid_value_regex.test(value)</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Q">Q</span> Integer and Id fields: invent some better check than regex<span class="task-comment">this._shared.valid_value_regex.test(value)</span></li>
 </ul>
 <h3>Data/ModuleAbstract.class.js</h3>
 <ul>
-<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> destroy: Should the records be destroyed, and how? See comment inside destroy()</li>
+<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> destroy: should the records be destroyed, and how? See comment inside destroy()</li>
 <li><span class="tag-P3">P3</span><span class="tag-Performance">Performance</span><span class="tag-Refactoring">Refactoring</span> record storage should be created from a function (now it's an object)</li>
 </ul>
 <h3>Data/Module.class.js</h3>
@@ -266,11 +266,10 @@
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> allow to set class for widget extenders</li>
 <li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> implement removal of empty space from templates</li>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> &lt;x:region&gt; directive for includes: it will allow to cut off pieces of template depending on options</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> remove unused lexer switches: preserve_whitespace ("pre:") and pure_blocks</li>
 <li><span class="tag-P5">P5</span><span class="tag-Fix">Fix</span><span class="tag-Dev">Dev</span> _parseStyleAttribute: currently will not parse style strings which contain strings with semicolon inside them as style value<span class="task-comment">do not use such styles, use classes!</span></li>
 <li><span class="tag-P4">P4</span><span class="tag-Fix">Fix</span> sequential strings are not always united into one</li>
-<li><span class="tag-P2">P2</span><span class="tag-Fix">Fix</span> script[type="lava/fragment"] should work as s lexer switch - to allow it to break block boundaries<span class="task-comment">&lt;script type="lava/fragment"&gt;{#view()}&lt;/script&gt;{/view}.<br/> Also correct doc.html</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Fix">Fix</span> script[type="lava/fragment"] should work as s lexer switch - to allow it to break block boundaries<span class="task-comment">&lt;script type="lava/fragment"&gt;{#view()}&lt;/script&gt;{/view}.<br/> Also correct the doc.html</span></li>
 </ul>
 <h3>Parsers/ExpressionParser.js</h3>
 <ul>
@@ -369,7 +368,7 @@
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> namespaces reservation: move to a separate file (this will allow to generate it in user projects)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> create a script, which generates the file with namespaces in Lava.</li>
-<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> bootstrap() should process the control (x:) attributes, for example x:resource_id</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> bootstrap() should process the control attributes like x:resource_id or x:event</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Lava.addType() - add a new type to Lava.types</li>
 </ul>
 <h3>Algorithms/Sorting/</h3>
@@ -379,7 +378,7 @@
 <h2>Existing widgets</h2>
 <h3>Panels</h3>
 <ul>
-<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> when panels are collapsed, but the body stays in DOM - they should sleep() their content</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> when panels are collapsed, but their body stays in DOM - they should sleep() their content</li>
 </ul>
 <h3>Accordion</h3>
 <ul>
@@ -483,8 +482,13 @@
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Versioning of the documentation</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Display "defined" and "overridden" fields for each member.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Tables with members must be collapsible. Tables with mixins must be collapsed by default.</li>
-<li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> Links to members must have "short" "middle" and "long" titles. Versions can be chosen by @sl (short link) and @fl (full link) tags.<span class="task-comment">Example: "Lava.mixin.Properties#on" - long, "Properties#on" - middle, "on" - short.<br/> Also correct all links with title.</span></li>
+<li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> Links to members must have "short" "middle" and "long" titles. Versions can be chosen by @sl (short link) and @fl (full link) tags.<span class="task-comment">Example: "Lava.mixin.Properties#on" - long, "Properties#on" - middle, "on" - short.<br/> Also correct all links which already have a custom title.</span></li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Rewrite doc.html - must use IF view instead of manual widget insertion (depends on "Include" view).</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> make it look better with "warning" and "info" boxes, and other formatting tools</li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> register links to examples in /www/examples.html so they could be referenced in documentation</li>
+<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> make an instruction to automatically embed pieces of serialized code from the framework (methods, variables, etc).<span class="task-comment">Example: embed source of Lava.parseOptions in api_docs/ObjectParser</span></li>
+<li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> does not recognize @define tag (for example, on Lava.schema.DEBUG)</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> write extended description for class methods and properties</li>
 </ul>
 <h2>Maintenance</h2>
 <ul>

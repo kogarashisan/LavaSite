@@ -1,1 +1,19 @@
-<p>No changes yet</p>
+<p>Feature:</p>
+<ul>
+	<li>Sugar of CollapsiblePanel, Collapsible and Accordion widgets now has "root_resource_name"
+		(stores all attributes from sugar tag to widget's container).</li>
+</ul>
+
+<h3>Refactoring</h3>
+<ul>
+	<li>Tree widget: part of "node_body" template was moved to "node_body_content" template.</li>
+	<li>Lava.widget.Standard#inject now has default position - "Top"</li>
+	<li>Sugar now adds attributes to container from "root_resource_name", instead of replacing them.</li>
+</ul>
+
+<h3>Fixes</h3>
+<ul>
+	<li>Fixed "//depends:{}" operator in ExpressionParser.</li>
+</ul>
+
+<p>Build also contains minor refactorings and improvements.</p>

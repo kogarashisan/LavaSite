@@ -89,6 +89,7 @@ return (this._binds[0].getValue() + 'px');
 								}
 							}
 						},
+						default_events: [],
 						real_class: "DemoDraggable"
 					},
 					"\r\n\t</div>\r\n"

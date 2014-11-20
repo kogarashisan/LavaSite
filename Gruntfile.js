@@ -435,12 +435,24 @@ module.exports = function(grunt) {
 
 		processMarkdown: function(content, for_template) {
 
+			// workaround for a bug with multiple iframes
+			var i = 0;
+			var iframes = [];
+			content = content.replace(/\<iframe[\s\S]+?\<\/iframe\>/g, function(match) {
+				return "$$$ifr[" + (iframes.push(match) - 1) + "]$$$";
+			});
+
 			this.for_template = for_template;
 			content = this._replaceMarkers(content);
 			content = this._replaceCodes(content);
 			content = this._replaceLinks(content);
 			var result = marked(content);
 			this.for_template = false;
+
+			result = result.replace(/\$\$\$ifr\[(\d+)\]\$\$\$/g, function(match, index) {
+				return iframes[index];
+			});
+
 			return result;
 
 		},
@@ -503,7 +515,7 @@ module.exports = function(grunt) {
 			options: {
 				banner: "\n/*\nThis file was generated via build script. See Gruntfile.js\n*/\n\n"
 			},
-			css: {
+			site_css: {
 				files: [
 					{
 						src: [
@@ -515,6 +527,18 @@ module.exports = function(grunt) {
 							"css/highlightjs/vs.css"
 						],
 						dest: 'www/css/site.css'
+					}
+				]
+			},
+			public_css: {
+				files: [
+					{
+						src: [
+							"css/bootstrap/bootstrap.css",
+							"css/bootstrap/bootstrap-theme.min.css",
+							LAVA_CORE_DIRECTORY + "dist/lava-widgets.css"
+						],
+						dest: 'www/css/widgets.css'
 					}
 				]
 			},
@@ -553,17 +577,23 @@ module.exports = function(grunt) {
 			'reference/Classes.md',
 			'reference/Data.md',
 			'reference/Containers.md',
+			'reference/ScopeLayer.md',
+			'reference/ExpressionsOverview.md',
+			'reference/WritingExpressions.md',
+			'reference/Targets.md',
 
+			'reference/TemplateParsing.md',
+			'reference/Views.md',
 			'reference/ElementSyntax.md',
 			'reference/DirectivesOverview.md',
 			'reference/Directives/*.md',
+			'reference/Includes.md',
 			'reference/Resources.md',
 			'reference/ResourcesDefinition.md',
 			'reference/Storage.md',
 			'reference/Sugar.md',
 
-			'reference/ScopeLayer.md',
-
+			'reference/ViewLifecycle.md',
 			'reference/ConfigExtension.md',
 			'reference/Packages.md',
 			'reference/Animation.md',
@@ -572,8 +602,18 @@ module.exports = function(grunt) {
 		],
 
 		tutorials_list: [
+			'tutorials/Introduction.md',
 			'tutorials/Classes.md',
-			'tutorials/PropertiesEvents.md'
+			'tutorials/PropertiesEvents.md',
+			'tutorials/TemplatesIntro.md',
+			'tutorials/ViewContainers.md',
+			'tutorials/ViewConfigs.md',
+			'tutorials/BindingAttributes.md',
+			'tutorials/UsingWidgets.md',
+			'tutorials/Events.md',
+			'tutorials/StandardSyntax.md',
+			'tutorials/Directives.md',
+			'tutorials/Roles.md'
 		]
 
 	});
@@ -583,8 +623,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadTasks('build/tasks/');
 
-	// Note: all tasks depend on previous tasks
 	grunt.registerTask('default', ['copy', 'buildSiteWidgets', 'buildExamples', 'buildWeb', 'buildTasksPage', 'concat']);
+	// depends on "default"
 	grunt.registerTask('doc', ['buildSugar', 'buildDoc', 'buildSupport']);
 
 };

@@ -1,6 +1,11 @@
 
 Lava.define(
 'Lava.widget.DocPage',
+/**
+ * This file is not the best example of what you can write with Lava framework, sorry for that.
+ * When I have more time - I will rewrite it.
+ * Author.
+ */
 {
 
 	Extends: 'Lava.widget.ContentLoader',
@@ -69,6 +74,8 @@ Lava.define(
 	// the name of tab, which is owner of the widget with current content
 	_active_tab_name: 'reference',
 
+	_default_text_element: null,
+
 	init: function(config, widget, parent_view, template, properties) {
 
 		var hash_data;
@@ -113,6 +120,20 @@ Lava.define(
 			this._loadItemByHash(hash_data);
 		}
 
+	},
+
+	_hideDefaultText: function() {
+		if (!this._default_text_element) {
+			this._default_text_element = Firestorm.getElementById('default_text');
+		}
+		this._default_text_element && Firestorm.Element.remove(this._default_text_element);
+	},
+
+	_showDefaultText: function() {
+		this._default_text_element && Firestorm.Element.insertElementBefore(
+			Lava.view_manager.getViewById('content_area').getContainer().getDOMElement(),
+			this._default_text_element
+		);
 	},
 
 	_prepareTree: function(hash, collection, tab_name, parent) {
@@ -336,6 +357,7 @@ Lava.define(
 			active_widget = this._tab_content_widgets[this._active_tab_name],
 			tab_widget = this._tab_content_widgets[item_tab];
 
+		this._hideDefaultText();
 		this._selectTab(item_tab);
 		if (is_tab_changed || (is_item_changed && item_tab != 'api')) {
 			if (active_widget && active_widget.isInDOM()) active_widget.remove();
@@ -365,6 +387,7 @@ Lava.define(
 
 		if (is_item_changed || is_tab_changed) {
 			if (tab_widget && !tab_widget.isInDOM()) tab_widget.inject(content_area, 'Top');
+			if (!tab_widget) this._showDefaultText();
 		}
 		Lava.refreshViews();
 
@@ -415,11 +438,13 @@ Lava.define(
 
 		if (this._request == null && new_tab_name != this._active_tab_name) {
 
+			if (this._tab_items[new_tab_name]) this._hideDefaultText();
 			current_active_widget && current_active_widget.isInDOM() && current_active_widget.remove();
 			new_tab_widget && !new_tab_widget.isInDOM() && new_tab_widget.inject(
 				Lava.view_manager.getViewById('content_area').getContainer().getDOMElement(),
 				'Top'
 			);
+			if (!this._tab_items[new_tab_name]) this._showDefaultText();
 			this._setWindowHash(new_tab_hash_data.item_hash || 'tab=' + new_tab_name);
 			this._active_tab_name = new_tab_name;
 

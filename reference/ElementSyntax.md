@@ -57,9 +57,13 @@ You can write several expressions, separated by semicolon.
 
 ##Delegating events
 
+Syntax:
+
 ```text
 x:event:event_name="&lt;targets&gt;"
 ```
+
+Example:
 
 <lavabuild:template_result as="single_view">
 <div x:type="view" x:event:click="$widget.my_button_click(1,'test'); #app.my_button_click">
@@ -188,6 +192,7 @@ But when you create a view (or container) with id, then DOM element will be give
 <div x:type="view" id="test"></div>
 </lavabuild:template_result>
 
+This will render as: `<div id="e123"></div>` ("123" is some random number).
 In this case you can get it from ViewManager:
 
 ```javascript
@@ -199,4 +204,4 @@ and `getDOMElement` will return the element only when view is in DOM.
 
 ##See also
 
-`x:type="static"` and `resource_id` attributes are described in {@link reference:Resources}
+`x:type="static"` and `resource_id` attributes are described in {@link reference:Resources} reference.

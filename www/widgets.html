@@ -15,7 +15,7 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 	<![endif]-->
 
-	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.0/mootools-yui-compressed.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
 	<link rel="stylesheet" href="/www/css/site.css">
 	<script src="/lib/lava-master-DEBUG.js"></script>
 	<script src="/www/js/site.js"></script>
@@ -181,18 +181,12 @@
 					</div>
 				</collapsible>
 
-				<collapsible-panel>
-					<x:resources locale="default">
-						<container path="COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-default"></container>
-					</x:resources>
+				<collapsible-panel class="panel-default">
 					<title>This panel does not remove it's content in collapsed state</title>
 					<content>{#>lipsum}</content>
 				</collapsible-panel>
 
-				<collapsible-panel-ext>
-					<x:resources locale="default">
-						<container path="COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-default"></container>
-					</x:resources>
+				<collapsible-panel-ext class="panel-default">
 					<title>This panel does! (see it in your browser's dev tools)</title>
 					<content>{#>lipsum}</content>
 				</collapsible-panel-ext>
@@ -229,28 +223,19 @@
 				<accordion>
 					<content>
 						<div style="width: 32%;float: left">
-							<collapsible-panel x:roles="$accordion.panel">
-								<x:resources locale="default">
-									<container path="COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-primary"></container>
-								</x:resources>
+							<collapsible-panel x:roles="$accordion.panel" class="panel-primary">
 								<title>Title 1</title>
 								<content>Content 1<br/>Content 1<br/>Content 1</content>
 							</collapsible-panel>
 						</div>
 						<div style="width: 32%;float: left">
-							<collapsible-panel x:roles="$accordion.panel">
-								<x:resources locale="default">
-									<container path="COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-danger"></container>
-								</x:resources>
+							<collapsible-panel x:roles="$accordion.panel" class="panel-danger">
 								<title>Title 2</title>
 								<content>Content 2<br/>Content 2<br/>Content 2<br/>Content 2</content>
 							</collapsible-panel>
 						</div>
 						<div style="width: 32%;float: left">
-							<collapsible-panel x:roles="$accordion.panel">
-								<x:resources locale="default">
-									<container path="COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-primary"></container>
-								</x:resources>
+							<collapsible-panel x:roles="$accordion.panel" class="panel-primary">
 								<title>Title 3</title>
 								<content>Content 3<br/>Content 3<br/>Content 3<br/>Content 3<br/>Content 3</content>
 							</collapsible-panel>

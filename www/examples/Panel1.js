@@ -65,6 +65,7 @@ return (this._binds[0].getValue() ? 'block' : 'none');
 							},
 							"\r\n\t\t"
 						],
+						default_events: [],
 						real_class: "PanelExample1",
 						"class": "Lava.WidgetConfigExtensionGateway",
 						extender_type: "Standard",

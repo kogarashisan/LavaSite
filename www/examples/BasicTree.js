@@ -181,6 +181,7 @@ return (this._binds[0].getValue());
 								}]
 							}
 						},
+						default_events: [],
 						real_class: "TreeView1"
 					},
 					"\r\n"

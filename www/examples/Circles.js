@@ -235,6 +235,7 @@ return (this._binds[0].getValue());
 				"\r\n\t\t</div>\r\n\t\t<div class=\"clearfix\"></div>\r\n\t"
 			],
 			"extends": "Example",
+			default_events: [],
 			real_class: "CirclesExample",
 			"class": "Lava.WidgetConfigExtensionGateway",
 			extender_type: "Standard",

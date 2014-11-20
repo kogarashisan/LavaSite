@@ -18,7 +18,7 @@ instance.get('test'); // returns 123
 ```
 
 At first glance, it may seem inconvenient to type those ".get()" and ".set()" every time you want to access a property,
-but reality is that it's much easier to develop this way, cause everything is transparent.
+but in practice it's very easy to develop this way, cause behaviour is transparent.
 
 There are also two kinds of events, one is regular event, added with "on":
 
@@ -40,6 +40,7 @@ for calling listener callback (context will become "<kw>this</kw>" inside the ca
 and this way you avoid writing unnecessary code.
 
 You can suspend, resume and remove listeners:
+
 ```javascript
 // now you will not receive 'property_changed' event, but listener is still attached
 Lava.suspendListener(listener);
@@ -69,4 +70,4 @@ instance.removePropertyListener(listener);
 Notice how you remove this kind of listeners: you call `removePropertyListener` instead of `removeListener`.
 Property listeners can also be suspended and resumed.
 
-You are encouraged to have a look at the source of {@link Lava.mixin.Observable} and {@link Lava.mixin.Properties}.
+Now you are encouraged to have a look at the source of {@link Lava.mixin.Observable} and {@link Lava.mixin.Properties}.

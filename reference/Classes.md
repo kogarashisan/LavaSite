@@ -29,8 +29,8 @@ It's designed for such rare cases like "add possibility to switch locales on the
 so if you really want to modify core classes - think again, it may be a sign that you are doing something wrong.
 For most of your needs inheritance is more than enough.
 
-When writing your own classes - you must not call {@link Lava.ClassManager#define} directly,
-use {@link Lava#define} instead.
+<b>When writing your own classes - you must not call {@link Lava.ClassManager#define} directly,
+use {@link Lava#define} instead.</b>
 
 ##Instanceof operator
 
@@ -43,7 +43,7 @@ mixed together. Strong-typed programs have less bugs, they are much easier to de
 
 Instead of <kw>instanceof</kw> operator some Lava classes have a unique type marker in their class bodies,
 like `isEnumerable` in {@link Lava.system.Enumerable}, or `isProperties` in {@link Lava.mixin.Properties}.
-If you really need it, there is analog for Lava classes - {@link Lava#instanceOf}.
+But if you really need it, then there is analog for Lava classes - {@link Lava#instanceOf}.
 
 ##Constructing classes
 

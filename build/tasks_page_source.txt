@@ -2,7 +2,7 @@
 System-wide or uncategorized
 	- [P5,Refactoring] isLiteral - move to one place
 	- [P5,Refactoring] "use strict"
-	- [P3,Feature] new selector for event and role targets: NameAndLabel
+	- [P3,Feature,Q] new selector for event and role targets: NameAndLabel
 		// affects ExpressionParser, view.Abstract, ViewManager
 	- [P3,Refactoring, Performance] inside sleep() of the views it's not needed to turn off the argument listeners, only arguments themselves.
 	- [P5,Performance,Q] turn off view bindings in sleep() (*)
@@ -85,11 +85,11 @@ Data/
 		//	}</pre>
 	- [P5,Feature] MetaStorage: allow Collection and Record fields inside it
 Data/Field/
-	- [P5,Performance] Integer and Id fields: invent some better check than regex
+	- [P5,Performance,Q] Integer and Id fields: invent some better check than regex
 		// this._shared.valid_value_regex.test(value)
 Data/ModuleAbstract.class.js
-	- [P5,Refactoring] destroy: Should the records be destroyed, and how? See comment inside destroy()
-	- [P3,Performance, Refactoring] record storage should be created from a function (now it's an object)
+	- [P5,Refactoring] destroy: should the records be destroyed, and how? See comment inside destroy()
+	- [P3,Performance,Refactoring] record storage should be created from a function (now it's an object)
 Data/Module.class.js
 	- [P2,Refactoring] Move _records_by_id functionality to the ID field
 Firestorm/
@@ -139,14 +139,13 @@ Parsers/ObjectParser.js
 Parsers/TemplateParser.js
 	- [P5,Feature,Q] allow to set class for widget extenders
 	- [P4,Feature] implement removal of empty space from templates
-	- [P5,Feature,Q] &lt;x:region&gt; directive for includes: it will allow to cut off pieces of template depending on options
 	- [P5,Refactoring] remove unused lexer switches: preserve_whitespace ("pre:") and pure_blocks
 	- [P5,Fix,Dev] _parseStyleAttribute: currently will not parse style strings which contain strings with semicolon inside them as style value
 		// do not use such styles, use classes!
 	- [P4,Fix] sequential strings are not always united into one
 	- [P2,Fix] script[type="lava/fragment"] should work as s lexer switch - to allow it to break block boundaries
 		// &lt;script type="lava/fragment"&gt;{#view()}&lt;/script&gt;{/view}.
-		// Also correct doc.html
+		// Also correct the doc.html
 Parsers/ExpressionParser.js
 	- [P5,Feature,Q] macros to shorten the ternary operator, for example: "{is_active -&gt; 'active'}"
 	- [P3,Feature, Performance] currently, each time any variable is referenced in argument's source code - it creates a new binding config.
@@ -248,14 +247,14 @@ Cron.js
 Lava.js
 	- [P5,Refactoring] namespaces reservation: move to a separate file (this will allow to generate it in user projects)
 	- [P5,Feature] create a script, which generates the file with namespaces in Lava.
-	- [P2,Feature] bootstrap() should process the control (x:) attributes, for example x:resource_id
+	- [P2,Feature] bootstrap() should process the control attributes like x:resource_id or x:event
 	- [P3,Feature] Lava.addType() - add a new type to Lava.types
 Algorithms/Sorting/
 	- [P5,Feature,Performance] Need fast unstable sort algorithm (*)
 
 #Existing widgets
 Panels
-	- [P2,Feature] when panels are collapsed, but the body stays in DOM - they should sleep() their content
+	- [P2,Feature] when panels are collapsed, but their body stays in DOM - they should sleep() their content
 Accordion
 	- [P5,Feature] collapseAll()
 Tree
@@ -367,8 +366,14 @@ Inputs
 	- [P2,Feature] Tables with members must be collapsible. Tables with mixins must be collapsed by default.
 	- [P1,Feature] Links to members must have "short" "middle" and "long" titles. Versions can be chosen by @sl (short link) and @fl (full link) tags.
 		// Example: "Lava.mixin.Properties#on" - long, "Properties#on" - middle, "on" - short.
-		// Also correct all links with title.
+		// Also correct all links which already have a custom title.
 	- [P2,Refactoring] Rewrite doc.html - must use IF view instead of manual widget insertion (depends on "Include" view).
+	- [P5,Feature] make it look better with "warning" and "info" boxes, and other formatting tools
+	- [P3,Feature] register links to examples in /www/examples.html so they could be referenced in documentation
+	- [P4,Feature] make an instruction to automatically embed pieces of serialized code from the framework (methods, variables, etc).
+		// Example: embed source of Lava.parseOptions in api_docs/ObjectParser
+	- [P1,Feature] does not recognize @define tag (for example, on Lava.schema.DEBUG)
+	- [P5,Feature] write extended description for class methods and properties
 
 #Maintenance
 	- [P5,Feature] Automatic on-commit codestyle validation

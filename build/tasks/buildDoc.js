@@ -755,6 +755,8 @@ module.exports = function(grunt) {
 			support_names = [],
 			missing_descriptions_log = [];
 
+		Lava.init = function(){}; // this fixes the fact that Lava replaces it's init method with null after init was done
+
 		var jsdoc_data = eval('(' + grunt.file.read(global.LAVA_CORE_DIRECTORY + 'build/temp/jsdoc_classes_export.js') + ')');
 		var jsdoc_ignored = eval('(' + grunt.file.read(global.LAVA_CORE_DIRECTORY + 'build/temp/jsdoc_ignored_export.js') + ')');
 
