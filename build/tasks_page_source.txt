@@ -48,10 +48,12 @@ System-wide or uncategorized
 	- [P2,Refactoring] remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender
 		// if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.
 	- [P5,Refactoring] each destroy() must call parent's destroy() in the end (not earlier)
-	- [P5,Feature] (experimental) create a lighter fork of the framework: without Refreshable mixin.
+	- [P5,Feature,Q] (experimental) create a lighter fork of the framework: without Refreshable mixin.
 	- [P2,Performance] Optimize config extension: widget configs without parent must be created with `is_extended = true`
 		// 1) widgets with static class name must have full class name in the "class" attribute.
 		// 2) with dynamic class name - must have locator gateway in 'class'.
+	- [P5,Refactoring] FocusManager: specification recommends to use focus() instead of blur()
+		// https://html.spec.whatwg.org/#focus-management-apis
 
 Lava.js
 	- [P2,Refactoring] simplify getWidgetSugarInstance(), get rid of _widget_title_to_sugar_instance
@@ -153,6 +155,7 @@ Parsers/ExpressionParser.js
 	- [P3,Feature] static arguments must have their value in configs
 	- [P5,Refactoring] remove the dn() operator. It's existence is not possible with current architecture.
 		Finish the up() operator, or remove it also.
+	- [P2,Refactoring] remove the `//depends:{}` operator (deprecated)
 System/App.class.js
 	- [P3,Feature] app.createModule(config) - create a module with given schema
 System/Enumerable.class.js
@@ -247,7 +250,6 @@ Cron.js
 Lava.js
 	- [P5,Refactoring] namespaces reservation: move to a separate file (this will allow to generate it in user projects)
 	- [P5,Feature] create a script, which generates the file with namespaces in Lava.
-	- [P2,Feature] bootstrap() should process the control attributes like x:resource_id or x:event
 	- [P3,Feature] Lava.addType() - add a new type to Lava.types
 Algorithms/Sorting/
 	- [P5,Feature,Performance] Need fast unstable sort algorithm (*)
@@ -277,7 +279,8 @@ Inputs
 		// just like input.Number. Text input with type="email" will not have validation (it's still a text input).
 	- [P3,Feature] input watermarks
 		// in Lava they will be elements before the input, with negative margin. It's the most reliable way.
-	- [P4,Feature] input labels
+	- [P4,Feature] input labels should be configured as attributes + standalone widget
+	- [P5,Feature] moveCursorToStart(), moveCursorToEnd(), isCursorAtStart(), isCursorAtEnd() API for text inputs
 
 #Create widgets
 	- [P2,Feature] reorderable list (with mouse support)
@@ -374,7 +377,11 @@ Inputs
 		// Example: embed source of Lava.parseOptions in api_docs/ObjectParser
 	- [P1,Feature] does not recognize @define tag (for example, on Lava.schema.DEBUG)
 	- [P5,Feature] write extended description for class methods and properties
+	- [P5,Feature] Describe the `count` property in Enumerable
 
 #Maintenance
 	- [P5,Feature] Automatic on-commit codestyle validation
 		// one "var" per function, no camelCase, etc...
+
+#Testing
+	- [P1] Check how framework handles focus management on Safari (it does not support focus on links)

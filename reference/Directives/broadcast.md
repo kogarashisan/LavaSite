@@ -30,4 +30,4 @@ Here, &lt;accordion&gt; is syntax sugar for Accordion tag.
 You can set broadcast targets for a global widget in x:define (via &lt;broadcast&gt; tag),
 but it's not recommended to do so. It's recommended to use broadcast on inline widgets.
 
-Targets are parsed by {@link Lava.parsers.Common#parseTargets}.
+Targets are parsed by {@link Lava.parsers.Common#parseTargets}. <b>Broadcast targets can not be bubbling!</b>

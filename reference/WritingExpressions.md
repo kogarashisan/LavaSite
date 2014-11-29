@@ -160,20 +160,3 @@ you should take care of their destruction. Otherwise - it may lead to memory lea
 Final example:
 <iframe style="height: 26em; width: 100%" src="http://embed.plnkr.co/7eHFEz/index.html"></iframe>
 <i><a href="/www/demos/reference/WritingExpressions.html">Alternative link</a></i>
-
-##The "//depends:" operator
-
-Expression can be followed by an optional "depends" operator - it adds scope references to {@link _cArgumentCommon#binds}
-array. These references are not used in the evaluator function, but {@link Lava.scope.Argument} watches them for changes
-and updates it's value when they change.
-
-Usage example: you may need to render a tree of plain objects and arrays (not Properties and Enumerable),
-and widget can sort records in the tree. Naturally, you will have a property like <var>sort_order</var>
-in your widget, when it changes - widget performs sorting. There is no way for Argument to detect changes on
-plain arrays and objects, but you can add dependency to <var>sort_order</var> to force update when it changes:
-
-<lavabuild:template_result as="single_view">
-{#foreach(node.children //depends:{$tree.sort_order}) as=node}
-	...
-{/foreach}
-</lavabuild:template_result>

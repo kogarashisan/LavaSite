@@ -2,6 +2,9 @@
 <ul>
 	<li>Sugar of CollapsiblePanel, Collapsible and Accordion widgets now has "root_resource_name"
 		(stores all attributes from sugar tag to widget's container).</li>
+	<li>Added Lava.system.FocusManager, currently with very basic capabilities.</li>
+	<li>Improved Lava.bootstrap() - now it processes control attributes on elements with "lava-app" attribute.</li>
+	<li>Added "label" role to input.Abstract - assigns the "for" attribute.</li>
 </ul>
 
 <h3>Refactoring</h3>
@@ -9,11 +12,17 @@
 	<li>Tree widget: part of "node_body" template was moved to "node_body_content" template.</li>
 	<li>Lava.widget.Standard#inject now has default position - "Top"</li>
 	<li>Sugar now adds attributes to container from "root_resource_name", instead of replacing them.</li>
+	<li>Removed `//depends:{}` operator from ExpressionParser.</li>
 </ul>
 
 <h3>Fixes</h3>
 <ul>
-	<li>Fixed "//depends:{}" operator in ExpressionParser.</li>
+	<li>Fixed Lava.system.DataView.</li>
+	<li>Fixed bug in event handling, which crashed application when focused element was removed from DOM.</li>
+	<li>Fixed bug in scope refresh system, which crashed the application.</li>
+	<li>Fixed bug in view refresh system which could lead to browser hangup.</li>
+	<li>Fixed a parsing issue in IE (IE produces duplicate attributes on some elements).</li>
+	<li>Fixed Lava.scope.Binding in "from_widget" mode.</li>
 </ul>
 
-<p>Build also contains minor refactorings and improvements.</p>
+<p>Build also contains minor fixes, refactorings and improvements.</p>

@@ -169,8 +169,9 @@
 <li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span> fixes for old IE: check if event delegation for "change" event and others works in IE 8 and less.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender<span class="task-comment">if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> each destroy() must call parent's destroy() in the end (not earlier)</li>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> (experimental) create a lighter fork of the framework: without Refreshable mixin.</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> (experimental) create a lighter fork of the framework: without Refreshable mixin.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span> Optimize config extension: widget configs without parent must be created with `is_extended = true`<span class="task-comment">1) widgets with static class name must have full class name in the "class" attribute.<br/> 2) with dynamic class name - must have locator gateway in 'class'.</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> FocusManager: specification recommends to use focus() instead of blur()<span class="task-comment">https://html.spec.whatwg.org/#focus-management-apis</span></li>
 </ul>
 <h3>Lava.js</h3>
 <ul>
@@ -277,6 +278,7 @@
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> currently, each time any variable is referenced in argument's source code - it creates a new binding config.<br/>Parser must unite bindings to the same variable referenced multiple times.</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> static arguments must have their value in configs</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> remove the dn() operator. It's existence is not possible with current architecture.<br/>Finish the up() operator, or remove it also.</li>
+<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> remove the `//depends:{}` operator (deprecated)</li>
 </ul>
 <h3>System/App.class.js</h3>
 <ul>
@@ -368,7 +370,6 @@
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> namespaces reservation: move to a separate file (this will allow to generate it in user projects)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> create a script, which generates the file with namespaces in Lava.</li>
-<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> bootstrap() should process the control attributes like x:resource_id or x:event</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Lava.addType() - add a new type to Lava.types</li>
 </ul>
 <h3>Algorithms/Sorting/</h3>
@@ -407,7 +408,8 @@
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> working form_id attribute</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> validation for email input.<span class="task-comment">most likely, there will be separate class input.Email: it will have internal value and update it's is_valid property<br/> just like input.Number. Text input with type="email" will not have validation (it's still a text input).</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> input watermarks<span class="task-comment">in Lava they will be elements before the input, with negative margin. It's the most reliable way.</span></li>
-<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> input labels</li>
+<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> input labels should be configured as attributes + standalone widget</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> moveCursorToStart(), moveCursorToEnd(), isCursorAtStart(), isCursorAtEnd() API for text inputs</li>
 </ul>
 <h2>Create widgets</h2>
 <ul>
@@ -489,10 +491,15 @@
 <li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> make an instruction to automatically embed pieces of serialized code from the framework (methods, variables, etc).<span class="task-comment">Example: embed source of Lava.parseOptions in api_docs/ObjectParser</span></li>
 <li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> does not recognize @define tag (for example, on Lava.schema.DEBUG)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> write extended description for class methods and properties</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Describe the `count` property in Enumerable</li>
 </ul>
 <h2>Maintenance</h2>
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Automatic on-commit codestyle validation<span class="task-comment">one "var" per function, no camelCase, etc...</span></li>
+</ul>
+<h2>Testing</h2>
+<ul>
+<li><span class="tag-P1">P1</span> Check how framework handles focus management on Safari (it does not support focus on links)</li>
 </ul>
 <!--LAVA_BUILD_TASKS_END-->
 
