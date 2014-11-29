@@ -74,6 +74,49 @@ module.exports = function(grunt) {
 			grunt.file.write('www/examples/' + example_name + '.js', result);
 		}
 
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Main page example
+
+		var index_content = grunt.file.read('todo_app/index.html');
+		var start = index_content.indexOf("<body ");
+		index_content = index_content.substr(
+			start,
+			index_content.indexOf("</body>") - start + ("<body ".length)
+		);
+		index_content = index_content.replace(/\n\s+\<footer[\s\S]+?\<\/script\>\n\s*/, '');
+		index_content = index_content.replace(/^\t/g, '');
+
+		grunt.file.write(
+			'includes/main_page_example.html',
+			'<tabs>' +
+				'<tab>' +
+					'<title>Result</title>' +
+					'<content>' +
+						'<script type="lava/fragment">' +
+						'<iframe src="/todo_app/index.html" style="width: 100%; height: 550px"></iframe>' +
+						'</script>' +
+					'</content>' +
+				'</tab>' +
+				'<tab>' +
+					'<title>Template</title>' +
+					'<content>{literal:}' +
+						global.LavaBuild.highlight('xml', index_content).replace(/\t/g, '  ') +
+					'{:literal}</content>' +
+				'</tab>' +
+				'<tab>' +
+					'<title>TodoApp.class.js</title>' +
+					'<content>{literal:}' +
+						global.LavaBuild.highlight('javascript', grunt.file.read('todo_app/js/Widget/TodoApp.class.js').replace(/\t/g, '    ')) +
+					'{:literal}</content>' +
+				'</tab>' +
+				'<tab>' +
+					'<title>AutofocusText.class.js</title>' +
+					'<content>{literal:}' +
+						global.LavaBuild.highlight('javascript', grunt.file.read('todo_app/js/Widget/Input/AutofocusText.class.js').replace(/\t/g, '    ')) +
+					'{:literal}</content>' +
+				'</tab>' +
+			'</tabs>');
+
 	}));
 
 };

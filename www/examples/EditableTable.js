@@ -2,7 +2,7 @@
 	tabs: [
 		{
 			title: "Template",
-			content: "<div class=\"lava-code-container\"><div class=\"lava-code\"><pre class=\"lava-code-line-numbers\">&nbsp;&nbsp;1\r\n2\r\n3\r\n4\r\n5\r\n6\r\n7\r\n8\r\n9\r\n10\r\n11\r\n12\r\n13\r\n14\r\n</pre><pre class=\"lava-code-content hljs xml\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">example</span>&gt;</span>\r\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">x:widget</span> <span class=\"hljs-attribute\">extends</span>=<span class=\"hljs-value\">\"EditableTable\"</span>&gt;</span>\r\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">script</span> <span class=\"lava-control-prefix\">x</span><span class=\"hljs-attribute\">:equiv</span>=<span class=\"hljs-value\">\"options\"</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"application/json\"</span>&gt;</span><span class=\"javascript\">\r\n      {\r\n        columns: [\r\n          {name: <span class=\"hljs-string\">'title'</span>, title: <span class=\"hljs-string\">'Title'</span>, type: <span class=\"hljs-string\">'String'</span>, is_editable: <span class=\"hljs-literal\">true</span>},\r\n          {name: <span class=\"hljs-string\">'type'</span>, title: <span class=\"hljs-string\">'Type'</span>, type: <span class=\"hljs-string\">'String'</span>},\r\n          {name: <span class=\"hljs-string\">'is_expanded'</span>, title: <span class=\"hljs-string\">'Expanded?'</span>, type: <span class=\"hljs-string\">'Boolean'</span>, is_editable: <span class=\"hljs-literal\">true</span>}\r\n        ]\r\n      }\r\n    </span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">script</span>&gt;</span>\r\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">assign</span> <span class=\"hljs-attribute\">name</span>=<span class=\"hljs-value\">\"records\"</span>&gt;</span>#ExamplesApp.all_tree_records<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">assign</span>&gt;</span>\r\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">x:widget</span>&gt;</span>\r\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">example</span>&gt;</span></pre></div></div>"
+			content: "<div class=\"lava-code-container\"><div class=\"lava-code\"><pre class=\"lava-code-line-numbers\">&nbsp;&nbsp;1\r\n2\r\n3\r\n4\r\n5\r\n6\r\n7\r\n8\r\n9\r\n10\r\n11\r\n12\r\n13\r\n14\r\n15\r\n16\r\n17\r\n18\r\n19\r\n20\r\n21\r\n22\r\n</pre><pre class=\"lava-code-content hljs xml\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">example</span>&gt;</span>\r\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">div</span> <span class=\"hljs-attribute\">class</span>=<span class=\"hljs-value\">\"col-md-6\"</span> <span class=\"hljs-attribute\">style</span>=<span class=\"hljs-value\">\"padding: 1em\"</span>&gt;</span>\r\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">x:widget</span> <span class=\"hljs-attribute\">extends</span>=<span class=\"hljs-value\">\"EditableTable\"</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">\"main_page_table\"</span>&gt;</span>\r\n      <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">script</span> <span class=\"lava-control-prefix\">x</span><span class=\"hljs-attribute\">:equiv</span>=<span class=\"hljs-value\">\"options\"</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"application/json\"</span>&gt;</span><span class=\"javascript\">\r\n        {\r\n          columns: [\r\n            {name: <span class=\"hljs-string\">'title'</span>, title: <span class=\"hljs-string\">'Title'</span>, type: <span class=\"hljs-string\">'String'</span>, is_editable: <span class=\"hljs-literal\">true</span>},\r\n            {name: <span class=\"hljs-string\">'type'</span>, title: <span class=\"hljs-string\">'Type'</span>, type: <span class=\"hljs-string\">'String'</span>},\r\n            {name: <span class=\"hljs-string\">'is_expanded'</span>, title: <span class=\"hljs-string\">'Expanded?'</span>, type: <span class=\"hljs-string\">'Boolean'</span>, is_editable: <span class=\"hljs-literal\">true</span>}\r\n          ]\r\n        }\r\n      </span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">script</span>&gt;</span>\r\n      <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">assign</span> <span class=\"hljs-attribute\">name</span>=<span class=\"hljs-value\">\"records\"</span>&gt;</span>#ExamplesApp.all_tree_records<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">assign</span>&gt;</span>\r\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">x:widget</span>&gt;</span>\r\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">div</span>&gt;</span>\r\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">div</span> <span class=\"hljs-attribute\">class</span>=<span class=\"hljs-value\">\"col-md-6\"</span> <span class=\"hljs-attribute\">style</span>=<span class=\"hljs-value\">\"padding: 1em;overflow: auto;height: 370px;position: relative;\"</span>&gt;</span>\r\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">x:widget</span> <span class=\"hljs-attribute\">extends</span>=<span class=\"hljs-value\">\"FolderTree\"</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">\"main_page_tree\"</span>&gt;</span>\r\n      <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">assign</span> <span class=\"hljs-attribute\">name</span>=<span class=\"hljs-value\">\"records\"</span>&gt;</span>#ExamplesApp.tree_records<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">assign</span>&gt;</span>\r\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">x:widget</span>&gt;</span>\r\n  <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">div</span>&gt;</span>\r\n  <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">div</span> <span class=\"hljs-attribute\">class</span>=<span class=\"hljs-value\">\"clearfix\"</span>&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">div</span>&gt;</span>\r\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">example</span>&gt;</span></pre></div></div>"
 		},
 		{
 			title: "Defines",
@@ -14,7 +14,7 @@
 		}
 	],
 	template: [
-		"<p>Very basic sortable and editable table. Changes are saved to records immediately (as you type).</p>\r\n<p>Keep in mind: example data is global for all widgets, so you can see your changes in other examples.</p>",
+		"<p>Very basic sortable and editable table. Changes are saved to records immediately (as you type).\r\n\tTree was added to demonstrate synchronization of changes.</p>\r\n<p>Keep in mind: example data is global for all widgets, so you can see your changes in other examples.</p>",
 		{
 			type: "widget",
 			"class": "Lava.WidgetConfigExtensionGateway",
@@ -22,7 +22,7 @@
 			"extends": "Example",
 			includes: {
 				content: [
-					"\r\n\t",
+					"\r\n\t<div class=\"col-md-6\" style=\"padding: 1em\">\r\n\t\t",
 					{
 						"extends": "EditableTable",
 						options: {
@@ -59,11 +59,33 @@ return (this._binds[0].getValue());
 								}]
 							}
 						},
+						id: "main_page_table",
 						"class": "Lava.WidgetConfigExtensionGateway",
 						extender_type: "Standard",
 						type: "widget"
 					},
-					"\r\n"
+					"\r\n\t</div>\r\n\t<div class=\"col-md-6\" style=\"padding: 1em;overflow: auto;height: 370px;position: relative;\">\r\n\t\t",
+					{
+						"extends": "FolderTree",
+						assigns: {
+							records: {
+								evaluator: function() {
+return (this._binds[0].getValue());
+},
+								flags: {isScopeEval: true},
+								binds: [{
+									locator_type: "Id",
+									locator: "ExamplesApp",
+									tail: ["tree_records"]
+								}]
+							}
+						},
+						id: "main_page_tree",
+						"class": "Lava.WidgetConfigExtensionGateway",
+						extender_type: "Standard",
+						type: "widget"
+					},
+					"\r\n\t</div>\r\n\t<div class=\"clearfix\"></div>\r\n"
 				]
 			}
 		}

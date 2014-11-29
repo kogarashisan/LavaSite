@@ -1,14 +1,22 @@
 <example>
-	<x:widget extends="EditableTable">
-		<script x:equiv="options" type="application/json">
-			{
-				columns: [
-					{name: 'title', title: 'Title', type: 'String', is_editable: true},
-					{name: 'type', title: 'Type', type: 'String'},
-					{name: 'is_expanded', title: 'Expanded?', type: 'Boolean', is_editable: true}
-				]
-			}
-		</script>
-		<assign name="records">#ExamplesApp.all_tree_records</assign>
-	</x:widget>
+	<div class="col-md-6" style="padding: 1em">
+		<x:widget extends="EditableTable" id="main_page_table">
+			<script x:equiv="options" type="application/json">
+				{
+					columns: [
+						{name: 'title', title: 'Title', type: 'String', is_editable: true},
+						{name: 'type', title: 'Type', type: 'String'},
+						{name: 'is_expanded', title: 'Expanded?', type: 'Boolean', is_editable: true}
+					]
+				}
+			</script>
+			<assign name="records">#ExamplesApp.all_tree_records</assign>
+		</x:widget>
+	</div>
+	<div class="col-md-6" style="padding: 1em;overflow: auto;height: 370px;position: relative;">
+		<x:widget extends="FolderTree" id="main_page_tree">
+			<assign name="records">#ExamplesApp.tree_records</assign>
+		</x:widget>
+	</div>
+	<div class="clearfix"></div>
 </example>
