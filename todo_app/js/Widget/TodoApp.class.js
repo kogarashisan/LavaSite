@@ -24,7 +24,6 @@ Lava.define(
 	_event_handlers: {
 		delete_item_click: '_deleteItemClick',
 		item_double_click: '_itemDoubleClick',
-		on_key_up: '_onKeyUp',
 		clear_completed_click: '_clearCompletedClick'
 	},
 
@@ -46,6 +45,7 @@ Lava.define(
 
 		this._loadItemsFromStorage();
 		Lava.focus_manager.on('focus_target_changed', this._onFocusTargetChanged, this);
+		Lava.Core.addGlobalHandler('keydown', this._onKeyDown, this);
 
 		new Router({
 			'/:filter': function (filter_name) {
@@ -150,7 +150,7 @@ Lava.define(
 
 	},
 
-	_onKeyUp: function(dom_event_name, dom_event) {
+	_onKeyDown: function(dom_event_name, dom_event) {
 
 		var new_todo_input;
 		var focus_target_widget;
