@@ -81,10 +81,10 @@ module.exports = function(grunt) {
 		var start = index_content.indexOf("<body ");
 		index_content = index_content.substr(
 			start,
-			index_content.indexOf("</body>") - start + ("<body ".length)
+			index_content.indexOf("</body>") - start + ("<body ".length) + 1
 		);
 		index_content = index_content.replace(/\n\s+\<footer[\s\S]+?\<\/script\>\n\s*/, '');
-		index_content = index_content.replace(/^\t/g, '');
+		index_content = index_content.replace(/\r*\n\t/g, '\n');
 
 		grunt.file.write(
 			'includes/main_page_example.html',

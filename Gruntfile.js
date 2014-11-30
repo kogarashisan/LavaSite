@@ -159,6 +159,13 @@ module.exports = function(grunt) {
 				});
 			}
 
+			if (type == 'javascript') {
+				// remove nonexistent newline before "use strict"
+				highlighted = highlighted.replace(/\<span class=\"hljs-pi\"\>\s+(\'use strict\'|\"use strict\")\<\/span\>/g, function() {
+					return "<span class=\"hljs-pi\">'use strict'</span>";
+				});
+			}
+
 			return {
 				text: highlighted,
 				type: type,

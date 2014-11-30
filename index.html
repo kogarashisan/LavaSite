@@ -201,71 +201,71 @@
 63
 64
 65
-</pre><pre class="lava-code-content hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">body</span> <span class="hljs-attribute">lava-app</span>=<span class="hljs-value">"TodoApp"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:event:keyup</span>=<span class="hljs-value">"$todo_app.on_key_up"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"todoapp"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">header</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"header"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>todos<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">text_input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"new_todo"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"new-todo"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What needs to be done?"</span> <span class="hljs-attribute">autofocus</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">text_input</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">header</span>&gt;</span>
-      {$if($todo_app.todo_list.length)}
-        <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">checkbox</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle_all"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle-all"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:roles</span>=<span class="hljs-value">"$todo_app.toggle_all_checkbox"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">checkbox</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:roles</span>=<span class="hljs-value">"#toggle_all.label"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle-all-label"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"todo-list"</span>&gt;</span>
-            {#foreach($todo_app.filtered_list) as=item}
-              <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:classes</span>=<span class="hljs-value">"item.is_completed ? 'completed' : ''; (item == $todo_app.edited_item) ? 'editing' : ''"</span>&gt;</span>
-                {#if(item != $todo_app.edited_item)}
-                  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"view"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:event:dblclick</span>=<span class="hljs-value">"$todo_app.item_double_click(item)"</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-title">checkbox</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle"</span>&gt;</span>
-                      <span class="hljs-tag">&lt;<span class="hljs-title">x:bind</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"is_checked"</span>&gt;</span>item.is_completed<span class="hljs-tag">&lt;/<span class="hljs-title">x:bind</span>&gt;</span>
-                    <span class="hljs-tag">&lt;/<span class="hljs-title">checkbox</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span>&gt;</span>{#&gt; item.title}<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:event:click</span>=<span class="hljs-value">"$todo_app.delete_item_click(item)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-                  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-                {else}
-                  <span class="hljs-tag">&lt;<span class="hljs-title">text_input</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:controller</span>=<span class="hljs-value">"input.AutofocusText"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"edit"</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-title">x:bind</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"value"</span>&gt;</span>$todo_app.edited_item_text<span class="hljs-tag">&lt;/<span class="hljs-title">x:bind</span>&gt;</span>
-                  <span class="hljs-tag">&lt;/<span class="hljs-title">text_input</span>&gt;</span>
-                {/if}
-              <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
-            {/foreach}
-          <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"footer"</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"todo-count"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">strong</span>&gt;</span>{#&gt; $todo_app.remaining_count}<span class="hljs-tag">&lt;/<span class="hljs-title">strong</span>&gt;</span> item{#&gt; $todo_app.remaining_count != 1 ? 's' : ''} left
-          <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"filters"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span>&gt;</span>
-            {#foreach($todo_app.filter_names) as=filter_name}
-              <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:classes</span>=<span class="hljs-value">"filter_name == $todo_app.filter_name ? 'selected' : ''"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:bind:href</span>=<span class="hljs-value">"'#/' + filter_name"</span>&gt;</span>
-                  {#&gt; ucFirst(filter_name)}
-                <span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
-              <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
-            {/foreach}
-          <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
-          {$if($todo_app.completed_count)}
-            <span class="hljs-tag">&lt;<span class="hljs-title">x:refresher</span>&gt;</span>{type: 'Standard'}<span class="hljs-tag">&lt;/<span class="hljs-title">x:refresher</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">x:container_config</span>&gt;</span>
-              {
-                type: "Emulated",
-                options: {appender: 'AfterPrevious'}
-              }
-            <span class="hljs-tag">&lt;/<span class="hljs-title">x:container_config</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"clear-completed"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:event:click</span>=<span class="hljs-value">"$todo_app.clear_completed_click"</span>&gt;</span>
-              {#&gt; "Clear completed (" + $todo_app.completed_count + ")"}
-            <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-          {/if}
-        <span class="hljs-tag">&lt;/<span class="hljs-title">footer</span>&gt;</span>
-      {/if}
-    <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"info"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Double-click to edit a todo<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Created by <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"http://lava-framework.com/"</span>&gt;</span>Alex Galashov<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Part of <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"http://todomvc.com"</span>&gt;</span>TodoMVC<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">footer</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"bower_components/todomvc-common/base.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">body</span></span></pre></div></div>{:literal}</content></tab><tab><title>TodoApp.class.js</title><content>{literal:}<div class="lava-code-container"><div class="lava-code"><pre class="lava-code-line-numbers">&nbsp;&nbsp;1
+</pre><pre class="lava-code-content hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">body</span> <span class="hljs-attribute">lava-app</span>=<span class="hljs-value">"TodoApp"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"todoapp"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">header</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"header"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>todos<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">text_input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"new_todo"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"new-todo"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What needs to be done?"</span> <span class="hljs-attribute">autofocus</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">text_input</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">header</span>&gt;</span>
+    {$if($todo_app.todo_list.length)}
+      <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">checkbox</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"toggle_all"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle-all"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:roles</span>=<span class="hljs-value">"$todo_app.toggle_all_checkbox"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">checkbox</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:roles</span>=<span class="hljs-value">"#toggle_all.label"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle-all-label"</span>&gt;</span>Mark all as complete<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"todo-list"</span>&gt;</span>
+          {#foreach($todo_app.filtered_list) as=item}
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:classes</span>=<span class="hljs-value">"item.is_completed ? 'completed' : ''; (item == $todo_app.edited_item) ? 'editing' : ''"</span>&gt;</span>
+              {#if(item != $todo_app.edited_item)}
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"view"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:event:dblclick</span>=<span class="hljs-value">"$todo_app.item_double_click(item)"</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-title">checkbox</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"toggle"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">x:bind</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"is_checked"</span>&gt;</span>item.is_completed<span class="hljs-tag">&lt;/<span class="hljs-title">x:bind</span>&gt;</span>
+                  <span class="hljs-tag">&lt;/<span class="hljs-title">checkbox</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span>&gt;</span>{#&gt; item.title}<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"destroy"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:event:click</span>=<span class="hljs-value">"$todo_app.delete_item_click(item)"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+              {else}
+                <span class="hljs-tag">&lt;<span class="hljs-title">text_input</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:controller</span>=<span class="hljs-value">"input.AutofocusText"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"edit"</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-title">x:bind</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"value"</span>&gt;</span>$todo_app.edited_item_text<span class="hljs-tag">&lt;/<span class="hljs-title">x:bind</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">text_input</span>&gt;</span>
+              {/if}
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+          {/foreach}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"footer"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"todo-count"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">strong</span>&gt;</span>{#&gt; $todo_app.remaining_count}<span class="hljs-tag">&lt;/<span class="hljs-title">strong</span>&gt;</span> item{#&gt; $todo_app.remaining_count != 1 ? 's' : ''} left
+        <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"filters"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span>&gt;</span>
+          {#foreach($todo_app.filter_names) as=filter_name}
+            <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:classes</span>=<span class="hljs-value">"filter_name == $todo_app.filter_name ? 'selected' : ''"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:bind:href</span>=<span class="hljs-value">"'#/' + filter_name"</span>&gt;</span>
+                {#&gt; ucFirst(filter_name)}
+              <span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+          {/foreach}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+        {$if($todo_app.completed_count)}
+          <span class="hljs-tag">&lt;<span class="hljs-title">x:refresher</span>&gt;</span>{type: 'Standard'}<span class="hljs-tag">&lt;/<span class="hljs-title">x:refresher</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">x:container_config</span>&gt;</span>
+            {
+              type: "Emulated",
+              options: {appender: 'AfterPrevious'}
+            }
+          <span class="hljs-tag">&lt;/<span class="hljs-title">x:container_config</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"clear-completed"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:event:click</span>=<span class="hljs-value">"$todo_app.clear_completed_click"</span>&gt;</span>
+            {#&gt; "Clear completed (" + $todo_app.completed_count + ")"}
+          <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+        {/if}
+      <span class="hljs-tag">&lt;/<span class="hljs-title">footer</span>&gt;</span>
+    {/if}
+  <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">footer</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"info"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Double-click to edit a todo<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Created by <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"http://lava-framework.com/"</span>&gt;</span>Alex Galashov<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>Part of <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"http://todomvc.com"</span>&gt;</span>TodoMVC<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">footer</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"bower_components/todomvc-common/base.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span></pre></div></div>{:literal}</content></tab><tab><title>TodoApp.class.js</title><content>{literal:}<div class="lava-code-container"><div class="lava-code"><pre class="lava-code-line-numbers">&nbsp;&nbsp;1
 2
 3
 4
@@ -498,8 +498,7 @@
 231
 232
 </pre><pre class="lava-code-content hljs javascript"><span class="hljs-comment">/*global Lava, Firestorm, Router */</span>
-(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm, Router)</span> {</span><span class="hljs-pi">
-'use strict'</span>;
+(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm, Router)</span> {</span><span class="hljs-pi">'use strict'</span>;
 
 Lava.define(
 <span class="hljs-string">'Lava.widget.TodoApp'</span>,
@@ -523,7 +522,6 @@ Lava.define(
     _event_handlers: {
         delete_item_click: <span class="hljs-string">'_deleteItemClick'</span>,
         item_double_click: <span class="hljs-string">'_itemDoubleClick'</span>,
-        on_key_up: <span class="hljs-string">'_onKeyUp'</span>,
         clear_completed_click: <span class="hljs-string">'_clearCompletedClick'</span>
     },
 
@@ -545,6 +543,7 @@ Lava.define(
 
         <span class="hljs-keyword">this</span>._loadItemsFromStorage();
         Lava.focus_manager.on(<span class="hljs-string">'focus_target_changed'</span>, <span class="hljs-keyword">this</span>._onFocusTargetChanged, <span class="hljs-keyword">this</span>);
+        Lava.Core.addGlobalHandler(<span class="hljs-string">'keydown'</span>, <span class="hljs-keyword">this</span>._onKeyDown, <span class="hljs-keyword">this</span>);
 
         <span class="hljs-keyword">new</span> Router({
             <span class="hljs-string">'/:filter'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(filter_name)</span> {</span>
@@ -649,7 +648,7 @@ Lava.define(
 
     },
 
-    _onKeyUp: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(dom_event_name, dom_event)</span> {</span>
+    _onKeyDown: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(dom_event_name, dom_event)</span> {</span>
 
         <span class="hljs-keyword">var</span> new_todo_input;
         <span class="hljs-keyword">var</span> focus_target_widget;
@@ -754,8 +753,7 @@ Lava.define(
 24
 25
 </pre><pre class="lava-code-content hljs javascript"><span class="hljs-comment">/*global Lava, Firestorm */</span>
-(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm)</span> {</span><span class="hljs-pi">
-'use strict'</span>;
+(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm)</span> {</span><span class="hljs-pi">'use strict'</span>;
 
 Lava.define(
 <span class="hljs-string">'Lava.widget.input.AutofocusText'</span>,
