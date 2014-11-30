@@ -4,12 +4,12 @@
 			<x:widget extends="FolderTree">
 				<assign name="records">$tree_example.records</assign>
 				<include name="node_body_content">
-					{> $tree.FolderTree$node_body_content}
 					<checkbox style="float: right">
 						<x:assign name="is_checked">node.is_checked</x:assign>
 						<x:assign name="is_indeterminate">node.is_indeterminate</x:assign>
 						<x:roles>$tree_example._checkbox</x:roles>
 					</checkbox>
+					{> $tree.FolderTree$node_body_content}
 				</include>
 				<script x:equiv="options" type="application/json">
 					{use_meta_storage: true}
