@@ -65,13 +65,11 @@ Same as above, but assign their value to {@link _cView#options} property in view
 
 <lavabuild:template_result as="single_view">
 <accordion>
-	<x:option name="keep_expanded_on_add">true</x:option>
-	<panels>
-		<panel>
-			<title>Panel 1</title>
-			<content>...</content>
-		</panel>
-	</panels>
+	<x:option name="keep_new_panels_expanded">true</x:option>
+	<panel>
+		<title>Panel 1</title>
+		<content>...</content>
+	</panel>
 </accordion>
 </lavabuild:template_result>
 

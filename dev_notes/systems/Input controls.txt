@@ -1,0 +1,8 @@
+
+Support defaultChecked for Checkbox and Radio is not needed. First, lava templates can be refreshed at any time, 
+so this will not work. Second, when widgets are refreshed - they maintain their checked state.
+
+=
+
+There must be no sugar for native <input> tags. You do not always want to create input widget, 
+sometimes you need a plain <input> tag.

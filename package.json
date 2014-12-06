@@ -8,6 +8,6 @@
     "grunt-contrib-concat": ">=0.4.0",
     "grunt-contrib-copy": "^0.6.0",
     "highlight.js": "=8.0.0",
-    "marked": "~0.3.2"
+    "marked": "=0.3.2"
   }
 }

@@ -57,6 +57,8 @@ System-wide or uncategorized
 
 Lava.js
 	- [P2,Refactoring] simplify getWidgetSugarInstance(), get rid of _widget_title_to_sugar_instance
+	- [P2,Refactoring] bootstrap() process produces an empty `class` attribute on &lt;body&gt; element.
+		Fix that, if possible.
 Animation/
 	- [P5,Feature] pulsating and cyclic animations
 		// most likely, there will be another independent class - AnimationSequence
@@ -306,7 +308,7 @@ Inputs
 	- [P5,Feature] Calendar with event scheduler
 
 #New functionality
-	- [P3,Feature] FocusManager - a class which routes keyboard input to it's current "focused" target
+	- [P2,Feature] finish FocusManager - a class which routes keyboard input to it's current "focused" target
 		(target is a widget, which supports the 'focusable' interface)
 	- [P3,Feature] Lava.system.CollectionListener - batch add listeners to items in Enumerable collections
 	- [P5,Feature] Unit tests for all classes
@@ -341,6 +343,9 @@ Inputs
 	- [P5,Feature] create "codestyle" document
 	- [P2,Feature] Replace images in the tree, gif -&gt; png
 		// other images should also be png
+	- [P5, Feature] Create favicon
+	- [P5, Feature] Better design than plain Bootstrap theme
+	- [P2,Feature] create an example "Miner" game (in the Examples page)
 
 #Documentation
 	- [P4,Feature] Display @throws for methods

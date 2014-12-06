@@ -198,30 +198,28 @@
 					<x:resources locale="default">
 						<container path="panel.COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-info"></container>
 					</x:resources>
-					<panels>
-						<panel is_expanded="true">
-							<title>Panel 1</title>
-							<content>
-								<p><strong>Below is a data-bound-view in Metamorph-like container:</strong></p>
-								{$>lipsum}
-							</content>
-						</panel>
-						<panel>
-							<title>Panel 2</title>
-							<content>Content 2</content>
-						</panel>
-						<panel>
-							<title>Panel 3</title>
-							<content>Content 3</content>
-						</panel>
-					</panels>
+					<panel is_expanded="true">
+						<title>Panel 1</title>
+						<content>
+							<p><strong>Below is a data-bound-view in Metamorph-like container:</strong></p>
+							{$>lipsum}
+						</content>
+					</panel>
+					<panel>
+						<title>Panel 2</title>
+						<content>Content 2</content>
+					</panel>
+					<panel>
+						<title>Panel 3</title>
+						<content>Content 3</content>
+					</panel>
 				</accordion>
 			</example>
 
 			<p>To demonstrate flexibility of Lava widgets, here is an example of horizontal accordion:</p>
 			<example>
-				<accordion>
-					<content>
+				<x:widget extends="Accordion">
+					<main_template>
 						<div style="width: 32%;float: left">
 							<collapsible-panel x:roles="$accordion.panel" class="panel-primary">
 								<title>Title 1</title>
@@ -241,8 +239,8 @@
 							</collapsible-panel>
 						</div>
 						<div class="clearfix"></div>
-					</content>
-				</accordion>
+					</main_template>
+				</x:widget>
 			</example>
 
 			<H1 id="tabs">Tabs</H1>

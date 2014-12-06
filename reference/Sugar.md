@@ -62,16 +62,14 @@ Example:
 	<x:resources locale="default">
 		<container path="panel.COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-info"></container>
 	</x:resources>
-	<panels>
-		<panel>
-			<title>Panel 1</title>
-			<content>Content 1</content>
-		</panel>
-		<panel>
-			<title>Panel 2</title>
-			<content>Content 2</content>
-		</panel>
-	</panels>
+	<panel>
+		<title>Panel 1</title>
+		<content>Content 1</content>
+	</panel>
+	<panel>
+		<title>Panel 2</title>
+		<content>Content 2</content>
+	</panel>
 </accordion>
 </lavabuild:template_result>
 
@@ -182,9 +180,8 @@ but this sugar <i>may</i> be used for more simple version of accordion.
 ###union
 
 Union is same as storage, but allows you to define additional tags, which will become widget's includes.
-See Accordion widget source for a real-life example.
-
-Here is definition of storage schema and sugar from accordion widget:
+For example, we can define sugar for Accordion widget, which will allow to replace it's main template 
+and to define panels at the same time:
 
 ```xml
 <script x:equiv="storage_schema" type="application/json">
@@ -213,9 +210,9 @@ Here is definition of storage schema and sugar from accordion widget:
 </script>
 ```
 
-Usage:
+Usage examples:
 
-<lavabuild:template_result>
+```xml
 <accordion>
 	<content> ... </content>
 </accordion>
@@ -232,7 +229,9 @@ Usage:
 		</panel>
 	</panels>
 </accordion>
-</lavabuild:template_result>
+```
+
+Note: standard Accordion widget has "storage_object" sugar type, not "union".
 
 ###storage_object
 

@@ -1,0 +1,6 @@
+
+Usage for internal doc tags:
+	- <str> - inside there must be one string with quotes (green span)
+	- <var> - name of an object property without quotes, name of a widget property (purple span)
+	- <kw> - highlight a JS keyword (blue span)
+	- "backtick" quotes - for anything else (red <code>)

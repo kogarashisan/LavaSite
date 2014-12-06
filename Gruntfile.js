@@ -316,6 +316,7 @@ module.exports = function(grunt) {
 					+ Firestorm.String.escape(inner, Firestorm.String.HTML_ESCAPE_REGEX)
 					+ '</span>';
 			});
+			// @todo not used
 			content = content.replace(/\<wp\>([\s\S]+?)\<\/wp\>/g, function(match, inner) {
 				return '<span class="api-widget-property">' + inner + '</span>';
 			});

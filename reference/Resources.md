@@ -129,12 +129,10 @@ When you use accordion - you can assign resources to the panel inside it without
 	<x:resources locale="en">
 		<container path="panel.COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-info"></container>
 	</x:resources>
-	<panels>
-		<panel>
-			<title>Test panel</title>
-			<content>Test content</content>
-		</panel>
-	</panels>
+	<panel>
+		<title>Test panel</title>
+		<content>Test content</content>
+	</panel>
 </accordion>
 </lavabuild:template_result>
 
@@ -144,12 +142,10 @@ Or you can assign them using `resource_id`:
 <x:widget controller="Standard">
 	<main_template>
 		<accordion x:resource_id="$widget.my_accordion">
-			<panels>
-				<panel>
-					<title>Test panel</title>
-					<content>Test content</content>
-				</panel>
-			</panels>
+			<panel>
+				<title>Test panel</title>
+				<content>Test content</content>
+			</panel>
 		</accordion>
 	</main_template>
 	<resources locale="en">

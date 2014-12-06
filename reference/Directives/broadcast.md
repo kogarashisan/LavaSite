@@ -12,16 +12,14 @@ Sets {@link _cWidget#broadcast}, which is handled in {@link Lava.widget.Standard
 	<x:broadcast 
 		panel_expanding="#page.accordion_panel_expanding"
 		panel_collapsing="#page.accordion_panel_collapsing"></x:broadcast>
-	<panels>
-		<panel>
-			<title>Panel 1</title>
-			<content>Content 1</content>
-		</panel>
-		<panel>
-			<title>Panel 2</title>
-			<content>Content 2</content>
-		</panel>
-	</panels>
+	<panel>
+		<title>Panel 1</title>
+		<content>Content 1</content>
+	</panel>
+	<panel>
+		<title>Panel 2</title>
+		<content>Content 2</content>
+	</panel>
 </accordion>
 </lavabuild:template_result>
 
