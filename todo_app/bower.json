@@ -4,6 +4,6 @@
   "dependencies": {
     "todomvc-common": "~0.1.4",
     "director": "~1.2.2",
-    "liquid-lava": "~0.5.2"
+    "liquid-lava": "~0.6.0"
   }
 }
