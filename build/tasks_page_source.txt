@@ -236,8 +236,7 @@ ClassManager.class.js
 	- [P5,Feature,Dev] wrapper for ClassManager to be used separately from the framework
 	- [P5,Performance] Should it reserve nulls in object prototypes for those members, which are created in constructor?
 		// Does it affect performance? Needs a test.
-	- [P5,Feature] _staticInit - applied after the class is loaded or constructed, receives ClassData.
-		// need to move container.Element IOS fixes into static constructor.
+	- [P2,Feature] Static constructors. Move patches from container.Element and text inputs into static constructors
 Serializer.js
 	- [P5,Feature,Q] currently, serializing a string preserves the "\r\n" sequence.
 		Convert it to "\n" by default and make a schema switch to return the old behaviour.

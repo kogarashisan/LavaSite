@@ -8,7 +8,7 @@
 
 		<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
 		<script src="bower_components/director/build/director.js"></script>
-		<script src="/lib/lava-master-DEBUG.js"></script>
+		<script src="bower_components/liquid-lava/dist/lava-master-DEBUG.js"></script>
 		<script src="js/Widget/Input/AutofocusText.class.js"></script>
 		<script src="js/Widget/TodoApp.class.js"></script>
 		<script>
@@ -21,7 +21,7 @@
 		<section class="todoapp">
 			<header class="header" x:type="view">
 				<h1>todos</h1>
-				<text_input id="new_todo" class="new-todo" placeholder="What needs to be done?" autofocus></text_input>
+				<text_input id="new_todo" x:controller="input.AutofocusText" class="new-todo" placeholder="What needs to be done?"></text_input>
 			</header>
 			{$if($todo_app.todo_list.length)}
 				<section class="main" x:type="view">
