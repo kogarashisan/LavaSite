@@ -40,10 +40,10 @@ Lava.define(
 		var self = this;
 
 		this._properties.todo_list = new Lava.system.Enumerable();
+		this._loadItemsFromStorage();
 		this._properties.filtered_list = new Lava.system.DataView(this._properties.todo_list);
 		this.Standard$init(config, widget, parent_view, template, properties);
 
-		this._loadItemsFromStorage();
 		Lava.focus_manager.on('focus_target_changed', this._onFocusTargetChanged, this);
 		Lava.Core.addGlobalHandler('keydown', this._onKeyDown, this);
 
