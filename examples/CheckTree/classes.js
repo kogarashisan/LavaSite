@@ -54,11 +54,10 @@ Lava.ClassManager.define(
 
 		for (; i < count; i++) {
 			child = children.getValueAt(i);
-			if (child.get('is_checked')) {
-				count_checked++;
-			}
-			if (child.get('is_checked')) {
+			if (child.get('is_indeterminate')) {
 				count_indeterminate++;
+			} else if (child.get('is_checked')) {
+				count_checked++;
 			}
 		}
 

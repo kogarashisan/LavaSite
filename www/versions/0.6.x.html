@@ -1,34 +1,61 @@
 
+<h2>0.6.1</h2>
+
+<div style="padding-left: 2em">
+	<h3>Feature</h3>
+	<ul>
+		<li>Added container.CheckboxElement and container.TextInputElement with fixes for checkbox and text inputs in IE.</li>
+		<li>Added public ViewManager#dispatchEvent().</li>
+	</ul>
+
+	<h3>Refactoring</h3>
+	<ul>
+		<li>Removed container.Element#setSignature().</li>
+		<li>Refactored ViewManager: now bubble is cancellable for all events and roles.</li>
+		<li>Refactored browser bugfixes in container.Element and text input widgets.</li>
+	</ul>
+
+	<h3>Fix</h3>
+	<ul>
+		<li>Fixed CheckBox widget in IE - now detects indeterminate state removal.</li>
+		<li>ClassManager#patch() - now will handle function removal in parent classes correctly.</li>
+		<li>lava-framework.com: fixed CheckTree example.</li>
+	</ul>
+
+	<p>Build contains other minor refactorings.</p>
+</div>
+
 <h2>0.6.0</h2>
+<div style="padding-left: 2em">
+	<h3>Feature:</h3>
+	<ul>
+		<li>Foreach view now has "depends" hash option for Lava.scope.Foreach -
+			to allow sorting and filtering inside the scope.</li>
+		<li>Added ClassManager#patch() - allows replacing class methods in any point of hierarchy (to apply browser fixes).</li>
+		<li>Added _cClassData#hierarchy_names - short names of classes.</li>
+	</ul>
 
-<h3>Feature:</h3>
-<ul>
-	<li>Foreach view now has "depends" hash option for Lava.scope.Foreach -
-		to allow sorting and filtering inside the scope.</li>
-	<li>Added ClassManager#patch() - allows replacing class methods in any point of hierarchy (to apply browser fixes).</li>
-	<li>Added _cClassData#hierarchy_names - short names of classes.</li>
-</ul>
+	<h3>Refactoring</h3>
+	<ul>
+		<li>Minor refactoring of Lava.init and Lava.bootstrap: PopoverManager and FocusManager will be created
+			only if there is class in schema. Now they both have enable(), disable() and isEnabled().</li>
+		<li>Renamed Accordion option: keep_expanded_on_add -> keep_new_panels_expanded.</li>
+		<li>Accordion sugar now does not require the &lt;panels&gt; tag inside it.</li>
+		<li>Removed "cancel_refresh_on_input" option from text inputs.</li>
+		<li>Changed template of TextInput widget.</li>
+		<li>Added PasswordInput widget (no differences from TextInput, but applies fixes for IE8-9).</li>
+		<li>ClassManager now does not allow duplicate short class names in inheritance chain.</li>
+		<li>Renamed Input/Abstract.class.js -> Input/InputAbstract.class.js</li>
+	</ul>
 
-<h3>Refactoring</h3>
-<ul>
-	<li>Minor refactoring of Lava.init and Lava.bootstrap: PopoverManager and FocusManager will be created
-		only if there is class in schema. Now they both have enable(), disable() and isEnabled().</li>
-	<li>Renamed Accordion option: keep_expanded_on_add -> keep_new_panels_expanded.</li>
-	<li>Accordion sugar now does not require the &lt;panels&gt; tag inside it.</li>
-	<li>Removed "cancel_refresh_on_input" option from text inputs.</li>
-	<li>Changed template of TextInput widget.</li>
-	<li>Added PasswordInput widget (no differences from TextInput, but applies fixes for IE8-9).</li>
-	<li>ClassManager now does not allow duplicate short class names in inheritance chain.</li>
-	<li>Renamed Input/Abstract.class.js -> Input/InputAbstract.class.js</li>
-</ul>
+	<h3>Fix</h3>
+	<ul>
+		<li>ExpressionParser now will ignore switch-like sequences ("{test:}", "{:test}").</li>
+		<li>Fixed crash when parsing "storage_object" sugar with directives.</li>
+		<li>Fixed toQueryString in Checkbox and Radio widgets.</li>
+		<li>Fixed text input widgets in IE9 - now they will refresh their value, when "backspace" or "del" keys are pressed
+			(IE-related bugs).</li>
+	</ul>
 
-<h3>Fix</h3>
-<ul>
-	<li>ExpressionParser now will ignore switch-like sequences ("{test:}", "{:test}").</li>
-	<li>Fixed crash when parsing "storage_object" sugar with directives.</li>
-	<li>Fixed toQueryString in Checkbox and Radio widgets.</li>
-	<li>Fixed text input widgets in IE9 - now they will refresh their value, when "backspace" or "del" keys are pressed
-		(IE-related bugs).</li>
-</ul>
-
-<p>Build also contains minor improvements and refactorings</p>
+	<p>Build also contains minor improvements and refactorings</p>
+</div>

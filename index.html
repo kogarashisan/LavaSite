@@ -205,7 +205,7 @@
   <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"todoapp"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">header</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"header"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>todos<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">text_input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"new_todo"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"new-todo"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What needs to be done?"</span> <span class="hljs-attribute">autofocus</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">text_input</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">text_input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"new_todo"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:controller</span>=<span class="hljs-value">"input.AutofocusText"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"new-todo"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What needs to be done?"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">text_input</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">header</span>&gt;</span>
     {$if($todo_app.todo_list.length)}
       <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"view"</span>&gt;</span>
@@ -538,10 +538,10 @@ Lava.define(
         <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
 
         <span class="hljs-keyword">this</span>._properties.todo_list = <span class="hljs-keyword">new</span> Lava.system.Enumerable();
+        <span class="hljs-keyword">this</span>._loadItemsFromStorage();
         <span class="hljs-keyword">this</span>._properties.filtered_list = <span class="hljs-keyword">new</span> Lava.system.DataView(<span class="hljs-keyword">this</span>._properties.todo_list);
         <span class="hljs-keyword">this</span>.Standard$init(config, widget, parent_view, template, properties);
 
-        <span class="hljs-keyword">this</span>._loadItemsFromStorage();
         Lava.focus_manager.on(<span class="hljs-string">'focus_target_changed'</span>, <span class="hljs-keyword">this</span>._onFocusTargetChanged, <span class="hljs-keyword">this</span>);
         Lava.Core.addGlobalHandler(<span class="hljs-string">'keydown'</span>, <span class="hljs-keyword">this</span>._onKeyDown, <span class="hljs-keyword">this</span>);
 
