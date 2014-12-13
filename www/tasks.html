@@ -113,13 +113,19 @@
 <h1>Development tasks</h1>
 
 <p>This is author's detailed TODO list for the framework (for general directions see the <a href="roadmap.html">Roadmap</a>).
-	To understand something here - you need to know the source really well, but this page makes my work really public. Please, note:</p>
+	This page makes my work really public, but to understand something here - you need to know the source really well. Please, note:</p>
 <ul>
 	<li>This page does not include every possible author's thought on the framework, just tasks with settled requirements.</li>
 	<li>This is temporary page - in future it needs to be replaced by some task-tracking service or GitHub tracker.</li>
 	<li>the tasks are listed by categories, not priority.
 		Some of them are proposals, and either may never be implemented, or may be implemented in a very different way.</li>
 </ul>
+
+<p style="font-weight: bold;">
+	There are many tasks here, it can make impression that framework is somehow incomplete.
+	In fact it's not true: compare this list to GitHub issues page of other frameworks, with hundreds of open tickets,
+	and feel the difference!
+</p>
 
 <p>Tags description:</p>
 <ul>
@@ -130,6 +136,7 @@
 	<li><span class="tag-Performance">Performance</span></li>
 	<li><span class="tag-Refactoring">Refactoring</span></li>
 	<li><span class="tag-Q">Q</span> - questionable proposal, something that may be discarded.</li>
+	<li><span class="tag-Test">Test</span> - self-explanatory.</li>
 </ul>
 
 <!--LAVA_BUILD_TASKS_START--><h2>The src/ directory</h2>
@@ -138,6 +145,7 @@
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> isLiteral - move to one place</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> "use strict"</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> new selector for event and role targets: NameAndLabel<span class="task-comment">affects ExpressionParser, view.Abstract, ViewManager</span></li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> New selector for event and role targets: "Instance" - for adding targets at run time<span class="task-comment">also use it in DropDown</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Performance">Performance</span> inside sleep() of the views it's not needed to turn off the argument listeners, only arguments themselves.</li>
 <li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Q">Q</span> turn off view bindings in sleep() (*)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> hard_refresh event for views hierarchy<span class="task-comment">to force refresh of views, which are bound to plain JS objects (like Angular refresh cycle)</span></li>
@@ -163,15 +171,20 @@
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> _cRawBlock.class_locator.name - rename to locator and change type to _cViewLocator.<br/>Same for _cWidgetConfig.class_locator.</li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> ScopeManager::scheduleScopeRefresh: do not return an object, use property of the Refreshable.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Dev">Dev</span> recursive x:binding and x:assign protection.<span class="task-comment">Currently, you can create an assign of any property to itself</span></li>
-<li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span> fixes for old IE: check if get/set value on &lt;select&gt; elements works as expected. Write tests.<span class="task-comment">see<br/> https://mootools.lighthouseapp.com/projects/2706/tickets/1116 <br/>
- https://github.com/mootools/mootools-core/issues/2041 <br/>
- and Source\Element\Element.js in MooTools</span></li>
-<li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span> fixes for old IE: check if event delegation for "change" event and others works in IE 8 and less.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender<span class="task-comment">if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> each destroy() must call parent's destroy() in the end (not earlier)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> (experimental) create a lighter fork of the framework: without Refreshable mixin.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span> Optimize config extension: widget configs without parent must be created with `is_extended = true`<span class="task-comment">1) widgets with static class name must have full class name in the "class" attribute.<br/> 2) with dynamic class name - must have locator gateway in 'class'.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> FocusManager: specification recommends to use focus() instead of blur()<span class="task-comment">https://html.spec.whatwg.org/#focus-management-apis</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span> one-time expression evaluations, like x:static_eval or one-time assign,<br/>must be evaluated without creating bindings, using evalPathConfig()</li>
+<li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> Additional way to create refreshers in Foreach and If views: #createRefresher(refresher_config) method.<span class="task-comment">refresher can be created at the moment of registering roles.<br/> If view has refresher config - then view will create refresher instance like before,
+ but this way refresher configs can be assigned dynamically.
+ Also: disable animation by default in Tree, and make an option to enable it.
+ Remove &lt;edit_template&gt;s which change the refresher class.</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span> labels for inputs (with "for" attribute) need to be rendered as text<span class="task-comment">Now they must to be views, otherwise "for" attribute can not be set. If there is no other functionality<br/> except "for" attribute, then label should be rendered as static text.</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> wrap the code that adds Refreshable listeners into a method in Refreshable<span class="task-comment">three lines of code, that add "waits_refresh" "refreshed" and "changed" listeners in classes in Scope layer</span></li>
+<li><span class="tag-P1">P1</span><span class="tag-Refactoring">Refactoring</span> remove usages of &lt;edit_template&gt; in Lava site, mark this tag as "alpha/experimental".<br/>Rewrite TemplateWalker without "throw" (first create an array of actions and then call them, compile visitor function)<span class="task-comment">edits of Refresher configs will be gone with task for dynamic refresher configs.<br/> Need to remove the case which adds a class binding</span></li>
+<li><span class="tag-P1">P1</span><span class="tag-Refactoring">Refactoring</span> rename certain UPPER_CASE properties in Firestorm and schemas.<br/>Refactor Firestorm.Environment - store test results in an array (indices will be stored as separate {NAME => index} object)<span class="task-comment">if property value is determined at run time (not on server) - it must be lower case</span></li>
 </ul>
 <h3>Lava.js</h3>
 <ul>
@@ -235,6 +248,7 @@
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Array.select(), selectFirst() - like filter, but returns another array</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Q">Q</span> Firestorm.Environment - rename to Browser</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> finish Firestorm</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> When getting rid of MooTools: provide a file with shims for methods that do not exist in older<br/>JavaScript environments. For example: Array.forEach (the to_do_app depends on it)</li>
 </ul>
 <h3>Parsers/</h3>
 <ul>
@@ -258,6 +272,10 @@
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Lots of checks of data validity inside directives should be moved to processDirective().<br/>Get rid of is_top_directive switch (it equals to view_config_presence switch).<span class="task-comment">Also, try to gather data validity checks for resources in the resource tag handler</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span><span class="tag-Q">Q</span> Empty space between top directives should be removed<span class="task-comment">currently compile process does not remove it. See parse result on the reference page for x:option directive</span></li>
 <li><span class="tag-P4">P4</span><span class="tag-Dev">Dev</span> For plural string definitions in resources: add check that number of strings matches number of plural forms in the locale</li>
+<li><span class="tag-P1">P1</span><span class="tag-Refactoring">Refactoring</span> x:default_events directive should become an attribute on root x:widget tag</li>
+<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Q">Q</span> allow "roles" attribute on widget definition directive (x:widget) - can be used instead of &lt;roles&gt; tag</li>
+<li><span class="tag-P1">P1</span><span class="tag-Refactoring">Refactoring</span> universal x:config directive and &lt;config&gt; tag in widget definition,<br/>which integrates functionality of other directives</li>
+<li><span class="tag-P1">P1</span><span class="tag-Refactoring">Refactoring</span> remove the x:broadcast directive - it's redundant</li>
 </ul>
 <h3>Parsers/ObjectParser.js</h3>
 <ul>
@@ -266,6 +284,7 @@
 </ul>
 <h3>Parsers/TemplateParser.js</h3>
 <ul>
+<li><span class="tag-P1">P1</span><span class="tag-Fix">Fix</span> x:equiv must remove the "x.equiv" property from result config, and if "x" is empty - it must not be copied into result<span class="task-comment">for example, now &lt;script x:equiv="iframe"&gt; is treated like it has control attributes.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> allow to set class for widget extenders</li>
 <li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> implement removal of empty space from templates</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> remove unused lexer switches: preserve_whitespace ("pre:") and pure_blocks</li>
@@ -280,6 +299,7 @@
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> static arguments must have their value in configs</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> remove the dn() operator. It's existence is not possible with current architecture.<br/>Finish the up() operator, or remove it also.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> remove the `//depends:{}` operator (deprecated)</li>
+<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span> flags in result are rarely used, they should not be present by default (they take space in serialized templates).<br/>Either make separate method parseWithFlags() or make another parameter to existing method parse_with_flags.</li>
 </ul>
 <h3>System/App.class.js</h3>
 <ul>
@@ -316,16 +336,19 @@
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Q">Q</span> speed up event dispatching and argument evaluation. Cache target and scope.<br/>+ Late evaluation for event arguments, as event does not always has valid targets.</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> leftclick and rightclick events.<span class="task-comment">algorithm: separate method for handling the click event, which checks "leftclick" and "rightclick" attributes,<br/> and presence of right mouse button. Apply leftclick event on the doc.html page (for click to show method's extended description).</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> give it ability to cancel event bubbling by elements<span class="task-comment">now only bubbling by widget hierarchy can be cancelled, not by elements</span></li>
 </ul>
 <h3>View/</h3>
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> View/Include.class.js - view, which takes it's template config from a variable (dynamic include)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> View/Switch.class.js - analog of the IF view, but with one argument.<span class="task-comment">will also affect TemplateParser and configs</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> replace tagName in container.Morph with nodeName<span class="task-comment">must do it with tests, otherwise too dangerous</span></li>
 </ul>
 <h3>View/Foreach.class.js</h3>
 <ul>
 <li><span class="tag-P3">P3</span><span class="tag-Dev">Dev</span> "count" property must be read-only</li>
 <li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> allow to reuse templates in Foreach<span class="task-comment">template may contain parameterized includes - such templates cannot be reused</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> switch to cache and reuse templates by item UID. May be useful, when Foreach renders<br/>a small constant set of items, which can be filtered in view layer<span class="task-comment">like navigation tree on documentation page.</span></li>
 </ul>
 <h3>View/Container/Element.class.js</h3>
 <ul>
@@ -334,6 +357,11 @@
 <h3>View/Refresher/Standard.class.js</h3>
 <ul>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Move all animation code to refresher.Animated</li>
+</ul>
+<h3>Widget/Standard.class.js</h3>
+<ul>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> "cancel_bubble" event and role handler to allow declaratively cancel bubbling of roles and events from templates<span class="task-comment">three lines of code, but is it really needed?</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> move translateBoolean modifier from global space to widget instance method<span class="task-comment">widgets can be extended to allow dynamic locale switching. Booleans should be translatable with widget locale.</span></li>
 </ul>
 <h3>ClassManager.class.js</h3>
 <ul>
@@ -468,6 +496,8 @@
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Create favicon</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Better design than plain Bootstrap theme</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> create an example "Miner" game (in the Examples page)</li>
+<li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> on widgets page: links to API for all widgets</li>
+<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> when framework version reaches 1.0 - create "lava-1.0.js" in site `lib/` directory and replace<br/>the reference to the library in all JSFiddle examples. Documentation should also be versioned at this point.</li>
 </ul>
 <h2>Documentation</h2>
 <ul>
@@ -503,7 +533,14 @@
 </ul>
 <h2>Testing</h2>
 <ul>
-<li><span class="tag-P1">P1</span> Check how framework handles focus management on Safari (it does not support focus on links)</li>
+<li><span class="tag-P1">P1</span><span class="tag-Test">Test</span> Check how framework handles focus management on Safari IOS (it does not support focus on links)</li>
+<li><span class="tag-P5">P5</span><span class="tag-Test">Test</span> Check if "click" events are delegated on IOS</li>
+<li><span class="tag-P5">P5</span><span class="tag-Test">Test</span> (old IE) IE8: check if get/set value on &lt;select&gt; elements works as expected. Write tests.<span class="task-comment">see<br/> https://mootools.lighthouseapp.com/projects/2706/tickets/1116 <br/>
+ https://github.com/mootools/mootools-core/issues/2041 <br/>
+ and Source\Element\Element.js in MooTools</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Test">Test</span> fixes for old IE: check if event delegation for "change" event and others works in IE 8 and less.</li>
+<li><span class="tag-P2">P2</span><span class="tag-Test">Test</span> does textarea work correctly in IE8-9 (does it send "changed" on backspace, delete and cursor operations)?</li>
+<li><span class="tag-P5">P5</span><span class="tag-Test">Test</span> (old IE) seems, like in IE8 keyup/down/press events should be hanged on document instead of window?<span class="task-comment">http://www.quirksmode.org/dom/events/keys.html</span></li>
 </ul>
 <!--LAVA_BUILD_TASKS_END-->
 

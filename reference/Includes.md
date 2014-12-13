@@ -10,11 +10,11 @@ Example include definition and usage:
 
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
-	<main_template>
+	<template>
 		{> $widget.header}
 		This is content
 		{> $widget.footer}
-	</main_template>
+	</template>
 	<include name="header">
 		This is header
 	</include>

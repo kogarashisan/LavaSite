@@ -65,12 +65,12 @@ The following example expects, that MyApp class has {@link Lava.widget.Standard#
 
 <lavabuild:template_result as="single_view">
 <x:widget controller="MyApp">
-	<main_template>
+	<template>
 		<x:widget controller="$my_app/MyWidget">
 		</x:widget>
 		{#:$my_app/MyView()}
 		{/MyView}
-	</main_template>
+	</template>
 </x:widget>
 </lavabuild:template_result>
 

@@ -4,7 +4,9 @@ System-wide or uncategorized
 	- [P5,Refactoring] "use strict"
 	- [P3,Feature,Q] new selector for event and role targets: NameAndLabel
 		// affects ExpressionParser, view.Abstract, ViewManager
-	- [P3,Refactoring, Performance] inside sleep() of the views it's not needed to turn off the argument listeners, only arguments themselves.
+	- [P3,Feature] New selector for event and role targets: "Instance" - for adding targets at run time
+		// also use it in DropDown
+	- [P3,Refactoring,Performance] inside sleep() of the views it's not needed to turn off the argument listeners, only arguments themselves.
 	- [P5,Performance,Q] turn off view bindings in sleep() (*)
 	- [P5,Feature,Q] hard_refresh event for views hierarchy
 		// to force refresh of views, which are bound to plain JS objects (like Angular refresh cycle)
@@ -39,12 +41,6 @@ System-wide or uncategorized
 	- [P3,Refactoring] ScopeManager::scheduleScopeRefresh: do not return an object, use property of the Refreshable.
 	- [P2,Dev] recursive x:binding and x:assign protection.
 		// Currently, you can create an assign of any property to itself
-	- [P3,Fix] fixes for old IE: check if get/set value on &lt;select&gt; elements works as expected. Write tests.
-		// see
-		// https://mootools.lighthouseapp.com/projects/2706/tickets/1116 <br/>
-		// https://github.com/mootools/mootools-core/issues/2041 <br/>
-		// and Source\Element\Element.js in MooTools
-	- [P3,Fix] fixes for old IE: check if event delegation for "change" event and others works in IE 8 and less.
 	- [P2,Refactoring] remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender
 		// if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.
 	- [P5,Refactoring] each destroy() must call parent's destroy() in the end (not earlier)
@@ -54,6 +50,26 @@ System-wide or uncategorized
 		// 2) with dynamic class name - must have locator gateway in 'class'.
 	- [P5,Refactoring] FocusManager: specification recommends to use focus() instead of blur()
 		// https://html.spec.whatwg.org/#focus-management-apis
+	- [P5,Performance] one-time expression evaluations, like x:static_eval or one-time assign,
+		must be evaluated without creating bindings, using evalPathConfig()
+	- [P1,Feature] Additional way to create refreshers in Foreach and If views: #createRefresher(refresher_config) method.
+		// refresher can be created at the moment of registering roles.
+		// If view has refresher config - then view will create refresher instance like before,
+		// but this way refresher configs can be assigned dynamically.
+		// Also: disable animation by default in Tree, and make an option to enable it.
+		// Remove &lt;edit_template&gt;s which change the refresher class.
+	- [P5,Performance] labels for inputs (with "for" attribute) need to be rendered as text
+		// Now they must to be views, otherwise "for" attribute can not be set. If there is no other functionality
+		// except "for" attribute, then label should be rendered as static text.
+	- [P2,Refactoring] wrap the code that adds Refreshable listeners into a method in Refreshable
+		// three lines of code, that add "waits_refresh" "refreshed" and "changed" listeners in classes in Scope layer
+	- [P1,Refactoring] remove usages of &lt;edit_template&gt; in Lava site, mark this tag as "alpha/experimental".
+		Rewrite TemplateWalker without "throw" (first create an array of actions and then call them, compile visitor function)
+		// edits of Refresher configs will be gone with task for dynamic refresher configs.
+		// Need to remove the case which adds a class binding
+	- [P1,Refactoring] rename certain UPPER_CASE properties in Firestorm and schemas.
+		Refactor Firestorm.Environment - store test results in an array (indices will be stored as separate {NAME => index} object)
+		// if property value is determined at run time (not on server) - it must be lower case
 
 Lava.js
 	- [P2,Refactoring] simplify getWidgetSugarInstance(), get rid of _widget_title_to_sugar_instance
@@ -107,6 +123,8 @@ Firestorm/
 	- [P2,Feature] Array.select(), selectFirst() - like filter, but returns another array
 	- [P2,Refactoring,Q] Firestorm.Environment - rename to Browser
 	- [P5,Feature] finish Firestorm
+	- [P5,Feature] When getting rid of MooTools: provide a file with shims for methods that do not exist in older
+		JavaScript environments. For example: Array.forEach (the to_do_app depends on it)
 Parsers/
 	- [P2,Dev] make the text for exception "Text is not allowed in this context" inside asBlocks() more meaningful
 		// text should depend on context
@@ -137,10 +155,17 @@ Parsers/Directives.js
 	- [P3,Fix,Q] Empty space between top directives should be removed
 		// currently compile process does not remove it. See parse result on the reference page for x:option directive
 	- [P4,Dev] For plural string definitions in resources: add check that number of strings matches number of plural forms in the locale
+	- [P1,Refactoring] x:default_events directive should become an attribute on root x:widget tag
+	- [P2,Refactoring,Q] allow "roles" attribute on widget definition directive (x:widget) - can be used instead of &lt;roles&gt; tag
+	- [P1,Refactoring] universal x:config directive and &lt;config&gt; tag in widget definition,
+		which integrates functionality of other directives
+	- [P1,Refactoring] remove the x:broadcast directive - it's redundant
 Parsers/ObjectParser.js
 	- [P5,Feature,Q] allow Date and RegExp type in objects. Date will be created with "new" operator.
 	- [P5,Feature] allow JavaScript comments
 Parsers/TemplateParser.js
+	- [P1,Fix] x:equiv must remove the "x.equiv" property from result config, and if "x" is empty - it must not be copied into result
+		// for example, now &lt;script x:equiv="iframe"&gt; is treated like it has control attributes.
 	- [P5,Feature,Q] allow to set class for widget extenders
 	- [P4,Feature] implement removal of empty space from templates
 	- [P5,Refactoring] remove unused lexer switches: preserve_whitespace ("pre:") and pure_blocks
@@ -158,6 +183,8 @@ Parsers/ExpressionParser.js
 	- [P5,Refactoring] remove the dn() operator. It's existence is not possible with current architecture.
 		Finish the up() operator, or remove it also.
 	- [P2,Refactoring] remove the `//depends:{}` operator (deprecated)
+	- [P5,Performance] flags in result are rarely used, they should not be present by default (they take space in serialized templates).
+		Either make separate method parseWithFlags() or make another parameter to existing method parse_with_flags.
 System/App.class.js
 	- [P3,Feature] app.createModule(config) - create a module with given schema
 System/Enumerable.class.js
@@ -200,20 +227,32 @@ System/ViewManager.class.js
 	- [P5,Feature] leftclick and rightclick events.
 		// algorithm: separate method for handling the click event, which checks "leftclick" and "rightclick" attributes,
 		// and presence of right mouse button. Apply leftclick event on the doc.html page (for click to show method's extended description).
+	- [P5,Feature,Q] give it ability to cancel event bubbling by elements
+		// now only bubbling by widget hierarchy can be cancelled, not by elements
 View/
 	- [P5,Feature] View/Include.class.js - view, which takes it's template config from a variable (dynamic include)
 	- [P5,Feature,Performance] View/Switch.class.js - analog of the IF view, but with one argument.
 		// will also affect TemplateParser and configs
+	- [P5,Refactoring] replace tagName in container.Morph with nodeName
+		// must do it with tests, otherwise too dangerous
 View/Foreach.class.js
 	- [P3,Dev] "count" property must be read-only
 	- [P5,Performance,Feature,Q] allow to reuse templates in Foreach
 		// template may contain parameterized includes - such templates cannot be reused
+	- [P5,Performance,Feature,Q] switch to cache and reuse templates by item UID. May be useful, when Foreach renders
+		a small constant set of items, which can be filtered in view layer
+		// like navigation tree on documentation page.
 View/Container/Element.class.js
 	- [P1,Fix,Dev] if you render it's content and change any attribute before it's in DOM,
 		then you will get wrong content in DOM. Make protection from such lifecycle.
 		// make "is_rendered"/"waits_insertion" switch and throw an error, if setting a property while it's on
 View/Refresher/Standard.class.js
 	- [P2,Refactoring] Move all animation code to refresher.Animated
+Widget/Standard.class.js
+	- [P5,Feature,Q] "cancel_bubble" event and role handler to allow declaratively cancel bubbling of roles and events from templates
+		// three lines of code, but is it really needed?
+	- [P2,Refactoring] move translateBoolean modifier from global space to widget instance method
+		// widgets can be extended to allow dynamic locale switching. Booleans should be translatable with widget locale.
 ClassManager.class.js
 	- [P1,Feature] Add ability to store arrays in Shared (it may be named differently, like "Prototype")
 		Move default input roles from InputAbstract to prototype
@@ -342,9 +381,12 @@ Inputs
 	- [P5,Feature] create "codestyle" document
 	- [P2,Feature] Replace images in the tree, gif -&gt; png
 		// other images should also be png
-	- [P5, Feature] Create favicon
-	- [P5, Feature] Better design than plain Bootstrap theme
+	- [P5,Feature] Create favicon
+	- [P5,Feature] Better design than plain Bootstrap theme
 	- [P2,Feature] create an example "Miner" game (in the Examples page)
+	- [P1,Feature] on widgets page: links to API for all widgets
+	- [P5,Refactoring] when framework version reaches 1.0 - create "lava-1.0.js" in site `lib/` directory and replace
+		the reference to the library in all JSFiddle examples. Documentation should also be versioned at this point.
 
 #Documentation
 	- [P4,Feature] Display @throws for methods
@@ -388,4 +430,14 @@ Inputs
 		// one "var" per function, no camelCase, etc...
 
 #Testing
-	- [P1] Check how framework handles focus management on Safari (it does not support focus on links)
+	- [P1,Test] Check how framework handles focus management on Safari IOS (it does not support focus on links)
+	- [P5,Test] Check if "click" events are delegated on IOS
+	- [P5,Test] (old IE) IE8: check if get/set value on &lt;select&gt; elements works as expected. Write tests.
+		// see
+		// https://mootools.lighthouseapp.com/projects/2706/tickets/1116 <br/>
+		// https://github.com/mootools/mootools-core/issues/2041 <br/>
+		// and Source\Element\Element.js in MooTools
+	- [P5,Test] fixes for old IE: check if event delegation for "change" event and others works in IE 8 and less.
+	- [P2,Test] does textarea work correctly in IE8-9 (does it send "changed" on backspace, delete and cursor operations)?
+	- [P5,Test] (old IE) seems, like in IE8 keyup/down/press events should be hanged on document instead of window?
+		// http://www.quirksmode.org/dom/events/keys.html

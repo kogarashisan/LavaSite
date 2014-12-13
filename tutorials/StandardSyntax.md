@@ -18,24 +18,24 @@ widget configuration into the template:
 <lavabuild:template_result>
 Some text
 <x:widget controller="Standard">
-	<main_template>Hello World</main_template>
+	<template>Hello World</template>
 </x:widget>
 Another text
 </lavabuild:template_result>
 
-This will be rendered as "Some text Hello World Another text". As you see, content of the &lt;main_template&gt; tag became
+This will be rendered as "Some text Hello World Another text". As you see, content of the &lt;template&gt; tag became
 widget's template, and widget's class will be "Lava.widget.Standard" ("Lava.widget" is default prefix for widget classes).
 
 Here is an inline progress bar widget:
 
 <lavabuild:template_result>
 <x:widget controller="Standard">
-	<main_template>
+	<template>
 		<div x:type="view" style="width: 400px; height: 30px; border: 1px solid black; position: relative">
 			<div x:type="view" x:style:width="value * 4 + 'px'" style="height:30px; background: orange; position:absolute"></div>
 			<div x:type="container" style="width: 100%;text-align: center;position: absolute;color: black;font-weight: bold;">{#> $widget.value + '%'}</div>
 		</div>
-	</main_template>
+	</template>
 	<properties>
 		{value: 0}
 	</properties>
@@ -52,12 +52,12 @@ x:define puts it into {@link Lava#widgets}. You also need to add `title` to widg
 
 ```xml
 <x:define controller="Standard" title="MyProgressBar">
-	<main_template>
+	<template>
 		<div x:type="view" style="width: 400px; height: 30px; border: 1px solid black; position: relative">
 			<div x:type="view" x:style:width="value * 4 + 'px'" style="height:30px; background: orange; position:absolute"></div>
 			<div x:type="container" style="width: 100%;text-align: center;position: absolute;color: black;font-weight: bold;">{#> $widget.value + '%'}</div>
 		</div>
-	</main_template>
+	</template>
 	<properties>
 		{value: 0}
 	</properties>
@@ -82,7 +82,7 @@ The same syntax allows you to make any modifications to original config, or even
 </x:widget>
 </lavabuild:template_result>
 
-You could assign new controller, define new &lt;main_template&gt; and use many other config options, which we will learn later.
+You could assign new controller, define new &lt;template&gt; and use many other config options, which we will learn later.
 Also notice the `id` attribute.
 
 ##Define container
@@ -91,22 +91,22 @@ Like any view, widgets can have container. Container and main template are defin
 
 ```xml
 <x:define controller="Standard" title="MyProgressBar">
-	<main_view>
+	<view>
 		<div x:type="view" style="width: 400px; height: 30px; border: 1px solid black; position: relative">
 			<div x:type="view" x:style:width="value * 4 + 'px'" style="height:30px; background: orange; position:absolute"></div>
 			<div x:type="container" style="width: 100%;text-align: center;position: absolute;color: black;font-weight: bold;">{#> $widget.value + '%'}</div>
 		</div>
-	</main_view>
+	</view>
 	<properties>
 		{value: 0}
 	</properties>
 </x:define>
 ```
 
-&lt;main_view&gt; tag replaces the &lt;main_template&gt; tag, which expects a single View config inside it.
+&lt;view&gt; tag replaces the &lt;template&gt; tag, which expects a single View config inside it.
 Container and template are copied from view into widget config.
 
-Either one of &lt;main_view&gt; or &lt;main_template&gt; tags are allowed, 
+Either one of &lt;view&gt; or &lt;template&gt; tags are allowed, 
 and if one of them exists - it must be the first (topmost) tag in widget definition.
 
 Final example:
@@ -119,12 +119,12 @@ Final example:
 
 ```xml
 <x:define controller="Standard" title="MyPanel">
-	<main_template>
+	<template>
 		<div class="my-panel">
 			{> $widget.header}
 			{> $widget.content}
 		</div>
-	</main_template>
+	</template>
 	<include name="header">
 		<div class="panel-header">{#> $widget.title}</div>
 	</include>
@@ -144,12 +144,12 @@ You can replace them by hands (copy-and-paste), and you will get the same result
 ```xml
 <!-- Result is equivalent to previous example -->
 <x:define controller="Standard" title="MyPanel2">
-	<main_template>
+	<template>
 		<div class="my-panel">
 			<div class="panel-header">{#> $widget.title}</div>
 			<div class="panel-content">{#> $widget.content}</div>
 		</div>
-	</main_template>
+	</template>
 </x:define>
 ```
 

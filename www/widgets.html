@@ -219,7 +219,7 @@
 			<p>To demonstrate flexibility of Lava widgets, here is an example of horizontal accordion:</p>
 			<example>
 				<x:widget extends="Accordion">
-					<main_template>
+					<template>
 						<div style="width: 32%;float: left">
 							<collapsible-panel x:roles="$accordion.panel" class="panel-primary">
 								<title>Title 1</title>
@@ -239,7 +239,7 @@
 							</collapsible-panel>
 						</div>
 						<div class="clearfix"></div>
-					</main_template>
+					</template>
 				</x:widget>
 			</example>
 
@@ -308,7 +308,7 @@
 			<p>Simple sortable table. Click on column headers to apply sorting.</p>
 			<example>
 				<x:widget extends="Table">
-					<script x:equiv="options" type="application/json">
+					<script x:equiv="options" type="lava/options">
 						{
 							columns: [
 								{name: 'title', title: 'Title', type: 'String'},

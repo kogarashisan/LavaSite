@@ -1,12 +1,12 @@
 <example>
 	<x:widget controller="TreeView1">
-		<main_view>
+		<view>
 			<div x:type="view" style="border: 1px solid black">
 				{$foreach($tree_view.tree) as=node}
 					{>$tree_view.node}
 				{/foreach}
 			</div>
-		</main_view>
+		</view>
 		<include name="node">
 			<div x:type="container" style="border: 1px solid black"
 				x:event:click="$tree_view.node_click(node)"

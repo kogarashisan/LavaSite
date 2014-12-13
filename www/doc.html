@@ -111,7 +111,7 @@
 <!--LAVA_BUILD_INCLUDE_END-->
 
 <x:define title="ClassContent" controller="Standard">
-	<main_view>
+	<view>
 		<div x:type="view">
 
 			{#if($widget.descriptor.extends)}
@@ -323,7 +323,7 @@
 			{/if}
 
 		</div>
-	</main_view>
+	</view>
 	<include name="method_group">
 		{#if(method_group.class_name)}
 			<div class="api-method-group-class-name">
@@ -436,7 +436,7 @@
 		</table>
 		</script>
 	</include>
-	<script type="application/json" x:equiv="properties">
+	<script type="lava/options" x:equiv="properties">
 		{
 			extended_scroll_names: false,
 			object: null,
@@ -475,7 +475,7 @@
 </x:define>
 
 <x:define title="ApiTabs" extends="Tabs">
-	<main_template>
+	<template>
 		<ul x:type="container" class="api-tabs-header">
 			{#foreach($tabs._tabs) as=tab}
 				<li x:type="view" class="api-tabs-header-item">
@@ -496,7 +496,7 @@
 				</div>
 			{/foreach}
 		</div>
-	</main_template>
+	</template>
 	<storage>
 		<tabs>
 			<tab name="tutorials">

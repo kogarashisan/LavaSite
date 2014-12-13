@@ -606,7 +606,10 @@ module.exports = function(grunt) {
 			'reference/Packages.md',
 			'reference/Animation.md',
 			'reference/APIRemarksList.md',
-			'reference/FAQ.md'
+			'reference/FAQ.md',
+
+			'reference/AppendixCompat.md',
+			'reference/AppendixCodestyle.md'
 		],
 
 		tutorials_list: [

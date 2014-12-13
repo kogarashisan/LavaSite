@@ -1,0 +1,6 @@
+
+You can not bind style and class properties directly, as a value, for example:
+<div x:bind:style="item.is_active ? 'color: red; font-weight: bold' : 'opacity: 0.5'">
+For classes this has no sense, since such binding is a subcase of normal class binding.
+For styles: seems like it would be convenient to return several styles with one expression (like shown above),
+but the same effect can be achieved by applying different CSS classes, and it's a good practice.

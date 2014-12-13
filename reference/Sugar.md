@@ -111,11 +111,11 @@ Widget's sugar tag is defined with `tag_name: 'wrapper'`. You can also define at
 <lavabuild:codeblocks>
 	<codeblock lang="xml" title="Example widget definition">
 <x:define title="Wrapper" controller="Standard">
-	<main_template>
+	<template>
 		<div>
 			{>$wrapper.content}
 		</div>
-	</main_template>
+	</template>
 	<script x:equiv="sugar" type="application/json">
 		{
 			tag_name: 'wrapper',

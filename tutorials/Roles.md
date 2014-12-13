@@ -38,9 +38,9 @@ Lava.define(
 	</codeblock>
 	<codeblock title="Template" lang="xml">
 <x:widget controller="MyWidget">
-	<main_template>
+	<template>
 		<collapsible-panel x:roles="$my_widget.my_panel" class="panel-info"></collapsible-panel>
-	</main_template>
+	</template>
 </x:widget>
     </codeblock>
 </lavabuild:codeblocks>

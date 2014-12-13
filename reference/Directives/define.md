@@ -16,9 +16,9 @@ x:define directive should be at the top of template, and must not be nested.
 
 ```xml
 <x:define title="HelloWidget" controller="Standard">
-	<main_template>
+	<template>
 		Hello world!
-	</main_template>
+	</template>
 </x:define>
 ```
 

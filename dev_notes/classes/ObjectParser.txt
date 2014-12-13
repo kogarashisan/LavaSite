@@ -1,0 +1,12 @@
+
+Technically, it's possible to implement white list of methods, that can be called, like:
+<options>
+	{
+		something: Lava.TemplateParser.parse('...')
+	}
+</options>
+But there is no need for it - standard directives provide everything you need.
+
+The above example is malicious: templates must not be stored in options
+(there is a special place for them - "includes"). If you store templates in options
+- then configs will not be traversable with TemplateWalker.

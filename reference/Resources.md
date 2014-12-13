@@ -10,9 +10,9 @@ Here is an example of localized widget:
 
 ```xml
 <x:define title="HelloWidget" controller="Standard">
-	<main_template>
+	<template>
 		<x:static_value resource_id="$widget.HELLO_STRING"></x:static_value>
-	</main_template>
+	</template>
 </x:define>
 
 <x:define_resources for="HelloWidget" locale="en">
@@ -80,9 +80,9 @@ and assigns `hello_widget` resource to HelloWidget:
 
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
-	<main_template>
+	<template>
 		<x:widget extends="HelloWidget" resource_id="$widget.hello_widget"></x:widget>
-	</main_template>
+	</template>
 	<resources locale="en">
 		<string path="hello_widget.HELLO_STRING">Hi all!</string>
 	</resources>
@@ -140,14 +140,14 @@ Or you can assign them using `resource_id`:
 
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
-	<main_template>
+	<template>
 		<accordion x:resource_id="$widget.my_accordion">
 			<panel>
 				<title>Test panel</title>
 				<content>Test content</content>
 			</panel>
 		</accordion>
-	</main_template>
+	</template>
 	<resources locale="en">
 		<container path="my_accordion.panel.COLLAPSIBLE_PANEL_CONTAINER" add_classes="panel-info"></container>
 	</resources>
@@ -170,11 +170,11 @@ This allows the container to use resources:
 
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
-	<main_template>
+	<template>
 		<div x:type="static" x:resource_id="$widget.MAIN_CONTAINER">
 			Test
 		</div>
-	</main_template>
+	</template>
 	<resources locale="en">
 		<container path="MAIN_CONTAINER" add_classes="test-class"></container>
 	</resources>
@@ -208,9 +208,9 @@ Common usage for it: provide some common locale-independent styles for container
 
 ```xml
 <x:define title="HelloWidget" controller="Standard">
-	<main_template>
+	<template>
 		<x:static_value resource_id="$widget.HELLO_STRING"></x:static_value>
-	</main_template>
+	</template>
 	<resources locale="default">
 		<string path="HELLO_STRING">I'm a teapot!</string>
 	</resources>
@@ -239,13 +239,13 @@ cause inline data overrides data from parent widgets.
 
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
-	<main_template>
+	<template>
 		<x:widget extends="HelloWidget" resource_id="$widget.hello_widget">
 			<resources locale="en">
 				<string path="HELLO_STRING">Hi all!</string>
 			</resources>
 		</x:widget>
-	</main_template>
+	</template>
 	<resources locale="default">
 		<string path="hello_widget.HELLO_STRING">I'm a sunflower!</string>
 	</resources>
@@ -316,9 +316,9 @@ But this can be done only when widget knows all applied operations.
 
 ```xml
 <x:define title="HelloWidget" controller="Standard">
-	<main_template>
+	<template>
 		...
-	</main_template>
+	</template>
 	<resources locale="defaulr">
 		<container path="MAIN_HELLO_CONTAINER" add_classes="test"></container>
 		<container path="panel.MAIN_CONTAINER" add_classes="test"></container>

@@ -1,5 +1,5 @@
 <x:widget extends="Example" controller="CheckTreeExample">
-	<main_template>
+	<template>
 		<div style="position: relative;height: 320px;width: 350px;overflow: auto;border: 1px solid gray;">
 			<x:widget extends="FolderTree">
 				<assign name="records">$tree_example.records</assign>
@@ -11,11 +11,11 @@
 					</checkbox>
 					{> $tree.FolderTree$node_body_content}
 				</include>
-				<script x:equiv="options" type="application/json">
+				<script x:equiv="options" type="lava/options">
 					{use_meta_storage: true}
 				</script>
 			</x:widget>
 		</div>
-	</main_template>
+	</template>
 	<assign name="records">#ExamplesApp.tree_records</assign>
 </x:widget>

@@ -17,31 +17,31 @@ Directive may contain only tags, not another directives.
 
 ##Setting container and template
 
-On the top of widget definition, there may be either &lt;main_view&gt; or &lt;main_template&gt; tag.
-They both set main {@link _cView#template} of the widget, but with &lt;main_view&gt; tag you can also set widget's container.
-Example &lt;main_template&gt; usage:
+On the top of widget definition, there may be either &lt;view&gt; or &lt;template&gt; tag.
+They both set main {@link _cView#template} of the widget, but with &lt;view&gt; tag you can also set widget's container.
+Example &lt;template&gt; usage:
 
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
-	<main_template>
+	<template>
 		This is widget's template
-	</main_template>
+	</template>
 </x:widget>
 </lavabuild:template_result>
 
-Using &lt;main_view&gt;:
+Using &lt;view&gt;:
 
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
-	<main_view>
+	<view>
 		<div x:type="view" class="my-widget-container">
 			This is widget's template
 		</div>
-	</main_view>
+	</view>
 </x:widget>
 </lavabuild:template_result>
 
-How &lt;main_view&gt; tag works: it expects an element with `x:type="view"` inside it.
+How &lt;view&gt; tag works: it expects an element with `x:type="view"` inside it.
 The only allowed properties on inner view config are {@link _cView#container} and {@link _cView#template}.
 If you want to set roles, assigns, or anything else - you must use tags from x:widget.
 Inner view is extracted, and "container" and "template" properties are then copied to widget config.
