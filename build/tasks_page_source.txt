@@ -124,11 +124,10 @@ Firestorm/
 	- [P2,Refactoring,Q] Firestorm.Environment - rename to Browser
 	- [P5,Feature] finish Firestorm
 	- [P5,Feature] When getting rid of MooTools: provide a file with shims for methods that do not exist in older
-		JavaScript environments. For example: Array.forEach (the to_do_app depends on it)
+		JavaScript environments. For example: Array.forEach (the to_do_app depends on it) or Object.keys
 Parsers/
 	- [P2,Dev] make the text for exception "Text is not allowed in this context" inside asBlocks() more meaningful
 		// text should depend on context
-	- [P1,Dev] asBlocks should filter out HTML comments (to allow comments inside widget definitions)
 	- [P3,Feature] x:controller control attribute - similar to x:widget
 		// create an inline widget from element, with specified controller class. Also should work on sugar.
 	- [P5,Feature,Q] static_value directive should treat it's content as default value.
@@ -163,8 +162,6 @@ Parsers/ObjectParser.js
 	- [P5,Feature,Q] allow Date and RegExp type in objects. Date will be created with "new" operator.
 	- [P5,Feature] allow JavaScript comments
 Parsers/TemplateParser.js
-	- [P1,Fix] x:equiv must remove the "x.equiv" property from result config, and if "x" is empty - it must not be copied into result
-		// for example, now &lt;script x:equiv="iframe"&gt; is treated like it has control attributes.
 	- [P5,Feature,Q] allow to set class for widget extenders
 	- [P4,Feature] implement removal of empty space from templates
 	- [P5,Refactoring] remove unused lexer switches: preserve_whitespace ("pre:") and pure_blocks
@@ -369,7 +366,7 @@ Inputs
 	- [P5,Feature] this list should be turned into something more usable.
 		// People should be able to leave comments, vote for features they need, and gather requirements.
 		// This may be done in external service.
-	- [P5,Refactoring] the Widgets page must be assembled like Examples
+	- [P2,Feature] Widgets page must display source code of widget usage + it must be assembled like Examples
 	- [P3,Refactoring] there must be no calls to TemplateParser (via Lava.bootstrap) in the www directory.
 		Everything must be assembled on server.
 	- [P3,Feature] Widgets page: each widget must have a detailed description with usage, events, roles, properties and options
@@ -377,13 +374,11 @@ Inputs
 	- [P5,Feature] there must be an ability to launch unit tests right on the framework site
 	- [P5,Feature] code coverage for unit tests, that can be viewed online
 	- [P2,Refactoring] code in examples on main page is a bit messy, build process is complicated. Correct it.
-	- [P5,Feature] create "codestyle" document
 	- [P2,Feature] Replace images in the tree, gif -&gt; png
 		// other images should also be png
 	- [P5,Feature] Create favicon
 	- [P5,Feature] Better design than plain Bootstrap theme
 	- [P2,Feature] create an example "Miner" game (in the Examples page)
-	- [P1,Feature] on widgets page: links to API for all widgets
 	- [P5,Refactoring] when framework version reaches 1.0 - create "lava-1.0.js" in site `lib/` directory and replace
 		the reference to the library in all JSFiddle examples. Documentation should also be versioned at this point.
 

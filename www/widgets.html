@@ -168,10 +168,11 @@
 			<example>
 				<x:default_events>['click']</x:default_events>
 
+				<a class="widgets-api-link-h2 h3" href="/www/doc.html#class=Lava.widget.Collapsible"><span class="glyphicon glyphicon-link"></span>API</a>
+				<h2>Collapsible</h2>
 				<button type="button" class="btn btn-primary" x:type="view" x:event:click="$widgets_page.toggle_collapsible_expanded">
 					Toggle collapsible
 				</button>
-
 				<collapsible>
 					<x:assign name="is_expanded">is_collapsible_expanded</x:assign>
 					<div class="well">
@@ -180,17 +181,22 @@
 					</div>
 				</collapsible>
 
+				<a class="widgets-api-link-h2 h3" href="/www/doc.html#class=Lava.widget.CollapsiblePanel"><span class="glyphicon glyphicon-link"></span>API</a>
+				<h2>CollapsiblePanel</h2>
 				<collapsible-panel class="panel-default">
 					<title>This panel does not remove it's content in collapsed state</title>
 					<content>{#>lipsum}</content>
 				</collapsible-panel>
 
+				<a style="float: right;color:gray;" class="h3" href="/www/doc.html#class=Lava.widget.CollapsiblePanelExt"><span class="glyphicon glyphicon-link"></span>API</a>
+				<h2>CollapsiblePanelExt</h2>
 				<collapsible-panel-ext class="panel-default">
 					<title>This panel does! (see it in your browser's dev tools)</title>
 					<content>{#>lipsum}</content>
 				</collapsible-panel-ext>
 			</example>
 
+			<a class="widgets-api-link-h1 h3" href="/www/doc.html#class=Lava.widget.Accordion"><span class="glyphicon glyphicon-link"></span>API</a>
 			<H1 id="accordion">Accordion</H1>
 			<example>
 				<accordion>
@@ -215,35 +221,8 @@
 				</accordion>
 			</example>
 
-			<p>To demonstrate flexibility of Lava widgets, here is an example of horizontal accordion:</p>
-			<example>
-				<x:widget extends="Accordion">
-					<template>
-						<div style="width: 32%;float: left">
-							<collapsible-panel x:roles="$accordion.panel" class="panel-primary">
-								<title>Title 1</title>
-								<content>Content 1<br/>Content 1<br/>Content 1</content>
-							</collapsible-panel>
-						</div>
-						<div style="width: 32%;float: left">
-							<collapsible-panel x:roles="$accordion.panel" class="panel-danger">
-								<title>Title 2</title>
-								<content>Content 2<br/>Content 2<br/>Content 2<br/>Content 2</content>
-							</collapsible-panel>
-						</div>
-						<div style="width: 32%;float: left">
-							<collapsible-panel x:roles="$accordion.panel" class="panel-primary">
-								<title>Title 3</title>
-								<content>Content 3<br/>Content 3<br/>Content 3<br/>Content 3<br/>Content 3</content>
-							</collapsible-panel>
-						</div>
-						<div class="clearfix"></div>
-					</template>
-				</x:widget>
-			</example>
-
+			<a class="widgets-api-link-h1 h3" href="/www/doc.html#class=Lava.widget.Tabs"><span class="glyphicon glyphicon-link"></span>API</a>
 			<H1 id="tabs">Tabs</H1>
-
 			<example>
 				<tabs>
 					<tab>
@@ -264,11 +243,13 @@
 				</tabs>
 			</example>
 
+			<a class="widgets-api-link-h1 h3" href="/www/doc.html#class=Lava.widget.Tooltip"><span class="glyphicon glyphicon-link"></span>API (Widget)</a>
 			<H1 id="tooltip">Tooltip</H1>
 			<example>
 				<p>Some text with a <a href="#" data-tooltip="test">tooltip</a></p>
 			</example>
 
+			<a class="widgets-api-link-h1 h3" href="/www/doc.html#class=Lava.widget.DropDown"><span class="glyphicon glyphicon-link"></span>API</a>
 			<H1 id="dropdown">Dropdown</H1>
 			<p>Keyboard navigation and nested dropdowns support is coming soon, as well as automatic ARIA markup.</p>
 			<example>
@@ -303,6 +284,7 @@
 				<div class="clearfix"></div>
 			</example>
 
+			<a class="widgets-api-link-h1 h3" href="/www/doc.html#class=Lava.widget.Table"><span class="glyphicon glyphicon-link"></span>API</a>
 			<h1 id="table">Table</h1>
 			<p>Simple sortable table. Click on column headers to apply sorting.</p>
 			<example>
@@ -324,6 +306,7 @@
 				</x:widget>
 			</example>
 
+			<a class="widgets-api-link-h1 h3" href="/www/doc.html#class=Lava.widget.Calendar"><span class="glyphicon glyphicon-link"></span>API</a>
 			<h1 id="calendar">Calendar</h1>
 			<example>
 				<x:widget extends="Calendar"></x:widget>

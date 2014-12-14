@@ -7729,6 +7729,9 @@ footer .container {background: #f7f5fa;}
 	.api-tabs-header-link {padding: 8px 10px;}
 }
 
+.widgets-api-link-h1 {float: right;color:gray;padding-top: 0.6em}
+.widgets-api-link-h2 {float: right;color:gray;padding-top: 1em}
+
 /*
 This file contains essential classes for some standard widgets.
 */

@@ -247,12 +247,11 @@
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Array.select(), selectFirst() - like filter, but returns another array</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Q">Q</span> Firestorm.Environment - rename to Browser</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> finish Firestorm</li>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> When getting rid of MooTools: provide a file with shims for methods that do not exist in older<br/>JavaScript environments. For example: Array.forEach (the to_do_app depends on it)</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> When getting rid of MooTools: provide a file with shims for methods that do not exist in older<br/>JavaScript environments. For example: Array.forEach (the to_do_app depends on it) or Object.keys</li>
 </ul>
 <h3>Parsers/</h3>
 <ul>
 <li><span class="tag-P2">P2</span><span class="tag-Dev">Dev</span> make the text for exception "Text is not allowed in this context" inside asBlocks() more meaningful<span class="task-comment">text should depend on context</span></li>
-<li><span class="tag-P1">P1</span><span class="tag-Dev">Dev</span> asBlocks should filter out HTML comments (to allow comments inside widget definitions)</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> x:controller control attribute - similar to x:widget<span class="task-comment">create an inline widget from element, with specified controller class. Also should work on sugar.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> static_value directive should treat it's content as default value.</li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> use _include_locator_regex instead of _locator_regex, and check in code for disallowed symbols. Same for _identifier_regex.<span class="task-comment">_include_locator_regex includes "$", which should not be in _locator_regex.</span></li>
@@ -282,7 +281,6 @@
 </ul>
 <h3>Parsers/TemplateParser.js</h3>
 <ul>
-<li><span class="tag-P1">P1</span><span class="tag-Fix">Fix</span> x:equiv must remove the "x.equiv" property from result config, and if "x" is empty - it must not be copied into result<span class="task-comment">for example, now &lt;script x:equiv="iframe"&gt; is treated like it has control attributes.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> allow to set class for widget extenders</li>
 <li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> implement removal of empty space from templates</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> remove unused lexer switches: preserve_whitespace ("pre:") and pure_blocks</li>
@@ -482,19 +480,17 @@
 <h2>Site</h2>
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> this list should be turned into something more usable.<span class="task-comment">People should be able to leave comments, vote for features they need, and gather requirements.<br/> This may be done in external service.</span></li>
-<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> the Widgets page must be assembled like Examples</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Widgets page must display source code of widget usage + it must be assembled like Examples</li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> there must be no calls to TemplateParser (via Lava.bootstrap) in the www directory.<br/>Everything must be assembled on server.</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Widgets page: each widget must have a detailed description with usage, events, roles, properties and options</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> a demo of a native widget wrapper (for example, CodeMirror, color pickers or Select2)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> there must be an ability to launch unit tests right on the framework site</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> code coverage for unit tests, that can be viewed online</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> code in examples on main page is a bit messy, build process is complicated. Correct it.</li>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> create "codestyle" document</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Replace images in the tree, gif -&gt; png<span class="task-comment">other images should also be png</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Create favicon</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Better design than plain Bootstrap theme</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> create an example "Miner" game (in the Examples page)</li>
-<li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> on widgets page: links to API for all widgets</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> when framework version reaches 1.0 - create "lava-1.0.js" in site `lib/` directory and replace<br/>the reference to the library in all JSFiddle examples. Documentation should also be versioned at this point.</li>
 </ul>
 <h2>Documentation</h2>
