@@ -37,7 +37,7 @@ It will display a widget with string, chosen by current {@link Lava.schema#LOCAL
 
 Tip: you can set current locale before call to `Lava.init()` or `Lava.bootstrap()`.
 
-#Resource paths and inheritance
+##Resource paths and inheritance
 
 There are four types of resource values: 
 - translatable string, 

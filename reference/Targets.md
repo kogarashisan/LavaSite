@@ -2,8 +2,7 @@
 #Targeting
 
 Lava features declarative bindings of DOM events to controller callbacks. 
-Similar format and mechanism is used to retrieve widget includes and dispatch roles, 
-and also by {@link reference:Directives.broadcast|x:broadcast} directive.
+Similar format and mechanism is used to retrieve widget includes and dispatch roles.
 
 "targets" in Lava refers to result of {@link Lava.parsers.Common#parseTargets}. 
 Target always references a widget, and there are two kinds of them:
@@ -54,7 +53,7 @@ to all parent widgets which has handler for it (<str>"my_input"</str>).
 ##Target dispatch algorithm
 
 Each target is dispatched independently from others by {@link Lava.system.ViewManager}. 
-Roles and broadcast are dispatched in view/widget constructors, includes are retrieved by 
+Roles are dispatched in view/widget constructors, includes are retrieved by 
 {@link Lava.system.Template} - also in it's constructor, and events are 
 dispatched in {@link Lava.system.ViewManager#onDOMEvent} callback.
 
@@ -122,17 +121,11 @@ Lava.define('Lava.widget.MyWidget', {
 		my_include: '_getMyInclude'
 	},
 
-	_broadcast_handlers: {
-		on_broadcast_event: '_onBroadcastEvent'
-	},
-
 	_onNodeClick: function(dom_event_name, dom_event, view, template_arguments) {},
     
 	_handleMyRole: function(view, template_arguments) {},
 
-	_getMyInclude: function(template_arguments) {},
-
-	_onBroadcastEvent: function(widget, event_args, native_args) {}
+	_getMyInclude: function(template_arguments) {}
 
 });
 ```

@@ -5,7 +5,7 @@
 
 Allows to attach directives to a void tag.
 
-###Example
+##Example
 
 <lavabuild:template_result as="single_view">
 <x:attach_directives>

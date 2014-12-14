@@ -6,7 +6,7 @@
 Allows to set one property in {@link _cWidget#properties}, but instead of parsing - it will treat it's content as text.
 This way, text inside the directive does not require to be quoted.
 
-###Example
+##Example
 
 <lavabuild:template_result as="single_view">
 <text_input>

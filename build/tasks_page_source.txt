@@ -159,7 +159,6 @@ Parsers/Directives.js
 	- [P2,Refactoring,Q] allow "roles" attribute on widget definition directive (x:widget) - can be used instead of &lt;roles&gt; tag
 	- [P1,Refactoring] universal x:config directive and &lt;config&gt; tag in widget definition,
 		which integrates functionality of other directives
-	- [P1,Refactoring] remove the x:broadcast directive - it's redundant
 Parsers/ObjectParser.js
 	- [P5,Feature,Q] allow Date and RegExp type in objects. Date will be created with "new" operator.
 	- [P5,Feature] allow JavaScript comments
@@ -421,7 +420,7 @@ Inputs
 	- [P3,Feature] register links to examples in /www/examples.html so they could be referenced in documentation
 	- [P4,Feature] make an instruction to automatically embed pieces of serialized code from the framework (methods, variables, etc).
 		// Example: embed source of Lava.parseOptions in api_docs/ObjectParser
-	- [P1,Feature] does not recognize @define tag (for example, on Lava.schema.DEBUG)
+	- [P1,Fix] does not recognize @define tag (for example, on Lava.schema.DEBUG)
 	- [P5,Feature] write extended description for class methods and properties
 	- [P5,Feature] Describe the `count` property in Enumerable
 

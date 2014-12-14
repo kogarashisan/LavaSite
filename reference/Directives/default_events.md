@@ -17,7 +17,7 @@ used by native framework widgets.
 It's highly recommended to always define &lt;default_events&gt; for your own global widgets, 
 even if their events are already in schema.
 
-###Example
+##Example
 
 ```xml
 <body lava-app="ChangelogPage">

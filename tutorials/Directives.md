@@ -5,7 +5,7 @@ Directives are tags from "x:" namespace.
 Some of them allow you to modify config options for views and widgets, others insert special objects into template.
 Some of widget definition tags have directive analogs.
 
-You can find the compete list in the <a href="/www/doc.html#tab=reference">reference</a> section.
+You can find the compete list in the {@link page:reference} section.
 
 ###x:property directive
 

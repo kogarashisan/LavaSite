@@ -7,7 +7,7 @@ Directive sets {@link _cView#refresher} config property for views and widgets.
 
 Content of the directive must be a valid JavaScript object.
 
-###Example
+##Example
 
 <lavabuild:template_result as="single_view">
 {$if(is_expanded)}

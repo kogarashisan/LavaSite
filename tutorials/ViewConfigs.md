@@ -58,7 +58,7 @@ You will see a &lt;div&gt; tag with <str>"Hello world!"</str> inside it.
 
 All framework configs are described in `support/` folder of Lava repository.
 Files from this folder are not used anywhere except in JSDoc comments.
-You can have a look at the <a href="#object=Support">Support</a> page, which contains all the config formats.
+You can have a look at the {@link page:support} page, which contains all the config formats.
 
 Widget config is described in {@link _cWidget} structure - you can follow the link to see what else can be there.
 Widget configs can be inherited just like classes, that's why we need to supply `is_extended` property. 

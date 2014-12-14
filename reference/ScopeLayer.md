@@ -268,7 +268,7 @@ $my_widget.do_something(people[name_source])
 
 For explanation of constructs like `$my_widget~1->another_thing` - see {@link reference:WritingExpressions}.
 
-###setValue on DataBinding and segment
+##setValue on DataBinding and segment
 
 Unlike PropertyBinding, which is always bound to a widget, Segment and DataBinding may be bound to different
 kinds of objects, which may be null sometimes. If setValue is impossible - it will be ignored silently.

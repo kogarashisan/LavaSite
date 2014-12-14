@@ -8,7 +8,7 @@ For views and widgets: directive extends {@link _cView#container} config propert
 Content of the directive must be a valid JavaScript object. <b>Only 'type' and 'options' properties are allowed.</b>
 'options' property is merged with existing one.
 
-###Example
+##Example
 
 <lavabuild:template_result as="single_view">
 {$if(is_expanded)}

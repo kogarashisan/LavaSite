@@ -11,7 +11,7 @@ Data layer includes:
 You can create modules and records with custom functionality, as well as custom fields.
 Modules can be referenced by their name, all module instances are global.
 
-###Advanced usage example
+##Advanced usage example
 
 ```javascript
 // configs are global

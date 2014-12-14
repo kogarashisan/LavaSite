@@ -64,7 +64,7 @@ Generally, if a property is present in child config - it's not overwritten. Othe
 (all properties are assigned by reference, not cloned!).
 
 But several properties have special rules for merging:
-{@link _cWidget#bindings}, {@link _cView#assigns}, {@link _cView#options}, {@link _cWidget#properties} and {@link _cWidget#broadcast} -
+{@link _cWidget#bindings}, {@link _cView#assigns}, {@link _cView#options} and {@link _cWidget#properties} -
 these properties are merged one-level deep. For example, all properties from parent are merged to child, but they are not overwritten.
 If parent has property <str>"property_one"</str>, and child has <str>"property_two"</str> - than child will have both properties.
 But if child config also has <str>"property_one"</str> - than it will not be overwritten.

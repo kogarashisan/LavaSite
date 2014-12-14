@@ -5,8 +5,8 @@
 global.LAVA_CORE_DIRECTORY = 'D:/LiquidLava/';
 
 global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS = ['sugar', 'storage', 'storage_schema', 'edit_template', 'include'];
-global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS = ['bind', 'assign', 'option', 'property', 'options', 'properties', 'roles', 'resources', 'default_events', 'broadcast'];
-global.WIDGET_ONLY_DIRECTIVES = ['broadcast', 'bind', 'property', 'properties', 'property_string', 'resources', 'default_events'];
+global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS = ['bind', 'assign', 'option', 'property', 'options', 'properties', 'roles', 'resources', 'default_events'];
+global.WIDGET_ONLY_DIRECTIVES = ['bind', 'property', 'properties', 'property_string', 'resources', 'default_events'];
 global.DIRECTIVE_NAMES = ['define', 'define_resources', 'widget', 'static_value', 'static_eval', 'attach_directives',
 	'assign', 'roles', 'container_config', 'refresher', 'option', 'options'].concat(global.WIDGET_ONLY_DIRECTIVES);
 global.DIRECTIVES_WITH_RESULT = ['widget', 'static_value', 'static_eval', 'attach_directives'];
@@ -19,7 +19,6 @@ global.DIRECTIVE_MULTIPLICITY = {
 	property_string: true,
 	resources: true,
 	// singular
-	broadcast: false,
 	default_events: false,
 	options: false,
 	properties: false,
@@ -253,17 +252,15 @@ module.exports = function(grunt) {
 		},
 
 		generateLink: function(type, link_target, linktitle) {
+			if ([':types', 'link'].indexOf(type) == -1) throw new Error();
 			if (!(link_target in this.links)) {
 				grunt.log.error('doc: link is not registered: ' + link_target);
 				this.has_errors = true;
 				return '[ERROR: INVALID LINK]';
 			}
 			var link_descriptor = this.links[link_target];
-			var href = this._page_links[link_descriptor.page] + '#' + link_descriptor.hash;
-			linktitle = linktitle || link_target;
-			if (linktitle == link_target && link_descriptor.title) {
-				linktitle = link_descriptor.title;
-			}
+			var href = this._page_links[link_descriptor.page] + (link_descriptor.hash ? '#' + link_descriptor.hash : '');
+			linktitle = linktitle || link_descriptor.title || link_target;
 			return '<a href="' + href + '">' + linktitle + '</a>';
 		},
 
@@ -330,7 +327,7 @@ module.exports = function(grunt) {
 			return content.replace(/\{\@(link) ([^\\\}]|\\.)+\}/g, function(match, type) {
 				// type is the content of the first brace (the instruction name): "link", "apilink", "reflink" and so on
 				var linktarget = match.substr(0, match.length - 1).substr(type.length + 3).trim(); // leave only the content
-				var linktitle = linktarget;
+				var linktitle = null;
 				var separator_index = linktarget.indexOf('|');
 				if (separator_index != -1) { // includes title, not just name/url
 					linktitle = linktarget.substr(separator_index + 1);
@@ -609,7 +606,8 @@ module.exports = function(grunt) {
 			'reference/FAQ.md',
 
 			'reference/AppendixCompat.md',
-			'reference/AppendixCodestyle.md'
+			'reference/AppendixCodestyle.md',
+			'reference/AppendixDev.md'
 		],
 
 		tutorials_list: [
@@ -628,6 +626,12 @@ module.exports = function(grunt) {
 		]
 
 	});
+
+	LavaBuild.registerLink('page:api', {hash: 'tab=api', page: 'api', title: 'API', type: 'page'});
+	LavaBuild.registerLink('page:reference', {hash: 'tab=reference', page: 'reference', title: 'Reference', type: 'page'});
+	LavaBuild.registerLink('page:tutorials', {hash: 'tab=tutorials', page: 'tutorials', title: 'Tutorials', type: 'page'});
+	LavaBuild.registerLink('page:widgets', {hash: 'object=Widgets', page: 'api', title: 'Widgets', type: 'page'});
+	LavaBuild.registerLink('page:support', {hash: 'object=Support', page: 'api', title: 'Support', type: 'page'});
 
 	grunt.option('stack', true);
 	grunt.loadNpmTasks('grunt-contrib-concat');

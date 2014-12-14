@@ -8,7 +8,7 @@ to views and sugar.
 
 Content of the directive must be a valid JavaScript object.
 
-###Example 1
+##Example 1
 
 <lavabuild:template_result as="single_view">
 {#view()}
@@ -21,7 +21,7 @@ Content of the directive must be a valid JavaScript object.
 {/view}
 </lavabuild:template_result>
 
-###Example 2: using a &lt;script&gt; tag
+##Example 2: using a &lt;script&gt; tag
 
 ```xml
 {#view()}

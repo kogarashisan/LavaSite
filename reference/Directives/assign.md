@@ -5,7 +5,7 @@
 
 Directive sets {@link _cView#assigns} for view or widget config.
 
-###Example
+##Example
 
 <lavabuild:template_result as="single_view">
 <checkbox>

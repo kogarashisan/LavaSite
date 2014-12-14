@@ -21,7 +21,7 @@ These mappings and the name of the sugar tag are written in the definition of Co
 In other words: you can define tags for template parser, which will be converted to widget configs.
 
 Sugar exists to make your templates look more beautiful, but not all widgets have sugar syntax 
-(and not all widgets need it). See the <a href="#object=Widgets">Widgets</a> page for a list of all widgets and their sugar schema.
+(and not all widgets need it). See the {@link page:widgets} page for a list of all widgets and their sugar schema.
 
 ##Common view attributes
 

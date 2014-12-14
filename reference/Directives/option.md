@@ -12,7 +12,7 @@ Directive may have an optional `type` attribute:
 - <str>"targets"</str> - option value is parsed with {@link Lava.parsers.Common#parseTargets}
 - <str>"expressions"</str> - option value is parsed with ExpressionParser
 
-###Example
+##Example
 
 <lavabuild:template_result as="single_view">
 {#view()}

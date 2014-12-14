@@ -5,7 +5,7 @@
 
 Allows to set one property in {@link _cWidget#properties}. Same as &lt;option&gt;.
 
-###Example
+##Example
 
 <lavabuild:template_result as="single_view">
 <checkbox>

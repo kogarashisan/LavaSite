@@ -5,7 +5,7 @@
 
 Defines {@link _cWidget#resources} for a widget
 
-###Example
+##Example
 
 <lavabuild:template_result as="single_view">
 <collapsible-panel>
