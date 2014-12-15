@@ -275,10 +275,9 @@ ClassManager.class.js
 Serializer.js
 	- [P5,Feature,Q] currently, serializing a string preserves the "\r\n" sequence.
 		Convert it to "\n" by default and make a schema switch to return the old behaviour.
-	- [P1,Feature] Serializer must be a separate class with config
+	- [P2,Feature] Add options
 		// 1) Add an option to serialize into valid JSON format (with quoted attributes)
-		// 2) Option to remove padding and spaces <br/>
-		// 3) Ability to indent functions (take from LavaBuild helper class)
+		// 2) Way to remove padding and spaces
 transitions.js
 	- [P2,Fix] more transitions (*)
 Cron.js

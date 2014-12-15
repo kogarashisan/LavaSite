@@ -120,7 +120,7 @@ Accordion created the "panel" component in it's resources, and connected it to t
 `x:resource_id` attribute. <str>"default"</str> locale will be discussed later.
 
 Tip: type `Lava.widgets.Accordion` in your browser's console to see the parse result.
-Or you can even type `Lava.Serializer.serialize(Lava.widgets.Accordion)` to see it as text.
+Or you can even type `Lava.serializer.serialize(Lava.widgets.Accordion)` to see it as text.
 
 When you use accordion - you can assign resources to the panel inside it without rewriting it's templates:
 

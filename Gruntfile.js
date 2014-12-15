@@ -59,6 +59,10 @@ module.exports = function(grunt) {
 		},
 		has_errors: false,
 
+		_serializer: new Lava.system.Serializer({
+			pretty_print_functions: true
+		}),
+
 		wrapHighlightedCode: function(code, type, line_numbers, overlay_lines, tooltip_lines) {
 
 			return '<div class="lava-code-container">'
@@ -184,45 +188,12 @@ module.exports = function(grunt) {
 			return lines_text;
 		},
 
-		_serializeFunction: function(data, padding) {
-
-			var result = data + '';
-
-			// when using new Function() constructor, it's automatically named 'anonymous' in Chrome && Firefox
-			if (result.substr(0, 18) == 'function anonymous') {
-				result = 'function' + result.substr(18);
-			}
-
-			var lines = result.split(/\r?\n/);
-			var last_line = lines[lines.length - 1];
-			if (/^\t*\}$/.test(last_line)) {
-				if (last_line.length > 1) { // if there are tabs
-					var tabs = last_line.substr(0, last_line.length - 1);
-					var num_tabs = tabs.length;
-					for (var i = 1, count = lines.length; i < count; i++) {
-						if (lines[i].indexOf(tabs) == 0) {
-							lines[i] = lines[i].substr(num_tabs);
-						}
-					}
-				}
-				lines.pop();
-				result = lines.join('\r\n\t' + padding) + '\r\n' + padding + last_line;
-			}
-
-			return result;
-
-		},
-
 		/**
-		 * Serializer does not indent function bodies, cause author was not sure that it's safe to do so
+		 * Serialize with pretty-printed function bodies
 		 */
 		smartSerialize: function(value) {
 
-			var original = Lava.Serializer._serializeFunction;
-			Lava.Serializer._serializeFunction = this._serializeFunction;
-			var result = Lava.Serializer.serialize(value);
-			Lava.Serializer._serializeFunction = original;
-			return result;
+			return this._serializer.serialize(value);
 
 		},
 

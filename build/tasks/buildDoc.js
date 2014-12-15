@@ -873,7 +873,6 @@ module.exports = function(grunt) {
 			'Lava.Core',
 			'Lava.Cron',
 			'Lava.ScopeManager',
-			'Lava.Serializer',
 			'Lava.TemplateWalker',
 			'Lava.parsers.Common',
 			'Lava.parsers.Directives',
@@ -903,7 +902,6 @@ module.exports = function(grunt) {
 			Lava.Core,
 			Lava.Cron,
 			Lava.ScopeManager,
-			Lava.Serializer,
 			Lava.TemplateWalker,
 			Lava.parsers.Common,
 			Lava.parsers.Directives,
@@ -1234,7 +1232,7 @@ module.exports = function(grunt) {
 					container: {type: 'Element', tag_name: 'div'}
 				};
 
-				grunt.file.write(dir_path + relative_path + '.js', Lava.Serializer.serialize(widget_config));
+				grunt.file.write(dir_path + relative_path + '.js', Lava.serializer.serialize(widget_config));
 			}
 		}
 
