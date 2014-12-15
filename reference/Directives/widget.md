@@ -83,8 +83,8 @@ Tags without directive analogs are described separately. They include:
 		sugar: 'See {@link reference:Sugar}',
 		storage: 'See {@link reference:Storage}',
 		storage_schema: 'See {@link reference:Storage}',
-		edit_template: '{@todo link to edit_template article}',
-		include: '{@todo link to article about includes}'
+		edit_template: '[ALPHA] {@todo link to edit_template article}',
+		include: 'See {@link reference:Includes}'
 	};
 	global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS.forEach(function(name){
 		if (!(name in descriptions)) throw new Error("tag is not described in build/eval: " + name);

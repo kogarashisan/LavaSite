@@ -12,7 +12,10 @@
 					{> $tree.FolderTree$node_body_content}
 				</include>
 				<script x:equiv="options" type="lava/options">
-					{use_meta_storage: true}
+					{
+						use_meta_storage: true,
+						refresher: {type: 'Collapse'}
+					}
 				</script>
 			</x:widget>
 		</div>

@@ -17,7 +17,10 @@
 			<x:widget extends="FolderTree" id="tree_left">
 				<assign name="records">#ExamplesApp.tree_records</assign>
 				<script x:equiv="options" type="lava/options">
-					{use_meta_storage: true}
+					{
+						use_meta_storage: true,
+						refresher: {type: 'Collapse'}
+					}
 				</script>
 			</x:widget>
 		</div>
@@ -25,11 +28,6 @@
 		<div class="tree-example-container">
 			<x:widget extends="FolderTree" id="tree_right">
 				<assign name="records">#ExamplesApp.tree_records</assign>
-				<edit_template name="node_children">
-					<task type="known" name="replace_config_option" node_type="View" condition="node.refresher">
-						<assign path="refresher.type">"Standard"</assign>{*H:Change refresher to 'Standard' - without animation support*}
-					</task>
-				</edit_template>
 				<script x:equiv="options" type="lava/options">
 					{use_meta_storage: true}
 				</script>

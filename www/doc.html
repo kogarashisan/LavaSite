@@ -459,18 +459,12 @@
 			</a>
 		{/if}
 	</include>
-	<edit_template name="node_body">
-		<task type="known" name="add_class_binding" node_type="View">
-			<arguments>
-				<expression>node.is_selected ? 'api-node-selected' : ''</expression>
-			</arguments>
-		</task>
-	</edit_template>
-	<edit_template name="node_children">
-		<task type="known" name="replace_config_option" node_type="View" condition="node.refresher">
-			<assign path="refresher.type">"Standard"</assign>
-		</task>
-	</edit_template>
+	<include name="node_body">
+		<div class="lava-tree-node" x:type="view" unselectable="on" x:classes="'level-' + level;
+			node.is_selected ? 'api-node-selected' : ''">
+			{>$tree.node_body_content}
+		</div>
+	</include>
 </x:define>
 
 <x:define title="ApiTabs" extends="Tabs">

@@ -52,21 +52,12 @@ System-wide or uncategorized
 		// https://html.spec.whatwg.org/#focus-management-apis
 	- [P5,Performance] one-time expression evaluations, like x:static_eval or one-time assign,
 		must be evaluated without creating bindings, using evalPathConfig()
-	- [P1,Feature] Additional way to create refreshers in Foreach and If views: #createRefresher(refresher_config) method.
-		// refresher can be created at the moment of registering roles.
-		// If view has refresher config - then view will create refresher instance like before,
-		// but this way refresher configs can be assigned dynamically.
-		// Also: disable animation by default in Tree, and make an option to enable it.
-		// Remove &lt;edit_template&gt;s which change the refresher class.
 	- [P5,Performance] labels for inputs (with "for" attribute) need to be rendered as text
 		// Now they must to be views, otherwise "for" attribute can not be set. If there is no other functionality
 		// except "for" attribute, then label should be rendered as static text.
 	- [P2,Refactoring] wrap the code that adds Refreshable listeners into a method in Refreshable
 		// three lines of code, that add "waits_refresh" "refreshed" and "changed" listeners in classes in Scope layer
-	- [P1,Refactoring] remove usages of &lt;edit_template&gt; in Lava site, mark this tag as "alpha/experimental".
-		Rewrite TemplateWalker without "throw" (first create an array of actions and then call them, compile visitor function)
-		// edits of Refresher configs will be gone with task for dynamic refresher configs.
-		// Need to remove the case which adds a class binding
+	- [P4,Refactoring] Rewrite TemplateWalker without "throw"
 	- [P1,Refactoring] rename certain UPPER_CASE properties in Firestorm and schemas.
 		Refactor Firestorm.Environment - store test results in an array (indices will be stored as separate {NAME => index} object)
 		// if property value is determined at run time (not on server) - it must be lower case

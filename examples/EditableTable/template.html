@@ -16,6 +16,11 @@
 	<div class="col-md-6" style="padding: 1em;overflow: auto;height: 370px;position: relative;">
 		<x:widget extends="FolderTree" id="main_page_tree">
 			<assign name="records">#ExamplesApp.tree_records</assign>
+			<script x:equiv="options" type="lava/options">
+				{
+					refresher: {type: 'Collapse'}
+				}
+			</script>
 		</x:widget>
 	</div>
 	<div class="clearfix"></div>
