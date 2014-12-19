@@ -342,6 +342,8 @@ Inputs
 	- [P5,Feature] Delay loading of images and objects
 	- [P5,Feature] ARIA compatibility for widgets
 	- [P5,Feature] Server-side communication for Data layer
+	- [P3,Feature] create a router
+		// also use it in todo_app and documentation page
 
 #Build
 	- [P3,Refactoring] a better build script
