@@ -1,8 +1,8 @@
 # LiquidLava TodoMVC Example
 
-> LiquidLava has transparent architecture - this means that you always understand what's going on.
-> It allows you to write reliable applications of any size and complexity 
-> while maintaining simple internal design.
+> LiquidLava is an MVC framework for building user interfaces, which scale from simple interactive elements on page to
+> complex feature-rich applications. What makes it different from other frameworks is transparent internal design:
+> this means, that you always know, what you are doing, and what happens inside the framework.
 
 > _[LiquidLava Framework](http://lava-framework.com/)_
 

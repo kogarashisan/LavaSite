@@ -5,15 +5,6 @@ This file is used on Lava framework site. You will not need it in your own proje
 
 body {padding-top: 50px;}
 
-.index-header {text-align: center;padding-bottom: 2em;}
-.index-header h1 {font-weight: bold;color: rgb(255,128,0);padding-top: 40px;font-size: 40px;}
-.index-header em {font-family: serif;font-size: 1.4em;display: block;padding-bottom: 1.5em;}
-.index-header a {display: inline-block;font-size: 1.5em;margin-bottom: 1.5em;}
-.index-header small {color: gray;display: block;}
-.index-text {background-color: #eeeeee;padding: 5px 20px;}
-.index-about {font-family: serif;font-size: 2em;display: block;padding: 0 0 1em 0;text-align: center;font-style:italic}
-.index-about-p {background-color: #FFF0B6;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;display: inline-block;padding: 0 1em;}
-
 .btn-gray {
 	padding: 7px 12px;
 	color: #333;

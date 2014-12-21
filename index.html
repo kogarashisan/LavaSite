@@ -50,6 +50,20 @@
 
 		});
 	</script>
+
+	<style>
+		.index-header {text-align: center;}
+		.index-header h1 {font-weight: bold;color: rgb(255,128,0);padding-top: 40px;font-size: 40px;}
+		.index-header em {font-family: serif;font-size: 1.4em;display: block;padding-bottom: 1.5em;}
+		.index-header a {display: inline-block;font-size: 1.5em;margin-bottom: 1.5em;}
+		.index-header small {color: gray;display: block;}
+		.index-text {background-color: #eeeeee;padding: 5px 20px;}
+		.index-about {font-family: serif;font-size: 2em;display: block;padding: 0 0 1em 0;text-align: center;font-style:italic}
+		.index-about-p {background-color: #FFF0B6;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;display: inline-block;padding: 0 1em;}
+
+		.version-container {text-shadow: none;font-weight: bold;padding: 3px 6px;border-radius: 3px;font-size: 0.7em;border: 1px solid #B6B6B6;margin: 0 3px 0 4px;}
+		.version-alpha {font-family: Times;color: gray;}
+	</style>
 </head>
 
 <body lava-app id="main_page">
@@ -118,21 +132,44 @@
 	<div class="index-header">
 		<h1>LiquidLava</h1>
 		<em>When art is beautiful</em>
+		<a class="btn btn-gray" href="https://github.com/kogarashisan/LiquidLava/releases">
+			<i class="glyphicon glyphicon-download-alt"></i> Download
+			<span class="version-container">v0.8.1</span>
+			<i class="version-alpha">Alpha</i>
+		</a>
 		<div class="index-about">
 			<p class="index-about-p">MVC framework for creating reliable web applications</p>
 		</div>
-		<a class="btn btn-gray" href="https://github.com/kogarashisan/LiquidLava/releases">
-			<i class="glyphicon glyphicon-download-alt"></i> Download
-		</a>
-		<div class="main-page-follow-container" style="visibility: hidden" id="main_page_follow_container">
-			<!-- tweet -->
-			<a href="https://twitter.com/share" class="twitter-share-button" data-text="LiquidLava Framework - When art is beautiful" data-via="LavaFramework">Tweet</a>
-			<!-- follow -->
-			<a href="https://twitter.com/LavaFramework" class="twitter-follow-button" data-show-count="false">Follow @LavaFramework</a>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5">
+			<h3>About</h3>
+
+			<p>LiquidLava is an MVC framework for building user interfaces, which scale from simple interactive elements on page to
+			complex feature-rich applications. What makes it different from other frameworks is transparent internal design:
+			this means, that you always know, what you are doing, and what happens inside the framework.</p>
+		</div>
+		<div class="col-md-7">
+			<h3 style="margin-left: 1em">Features</h3>
+			<ul>
+				<li>Unique class system: generated classes are
+					<a href="http://jsperf.com/liquidlava-class-system-performance/3" alt="Performance comparison of LiquidLava and native JavaScript classes" target="_blank">as fast</a>
+					as their hand-written analogues</li>
+				<li>Templates are parsed into configs for JavaScript classes (not compiled into functions)</li>
+				<li>Never creates DOM elements directly. Renders them as HTML and inserts into DOM</li>
+				<li>Software patterns instead of dependency injection</li>
+				<li>No magic!</li>
+			</ul>
 		</div>
 	</div>
 
-
+	<div class="main-page-follow-container" style="visibility: hidden" id="main_page_follow_container">
+		<!-- tweet -->
+		<a href="https://twitter.com/share" class="twitter-share-button" data-text="LiquidLava Framework - When art is beautiful" data-via="LavaFramework">Tweet</a>
+		<!-- follow -->
+		<a href="https://twitter.com/LavaFramework" class="twitter-follow-button" data-show-count="false">Follow @LavaFramework</a>
+	</div>
 
 	<h1 class="text-center">Demo ToDo application</h1>
 	<!--LAVA_BUILD_INCLUDE:main_page_example.html-->
