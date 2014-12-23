@@ -22,8 +22,6 @@ Example: turn off escaping of HTML entities
 {#expression("<b>This text will be bold</b>") escape_off}{/expression}
 </lavabuild:template_result>
 
-`escape_off` is the only option, which is recognized by Expression view, and the only reason to use the standard form.
-
 ##Foreach view
 
 Foreach view displays the given template for each item from Enumerable, array or an object.

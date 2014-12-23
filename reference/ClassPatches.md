@@ -153,10 +153,10 @@ Then reference to the current `init` method will be lost,
 and `this.Class.constructor.prototype.MyParentClass$init` will become <kw>null</kw>.
 
 There are certain limitations to using `patch`:
-1) the class may patch only itself, and never it's child or parent classes. 
+1. The class may patch only itself, and never it's child or parent classes. 
 In other words, replaced method must belong to current class.
-2) `init` method can not be removed for the root (bottom) classes, cause generated constructor still calls it.
-3) current system allows you to replace a method only once. You can not swap them multiple times.
+2. `init` method can not be removed for the root (bottom) classes, cause generated constructor still calls it.
+3. Current system allows you to replace a method only once. You can not swap them multiple times.
 
 ##Patching methods
 
