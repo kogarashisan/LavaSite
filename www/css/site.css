@@ -7715,6 +7715,7 @@ footer .container {background: #f7f5fa;}
 .doc-default-text-list {padding-left: 1.5em}
 .doc-default-text-list li {list-style: none;list-style-type: none}
 .doc-default-text-list span {display: inline-block; width: 33px;}
+.doc-invalid-space {background: orange}
 
 @media (min-width: 1200px) {
 	.api-tabs-header-link {padding: 8px 10px;}

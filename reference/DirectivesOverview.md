@@ -41,10 +41,19 @@ This is done to maintain good codestyle among LiquidLava developers. For example
 ```
 
 You cannot move &lt;x:option&gt; directive after any text inside the view - otherwise you will get an exception.
-Also, you cannot insert any directive, that produces result before it, like &lt;x:widget&gt;.
+Also, you cannot insert any directive, that produces result (like &lt;x:widget&gt;) before it.
 
 Special cases: x:define and x:define_resources directives must be outside of view or widget configs.
 You must always put them at the root of your templates.
+
+##Order of directives
+
+Order of directives matters: for example, you can use &lt;x:option&gt; after &lt;x:options&gt;, but not vice versa.
+Reason: &lt;x:options&gt; directive overwrites the whole {@link _cView#options} object, while &lt;x:option&gt;
+adds only one property to that object.
+
+The same rule applies to &lt;x:option&gt; and &lt;x:options&gt; tags in widget definition. In DEBUG mode you will
+get an error in case of wrong order.
 
 ##Directive results
 

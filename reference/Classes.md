@@ -49,6 +49,7 @@ But if you really need it, then there is analog for Lava classes - {@link Lava#i
 
 If you know the exact class path, you can access class constructor directly.
 When class name is stored in configs, you can search for the constructor:
+
 ```javascript
 // way 1: create class directly
 var instance = new Lava.view.container.Element(/* ... */);
@@ -96,7 +97,7 @@ When a method is overridden in child class - parent's method is renamed:
 a prefix of short parent's name and dollar sign are added before it. For example,
 when you inherit from "Lava.data.field.Abstract" - all parent methods will start with "Abstract$".
 
-Only one class may be inherited. Usage example:
+Multiple inheritance is not allowed. Usage example:
 
 ```javascript
 Lava.define(
@@ -111,8 +112,13 @@ Lava.define(
 });
 ```
 
-You can only call overridden methods of a class you directly inherit.
-You cannot skip a call to parent's method and call "grandfather's" methods directly.
+Rule of thumb: you can only call overridden methods of a class you directly inherit.
+You can not skip a call to parent's method and call "grandfather's" methods directly.
+
+Naming limitation: you can not have two classes with same short name in one inheritance chain 
+(short name - name after the last dot). For example: you can not create a class `Lava.widget.input.Abstract`, 
+inherited from `Lava.widget.Standard`, cause the latter inherits from `Lava.view.Abstract`. This limitation arises from
+the algorithm of {@link Lava.ClassManager#patch} (see {@link reference:ClassPatches}).
 
 ###Implements
 

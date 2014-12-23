@@ -93,3 +93,11 @@ Tags without directive analogs are described separately. They include:
 	result = '<table class="api-member-table doc-directive-quick-facts"><thead><tr><td>Tag</td><td>Description</td></tr></thead><tbody>'
 		+ result + '</tbody></table>';
 </script>
+
+##Controller paths
+
+You can write full name of the class in `controller` attribute, like:
+
+<lavabuild:template_result as="single_view">
+<x:widget controller="Lava.user.MyWidget"></x:widget>
+</lavabuild:template_result>

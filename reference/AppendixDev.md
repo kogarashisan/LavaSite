@@ -2,10 +2,15 @@
 
 #Appendix С - Development guidelines
 
-Note: to be able to use Bower and run the following commands in console - 
-you need to have Node.js and Git installed in your system. 
+To be able to use Bower and run the following commands in console - you need to have Node.js and Git installed in your system. 
 You may also need to install Node.js packages like "bower" and "grunt".
 Install process is not covered in this reference, please read the corresponding documentation of each mentioned tool.
+
+##Commandments of Lava developer
+
+- Develop with {@link Lava.schema#DEBUG} switch enabled. Program that fails in DEBUG mode is not valid.
+- Never modify original framework file. Use "monkey patching" instead.
+- Distribute your widgets with sources of their templates. Distributing only parsed configs is not enough.
 
 ##Using bower
 
@@ -15,13 +20,13 @@ Bower is a dependency management tool, which automates this task. Example `bower
 ```javascript
 {
 	"dependencies": {
-		"lava-framework": "~0.7.0"
+		"lava-framework": "~0.8.0"
 	}
 }
 ```
 
 This will create directory `bower_components/lava-framework` in your project's folder, 
-and checkout version 0.7.x of Lava from GitHub to that folder.
+and checkout version 0.8.x of Lava from GitHub to that folder.
 After checkout you can manually delete all files, that you don't need.
 
 To learn more, visit the official <a href="http://bower.io/">Bower website</a>.
@@ -44,7 +49,7 @@ Lava uses semantic versioning: master branch contains tags "v#.#.#" which you ca
 See also framework's <a href="https://github.com/kogarashisan/LiquidLava/releases/">releases</a> page.
 
 <b>In case of any breaking changes, there will be no backward compatibility. Instead, you will be given detailed
-upgrade instructions.</b> See the <a href="/www/changelog.html">Changelog</a>.
+upgrade instructions, at least in Alpha and Beta stages.</b> See the <a href="/www/changelog.html">Changelog</a>.
 
 ##Bugs
 

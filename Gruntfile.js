@@ -573,6 +573,7 @@ module.exports = function(grunt) {
 			'reference/ConfigExtension.md',
 			'reference/Packages.md',
 			'reference/Animation.md',
+			'reference/ClassPatches.md',
 			'reference/APIRemarksList.md',
 			'reference/FAQ.md',
 

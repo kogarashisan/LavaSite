@@ -50,6 +50,27 @@ You must not access them from outside of the widget, just like other variables:
 var tabs_widget = Lava.view_manager.getViewById("my_tabs");
 // NEVER DO IT!
 tabs_widget.get("_tabs");
- // most likely, this will break the Tabs widget
+ // most likely, this will break the Tabs widget. Never do it.
 tabs_widget.set("_tabs", new Lava.system.Enumerable());
 ```
+
+##Forced code style in parsers
+
+Parsers are very strict about spaces. These restrictions are intentional - to force good code style in community.
+The following example highlights where spaces are not allowed in templates and expressions:
+
+{literal:}
+<pre>
+{$<span class="doc-invalid-space">&nbsp;</span>foreach<span class="doc-invalid-space">&nbsp;</span>($widget<span class="doc-invalid-space">&nbsp;</span>.<span class="doc-invalid-space">&nbsp;</span>something<span class="doc-invalid-space">&nbsp;</span>(...))}
+</pre>
+{:literal}
+
+Next example highlights where spaces are not allowed in event and role targets:
+
+{literal:}
+<pre>
+$widget<span class="doc-invalid-space">&nbsp;</span>.<span class="doc-invalid-space">&nbsp;</span>something<span class="doc-invalid-space">&nbsp;</span>(...)<span class="doc-invalid-space">&nbsp;</span>; $another_widget.another_thing(...)
+</pre>
+{:literal}
+
+Notice, that space is not allowed before semicolon.
