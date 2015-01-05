@@ -18,7 +18,7 @@
 				<assign name="records">#ExamplesApp.tree_records</assign>
 				<script x:equiv="options" type="lava/options">
 					{
-						use_meta_storage: true,
+						meta_storage_columns: ["is_expanded"],
 						refresher: {type: 'Collapse'}
 					}
 				</script>
@@ -29,7 +29,7 @@
 			<x:widget extends="FolderTree" id="tree_right">
 				<assign name="records">#ExamplesApp.tree_records</assign>
 				<script x:equiv="options" type="lava/options">
-					{use_meta_storage: true}
+					{meta_storage_columns: ["is_expanded"]}
 				</script>
 			</x:widget>
 		</div>

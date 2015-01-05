@@ -5,7 +5,7 @@
 When data changes - scopes do not refresh themselves immediately, instead they are placed into update queue 
 in {@link Lava.ScopeManager}. The same for views - they have their own queue in {@link Lava.system.ViewManager}.
 
-And there are two separate refresh cycles - for scopes ({@link Lava.ScopeManager#refreshScopes}), 
+And there are two separate refresh cycles - for scopes ({@link Lava.ScopeManager#refresh}), 
 and for views ({@link Lava.system.ViewManager#refresh}). Scopes are updated before views.
 
 How views are refreshed: ViewManager calls `refresh()` method of all views in it's queue, which does the following:
@@ -38,7 +38,6 @@ Render operation will clear "dirty" state on the inner view, so when ViewManager
 
 State of views is determined by the following properties:
 - {@link Lava.view.Abstract#_is_inDOM} - is the view currently in DOM
-- {@link Lava.view.Abstract#_is_sleeping} - does it listen to argument changes
 - {@link Lava.view.Abstract#_is_dirty} - set when it's content in DOM should be refreshed
 
 There is no "rendered" state, cause rendered views must be immediately inserted into DOM.
@@ -53,9 +52,7 @@ View state diagram:
 State is controlled by the following methods:
 - {@link Lava.view.Abstract#broadcastInDOM|broadcastInDOM} - inform hierarchy, that it's now in DOM, so now it can access it's DOM elements
 - {@link Lava.view.Abstract#broadcastRemove|broadcastRemove} - inform hierarchy that now it will be removed
-- {@link Lava.view.Abstract#broadcastSleep|broadcastSleep} - hierarchy should stop updating itself
-- {@link Lava.view.Abstract#broadcastWakeup|broadcastWakeup} - hierarchy should update itself
-- {@link Lava.view.Abstract#render|render} - wakes up and refreshes sleeping views, renders hierarchy, marks views as clean
+- {@link Lava.view.Abstract#render|render} - renders hierarchy, marks views as clean
 - {@link Lava.view.Abstract#refresh|refresh} - refresh one single view with container (render and update HTML inside container)
 and mark it as clean
 
@@ -67,7 +64,7 @@ a view - it will call the same method on it's children, and they will call it on
 
 ##Created state
 
-When a view is created - it's not in dom, clean and awaken (_is_inDOM = _is_dirty = _is_sleeping = false).
+When a view is created - it's not in dom and clean (_is_inDOM = _is_dirty = false).
 
 ```javascript
 var dummy_widget = new Lava.widget.Standard({
@@ -90,8 +87,7 @@ Firestorm.setProperty(document.body, 'html', template_instance.render());
 template_instance.broadcastInDOM();
 ```
 
-This operation will move the view into "InDOM" state (center square on the diagram).
-`render()` method awakens sleeping views, and returns HTML of the Template.
+This operation will move the view into "InDOM" state (right square on the diagram).
 `broadcastInDOM()` informs all the hierarchy inside the template that it's now in DOM, so now it can access it's DOM elements:
 attach listeners, apply animation, etc.
 
@@ -100,27 +96,9 @@ After you render a template - you should immediately insert it into DOM, then im
 Reason: if you modify any data after render - then rendered data will become stale.
 If you violate the view lifecycle - it may lead to unexpected errors.
 
-##Sleeping state
-
-Template can move between "InDOM" and "Sleeping" states freely (on diagram it's square on the right):
-
-```javascript
-template_instance.broadcastSleep(); // still in DOM, but sleeping
-template_instance.broadcastWakeup(); // in DOM and awaken
-```
-
-Sleeping views will not update themselves when their argument changes. You can turn off entire regions of page.
-When views wake up - they refresh their argument values and queue themselves for refresh in ViewManager.
-
-When this can be useful: 
-- when templates are removed with animation - they are still in DOM, but put into sleeping state. When animation ends - 
-they will be removed from DOM completely, so there is no need to refresh them. But sometimes animation is reversed,
-and template is awaken.
-- a collapsible panel may decide to keep it's content in DOM, but hidden. There is no need to refresh hidden content.
-
 ##Removed state
 
-When Template is in DOM, it can be removed. You can remove both sleeping and awaken templates:
+When Template is in DOM, it can be removed.
 
 ```javascript
 template_instance.broadcastRemove();
@@ -132,11 +110,9 @@ Firestorm.setProperty(document.body, 'html', '');
 removal: detach element listeners, if there are any, stop animations, etc. `broadcastRemove` must be dispatched 
 <b>before</b> Template is actually removed, when DOM elements are still accessible.
 
-When template is removed - it suspends it's argument listeners (puts itself into "sleeping" state).
-
 ##Refresh
 
-At any moment a template can be rendered and inserted into DOM (even when it's already in DOM and awaken).
+At any moment a template can be rendered and inserted into DOM (even when it's already in DOM).
 That's how view's {@link Lava.view.Abstract#refresh} functions: it renders view's template(s) and replaces HTML
 inside it's container:
 
@@ -161,4 +137,3 @@ it's container (outer &lt;div&gt;). View, which displays `inner_text` can be cle
 be rendered anyway.
 
 If you have listeners on DOM elements - you should remove them in `render()`, cause all existing content will be replaced.
-`render()` also awakens arguments and marks view as clean (_is_dirty = false).

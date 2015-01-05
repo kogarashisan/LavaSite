@@ -1,0 +1,26 @@
+<p>Demonstrates usage of filters inside Lava.scope.Foreach.</p>
+
+<p>Satisfied requirements:</p>
+<ul>
+	<li>Each line below the box is contained in a separate element, so they can be inserted and removed independently from each other.</li>
+	<li>When search is narrowed (when you type another letter into search box) - whole list is not re-rendered.
+		Instead, only the elements, that don't match the filter are removed.</li>
+	<li>When search is broaden (when you remove part of text from input) - only new elements,
+		that match new filter text are rendered and inserted into DOM.
+		Everything, that was already in DOM - is not touched.</li>
+	<li>Highlighted text is updated only for visible elements in the list.</li>
+</ul>
+
+<p>Note about speed: this is not the fastest way to show a plain filtered list - view layer filtering is designed to handle more complex scenarios.
+	Removal of items from the list is very fast (when you type new letters into the input), but insertion is a bit slower.</p>
+
+<p>How this works:</p>
+<ul>
+	<li>Foreach view is assigned role inside the example widget.
+		Role handler attaches listener to "after_refresh" event of Lava.scope.Foreach instance, which is owned by the Foreach view.</li>
+	<li>Scope also has two options: "own_enumerable_mode" and "depends".</li>
+	<li>Each time you change text in the input - scope updates from source Enumerable and triggers "after_refresh"
+		(this behaviour is enabled by the "depends" option).</li>
+	<li>"after_refresh" handler filters records inside the scope and applies coloring.</li>
+</ul>
+

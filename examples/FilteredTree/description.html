@@ -1,0 +1,12 @@
+<p>This example demonstrates view-layer filtering: tree nodes are inserted and removed separately from each other.</p>
+
+<p>This example expects the tree to be static, and will not properly detect added or removed records
+	unless you change the filter text. It also does not track record title changes.</p>
+
+<p>If you want to overcome these limitations, then you could:</p>
+<ul>
+	<li>Create a "refresh" button</li>
+	<li>Or use more complicated algorithms</li>
+</ul>
+
+<p>Better algorithm would use a Module data source with listeners on "title" and "parent" fields.</p>

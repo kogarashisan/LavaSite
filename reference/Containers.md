@@ -53,22 +53,17 @@ Emulated container knows that it can insert view content after the previous elem
 
 When you want to render a container - you call `wrap(html)` - it renders container tags with all attributes
 and wraps `html` inside them. You must insert the rendered HTML into DOM immediately:
-if manipulate data or refresh bindings - in this case rendered data will become stale,
+if you change data or refresh bindings - then rendered data will become stale,
 and container will not refresh itself properly. After insert, you must call `informInDOM()` - 
 to tell the container, that it's now in DOM.
 
 Views and containers have very simple state machine: it does not track the fact that it was rendered,
-and you could render it several times in a row. When Element container knows that it's in DOM - it will start to refresh it's property 
+so they will not notice if you render them several times in a row (<b>but it's not safe to do that</b>).
+When Element container knows that it's in DOM - it will start to refresh it's property 
 bindings, and calls to {@link Lava.view.container.Element#getDOMElement} will return it's DOM element.
 
 <b>Before</b> removing container from DOM, you must call `informRemove()` - this makes the container to forget cached reference
 to it's DOM element(s) and stops synchronization of bound properties.
-
-Another state of containers is "sleeping". It does not affect Morph and Emulated containers, 
-but when Element container receives `sleep()` command - it suspends it's bindings.
-When container is removed from DOM - it's automatically suspended.
-
-Suspended containers can be resumed with call to `wakeup()`.
 
 ##Element container in depth
 

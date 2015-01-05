@@ -77,7 +77,8 @@
 						Develop <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="https://github.com/kogarashisan/LiquidLava/">GitHub</a></li>
+						<li><a href="https://github.com/kogarashisan/LiquidLava/">Core on GitHub</a></li>
+						<li><a href="https://github.com/kogarashisan/LavaSite/">Site on GitHub</a></li>
 						<li><a href="/www/changelog.html">Changelog</a></li>
 						<li><a href="https://github.com/kogarashisan/LiquidLava/issues?state=open">Issues</a></li>
 						<li><a href="/www/roadmap.html">Roadmap</a></li>
@@ -147,11 +148,9 @@
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> "use strict"</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> new selector for event and role targets: NameAndLabel<span class="task-comment">affects ExpressionParser, view.Abstract, ViewManager</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> New selector for event and role targets: "Instance" - for adding targets at run time<span class="task-comment">also use it in DropDown</span></li>
-<li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Performance">Performance</span> inside sleep() of the views it's not needed to turn off the argument listeners, only arguments themselves.</li>
-<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Q">Q</span> turn off view bindings in sleep() (*)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> hard_refresh event for views hierarchy<span class="task-comment">to force refresh of views, which are bound to plain JS objects (like Angular refresh cycle)</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span><span class="tag-Q">Q</span> new kind of template includes - inlineInclude. Will be replaced in config, once and forever.</li>
-<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Widget and Refresher* must not access Firestorm.Element</li>
+<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Q">Q</span> Widget and Refresher* must not access Firestorm.Element</li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> CONTROL_ATTRIBUTE_PREFIX and some other constants must be moved into Lava or schema</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> remove "active modifiers" (see parsers, Argument and support)</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> CSS compression, including class names</li>
@@ -159,7 +158,7 @@
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> search the framework code and find possibilities to rewrite for usage of:<br/>Firestorm.Array.exclude and Firestorm.Object.copy<span class="task-comment">Firestorm.Object.copy may be used in ClassManager in place of extend()</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> config extenders should be turned into normal class, and created in Lava.init()</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> new kind of argument - StaticArgument for one-time calculations. Use it in static_eval<span class="task-comment">must not attach listeners</span></li>
-<li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Performance">Performance</span> Possible optimization: if Argument is equal to scope binding, than do not create an argument, get the binding.<span class="task-comment">search every place where Argument is used</span></li>
+<li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Performance">Performance</span><span class="tag-Q">Q</span> Possible optimization: if Argument is equal to scope binding, than do not create an argument, get the binding.<span class="task-comment">search every place where Argument is used</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> Segment option to evaluate it's property name only once and do not create listeners<span class="task-comment">in expression parser it will be curly braces instead of square: row{column.name}</span></li>
 <li><span class="tag-P4">P4</span><span class="tag-Refactoring">Refactoring</span> Move some exception texts into Lava.known_exceptions (like 'abstract function call')</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> add possibility to have several Lava versions on one page</li>
@@ -174,14 +173,14 @@
 <li><span class="tag-P2">P2</span><span class="tag-Dev">Dev</span> recursive x:binding and x:assign protection.<span class="task-comment">Currently, you can create an assign of any property to itself</span></li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender<span class="task-comment">if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> each destroy() must call parent's destroy() in the end (not earlier)</li>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> (experimental) create a lighter fork of the framework: without Refreshable mixin.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span> Optimize config extension: widget configs without parent must be created with `is_extended = true`<span class="task-comment">1) widgets with static class name must have full class name in the "class" attribute.<br/> 2) with dynamic class name - must have locator gateway in 'class'.</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> FocusManager: specification recommends to use focus() instead of blur()<span class="task-comment">https://html.spec.whatwg.org/#focus-management-apis</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span> one-time expression evaluations, like x:static_eval or one-time assign,<br/>must be evaluated without creating bindings, using evalPathConfig()</li>
 <li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span> labels for inputs (with "for" attribute) need to be rendered as text<span class="task-comment">Now they must to be views, otherwise "for" attribute can not be set. If there is no other functionality<br/> except "for" attribute, then label should be rendered as static text.</span></li>
-<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> wrap the code that adds Refreshable listeners into a method in Refreshable<span class="task-comment">three lines of code, that add "waits_refresh" "refreshed" and "changed" listeners in classes in Scope layer</span></li>
 <li><span class="tag-P4">P4</span><span class="tag-Refactoring">Refactoring</span> Rewrite TemplateWalker without "throw"</li>
 <li><span class="tag-P1">P1</span><span class="tag-Refactoring">Refactoring</span> rename certain UPPER_CASE properties in Firestorm and schemas.<br/>Refactor Firestorm.Environment - store test results in an array (indices will be stored as separate {NAME => index} object)<span class="task-comment">if property value is determined at run time (not on server) - it must be lower case</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span><span class="tag-Feature">Feature</span> Create "View/Cacher" classes, that will allow to reuse templates inside If and Foreach views<span class="task-comment">Template may contain dynamic includes - such templates require custom caching algorithms.<br/> Also need a way to cache all templates by item GUID for static trees.</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span><span class="tag-Feature">Feature</span> Scopes must destroy themselves when they have no dependencies<span class="task-comment">when the last "changed" listener is removed. Destroyed scopes must become unusable.</span></li>
 </ul>
 <h3>Lava.js</h3>
 <ul>
@@ -334,15 +333,13 @@
 </ul>
 <h3>View/</h3>
 <ul>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> View/Include.class.js - view, which takes it's template config from a variable (dynamic include)</li>
+<li><span class="tag-P1">P1</span><span class="tag-Feature">Feature</span> View/Include.class.js - view, which takes it's template config from a variable (dynamic include)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> View/Switch.class.js - analog of the IF view, but with one argument.<span class="task-comment">will also affect TemplateParser and configs</span></li>
-<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> replace tagName in container.Morph with nodeName<span class="task-comment">must do it with tests, otherwise too dangerous</span></li>
+<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Q">Q</span> replace tagName in container.Morph with nodeName<span class="task-comment">must do it with tests, otherwise too dangerous</span></li>
 </ul>
 <h3>View/Foreach.class.js</h3>
 <ul>
 <li><span class="tag-P3">P3</span><span class="tag-Dev">Dev</span> "count" property must be read-only</li>
-<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> allow to reuse templates in Foreach<span class="task-comment">template may contain parameterized includes - such templates cannot be reused</span></li>
-<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> switch to cache and reuse templates by item UID. May be useful, when Foreach renders<br/>a small constant set of items, which can be filtered in view layer<span class="task-comment">like navigation tree on documentation page.</span></li>
 </ul>
 <h3>View/Container/Element.class.js</h3>
 <ul>
@@ -399,17 +396,9 @@
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> Need fast unstable sort algorithm (*)</li>
 </ul>
 <h2>Existing widgets</h2>
-<h3>Panels</h3>
-<ul>
-<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> when panels are collapsed, but their body stays in DOM - they should sleep() their content</li>
-</ul>
 <h3>Accordion</h3>
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> collapseAll()</li>
-</ul>
-<h3>Tree</h3>
-<ul>
-<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> must not contain Morph containers inside it</li>
 </ul>
 <h3>Select</h3>
 <ul>
@@ -432,6 +421,7 @@
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> input watermarks<span class="task-comment">in Lava they will be elements before the input, with negative margin. It's the most reliable way.</span></li>
 <li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> input labels should be configured as attributes + standalone widget</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> moveCursorToStart(), moveCursorToEnd(), isCursorAtStart(), isCursorAtEnd() API for text inputs</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> option to focus input field when widget is inserted into DOM<span class="task-comment">enable it in examples with input field, remove custom input widget from To Do app example</span></li>
 </ul>
 <h2>Create widgets</h2>
 <ul>
@@ -439,7 +429,7 @@
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> list with selectable items (multiple selection, adding/removing items with Ctrl)</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> TimePicker</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Slider<span class="task-comment">with hidden input field, left and right slider</span></li>
-<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Menu<span class="task-comment">with keyboard navigation</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Menu<span class="task-comment">with keyboard navigation</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Validator - a separate widget with visitor pattern for validation rules<span class="task-comment">wraps the input</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> ProgressBar</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Dialog</li>
@@ -461,7 +451,7 @@
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Unit tests for all classes</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Advanced code compression</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Drag-and-Drop functionality</li>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> UI layer</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> UI layer (desktop-like widgets)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Delay loading of images and objects</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> ARIA compatibility for widgets</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Server-side communication for Data layer</li>
@@ -481,6 +471,7 @@
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Widgets page must display source code of widget usage + it must be assembled like Examples</li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span> there must be no calls to TemplateParser (via Lava.bootstrap) in the www directory.<br/>Everything must be assembled on server.</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Widgets page: each widget must have a detailed description with usage, events, roles, properties and options</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Widgets page: add Tree widget</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> a demo of a native widget wrapper (for example, CodeMirror, color pickers or Select2)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> there must be an ability to launch unit tests right on the framework site</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> code coverage for unit tests, that can be viewed online</li>
@@ -490,6 +481,7 @@
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Better design than plain Bootstrap theme</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> create an example "Miner" game (in the Examples page)</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> when framework version reaches 1.0 - create "lava-1.0.js" in site `lib/` directory and replace<br/>the reference to the library in all JSFiddle examples. Documentation should also be versioned at this point.</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Filtered tree example must automatically expand and collapse certain nodes when filter changes</li>
 </ul>
 <h2>Documentation</h2>
 <ul>
@@ -505,7 +497,8 @@
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Check: if function returns a value - than it must be described in @returns JSDoc comment<span class="task-comment">this can be done with Esprima</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> If parent method has @returns and inherited has JSDoc block - than JSDoc block of inherited method<br/>must also contain @returns</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Show source code for classes and make ability to reference lines of code.<br/>Link all members to their source.</li>
-<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Ability to filter classes and class members</li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Ability to filter class trees. Take functionality from FilteredTree example.<span class="task-comment">Should display "nothing found" when there are no records.<br/> Should automatically expand folders with only one item inside them.</span></li>
+<li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Ability to filter class members</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Ability to create links to class members from user interface<span class="task-comment">hovering a member must show a link to it</span></li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Versioning of the documentation</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> Display "defined" and "overridden" fields for each member.</li>

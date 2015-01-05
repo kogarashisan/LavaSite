@@ -1,0 +1,44 @@
+
+<h2>0.9.0</h2>
+
+<p>Reworked the Scope and View layers. Now Lava is even faster then before.</p>
+<p>Certain limitations on refresh cycles were also removed: now you can manipulate data while views are refreshing.</p>
+
+<div style="padding-left: 2em">
+	<h3>Feature</h3>
+	<ul>
+		<li>Added _cRefresher#insert_callback, remove_callback, and removal_strategy.</li>
+		<li>Improved a couple of parser error messages.</li>
+		<li>Added Firestorm.String#escapeStringForRegExp().</li>
+		<li>Added MetaStorage#createMetaRecord().</li>
+		<li>Tree widget now can insert and remove nodes without animation interruptions and redrawing of entire content.</li>
+		<li>Added Lava.view.container.Element#getStartElement(), getEndElement(),
+			which return it's DOM element - for compatibility with Morph container.</li>
+	</ul>
+
+	<h3>Refactoring</h3>
+	<ul>
+		<li>Removed "waits_refresh" and "refreshed" events from Scope layer, now they are aligned by Refreshable#level property.</li>
+		<li>Removed broadcastSleep() and broadcastWakeup() functionality from views, as well as isSleeping().</li>
+		<li>MetaStorage#get does not create records automatically anymore.</li>
+		<li>MetaRecord now inherits from Lava.data.Record and has `_original_record` property.</li>
+		<li>Removed Lava.data.RecordAbstract, merged into Lava.data.Record.</li>
+		<li>Lava.widget.Standard#set() now has equality check. Custom setter is called only if new value differs.
+			Logic in widget property setters was simplified.</li>
+		<li>Renamed ScopeManager.refreshScopes() -> ScopeManager.refresh().</li>
+		<li>Tree widget was completely rewritten (including template). Options format has changed:
+			now instead of old "use_meta_storage" option you must specify {meta_storage_columns: ["is_expanded"]}.</li>
+		<li>Refactored internal structure and API of refreshers.</li>
+	</ul>
+
+	<h3>Fix</h3>
+	<ul>
+		<li>Fixed a series of bugs in view and scope layers, that could crash the application.</li>
+		<li>Now roles can be dispatched inside events and vice versa.</li>
+	</ul>
+
+	<h3>Site</h3>
+	<ul>
+		<li>Added new examples</li>
+	</ul>
+</div>

@@ -1,0 +1,22 @@
+<x:widget extends="Example" controller="ViewLayerFilteringExample">
+	<template>
+		<text_input class="edit">
+			<x:bind name="value">$example.filter_text</x:bind>
+		</text_input>
+		{$foreach($example.api_names_list)
+			as=record
+			own_enumerable_mode=DataView
+			depends="$example.filter_text"}
+			<x:roles>$example.main_foreach</x:roles>
+			<x:refresher>
+				{
+					type: 'Standard',
+					insertion_strategy: 'sequential_elements'
+				}
+			</x:refresher>
+			<div x:type="container">
+				{#expression(record.formatted_title) escape_off}{/expression}
+			</div>
+		{/foreach}
+	</template>
+</x:widget>

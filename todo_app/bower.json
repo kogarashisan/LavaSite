@@ -4,6 +4,6 @@
   "dependencies": {
     "todomvc-common": "~0.1.4",
     "director": "~1.2.2",
-    "lava-framework": "~0.7.0"
+    "lava-framework": "~0.9.0"
   }
 }

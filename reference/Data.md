@@ -133,10 +133,12 @@ var meta_storage = new Lava.data.MetaStorage({
 	}
 });
 
-var meta_record = meta_storage.get(123); // you pass a GUID of record from standard module
+var meta_record = meta_storage.createMetaRecord(123); // you pass a GUID of record from standard module
+// meta_record = meta_storage.get(123); // you can get created MetaRecords by GUIDs of external records
 ```
 
-{@link Lava.data.MetaStorage#get} creates a new record for every requested GUID.
+Records in MetaStorage are referenced by GUIDs of external records. MetaStorage implements {@link Lava.mixin.Properties},
+which allows it to be used in templates for data binding.
 
 ##Field roles and naming conventions
 

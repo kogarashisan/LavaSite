@@ -1,0 +1,66 @@
+
+<example>
+	<x:widget extends="FolderTree" controller="FilteredTreeExample">
+		<template>
+			<text_input>
+				<x:bind name="value">$tree.filter_text</x:bind>
+			</text_input>
+			<div x:type="container" x:resource_id="$tree.MAIN_TREE_CONTAINER">
+				{#foreach($tree.records)
+					as=node
+					own_enumerable_mode=DataView
+					depends="$tree.filter_text"}
+					{*<!--role handler creates refresher-->*}
+					<x:roles>$tree.root_nodes_foreach</x:roles>
+					{>$tree.node}
+				{/foreach}
+			</div>
+		</template>
+		<options>
+			{
+				meta_storage_columns: ["is_expanded"],
+				refresher: {type: 'Collapse'}
+			}
+		</options>
+		<include name="node_children">
+			{$if(node.children.length && $tree{is_expanded})}
+				{*<!--role handler creates refresher-->*}
+				<x:roles>$tree.node_children_view</x:roles>
+				<x:container_config>
+					{
+						type: "Emulated",
+						options: {
+							appender: 'AfterPrevious'
+						}
+					}
+				</x:container_config>
+				<x:assign name="pad">
+					{literal:}
+						(foreach_index == count - 1)
+							? pad + '<div class="lava-tree-pad"></div>'
+							: pad + '<div class="lava-tree-pad-line"></div>'
+					{:literal}
+				</x:assign>
+				<x:assign name="level">@parent->level + 1</x:assign>
+				<div x:type="container" class="lava-tree-container">
+					{#foreach(node.children)
+						as=node
+						own_enumerable_mode=DataView
+						depends="$tree.filter_text"}
+						{*<!--role handler creates refresher-->*}
+						<x:roles>$tree.nodes_foreach</x:roles>
+						{>$tree.node}
+					{/foreach}
+				</div>
+			{/if}
+		</include>
+		<include name="node_title">
+			<span class="lava-tree-title" x:type="container"
+				  x:classes="node.children.length ? 'lava-tree-title-expandable' : ''"
+				  x:event:click="$tree.node_click(node)">
+				{#expression($tree.meta_storage[node.guid].formatted_title) escape_off}{/expression}
+			</span>
+		</include>
+		{*<assign name="records">#ExamplesApp.tree_records</assign>*}
+	</x:widget>
+</example>

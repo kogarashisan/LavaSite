@@ -564,6 +564,12 @@ Lava.define(
 
 	},
 
+	_getMetaRecord: function(record) {
+
+		return this._properties.meta_storage.get(record.get('guid')) || this._properties.meta_storage.createMetaRecord(record.get('guid'));
+
+	},
+
 	_onMemberRowClick: function(dom_event_name, dom_event, view, template_arguments) {
 
 		var member_descriptor = template_arguments[0],
@@ -572,7 +578,7 @@ Lava.define(
 		if (dom_event.target.nodeName.toLowerCase() != 'a') { // links inside member description
 
 			if (member_descriptor.isProperties && member_descriptor.get('guid') && may_be_expanded) {
-				var meta_record = this._properties.meta_storage.get(template_arguments[0].get('guid'));
+				var meta_record = this._getMetaRecord(template_arguments[0]);
 				meta_record.set('is_expanded', !meta_record.get('is_expanded'));
 			}
 
@@ -963,7 +969,6 @@ Lava.define(
 		var demo_module = Lava.app.getModule('DemoTree'),
 			hash = window.location.hash;
 
-		// clone cause loading modifies the data
 		demo_module.loadRecords(ExampleData.example_tree);
 		this._properties.all_tree_records = new Lava.system.Enumerable(demo_module.getAllRecords());
 		this._properties.tree_records = new Lava.system.Enumerable(demo_module.getAllRecords());

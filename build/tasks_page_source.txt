@@ -6,12 +6,10 @@ System-wide or uncategorized
 		// affects ExpressionParser, view.Abstract, ViewManager
 	- [P3,Feature] New selector for event and role targets: "Instance" - for adding targets at run time
 		// also use it in DropDown
-	- [P3,Refactoring,Performance] inside sleep() of the views it's not needed to turn off the argument listeners, only arguments themselves.
-	- [P5,Performance,Q] turn off view bindings in sleep() (*)
 	- [P5,Feature,Q] hard_refresh event for views hierarchy
 		// to force refresh of views, which are bound to plain JS objects (like Angular refresh cycle)
 	- [P5,Feature,Performance,Q] new kind of template includes - inlineInclude. Will be replaced in config, once and forever.
-	- [P2,Refactoring] Widget and Refresher* must not access Firestorm.Element
+	- [P2,Refactoring,Q] Widget and Refresher* must not access Firestorm.Element
 	- [P3,Refactoring] CONTROL_ATTRIBUTE_PREFIX and some other constants must be moved into Lava or schema
 	- [P5,Refactoring] remove "active modifiers" (see parsers, Argument and support)
 	- [P3,Feature] CSS compression, including class names
@@ -22,7 +20,7 @@ System-wide or uncategorized
 	- [P3,Feature] config extenders should be turned into normal class, and created in Lava.init()
 	- [P3,Feature,Performance] new kind of argument - StaticArgument for one-time calculations. Use it in static_eval
 		// must not attach listeners
-	- [P3,Refactoring,Performance] Possible optimization: if Argument is equal to scope binding, than do not create an argument, get the binding.
+	- [P3,Refactoring,Performance,Q] Possible optimization: if Argument is equal to scope binding, than do not create an argument, get the binding.
 		// search every place where Argument is used
 	- [P3,Feature,Performance] Segment option to evaluate it's property name only once and do not create listeners
 		// in expression parser it will be curly braces instead of square: row{column.name}
@@ -44,7 +42,6 @@ System-wide or uncategorized
 	- [P2,Refactoring] remove the 'extender: "Standard"' from widget configs. Currently, it's the only available extender
 		// if config does not have an "extender" specified, than it should default to "Standard". Affects: Lava.js and config generation.
 	- [P5,Refactoring] each destroy() must call parent's destroy() in the end (not earlier)
-	- [P5,Feature,Q] (experimental) create a lighter fork of the framework: without Refreshable mixin.
 	- [P2,Performance] Optimize config extension: widget configs without parent must be created with `is_extended = true`
 		// 1) widgets with static class name must have full class name in the "class" attribute.
 		// 2) with dynamic class name - must have locator gateway in 'class'.
@@ -55,12 +52,15 @@ System-wide or uncategorized
 	- [P5,Performance] labels for inputs (with "for" attribute) need to be rendered as text
 		// Now they must to be views, otherwise "for" attribute can not be set. If there is no other functionality
 		// except "for" attribute, then label should be rendered as static text.
-	- [P2,Refactoring] wrap the code that adds Refreshable listeners into a method in Refreshable
-		// three lines of code, that add "waits_refresh" "refreshed" and "changed" listeners in classes in Scope layer
 	- [P4,Refactoring] Rewrite TemplateWalker without "throw"
 	- [P1,Refactoring] rename certain UPPER_CASE properties in Firestorm and schemas.
 		Refactor Firestorm.Environment - store test results in an array (indices will be stored as separate {NAME => index} object)
 		// if property value is determined at run time (not on server) - it must be lower case
+	- [P2,Performance,Feature] Create "View/Cacher" classes, that will allow to reuse templates inside If and Foreach views
+		// Template may contain dynamic includes - such templates require custom caching algorithms.
+		// Also need a way to cache all templates by item GUID for static trees.
+	- [P2,Performance,Feature] Scopes must destroy themselves when they have no dependencies
+		// when the last "changed" listener is removed. Destroyed scopes must become unusable.
 
 Lava.js
 	- [P2,Refactoring] simplify getWidgetSugarInstance(), get rid of _widget_title_to_sugar_instance
@@ -217,18 +217,13 @@ System/ViewManager.class.js
 	- [P5,Feature,Q] give it ability to cancel event bubbling by elements
 		// now only bubbling by widget hierarchy can be cancelled, not by elements
 View/
-	- [P5,Feature] View/Include.class.js - view, which takes it's template config from a variable (dynamic include)
+	- [P1,Feature] View/Include.class.js - view, which takes it's template config from a variable (dynamic include)
 	- [P5,Feature,Performance] View/Switch.class.js - analog of the IF view, but with one argument.
 		// will also affect TemplateParser and configs
-	- [P5,Refactoring] replace tagName in container.Morph with nodeName
+	- [P5,Refactoring,Q] replace tagName in container.Morph with nodeName
 		// must do it with tests, otherwise too dangerous
 View/Foreach.class.js
 	- [P3,Dev] "count" property must be read-only
-	- [P5,Performance,Feature,Q] allow to reuse templates in Foreach
-		// template may contain parameterized includes - such templates cannot be reused
-	- [P5,Performance,Feature,Q] switch to cache and reuse templates by item UID. May be useful, when Foreach renders
-		a small constant set of items, which can be filtered in view layer
-		// like navigation tree on documentation page.
 View/Container/Element.class.js
 	- [P1,Fix,Dev] if you render it's content and change any attribute before it's in DOM,
 		then you will get wrong content in DOM. Make protection from such lifecycle.
@@ -281,12 +276,8 @@ Algorithms/Sorting/
 	- [P5,Feature,Performance] Need fast unstable sort algorithm (*)
 
 #Existing widgets
-Panels
-	- [P2,Feature] when panels are collapsed, but their body stays in DOM - they should sleep() their content
 Accordion
 	- [P5,Feature] collapseAll()
-Tree
-	- [P3,Feature] must not contain Morph containers inside it
 Select
 	- [P3,Feature] there must be a sugar which parses it's content (optgroup and option tags)
 		// it will be custom function, which is independent from Sugar class.
@@ -307,6 +298,8 @@ Inputs
 		// in Lava they will be elements before the input, with negative margin. It's the most reliable way.
 	- [P4,Feature] input labels should be configured as attributes + standalone widget
 	- [P5,Feature] moveCursorToStart(), moveCursorToEnd(), isCursorAtStart(), isCursorAtEnd() API for text inputs
+	- [P2,Feature] option to focus input field when widget is inserted into DOM
+		// enable it in examples with input field, remove custom input widget from To Do app example
 
 #Create widgets
 	- [P2,Feature] reorderable list (with mouse support)
@@ -314,7 +307,7 @@ Inputs
 	- [P3,Feature] TimePicker
 	- [P3,Feature] Slider
 		// with hidden input field, left and right slider
-	- [P3,Feature] Menu
+	- [P2,Feature] Menu
 		// with keyboard navigation
 	- [P3,Feature] Validator - a separate widget with visitor pattern for validation rules
 		// wraps the input
@@ -338,7 +331,7 @@ Inputs
 	- [P5,Feature] Unit tests for all classes
 	- [P5,Feature] Advanced code compression
 	- [P5,Feature] Drag-and-Drop functionality
-	- [P5,Feature] UI layer
+	- [P5,Feature] UI layer (desktop-like widgets)
 	- [P5,Feature] Delay loading of images and objects
 	- [P5,Feature] ARIA compatibility for widgets
 	- [P5,Feature] Server-side communication for Data layer
@@ -362,6 +355,7 @@ Inputs
 	- [P3,Refactoring] there must be no calls to TemplateParser (via Lava.bootstrap) in the www directory.
 		Everything must be assembled on server.
 	- [P3,Feature] Widgets page: each widget must have a detailed description with usage, events, roles, properties and options
+	- [P2,Feature] Widgets page: add Tree widget
 	- [P3,Feature] a demo of a native widget wrapper (for example, CodeMirror, color pickers or Select2)
 	- [P5,Feature] there must be an ability to launch unit tests right on the framework site
 	- [P5,Feature] code coverage for unit tests, that can be viewed online
@@ -373,6 +367,7 @@ Inputs
 	- [P2,Feature] create an example "Miner" game (in the Examples page)
 	- [P5,Refactoring] when framework version reaches 1.0 - create "lava-1.0.js" in site `lib/` directory and replace
 		the reference to the library in all JSFiddle examples. Documentation should also be versioned at this point.
+	- [P5,Feature] Filtered tree example must automatically expand and collapse certain nodes when filter changes
 
 #Documentation
 	- [P4,Feature] Display @throws for methods
@@ -393,7 +388,10 @@ Inputs
 		must also contain @returns
 	- [P2,Feature] Show source code for classes and make ability to reference lines of code.
 		Link all members to their source.
-	- [P2,Feature] Ability to filter classes and class members
+	- [P2,Feature] Ability to filter class trees. Take functionality from FilteredTree example.
+		// Should display "nothing found" when there are no records.
+		// Should automatically expand folders with only one item inside them.
+	- [P2,Feature] Ability to filter class members
 	- [P2,Feature] Ability to create links to class members from user interface
 		// hovering a member must show a link to it
 	- [P5,Feature] Versioning of the documentation

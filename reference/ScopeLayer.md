@@ -20,27 +20,27 @@ You can execute the following example in your browser's console:
 var binding_target = new Lava.mixin.Properties({
 	test: 'value1'
 });
-// second parameter is property name, third will be explained later
-var property_binding = new Lava.scope.PropertyBinding(binding_target, 'test', 0);
+// second parameter is property name
+var property_binding = new Lava.scope.PropertyBinding(binding_target, 'test');
 
 property_binding.getValue(); // returns 'value1'
 
 binding_target.set('test', 'new value');
 property_binding.getValue(); // still returns 'value1'
 
-Lava.ScopeManager.refreshScopes();
+Lava.ScopeManager.refresh();
 property_binding.getValue(); // now returns 'new value'
 ```
 
-As you see, scope did not refresh it's value immediately, only after calling {@link Lava.ScopeManager#refreshScopes}.
-Alternatively, you can make a click anywhere on page: every DOM event listener callback ends with a call to `refreshScopes`.
+As you see, scope did not refresh it's value immediately, only after calling {@link Lava.ScopeManager#refresh}.
+Alternatively, you can make a click anywhere on page: every DOM event listener callback ends with a call to `refresh()`.
 
 How it works:
 - when you call `set` on `binding_target` - scope receives the "property changed" event from {@link Lava.mixin.Properties}
 - scope places itself into refresh queue in {@link Lava.ScopeManager}
-- on every refresh cycle {@link Lava.ScopeManager} calls {@link Lava.mixin.Refreshable#doRefresh} of every scope in it's queue.
+- on every refresh cycle {@link Lava.ScopeManager} calls {@link Lava.mixin.Refreshable#refresh} of every scope in it's queue.
 During this process new scopes may be added into the queue. Process stops when there are no scopes to refresh.
-- when PropertyBinding instance receives `doRefresh` call - it compares the old and new property values of the bound object.
+- when PropertyBinding instance receives `refresh()` call - it compares the old and new property values of the bound object.
 If values differ - it refreshes it's local value and fires it's own {@link Lava.scope.PropertyBinding#event:changed} event.
 
 ```javascript
@@ -50,7 +50,7 @@ var test_handler = {
 var listener = property_binding.on('changed', test_handler.onChanged, test_handler);
 
 binding_target.set('test', 'This value differs from previous');
-Lava.ScopeManager.refreshScopes();
+Lava.ScopeManager.refresh();
 // you will see "Inside the changed event handler" in console
 
 property_binding.removeListener(listener);
@@ -58,7 +58,7 @@ property_binding.removeListener(listener);
 
 Also note, that bound property does not necessarily need to exist:
 ```javascript
-var example_binding = new Lava.scope.PropertyBinding(new Lava.mixin.Properties(), 'test', 0);
+var example_binding = new Lava.scope.PropertyBinding(new Lava.mixin.Properties(), 'test');
 example_binding.getValue(); // returns undefined
 ```
 
@@ -70,6 +70,9 @@ and {@link Lava.scope.Segment} support setting the bound value.
 ```javascript
 property_binding.setValue('this value was set via setValue');
 ```
+
+Note: call to `setValue` will update the bound source, but not the current scope value. 
+You may need to call {@link Lava.ScopeManager#refresh} to receive "changed" event.
 
 ##DataBinding
 
@@ -83,7 +86,8 @@ PropertyBinding itself may return anything: object, instance of Properties, Enum
 binding_target.set('test', {
 	property_of_test: 'second level property'
 });
-var data_binding = new Lava.scope.DataBinding(property_binding, 'property_of_test', 0);
+Lava.ScopeManager.refresh();
+var data_binding = new Lava.scope.DataBinding(property_binding, 'property_of_test');
 
 // or:
 // var data_binding = property_binding.getDataBinding('property_of_test');
@@ -97,14 +101,14 @@ Note, that if you bind to a plain object, like in previous example, DataBinding 
 var data_source = binding_target.get('test');
 data_source.property_of_test = 'new value'; // it's a plain object
 
-Lava.ScopeManager.refreshScopes();
+Lava.ScopeManager.refresh();
 data_binding.getValue(); // still returns 'second level property'
 
 // now we assign completely new object
 binding_target.set('test', {
 	property_of_test: 'new value of object property'
 });
-Lava.ScopeManager.refreshScopes();
+Lava.ScopeManager.refresh();
 data_binding.getValue(); // now returns 'new value of object property'
 ```
 
@@ -143,7 +147,7 @@ When you evaluate a property in expression - a {@link Lava.scope.PropertyBinding
 {#> count}
 ```
 
-This will find a widget with `count` property and call it's {@link Lava.view.Abstract#getDataBinding} 
+This will find a view with `count` property and call it's {@link Lava.view.Abstract#getDataBinding} 
 (returns an instance of {@link Lava.scope.PropertyBinding}).
 
 When you evaluate a chain of properties - additional {@link Lava.scope.DataBinding} instances are created:
@@ -181,14 +185,14 @@ var data_source = new Lava.mixin.Properties({
 });
 
 // the scope, which will tell us, who we want to show
-var name_source_binding = new Lava.scope.PropertyBinding(data_source, 'name_source', 0);
+var name_source_binding = new Lava.scope.PropertyBinding(data_source, 'name_source');
 // in practice, `data_source` will be an instance of a view or widget (they inherit from Properties)
-var container = new Lava.scope.PropertyBinding(data_source, 'people', 0);
-var segment = new Lava.scope.Segment(container, name_source_binding, 0);
+var container = new Lava.scope.PropertyBinding(data_source, 'people');
+var segment = new Lava.scope.Segment(container, name_source_binding);
 segment.getValue(); // returns 'Harry Potter'
 
 name_source_binding.setValue('bad_man'); // select different property in container
-Lava.ScopeManager.refreshScopes();
+Lava.ScopeManager.refresh();
 segment.getValue(); // now returns 'Lord Voldemort'
 ```
 
@@ -210,7 +214,7 @@ var segment = test_widget.getSegment(name_source_binding); // returns instance o
 segment.getValue(); // returns 'Harry Potter'
 
 name_source_binding.setValue('bad_man');
-Lava.ScopeManager.refreshScopes();
+Lava.ScopeManager.refresh();
 segment.getValue(); // now returns 'Lord Voldemort'
 ```
 
@@ -240,7 +244,7 @@ First expression will find views which have `people` and `name_source` propertie
 // We are evaluating this expression in context of `current_view`
 var data_source = current_view.locateViewWithProperty("people").getDataBinding('people'); // returns PropertyBinding
 var name_source = current_view.locateViewWithProperty("name_source").getDataBinding('name_source'); // returns PropertyBinding
-var segment = new Lava.scope.Segment(data_source, name_source, 0);
+var segment = new Lava.scope.Segment(data_source, name_source);
 ```
 
 Second will find the widget, named "my_widget", and use it as `data_source`.
@@ -270,8 +274,9 @@ For explanation of constructs like `$my_widget~1->another_thing` - see {@link re
 
 ##setValue on DataBinding and segment
 
-Unlike PropertyBinding, which is always bound to a widget, Segment and DataBinding may be bound to different
-kinds of objects, which may be null sometimes. If setValue is impossible - it will be ignored silently.
+They also support `setValue()`, but unlike PropertyBinding, which is always bound to a widget, 
+Segment and DataBinding may be bound to different kinds of objects, which may be null sometimes. 
+If setValue is impossible - it will be ignored silently.
 
 ##Scope caching
 
