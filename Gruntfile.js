@@ -551,6 +551,7 @@ module.exports = function(grunt) {
 		reference_list: [
 			'reference/BrowserFeatures.md',
 			'reference/Classes.md',
+			'reference/Collections.md',
 			'reference/Data.md',
 			'reference/Containers.md',
 			'reference/ScopeLayer.md',
@@ -574,6 +575,7 @@ module.exports = function(grunt) {
 			'reference/Packages.md',
 			'reference/Animation.md',
 			'reference/ClassPatches.md',
+			'reference/ViewLayerFiltering.md',
 			'reference/APIRemarksList.md',
 			'reference/FAQ.md',
 
