@@ -135,7 +135,7 @@
 		<em>When art is beautiful</em>
 		<a class="btn btn-gray" href="https://github.com/kogarashisan/LiquidLava/releases">
 			<i class="glyphicon glyphicon-download-alt"></i> Download
-			<span class="version-container">v0.9.1</span>
+			<span class="version-container">v0.10.0</span>
 			<i class="version-alpha">Alpha</i>
 		</a>
 		<div class="index-about">
@@ -287,7 +287,7 @@
           <span class="hljs-tag">&lt;<span class="hljs-title">x:container_config</span>&gt;</span>
             {
               type: "Emulated",
-              options: {appender: 'AfterPrevious'}
+              options: {prepender: 'AfterPrevious'}
             }
           <span class="hljs-tag">&lt;/<span class="hljs-title">x:container_config</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"clear-completed"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:type</span>=<span class="hljs-value">"container"</span> <span class="lava-control-prefix">x</span><span class="hljs-attribute">:event:click</span>=<span class="hljs-value">"$todo_app.clear_completed_click"</span>&gt;</span>
@@ -536,8 +536,7 @@
 231
 232
 </pre><pre class="lava-code-content hljs javascript"><span class="hljs-comment">/*global Lava, Firestorm, Router */</span>
-(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm, Router)</span> {</span>
-<span class="hljs-pi">'use strict'</span>;
+(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm, Router)</span> {</span><span class="hljs-pi">'use strict'</span>;
 
 Lava.define(
 <span class="hljs-string">'Lava.widget.TodoApp'</span>,
@@ -792,8 +791,7 @@ Lava.define(
 24
 25
 </pre><pre class="lava-code-content hljs javascript"><span class="hljs-comment">/*global Lava, Firestorm */</span>
-(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm)</span> {</span>
-<span class="hljs-pi">'use strict'</span>;
+(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm)</span> {</span><span class="hljs-pi">'use strict'</span>;
 
 Lava.define(
 <span class="hljs-string">'Lava.widget.input.AutofocusText'</span>,

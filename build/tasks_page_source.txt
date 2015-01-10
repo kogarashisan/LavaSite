@@ -104,6 +104,7 @@ Data/ModuleAbstract.class.js
 Data/Module.class.js
 	- [P2,Refactoring] Move _records_by_id functionality to the ID field
 Firestorm/
+	- [P2,Performance] DOM#_setInnerHTML - split into two versions, depending on bug presence
 	- [P5,Feature] Element.fromHTML(html)
 		// turn html into nodes, assert there is only one and return it
 	- [P5,Performance] use insertAdjacentHTML where possible (*)
@@ -229,7 +230,7 @@ View/Container/Element.class.js
 		then you will get wrong content in DOM. Make protection from such lifecycle.
 		// make "is_rendered"/"waits_insertion" switch and throw an error, if setting a property while it's on
 View/Refresher/Standard.class.js
-	- [P2,Refactoring] Move all animation code to refresher.Animated
+	- [P2,Performance] Improve performance of current template ordering algorithm (_moveTemplate)
 Widget/Standard.class.js
 	- [P5,Feature,Q] "cancel_bubble" event and role handler to allow declaratively cancel bubbling of roles and events from templates
 		// three lines of code, but is it really needed?

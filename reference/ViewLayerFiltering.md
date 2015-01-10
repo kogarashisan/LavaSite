@@ -64,12 +64,7 @@ Scope also emits {@link Lava.scope.Foreach#event:after_refresh} event, which is 
 	own_enumerable_mode=DataView
 	depends="$example.filter_text"}
 	<x:roles>$example.main_foreach</x:roles>
-	<x:refresher>
-		{
-			type: 'Standard',
-			insertion_strategy: 'sequential_elements'
-		}
-	</x:refresher>
+	<x:refresher>{type: 'Standard'}</x:refresher>
 	<div x:type="container">
 		{#> record.title}
 	</div>

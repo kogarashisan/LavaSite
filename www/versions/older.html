@@ -1,0 +1,95 @@
+
+<h2>0.4.0</h2>
+
+<p>
+	Due to nature of "alpha" version, build contains lots of undocumented bug fixes, refactorings, changes and improvements.
+	But keep in mind: since "beta" version - every change <b>will</b> be described in the change log.
+	Beta is coming soon.
+</p>
+
+<div style="padding-left: 2em">
+
+	<h3>Feature</h3>
+	<ul>
+		<li>Added "dynamic scopes".</li>
+		<li>Declarative template editing (via edit_template tag in widget definition).</li>
+		<li>Added insertHTMLBefore() to all containers.</li>
+		<li>Emulated container: rewritten the insertion algorithm. New config options available, old gone.</li>
+		<li>Added Animator/Color.class.js</li>
+		<li>Animation now uses requestAnimationFrame()</li>
+	</ul>
+
+	<h3>Refactoring</h3>
+	<ul>
+		<li>Refactored the template of the Tree class, mainly for use of dynamic scopes.</li>
+		<li>Most classes, that implemented mixins - now extend them.</li>
+		<li>(container.Element) wrap() was split into 2 methods: renderVoid() for void containers, and wrap(html) for non-void.</li>
+		<li>
+			Renamed in Enumerable:
+			<ul>
+				<li>remove -> removeValue</li>
+				<li>include -> includeValue</li>
+				<li>contains -> containsValue</li>
+			</ul>
+		</li>
+		<li>Tooltip widget: now does not escape html. PopoverManager: replaces newlines with &lt;br&gt;</li>
+		<li>Widget definitions: <cpde>&lt;view role="..."&gt;</cpde> and <code>&lt;template role="..."&gt;</code> are split
+			into 3 new tags: &lt;include&gt;, &lt;main_view&gt; and &lt;main_template&gt;.</li>
+		<li>Completely rewritten Sugar class, and all _cWidget.storage functionality. Added separate schema for storage.</li>
+		<li>Tabs widget: added 'is_active' property to each tab, refactored.</li>
+		<li>Animation: renamed config options. 'transition' -> 'transition_name', and 'transition' is now a function.</li>
+		<li>All widget setters now accept arguments in different order: _setSomething(value, name)</li>
+		<li>Standard widget now has a name: 'widget'</li>
+		<li>Enumerable.each(): changed the callback parameters order. New order: value, name, uid, index.</li>
+	</ul>
+
+	<h3>Fixes</h3>
+	<ul>
+		<li>Fixed a serialization issue in Lava.Serializer.</li>
+		<li>Fixed a bug in view refresh system.</li>
+		<li>Fixed a bug in template compiling algorithm.</li>
+		<li>Fixed a bug in resources merging, which created duplicate classes.</li>
+		<li>Tooltip now hides empty tooltips by default.</li>
+		<li>Enumerable: fixed refresh from array.</li>
+	</ul>
+</div>
+
+<h2>0.3.0</h2>
+
+<div style="padding-left: 2em">
+	<h3>Feature:</h3>
+	<ul>
+		<li>Foreach view now supports sorting and filtering of it's values, via external callback</li>
+		<li>Calendar widget now prevents text selection when clicking on a day</li>
+		<li>ExpressionParser now supports dependencies for expressions</li>
+		<li>ExpressionParser: generated argument configs are more compact</li>
+		<li>Parent includes can now be included in inherited widgets</li>
+	</ul>
+
+	<h3>Refactoring:</h3>
+	<ul>
+		<li>ObjectParser: allowed external paths now must start with 'Lava'</li>
+		<li>Renamed Lava.data.Enumerable -> Lava.system.Enumerable</li>
+		<li>Changed signature of Enumerable filters</li>
+		<li>Enumerable now does not support .get(index), as well as "property changed" and index_changed events for indices. The only available property in Enumerable now is 'length'.</li>
+		<li>Lots of refactorings in Data layer, added Guid field</li>
+		<li>Changed format for Argument config and many other minor changes</li>
+	</ul>
+
+	<h3>Fixes:</h3>
+	<ul>
+		<li>Animation class now properly generates it's GUIDs</li>
+		<li>TemplateParser now correctly parses the &lt;script&gt; tags</li>
+		<li>TemplateParser: now concatenates adjacent strings in many cases</li>
+		<li>Fixed some bugs in Collection and Record fields</li>
+		<li>Fixed "Debug assertion failed" in "If" view</li>
+	</ul>
+</div>
+
+<h2>0.2.2</h2>
+
+<p>Lots of bugfixes for old Opera. No manual upgrade steps required.</p>
+
+<h2>0.2.1</h2>
+
+<p>Initial GitHub release</p>

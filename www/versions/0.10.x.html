@@ -1,0 +1,29 @@
+
+<h2>0.10.x</h2>
+
+<p>Once again reworked the Refresher API.</p>
+
+<p>Upgrade:</p>
+<ul>
+	<li>In templates: if there are Emulated containers with refresher,
+		then you will need to rename "appender" option to "prepender" (if you need - then you will see exceptions in console).</li>
+	<li>"insertion_strategy" and "removal_strategy" options were removed - remove them from templates.</li>
+</ul>
+
+<div style="padding-left: 2em">
+	<h3>Feature</h3>
+	<ul>
+		<li>Added _cRefresher#get_start_element_callback and _cRefresher#get_end_element_callback.</li>
+		<li>Added Firestorm.DOM#moveRegionBefore, Firestorm.DOM#moveRegionAfter.</li>
+	</ul>
+
+	<h3>Refactoring</h3>
+	<ul>
+		<li>Refactored refreshers: removed *_strategies fields, default strategies became more clever.</li>
+	</ul>
+
+	<h3>Fix</h3>
+	<ul>
+		<li>Refreshers now correctly sort templates.</li>
+	</ul>
+</div>

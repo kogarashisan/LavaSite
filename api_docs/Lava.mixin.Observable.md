@@ -20,8 +20,8 @@ However, there is need for global events. App class has explicitly defined publi
 from it's instance. This is not a workaround, but important design rule.
 
 ```javascript
-// from App class source code:
-Lava.app.fireGlobalEvent = function(event_name, event_args) {
+// from Lava.App class source code:
+fireGlobalEvent: function(event_name, event_args) {
 	this._fire(event_name, event_args);
 }
 

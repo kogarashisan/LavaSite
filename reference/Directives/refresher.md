@@ -16,7 +16,7 @@ Content of the directive must be a valid JavaScript object.
 		{
 			type: "Emulated",
 			options: {
-				appender: 'AfterPrevious'
+				prepender: 'AfterPrevious'
 			}
 		}
 	</x:container_config>

@@ -8,12 +8,7 @@
 			own_enumerable_mode=DataView
 			depends="$example.filter_text"}
 			<x:roles>$example.main_foreach</x:roles>
-			<x:refresher>
-				{
-					type: 'Standard',
-					insertion_strategy: 'sequential_elements'
-				}
-			</x:refresher>
+			<x:refresher>{type: 'Standard'}</x:refresher>
 			<div x:type="container">
 				{#expression(record.formatted_title) escape_off}{/expression}
 			</div>
