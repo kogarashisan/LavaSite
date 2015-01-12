@@ -67,7 +67,7 @@ For example, color values must be rounded and written in `rgb(...)` form.
 
 Sometimes, you will want to use browser transitions, and receive an event when such animation ends.
 This task is performed by {@link Lava.animation.Emulated} - it does not use {@link Lava.Cron},
-instead it starts a single timeout on window.
+instead it starts a single timeout on <var>window</var>.
 
 Emulated animations work by applying CSS classes and changing properties of elements on start and end of the animation.
 And they can also be reversed, but:

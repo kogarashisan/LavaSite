@@ -574,6 +574,7 @@ module.exports = function(grunt) {
 			'reference/ConfigExtension.md',
 			'reference/Packages.md',
 			'reference/Animation.md',
+			'reference/Refreshers.md',
 			'reference/ClassPatches.md',
 			'reference/ViewLayerFiltering.md',
 			'reference/APIRemarksList.md',
@@ -596,7 +597,8 @@ module.exports = function(grunt) {
 			'tutorials/Events.md',
 			'tutorials/StandardSyntax.md',
 			'tutorials/Directives.md',
-			'tutorials/Roles.md'
+			'tutorials/Roles.md',
+			'tutorials/WidgetProperties.md'
 		]
 
 	});

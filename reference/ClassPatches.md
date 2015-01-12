@@ -201,3 +201,64 @@ or we remove it completely by replacing with parent's method - `Element$informIn
 
 We need dummy `informInDOM` to rename parent's method to `Element$informInDOM` - this allows us to call it 
 from `informInDOM_OldIE` and to use it for replacing.
+
+##Direct replacement
+
+Naturally, you can replace methods in class instance directly, and you don't need to patch prototypes for that:
+
+```javascript
+Lava.define(
+'Lava.user.MyClass',
+{
+
+	init: function(config) {
+
+		this.getWay = config.use_alternative_methods 
+			? this.getWay_Alternative
+			: this.getWay_Normal;
+
+	},
+
+	// default method that will be replaced in constructor
+	getWay: function() {
+
+		Lava.t();
+
+	},
+
+	getWay_Normal: function() {
+
+		return "Way of the sword";
+
+	},
+
+	getWay_Alternative: function() {
+
+		return "Way of the gun";
+
+	},
+
+	switchMethod: function() {
+
+		if (this.getWay == this.getWay_Alternative) {
+
+			this.getWay = this.getWay_Normal;
+
+		} else {
+
+			this.getWay = this.getWay_Alternative;
+
+		}
+
+	}
+
+});
+
+var instance = new Lava.user.MyClass({});
+instance.switchMethod();
+instance.getWay(); // returns "Way of the gun"
+```
+
+As you see, you can swap methods in class instance freely. And this example supports inheritance:
+you can define a new class, which inherits from <str>"Lava.user.MyClass"</str>, override `getWay_Normal` and
+`getWay_Alternative` methods, and it will work as expected.

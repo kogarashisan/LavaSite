@@ -45,9 +45,12 @@ for example between &lt;table&gt; and &lt;tbody&gt; tags.
 {@link Lava.view.container.Emulated} - virtual, invisible container without actual DOM representation.
 But, it can use surrounding Element and Morph containers to manipulate DOM.
 
-For example, you have an If view with Emulated container, which follows a view with an Element container. 
-When condition of the If view changes from <kw>false</kw> to <kw>true</kw> - 
-Emulated container knows that it can insert view content after the previous element.
+Consider this example: you have an If view with Emulated container, and another view with an Element container before it. 
+Emulated container of the If view can be configured to insert it's content after previous element, 
+so when condition of the IF view changes from <kw>false</kw> to <kw>true</kw> - 
+it will be able to perform refresh on it's own (without help of it's parent views).
+
+Emulated containers are typically used with {@link reference:Refreshers}.
 
 ##Container state
 
