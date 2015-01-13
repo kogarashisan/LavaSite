@@ -154,9 +154,71 @@ Tip: if you have a very complex expression in your template - sometimes it's bet
 it's considered a good practice.
 
 <b>Warning: modifiers must not have any side-effects. This means, that you should not modify your arguments or
-anything else in modifiers. Also, if you create any objects with <kw>new</kw> operator inside a modifier - 
-you should take care of their destruction. Otherwise - it may lead to memory leaks, so not recommended.</b>
+anything else in modifiers. Also, creating objects with <kw>new</kw> operator inside modifiers is not recommended -
+it may lead to memory leaks, and it's a bad practice from architect's point of view.</b>
 
 Final example:
 <iframe style="height: 26em; width: 100%" src="http://embed.plnkr.co/7eHFEz/index.html"></iframe>
 <i><a href="/www/demos/reference/WritingExpressions.html">Alternative link</a></i>
+
+##Dynamic scopes
+
+Dynamic scopes give you ability to choose paths to properties dynamically.
+For example, the Tree widget can take "is_expanded" property either from records directly, 
+or from it's internal MetaStorage.
+
+Dynamic scope syntax:
+
+```text
+known_widget{IDENTIFIER}
+```
+
+`known_widget` references a widget, either by $name, @label, or #id. Example:
+
+```xml
+{$if(node.children.length && $tree{is_expanded})}
+	... show node children ...
+{/if}
+```
+
+Both `node.children.length` and `$tree{is_expanded}` constructs define paths to properties, but the first path is static, 
+while the second is determined at run time. You can substitute the second path with any other path you want.
+
+###How dynamic scopes work
+
+When Argument is constructed - it gets all dependent scopes from it's view (`view.getScopeByPathConfig(...)`). 
+But if scope is dynamic - then Argument finds scope's widget, then calls it's `getDynamicScope` method,
+which performs `getScopeByPathConfig()`:
+
+```javascript
+Lava.define(
+"Lava.widget.MyTree",
+{
+	name: "tree",
+	getDynamicScope: function(view, dynamic_config) {
+
+		if (dynamic_config.property_name != "is_expanded") Lava.t();
+
+		var result_config = this._is_using_meta_storage
+			? Lava.ExpressionParser.parseScopeEval('$tree.meta_storage[node.guid].is_expanded')
+			: Lava.ExpressionParser.parseScopeEval('node.is_expanded');
+
+		return view.getScopeByPathConfig(result_config);
+
+	}
+	// ...
+});
+```
+
+`getDynamicScope` receives Argument's view and config of the dynamic scope ({@link _cDynamicScope}).
+This example returns a binding to either record's own property "is_expanded", or property from MetaStorage record.
+
+Result is equivalent to one of the following expressions:
+
+```xml
+{$if(node.children.length && $tree.meta_storage[node.guid].is_expanded)}
+// or
+{$if(node.children.length && node.is_expanded)}
+```
+
+See also: source of {@link Lava.scope.Argument#init}, and {@link Lava.widget.Tree}.
