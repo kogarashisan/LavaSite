@@ -164,6 +164,7 @@ module.exports = function(grunt) {
 
 		// check that all real files from source directory are in the list
 		var directory_contents = grunt.file.expand(page + '/**/*.md');
+		Firestorm.Array.exclude(directory_contents, page + '/README.md');
 		directory_contents.forEach(function(path){
 			if (expanded_list.indexOf(path) == -1) throw new Error('Reference file is not listed: ' + path);
 		});
