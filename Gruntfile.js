@@ -577,7 +577,7 @@ module.exports = function(grunt) {
 			'reference/Refreshers.md',
 			'reference/ClassPatches.md',
 			'reference/ViewLayerFiltering.md',
-			'reference/RefreshCycles.md',
+			'reference/ScopeRefreshCycle.md',
 			'reference/APIRemarksList.md',
 			'reference/FAQ.md',
 

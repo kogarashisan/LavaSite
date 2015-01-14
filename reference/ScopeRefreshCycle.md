@@ -1,4 +1,4 @@
-<lavabuild:title>Refresh cycles</lavabuild:title>
+<lavabuild:title>Scope refresh cycle</lavabuild:title>
 
 #Scope refresh cycle
 
