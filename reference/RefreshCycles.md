@@ -108,6 +108,6 @@ parent widget, which in turn triggers change of property in same child widget...
 These situations can be artificially created with wrong program logic
 (Lava framework is not responsible for them, only the widget developer).
 
-Scope system has protection from eternal loops, so if this happens - browser will <b>not</b> hang up,
+Scope system has protection from eternal loops, so if this happens - browser will not hang up,
 and framework will try to continue normal operation, but user may experience lags and interface glitches.
 
