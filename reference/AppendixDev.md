@@ -51,6 +51,9 @@ See also framework's <a href="https://github.com/kogarashisan/LiquidLava/release
 <b>In case of any breaking changes, there will be no backward compatibility. Instead, you will be given detailed
 upgrade instructions, at least in Alpha and Beta stages.</b> See the <a href="/www/changelog.html">Changelog</a>.
 
+<b>If you cache parsed templates and expressions - then you should regenerate them every time you upgrade to a new version,
+cause format of generated data can change without notice.</b>
+
 ##Bugs
 
 For list of open bugs see the <a href="/www/tasks.html">Tasks</a> page and GitHub 

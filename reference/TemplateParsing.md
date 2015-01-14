@@ -76,7 +76,19 @@ These sequences are converted to their corresponding equivalents:
 &#x7b;literal:} ... &#x7b;:literal}
 ```
 
-Content of the 'literal' switch is not parsed, and inserted into template as text.
+Content of the 'literal' switch is not parsed, and inserted into template as text. Example, where this can be useful:
+
+```xml
+<x:assign name="pad">
+	{literal:}
+		(foreach_index == count - 1)
+			? pad + '<div class="lava-tree-pad"></div>'
+			: pad + '<div class="lava-tree-pad-line"></div>'
+	{:literal}{:L:}:literal}{literal:}
+</x:assign>
+```
+
+Without the "literal" switch the &lt;div&gt; tags inside expression would be parsed as real tags with attributes.
 
 ##Template regions
 
