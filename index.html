@@ -154,7 +154,7 @@
 		<div class="col-md-7">
 			<h3 style="margin-left: 1em">Features</h3>
 			<ul>
-				<li>Unique class system: generated classes are
+				<li>Unique class system: generated classes are almost
 					<a href="http://jsperf.com/liquidlava-class-system-performance/3" alt="Performance comparison of LiquidLava and native JavaScript classes" target="_blank">as fast</a>
 					as their hand-written analogues</li>
 				<li>Templates are parsed into configs for JavaScript classes (not compiled into functions)</li>
@@ -536,7 +536,8 @@
 231
 232
 </pre><pre class="lava-code-content hljs javascript"><span class="hljs-comment">/*global Lava, Firestorm, Router */</span>
-(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm, Router)</span> {</span><span class="hljs-pi">'use strict'</span>;
+(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm, Router)</span> {</span>
+<span class="hljs-pi">'use strict'</span>;
 
 Lava.define(
 <span class="hljs-string">'Lava.widget.TodoApp'</span>,
@@ -791,7 +792,8 @@ Lava.define(
 24
 25
 </pre><pre class="lava-code-content hljs javascript"><span class="hljs-comment">/*global Lava, Firestorm */</span>
-(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm)</span> {</span><span class="hljs-pi">'use strict'</span>;
+(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(Lava, Firestorm)</span> {</span>
+<span class="hljs-pi">'use strict'</span>;
 
 Lava.define(
 <span class="hljs-string">'Lava.widget.input.AutofocusText'</span>,
