@@ -360,7 +360,6 @@ Inputs
 	- [P3,Feature] a demo of a native widget wrapper (for example, CodeMirror, color pickers or Select2)
 	- [P5,Feature] there must be an ability to launch unit tests right on the framework site
 	- [P5,Feature] code coverage for unit tests, that can be viewed online
-	- [P2,Refactoring] code in examples on main page is a bit messy, build process is complicated. Correct it.
 	- [P2,Feature] Replace images in the tree, gif -&gt; png
 		// other images should also be png
 	- [P5,Feature] Create favicon
