@@ -478,7 +478,7 @@ Lava.define(
 
 	_renderParams: function(params, table_class, scroll_prefix) {
 
-		return ApiCommon.renderParamsTable(params, table_class, scroll_prefix);
+		return params ? ApiCommon.renderParamsTable(params, table_class, scroll_prefix) : '';
 
 	},
 
