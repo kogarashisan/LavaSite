@@ -881,21 +881,27 @@ Lava.define(
 
 	_renderEventExt: function(event_descriptor) {
 
-		return ApiCommon.renderEventExt(event_descriptor.getProperties());
+		return event_descriptor ? ApiCommon.renderEventExt(event_descriptor.getProperties()) : '';
 
 	},
 
 	_renderMethodExtended: function(descriptor, table_class) {
 
 		var result = '';
-		if (descriptor.get('params')) {
-			result += '<b class="api-member-extended-header">Arguments</b>';
-			result += ApiCommon.renderParamsTable(descriptor.get('params'), table_class);
+
+		if (descriptor) {
+
+			if (descriptor.get('params')) {
+				result += '<b class="api-member-extended-header">Arguments</b>';
+				result += ApiCommon.renderParamsTable(descriptor.get('params'), table_class);
+			}
+			if (descriptor.get('returns')) {
+				if (result) result += '<br/>';
+				result += ApiCommon.renderReturns(descriptor.get('returns'));
+			}
+
 		}
-		if (descriptor.get('returns')) {
-			if (result) result += '<br/>';
-			result += ApiCommon.renderReturns(descriptor.get('returns'));
-		}
+
 		return result;
 
 	},

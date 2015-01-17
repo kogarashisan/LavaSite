@@ -73,7 +73,7 @@ global target handlers). See {@link Lava.system.ViewManager#_dispatchCallback} s
 ##Event routing
 
 Events are routed by {@link Lava.system.ViewManager}.
-Routing of an event is started by a call to {@link Lava.system.ViewManager#lendEvent}: this increases internal 
+Routing of an event is enabled by a call to {@link Lava.system.ViewManager#lendEvent}: this increases internal 
 usage counter for the event, and acquires handler from {@link Lava.Core}. You can {@link Lava.system.ViewManager#releaseEvent}
 when you don't need it - this is important for resource-intensive events like "mouseenter".
 

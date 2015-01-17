@@ -156,10 +156,10 @@
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> CSS compression, including class names</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> Resource names compression</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> search the framework code and find possibilities to rewrite for usage of:<br/>Firestorm.Array.exclude and Firestorm.Object.copy<span class="task-comment">Firestorm.Object.copy may be used in ClassManager in place of extend()</span></li>
-<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> config extenders should be turned into normal class, and created in Lava.init()</li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> config extenders should be converted into normal class, and created in Lava.init()</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> new kind of argument - StaticArgument for one-time calculations. Use it in static_eval<span class="task-comment">must not attach listeners</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Performance">Performance</span><span class="tag-Q">Q</span> Possible optimization: if Argument is equal to scope binding, than do not create an argument, get the binding.<span class="task-comment">search every place where Argument is used</span></li>
-<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> Segment option to evaluate it's property name only once and do not create listeners<span class="task-comment">in expression parser it will be curly braces instead of square: row{column.name}</span></li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span><span class="tag-Performance">Performance</span> Segment option to evaluate it's property name only once and do not create listeners<span class="task-comment">requires new kind of syntax, like: row[{column.name}]</span></li>
 <li><span class="tag-P4">P4</span><span class="tag-Refactoring">Refactoring</span> Move some exception texts into Lava.known_exceptions (like 'abstract function call')</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> add possibility to have several Lava versions on one page</li>
 <li><span class="tag-P4">P4</span><span class="tag-Refactoring">Refactoring</span> one DEBUG switch should be split into several.<span class="task-comment">like:<br/> DEBUG_SCOPES - the scope processiong cycle,<br/>
@@ -257,7 +257,7 @@
 </ul>
 <h3>Parsers/Directives.js</h3>
 <ul>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> x:classBinding directive - alternative form for x:class attribute</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> x:class_binding directive - alternative form for x:class attribute</li>
 <li><span class="tag-P5">P5</span><span class="tag-Dev">Dev</span><span class="tag-Q">Q</span> resources: need &lt;component path="..."&gt; tag inside &lt;resources&gt; to shorten paths</li>
 <li><span class="tag-P4">P4</span><span class="tag-Dev">Dev</span> set_config_options template editing task:<br/>1) allow to set several options at once (via &lt;assigns&gt; collection) <br/>
 2) allow to use user-defined function as filter condition <br/>
@@ -268,7 +268,6 @@
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Lots of checks of data validity inside directives should be moved to processDirective().<br/>Get rid of is_top_directive switch (it equals to view_config_presence switch).<span class="task-comment">Also, try to gather data validity checks for resources in the resource tag handler</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Fix">Fix</span><span class="tag-Q">Q</span> Empty space between top directives should be removed<span class="task-comment">currently compile process does not remove it. See parse result on the reference page for x:option directive</span></li>
 <li><span class="tag-P4">P4</span><span class="tag-Dev">Dev</span> For plural string definitions in resources: add check that number of strings matches number of plural forms in the locale</li>
-<li><span class="tag-P1">P1</span><span class="tag-Refactoring">Refactoring</span> x:default_events directive should become an attribute on root x:widget tag</li>
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span><span class="tag-Q">Q</span> allow "roles" attribute on widget definition directive (x:widget) - can be used instead of &lt;roles&gt; tag</li>
 <li><span class="tag-P1">P1</span><span class="tag-Refactoring">Refactoring</span> universal x:config directive and &lt;config&gt; tag in widget definition,<br/>which integrates functionality of other directives</li>
 </ul>
@@ -280,7 +279,7 @@
 <h3>Parsers/TemplateParser.js</h3>
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> allow to set class for widget extenders</li>
-<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> implement removal of empty space from templates</li>
+<li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> implement removal of empty space from templates</li>
 <li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> remove unused lexer switches: preserve_whitespace ("pre:") and pure_blocks</li>
 <li><span class="tag-P5">P5</span><span class="tag-Fix">Fix</span><span class="tag-Dev">Dev</span> _parseStyleAttribute: currently will not parse style strings which contain strings with semicolon inside them as style value<span class="task-comment">do not use such styles, use classes!</span></li>
 <li><span class="tag-P4">P4</span><span class="tag-Fix">Fix</span> sequential strings are not always united into one</li>
@@ -303,7 +302,6 @@
 <ul>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> methods moveIndex(old_index, new_index) and moveValue(value, new_index)<span class="task-comment">is equivalent of removeAt, then insertAt for given value. Preserves UID.</span></li>
 <li><span class="tag-P3">P3</span><span class="tag-Performance">Performance</span> Enumerable is inherited from Properties, but does not use _properties and _property_listeners.<br/>They should not take space in constructed objects.</li>
-<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span> It's possible to optimize updateFromEnumerable - do not calculate diff if there are no listeners.<br/>Also inspect other functions for optimization.</li>
 <li><span class="tag-P2">P2</span><span class="tag-Feature">Feature</span> - select(), selectFirst() - like filter, but returns array, instead of modifying the instance<span class="task-comment">also, refactor the site:build/src/ContentLoader class for usage of new methods</span></li>
 </ul>
 <h3>System/PopoverManager.class.js</h3>
@@ -381,10 +379,6 @@
 <h3>transitions.js</h3>
 <ul>
 <li><span class="tag-P2">P2</span><span class="tag-Fix">Fix</span> more transitions (*)</li>
-</ul>
-<h3>Cron.js</h3>
-<ul>
-<li><span class="tag-P5">P5</span><span class="tag-Performance">Performance</span> use requestAnimationFrame</li>
 </ul>
 <h3>Lava.js</h3>
 <ul>
@@ -507,9 +501,9 @@
 <li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> Rewrite doc.html - must use IF view instead of manual widget insertion (depends on "Include" view).</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> make it look better with "warning" and "info" boxes, and other formatting tools</li>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> register links to examples in /www/examples.html so they could be referenced in documentation</li>
-<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span> make an instruction to automatically embed pieces of serialized code from the framework (methods, variables, etc).<span class="task-comment">Example: embed source of Lava.parseOptions in api_docs/ObjectParser</span></li>
+<li><span class="tag-P4">P4</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> make an instruction to automatically embed pieces of serialized code from the framework (methods, variables, etc).<span class="task-comment">Example: embed source of Lava.parseOptions in api_docs/ObjectParser</span></li>
 <li><span class="tag-P1">P1</span><span class="tag-Fix">Fix</span> does not recognize @define tag (for example, on Lava.schema.DEBUG)</li>
-<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> write extended description for class methods and properties</li>
+<li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> write extended description for class methods and properties</li>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span> Describe the `count` property in Enumerable</li>
 </ul>
 <h2>Maintenance</h2>

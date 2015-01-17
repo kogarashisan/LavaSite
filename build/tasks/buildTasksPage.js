@@ -12,7 +12,9 @@ module.exports = function(grunt) {
 			var tags = tags_string.split(/\s*,\s*/);
 			var result = '';
 			for (var i = 0, count = tags.length; i < count; i++) {
-				result += '<span class="tag-' + tags[i] + '">' + tags[i] + '</span>';
+				if (!/T\d/.test(tags[i])) {
+					result += '<span class="tag-' + tags[i] + '">' + tags[i] + '</span>';
+				}
 			}
 			return result;
 		}

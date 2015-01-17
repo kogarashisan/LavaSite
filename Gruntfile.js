@@ -583,7 +583,8 @@ module.exports = function(grunt) {
 
 			'reference/AppendixCompat.md',
 			'reference/AppendixCodestyle.md',
-			'reference/AppendixDev.md'
+			'reference/AppendixDev.md',
+			'reference/AppendixPitfalls.md'
 		],
 
 		tutorials_list: [
