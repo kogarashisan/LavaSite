@@ -70,6 +70,8 @@ Role and event bubbling can be cancelled with a call to {@link Lava.system.ViewM
 When bubble is cancelled - ViewManager immediately exits the dispatch loop (this may happen before target reaches
 global target handlers). See {@link Lava.system.ViewManager#_dispatchCallback} source for better understanding.
 
+For better understanding see remarks for {@link Lava.system.ViewManager}.
+
 ##Event routing
 
 Events are routed by {@link Lava.system.ViewManager}.

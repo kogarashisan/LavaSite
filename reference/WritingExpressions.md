@@ -157,6 +157,10 @@ it's considered a good practice.
 anything else in modifiers. Also, creating objects with <kw>new</kw> operator inside modifiers is not recommended -
 it may lead to memory leaks, and it's a bad practice from architect's point of view.</b>
 
+<b>Warning: all bound properties, that you pass to modifiers, you should check for <kw>null</kw> values.
+Due to architecture of Lava scope system - all bound values in arguments may "suddenly" become <kw>null</kw>.
+See {@link reference:AppendixPitfalls}.</b>
+
 Final example:
 <iframe style="height: 26em; width: 100%" src="http://embed.plnkr.co/7eHFEz/index.html"></iframe>
 <i><a href="/www/demos/reference/WritingExpressions.html">Alternative link</a></i>

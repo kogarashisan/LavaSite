@@ -61,3 +61,34 @@ otherwise your design will become inflexible.
 
 And it matters for all tags, not just void (for example, you can not wrap your own container in another tag).
 
+##Views versus linear logic
+
+Consider the following template:
+
+```xml
+{#if(#page.something)}
+	{#> #page.my_modifier(#page.something)}
+{/if}
+```
+
+You can think that argument, which you pass to modifier, will never be <kw>null</kw> or <kw>false</kw>, 
+but this is not always true, cause this is not a JavaScript <kw>if</kw> operator.
+This template defines two views, outer If and inner Expression, which are bound to
+Argument instances, which receive values from same PropertyBinding.
+
+Let's assume, that currently `#page.something` evaluates to true, so both views are created and in DOM.
+Now we set `something` to null. What will happen? Both views are still created, still in DOM, 
+and framework starts the scope refresh cycle.
+Both arguments evaluate their value and fire "changed" events... and this is the moment, when modifier receives <kw>null</kw>.
+
+When scope refresh loop starts - PropertyBinding that evaluates `#page.something` fires "changed" event,
+and both arguments are placed into refresh queue. When inner argument is refreshed - 
+at this moment `#page.something` is <kw>null</kw>, so `#page.my_modifier` receives <kw>null</kw> instead of expected value.
+
+Later, when view refresh cycle starts, the outer If view will detect, that it's argument is <kw>false</kw> now,
+so now it may decide to destroy it's template with inner Expression view, but this will happen after both
+arguments are refreshed.
+
+Summary: inside modifiers you should always check passed argument values for nulls.
+
+See also: {@link reference:ScopeRefreshCycle}

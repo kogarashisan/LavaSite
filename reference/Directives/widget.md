@@ -46,6 +46,9 @@ The only allowed properties on inner view config are {@link _cView#container} an
 If you want to set roles, assigns, or anything else - you must use tags from x:widget.
 Inner view is extracted, and "container" and "template" properties are then copied to widget config.
 
+<b>Warning: there are situations, when you should prefer using &lt;template&gt; over &lt;view&gt;.
+See {@link reference:AppendixPitfalls}.</b>
+
 ##Allowed tags inside x:widget
 
 Tags with directive analogs:

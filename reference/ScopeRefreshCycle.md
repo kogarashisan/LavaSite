@@ -2,8 +2,6 @@
 
 #Scope refresh cycle
 
-<i>This article mostly covers advanced topics. Read it if you want to get deeper insight into framework internals.</i>
-
 Scopes are connected to each other with "changed" events. Have a look at the following example:
 
 ```text
