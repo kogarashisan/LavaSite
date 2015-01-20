@@ -86,8 +86,7 @@ module.exports = function(grunt) {
 		index_content = index_content.replace(/\n\s+\<footer[\s\S]+?\<\/script\>\n\s*/, '');
 		index_content = index_content.replace(/\r*\n\t/g, '\n');
 
-		grunt.file.write(
-			'includes/main_page_example.html',
+		global['main_page_example'] =
 			'<tabs>' +
 				'<tab>' +
 					'<title>Result</title>' +
@@ -115,7 +114,7 @@ module.exports = function(grunt) {
 						global.LavaBuild.highlight('javascript', grunt.file.read('todo_app/js/Widget/Input/AutofocusText.class.js').replace(/\t/g, '    ')) +
 					'{:literal}</content>' +
 				'</tab>' +
-			'</tabs>');
+			'</tabs>';
 
 	}));
 

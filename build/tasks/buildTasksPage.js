@@ -100,19 +100,7 @@ module.exports = function(grunt) {
 			is_writing_tasks = false;
 		}
 
-		var tasks_page_content = grunt.file.read('www/tasks.html');
-		var start_marker = '<!--LAVA_BUILD_TASKS_START-->';
-		if (tasks_page_content.indexOf(start_marker) == -1) throw new Error("tasks page: start marker is missing");
-		var marker_start_index = tasks_page_content.indexOf(start_marker) + (start_marker.length);
-		var marker_end = tasks_page_content.indexOf('<!--LAVA_BUILD_TASKS_END-->');
-		if (marker_end == -1) throw new Error('tasks page: end marker is missing');
-		var current_tasks_text = tasks_page_content.substr(marker_start_index, marker_end - marker_start_index);
-		if (current_tasks_text != result) {
-			var new_page_content = tasks_page_content.substr(0, marker_start_index)
-				+ result
-				+ tasks_page_content.substr(marker_end);
-			grunt.file.write('www/tasks.html', new_page_content);
-		}
+		global['tasks_page_export'] = result;
 
 	}));
 

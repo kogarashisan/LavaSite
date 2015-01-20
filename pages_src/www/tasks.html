@@ -1,0 +1,56 @@
+<body>
+
+<%include:navbar.html%>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-3">
+
+</div>
+
+<div class="col-md-9" role="main">
+
+<h1>Development tasks</h1>
+
+<p>This is author's detailed TODO list for the framework (for general directions see the <a href="roadmap.html">Roadmap</a>).
+	This page makes my work really public, but to understand something here - you need to know the source really well. Please, note:</p>
+<ul>
+	<li>This page does not include every possible author's thought on the framework, just tasks with settled requirements.</li>
+	<li>This is temporary page - in future it needs to be replaced by some task-tracking service or GitHub tracker.</li>
+	<li>the tasks are listed by categories, not priority.
+		Some of them are proposals, and either may never be implemented, or may be implemented in a very different way.</li>
+</ul>
+
+<p style="font-weight: bold;">
+	There are many tasks here, it can make impression that framework is somehow incomplete.
+	In fact it's not true: compare this list to GitHub issues page of other frameworks, with hundreds of open tickets,
+	and feel the difference!
+</p>
+<p>Most of performance-related tasks have low priority, cause framework is already fast like hell.</p>
+
+<p>Tags description:</p>
+<ul>
+	<li><span class="tag-Feature">Feature</span> - something that you would pay for, if it was a commercial product</li>
+	<li><span class="tag-Dev">Dev</span> - assistance in development</li>
+	<li><span class="tag-Fix">Fix</span> - some essential functionality which needs to be implemented</li>
+	<li><span class="tag-Q">Q</span> - questionable proposal, something that may be discarded</li>
+	Self-explanatory:
+	<li><span class="tag-Bug">Bug</span></li>
+	<li><span class="tag-Performance">Performance</span></li>
+	<li><span class="tag-Refactoring">Refactoring</span></li>
+	<li><span class="tag-Test">Test</span></li>
+</ul>
+
+{literal:}
+<%generator:tasks_page%>
+{:literal}
+
+</div>
+
+</div>
+</div>
+
+<%include:footer.html%>
+
+</body>

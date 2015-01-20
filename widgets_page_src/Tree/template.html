@@ -1,0 +1,41 @@
+
+Left:
+<button type="button" class="btn btn-primary" x:type="view"
+	x:event:click="$widgets_page.toggle_tree('tree_left', true)">Expand</button>
+<button type="button" class="btn btn-primary" x:type="view"
+	x:event:click="$widgets_page.toggle_tree('tree_left', false)">Collapse</button>
+Right:
+<button type="button" class="btn btn-primary" x:type="view"
+	x:event:click="$widgets_page.toggle_tree('tree_right', true)">Expand</button>
+<button type="button" class="btn btn-primary" x:type="view"
+	x:event:click="$widgets_page.toggle_tree('tree_right', false)">Collapse</button>
+<div class="clearfix"></div>
+
+<!--lavabuild_cut_before-->
+
+<!--lavabuild:include_FolderTree-->
+
+<div style="margin-right: 10px" class="tree-example-container">
+	<x:widget extends="FolderTree" id="tree_left">
+		<assign name="records">$widgets_page.tree_records</assign>
+		<script x:equiv="options" type="lava/options">
+			{
+				meta_storage_columns: ["is_expanded"],
+				refresher: {type: 'Collapse'}
+			}
+		</script>
+	</x:widget>
+</div>
+
+<div class="tree-example-container">
+	<x:widget extends="FolderTree" id="tree_right">
+		<assign name="records">$widgets_page.tree_records</assign>
+		<script x:equiv="options" type="lava/options">
+			{meta_storage_columns: ["is_expanded"]}
+		</script>
+	</x:widget>
+</div>
+
+<!--lavabuild_cut_after-->
+
+<div class="clearfix"></div>

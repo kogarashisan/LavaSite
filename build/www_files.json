@@ -1,12 +1,24 @@
 {
-	"files": [
-		"index.html",
-		"www/widgets.html",
-		"www/examples.html",
-		"www/roadmap.html",
-		"www/tasks.html",
-		"www/about.html",
-		"www/changelog.html",
-		"www/doc.html"
+	"pages": [
+		{"page_path": "index", "page_title": "Home", "header_include": "main_page_header.html"},
+		{"page_path": "www/widgets", "page_title": "Standard widgets"},
+		{"page_path": "www/about", "page_title": "About"},
+		{"page_path": "www/tasks", "page_title": "Tasks"},
+		{"page_path": "www/roadmap", "page_title": "Roadmap"},
+		{"page_path": "www/examples", "page_title": "Examples", "header_include": "examples_page_header.html"},
+		{"page_path": "www/changelog", "page_title": "Changelog"},
+		{"page_path": "www/doc", "page_title": "Documentation", "header_include": "doc_page_header.html", "footer_include": "doc_page_footer.html"}
+	],
+	"widget_descriptors": [
+		{"title": "Collapsible", "api_href": "/www/doc.html#class=Lava.widget.Collapsible"},
+		{"title": "CollapsiblePanel", "api_href": "/www/doc.html#class=Lava.widget.CollapsiblePanel"},
+		{"title": "CollapsiblePanelExt", "api_href": "/www/doc.html#class=Lava.widget.CollapsiblePanelExt"},
+		{"title": "Accordion", "api_href": "/www/doc.html#class=Lava.widget.Accordion"},
+		{"title": "Tabs", "api_href": "/www/doc.html#class=Lava.widget.Tabs"},
+		{"title": "Tooltip", "api_href": "/www/doc.html#class=Lava.widget.Tooltip", "api_title": "API (Widget)"},
+		{"title": "Dropdown", "api_href": "/www/doc.html#class=Lava.widget.DropDown"},
+		{"title": "Table", "api_href": "/www/doc.html#class=Lava.widget.Table"},
+		{"title": "Calendar", "api_href": "/www/doc.html#class=Lava.widget.Calendar"},
+		{"title": "Tree", "api_href": "/www/doc.html#class=Lava.widget.Tree"}
 	]
 }

@@ -58,6 +58,94 @@ var Examples = {
 
 };
 
+var LavaVersions = [
+	{name: 'master'},
+	{name: '0.11.x'},
+	{name: '0.10.x'},
+	{name: '0.9.x'},
+	{name: '0.8.x'},
+	{name: '0.7.x'},
+	{name: '0.6.x'},
+	{name: '0.5.x'},
+	{name: 'older'}
+];
+
+var LavaExamples = [
+	{name: 'Hello', title: 'Hello'},
+	{name: 'HorizontalAccordion', title: 'Horizontal Accordion'},
+	{name: 'Draggable', title: 'Draggable'},
+	{name: 'Circles', title: 'Draggable circles editor'},
+	{name: 'Panel1', title: 'Panel 1'},
+	{name: 'Panel2', title: 'Panel 2'},
+	{name: 'Panel3', title: 'Panel 3'},
+	{name: 'BasicTree', title: 'Tree - Basic'},
+	{name: 'CheckTree', title: 'Tree - Checkboxes'},
+	{name: 'EditableTable', title: 'Editable table'},
+	{name: 'ModifiedCalendar', title: 'Modified calendar'},
+	{name: 'ViewLayerFiltering', title: 'View layer filtering'},
+	{name: 'FilteredTree', title: 'Filtered tree'}
+];
+
+var Site = {
+	// current page path
+	page_path: '',
+	pages: {},
+	page_loaded_callbacks: {
+		index: function() {
+			// twitter
+			(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs'));
+			$('main_page_follow_container').setStyle('visibility', 'visible');
+		},
+		"www/examples": function() {
+			var original_define = Lava.ClassManager.define;
+			Lava.ClassManager.define = function(name, body) {
+				if (!Lava.ClassManager.hasClass(name)) {
+					original_define.apply(Lava.ClassManager, [name, body]);
+				}
+			};
+			Lava.schema.widget.ALLOW_REDEFINITION = true;
+		}
+	},
+	bootstrap: function(page_path) {
+		this.page_path = page_path;
+
+		var href = window.location.href,
+			self = this;
+
+		if (href.indexOf('://kogarashisan.github.io/LiquidLava') > 0) {
+			window.location.href = 'http://www.lava-framework.com/' + page_path + '.html';
+		}
+
+		// to prevent tracking from dev's computers
+		if (href.indexOf('://www.lava-framework.com/') > 0) {
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-51511486-1', 'lava-framework.com');
+			ga('send', 'pageview');
+		}
+
+		window.addEvent('load', function() {
+
+			Lava.init();
+
+			var page_config = self.pages[self.page_path];
+			var constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget');
+			if (Lava.schema.DEBUG && !constructor) Lava.t('Class not found: ' + page_config['class']);
+			var widget = new constructor(page_config);
+			widget.injectIntoExistingElement(document.body);
+
+			Lava.popover_manager.enable();
+			Lava.focus_manager.enable();
+
+			if (self.page_loaded_callbacks[self.page_path]) {
+				self.page_loaded_callbacks[self.page_path]();
+			}
+
+		});
+	}
+};
 
 Lava.schema.modules['DemoTree'] = {
 	fields: {
@@ -1110,16 +1198,27 @@ Lava.define(
 
 	_properties: {
 		is_collapsible_expanded: true,
-		periodic_elements: null
+		periodic_elements: null,
+		tree_records: null
 	},
 
 	_event_handlers: {
-		toggle_collapsible_expanded: '_toggleCollapsibleExpanded'
+		toggle_collapsible: '_toggleCollapsibleExpanded',
+		toggle_tree: '_toggleTree'
 	},
 
 	init: function(config, widget, parent_view, template, properties) {
 
 		this._properties.periodic_elements = Examples.makeLive(ExampleData.periodic_elements);
+
+		var demo_module = Lava.app.getModule('DemoTree');
+
+		demo_module.loadRecords(ExampleData.example_tree);
+		this._properties.tree_records = new Lava.system.Enumerable(demo_module.getAllRecords());
+		this._properties.tree_records.filter(function(record) {
+			return !record.get('parent')
+		});
+
 		this.Standard$init(config, widget, parent_view, template, properties);
 
 	},
@@ -1127,6 +1226,13 @@ Lava.define(
 	_toggleCollapsibleExpanded: function() {
 
 		this.set('is_collapsible_expanded', !this._properties.is_collapsible_expanded);
+
+	},
+
+	_toggleTree: function(dom_event_name, dom_event, view, template_arguments) {
+
+		var action = template_arguments[1] ? 'expandAll' : 'collapseAll';
+		Lava.view_manager.getViewById(template_arguments[0])[action]();
 
 	}
 

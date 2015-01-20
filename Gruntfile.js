@@ -84,7 +84,7 @@ module.exports = function(grunt) {
 
 		},
 
-		wrapHighlightedBlocks: function(blocks, custom_wrapper_class) {
+		wrapHighlightedBlocks_A: function(blocks, custom_wrapper_class) {
 
 			var content = '',
 				block,
@@ -101,7 +101,13 @@ module.exports = function(grunt) {
 				content += this._wrapCodeBlock(parse_result.text, parse_result.type, parse_result.lines_text, parse_result.overlay_text, parse_result.tooltip_text);
 			}
 
-			return '```formatted\n<div class="lava-code-container ' + (custom_wrapper_class || 'lava-code-container-plain') + '">' + content + '</div>\n```';
+			return '<div class="lava-code-container ' + (custom_wrapper_class || 'lava-code-container-plain') + '">' + content + '</div>';
+
+		},
+
+		wrapHighlightedBlocks: function(blocks, custom_wrapper_class) {
+
+			return '```formatted\n' + this.wrapHighlightedBlocks_A(blocks, custom_wrapper_class) + '\n```';
 
 		},
 
@@ -309,7 +315,7 @@ module.exports = function(grunt) {
 
 		},
 
-		_packCode: function(type, header_text, custom_class, src) {
+		packCode: function(type, header_text, custom_class, src) {
 
 			return {
 				header_text: header_text,
@@ -358,8 +364,8 @@ module.exports = function(grunt) {
 				var eval_result = evalResult(region_content);
 				var serialized_eval_result = self.smartSerialize(eval_result);
 				return self.wrapHighlightedBlocks([
-					self._packCode('javascript', 'Source', 'api-code-header-blue', region_content),
-					self._packCode('text', 'Result', 'api-code-header-blue', serialized_eval_result)
+					self.packCode('javascript', 'Source', 'api-code-header-blue', region_content),
+					self.packCode('text', 'Result', 'api-code-header-blue', serialized_eval_result)
 				]);
 			});
 
@@ -377,7 +383,7 @@ module.exports = function(grunt) {
 					if (!tag_ast.attributes) throw new Error('codeblock without attributes');
 					var lang = tag_ast.attributes.lang || 'javascript';
 					if (!tag_ast.attributes.title) throw new Error();
-					parsed_blocks.push(self._packCode(lang, tag_ast.attributes.title, tag_ast.attributes.class || 'api-code-header-blue', matches[2]));
+					parsed_blocks.push(self.packCode(lang, tag_ast.attributes.title, tag_ast.attributes.class || 'api-code-header-blue', matches[2]));
 				}
 
 				return self.wrapHighlightedBlocks(parsed_blocks);
@@ -398,8 +404,8 @@ module.exports = function(grunt) {
 
 				var serialized_eval_result = self.smartSerialize(region_content);
 				return self.wrapHighlightedBlocks([
-					self._packCode('xml', 'Template source', 'api-code-header-blue', region_content_text),
-					self._packCode('javascript', 'Parse result', 'api-code-header-blue', serialized_eval_result)
+					self.packCode('xml', 'Template source', 'api-code-header-blue', region_content_text),
+					self.packCode('javascript', 'Parse result', 'api-code-header-blue', serialized_eval_result)
 				]);
 			});
 
@@ -616,7 +622,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadTasks('build/tasks/');
 
-	grunt.registerTask('default', ['copy', 'buildSiteWidgets', 'buildExamples', 'buildWeb', 'buildTasksPage', 'concat']);
+	grunt.registerTask('default', ['copy', 'buildSiteWidgets', 'buildExamples', 'buildTasksPage', 'buildWeb', 'concat']);
 	// depends on "default"
 	grunt.registerTask('doc', ['buildSugar', 'buildDoc', 'buildSupport']);
 

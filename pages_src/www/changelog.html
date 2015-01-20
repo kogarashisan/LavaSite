@@ -1,0 +1,46 @@
+<body lava-app="ChangelogPage" id="changelog_page">
+<x:default_events>['click']</x:default_events>
+
+<%include:loading.html%>
+
+<%include:navbar.html%>
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-3">
+			<div class="bs-sidebar hidden-print affix-top" role="complementary">
+				<ul class="nav bs-sidenav">
+					{#foreach(versions) as=version}
+					<li>
+						<a x:type="container"
+						   x:event:click="$page.selectItem(version)"
+						   x:style:font-weight="version.is_selected ? 'bold' : null"
+						   x:bind:href="'#' + version.name">
+							{#>version.name + (version.is_loading ? ' (loading...)' : '')}
+						</a>
+					</li>
+					{/foreach}
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-9" role="main">
+
+			<h1 x:type="container">{#>selected_version.name}</h1>
+			<div id="version_content_container">
+				<p>
+					While in alpha and beta stage (and most likely even after official release),
+					the framework will not provide any backward compatibility in case of ay breaking changes.
+					Instead, you will receive a detailed upgrade instructions.
+				</p>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+<%include:footer.html%>
+
+</body>

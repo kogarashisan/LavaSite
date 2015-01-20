@@ -1,0 +1,47 @@
+<body lava-app="ExamplesPage" id="ExamplesApp">
+<x:default_events>['click']</x:default_events>
+
+<%include:loading.html%>
+
+<%include:navbar.html%>
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-3">
+			<div class="bs-sidebar hidden-print affix-top" role="complementary">
+				<ul class="nav bs-sidenav">
+					{#foreach(examples) as=example}
+					<li>
+						<a x:type="container"
+							x:event:click="$page.selectItem(example)"
+							x:style:font-weight="example.is_selected ? 'bold' : null"
+							x:bind:href="'#' + example.name">
+								{#>example.title + (example.is_loading ? ' (loading...)' : '')}
+						</a>
+					</li>
+					{/foreach}
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-9" role="main">
+
+			<h1 x:type="container">{#>selected_example.title}</h1>
+
+			<div id="example_content_container" class="example-content-container">
+				<p>You can find sources of each example in the
+					<a href="https://github.com/kogarashisan/LavaSite/tree/gh-pages/examples" target="_blank">examples</a>
+					directory in LavaSite repository.</p>
+			</div>
+
+			<tabs id="example_tabs"></tabs>
+
+		</div>
+
+	</div>
+</div>
+
+<%include:footer.html%>
+
+</body>

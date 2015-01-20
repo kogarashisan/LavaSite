@@ -1,0 +1,16 @@
+<x:widget extends="Table">
+	<script x:equiv="options" type="lava/options">
+		{
+			columns: [
+				{name: 'title', title: 'Title', type: 'String'},
+				{name: 'symbol', title: 'Chemical symbol', type: 'String'},
+				{name: 'atomic_mass', title: 'Atomic mass', type: 'String'},
+				{name: 'is_gas', title: 'Gas?', type: 'Boolean'}
+			]
+		}
+	</script>
+	<resources locale="default">
+		<container path="TABLE_ELEMENT" add_classes="demo-table"></container>
+	</resources>
+	<assign name="records">$widgets_page.periodic_elements</assign>
+</x:widget>

@@ -1,0 +1,58 @@
+<body lava-app id="main_page">
+
+<%include:navbar.html%>
+
+<div class="container">
+
+	<div class="index-header">
+		<h1>LiquidLava</h1>
+		<em>When art is beautiful</em>
+		<a class="btn btn-gray" href="https://github.com/kogarashisan/LiquidLava/releases">
+			<i class="glyphicon glyphicon-download-alt"></i> Download
+			<span class="version-container">v0.11.0</span>
+			<i class="version-alpha">Alpha</i>
+		</a>
+		<div class="index-about">
+			<p class="index-about-p">Framework for creating reliable web applications</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5">
+			<h3>About</h3>
+
+			<p>LiquidLava is a JavaScript MVC framework for building user interfaces, which scale from simple interactive elements on page to
+			complex feature-rich applications. What makes it different from other frameworks is transparent internal design:
+			this means, that you always know, what you are doing, and what happens inside the framework.</p>
+		</div>
+		<div class="col-md-7">
+			<h3 style="margin-left: 1em">Features</h3>
+			<ul>
+				<li>Unique class system: generated classes are almost
+					<a href="http://jsperf.com/liquidlava-class-system-performance/3" alt="Performance comparison of LiquidLava and native JavaScript classes" target="_blank">as fast</a>
+					as their hand-written analogues</li>
+				<li>Templates are parsed into configs for JavaScript classes (not compiled into functions)</li>
+				<li>Never creates DOM elements directly. Renders them as HTML and inserts into DOM</li>
+				<li>Software patterns instead of dependency injection</li>
+				<li>No magic!</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="main-page-follow-container" style="visibility: hidden" id="main_page_follow_container">
+		<iframe src="http://ghbtns.com/github-btn.html?user=kogarashisan&repo=LiquidLava&type=watch&count=true"
+			allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20" title="Star on GitHub"></iframe>
+		<!-- follow -->
+		<a href="https://twitter.com/LavaFramework" class="twitter-follow-button" data-show-count="false">Follow @LavaFramework</a>
+	</div>
+
+	<h1 class="text-center">Demo ToDo application</h1>
+	<%generator:main_page_example%>
+
+	<i><a href="/todo_app/index.html" target="_blank">Open the example in new window</a></i>
+
+</div> <!-- /container -->
+
+<%include:footer.html%>
+
+</body>

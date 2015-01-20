@@ -1,0 +1,30 @@
+<ul class="nav nav-pills" style="float: left; margin-right:1em">
+	<li class="dropdown" x:widget="DropDown">
+		<a role="button" href="#" x:type="view" x:roles="$dropdown.trigger">Dropdown <b class="caret"></b></a>
+		<ul class="dropdown-menu" role="menu">
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+			<li role="presentation" class="divider"></li>
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+		</ul>
+	</li>
+</ul>
+
+<div class="btn-group" x:widget="DropDown" style="float: left; margin-right:1em">
+	<button type="button" class="btn btn-success">Success</button>
+	<button type="button" class="btn btn-success dropdown-toggle" x:type="view" x:roles="$dropdown.trigger">
+		<span class="caret"></span>
+		<span class="sr-only">Toggle Dropdown</span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
+		<li><a href="#">Action</a></li>
+		<li><a href="#">Another action</a></li>
+		<li><a href="#">Something else here</a></li>
+		<li class="divider"></li>
+		<li><a href="#">Separated link</a></li>
+	</ul>
+</div>
+
+<!--lavabuild_cut_after-->
+<div class="clearfix"></div>
