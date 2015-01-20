@@ -92,3 +92,76 @@ arguments are refreshed.
 Summary: inside modifiers you should always check passed argument values for nulls.
 
 See also: {@link reference:ScopeRefreshCycle}
+
+##Manual widget insertion
+
+You should not do yourself something that can be done by framework. For example, you can insert widgets by hands:
+
+<lavabuild:codeblocks>
+	<codeblock title="Template" lang="xml">
+<body>
+	<!-- empty body, without lava-app attribute -->
+</body>
+	</codeblock>
+	<codeblock title="Javascript" lang="javascript">
+window.addEvent('load', function() {
+
+	Lava.init();
+
+	// phase 1
+	var instance = Lava.createWidget('CollapsiblePanel');
+	instance.set('title', "Old title");
+	Firestorm.Element.setProperty(document.body, 'html', instance.render());
+	instance.broadcastInDOM();
+
+	// phase 2
+	instance.set('title', "New title");
+	Firestorm.Element.setProperty(document.body, 'html', instance.render());
+	instance.broadcastInDOM();
+
+});
+	</codeblock>
+</lavabuild:codeblocks>
+
+There is a glitch on this page: move cursor out of page area and hit F5 on your keyboard. Instead of what you expected - 
+you will see <str>"Old title"</str> string. If you move cursor into the page - right at that moment <str>"Old title"</str> 
+will be replaced with <str>"New title"</str>.
+
+What happened here: first, widget was created and rendered with <str>"Old title"</str>, then inserted into the page. 
+Nothing special here.
+
+Then you set a property on the widget. PropertyBinding, which is bound to <str>"title"</str>, places itself into the 
+refresh queue (it does not refresh itself immediately!). Now you render the widget with dirty PropertyBinding, 
+which still serves the old title.
+
+When you move cursor into the page - an event occurs (each event ends with a view refresh cycle).
+So widget is rendered and inserted with old data, and then refreshed.
+
+This specially matters, when you insert heavy widgets like Tree - first you render and insert the tree with old records,
+then new records are rendered and inserted during the refresh cycle. Sometimes user will see the changes after
+a click or other action, which makes this glitch even more noticeable.
+
+This would not happen, if you used widget's methods, which are designed for this purpose:
+
+```javascript
+window.addEvent('load', function() {
+
+	Lava.init();
+
+	var instance = Lava.createWidget('CollapsiblePanel');
+	instance.set('title', "Old title");
+	instance.inject(document.body, 'Top');
+	instance.remove();
+
+	instance.set('title', "New title");
+	instance.inject(document.body, 'Top');
+
+});
+```
+
+Why this works correctly: inside `inject()` there is a call to `Lava.ScopeManager.refresh()` before `render()`.
+And call to `render()` is wrapped between calls to `Lava.ScopeManager.lock()` and `unlock()`.
+
+Summary: prefer using framework methods instead of doing something manually. 
+Use {@link Lava.widget.Standard#inject} and {@link Lava.widget.Standard#injectIntoExistingElement} to insert widget 
+into DOM.

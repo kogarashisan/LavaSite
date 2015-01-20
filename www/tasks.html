@@ -344,10 +344,6 @@
 <ul>
 <li><span class="tag-P1">P1</span><span class="tag-Fix">Fix</span><span class="tag-Dev">Dev</span> if you render it's content and change any attribute before it's in DOM,<br/>then you will get wrong content in DOM. Make protection from such lifecycle.<span class="task-comment">make "is_rendered"/"waits_insertion" switch and throw an error, if setting a property while it's on</span></li>
 </ul>
-<h3>View/Refresher/Standard.class.js</h3>
-<ul>
-<li><span class="tag-P2">P2</span><span class="tag-Performance">Performance</span> Improve performance of current template ordering algorithm (_moveTemplate)</li>
-</ul>
 <h3>Widget/Standard.class.js</h3>
 <ul>
 <li><span class="tag-P5">P5</span><span class="tag-Feature">Feature</span><span class="tag-Q">Q</span> "cancel_bubble" event and role handler to allow declaratively cancel bubbling of roles and events from templates<span class="task-comment">three lines of code, but is it really needed?</span></li>
@@ -399,7 +395,7 @@
 <ul>
 <li><span class="tag-P3">P3</span><span class="tag-Feature">Feature</span> there must be a sugar which parses it's content (optgroup and option tags)<span class="task-comment">it will be custom function, which is independent from Sugar class.<br/> Schema will define where to put the result. <br/>
  Requires Sugar modification.</span></li>
-<li><span class="tag-P5">P5</span><span class="tag-Refactoring">Refactoring</span> browser fixes and code that accesses elements should be in Firestorm</li>
+<li><span class="tag-P2">P2</span><span class="tag-Refactoring">Refactoring</span> browser fixes and code that accesses elements should be in Firestorm</li>
 </ul>
 <h3>DropDown</h3>
 <ul>

@@ -72,9 +72,6 @@ to it's DOM element(s) and stops synchronization of bound properties.
 
 Due to nature of Lava views - they can be re-rendered at any moment. Generally, you should not manually change 
 properties on elements inside Lava views, cause you will lose your changes when they are refreshed. 
-Animation is an exception: it's performed directly on elements, without access to containers.
-
-When container is rendered - it renders itself with it's current properties.
 To keep your changes in sync - you can use Element container's API, for example:
 - `setProperty(name, value)` - sets a static property to container and sets it on it's DOM element
 - `storeProperty(name, value)` - sets property on container, but does <b>not</b> set it on the DOM element
@@ -82,11 +79,8 @@ To keep your changes in sync - you can use Element container's API, for example:
 
 Similar methods exists for styles and classes.
 
-For an example of `storeProperty` usage - see the framework's input widgets: they listen to the "changed" event on
-&lt;input&gt; DOM elements, and store new "value" in their container.
-
-You should know:
-- when container is in DOM - property bindings are refreshed immediately when change notification is received
+Important things to remember:
+- when container is in DOM - property bindings are refreshed immediately when their arguments change
 - void tags are always rendered as selfclosing. This is compatible with HTML5 mode, and required prior to HTML5
 - attributes with <kw>null</kw> and <kw>false</kw> values are not rendered. 
 When an attribute is set to <kw>null</kw> - it's removed from DOM element. You can also return <kw>null</kw> 
@@ -94,5 +88,5 @@ from binding arguments (and <kw>false</kw> for boolean attributes) to remove the
 
 Boolean <kw>true</kw> attributes are rendered in `<name>="<name>"` form (for example: `checked="checked"`).
 
-<b>Important note on attribute validity</b>: it's not safe to bind your attributes to user input,
+<b>Important note on attribute validity</b>: it's not safe to bind element attributes directly to user input,
 and it's your responsibility to check user input to avoid XSS attacks.

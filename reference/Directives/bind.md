@@ -19,7 +19,7 @@ You can set property bindings in x:define via &lt;bind&gt; tag, but it's recomme
 
 By default, binding is bi-directional.
 If you want to bind a property in one direction only, there are two ways to do that:
-- if you bind from scope to widget - use x:assign directive (or &lt;assign&gt; widget definition tag)
+- if you bind from scope to widget - use {@link reference:Directives.assign|x:assign} directive (or &lt;assign&gt; widget definition tag)
 - if you want to bind property from widget to scope - there is `from_widget` attribute
 
 <lavabuild:template_result as="single_view">
@@ -27,3 +27,8 @@ If you want to bind a property in one direction only, there are two ways to do t
 	<x:bind name="value" from_widget>selected_circle.text</x:bind>
 </text_input>
 </lavabuild:template_result>
+
+##Bindings synchronization
+
+{@link Lava.scope.Binding} does not participate in scope refresh cycle. <b>When any of the bound properties change - 
+it updates the other end immediately.</b>

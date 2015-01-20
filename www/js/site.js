@@ -741,7 +741,7 @@ Lava.define(
 
 		} else if (hash_data.is_invalid) {
 
-			window.alert('Invalid URL: ' + hash);
+			window.alert('Invalid URL: ' + hash_data.hash);
 
 		} else if (hash_data['tab'] && this._tabs_widget) {
 

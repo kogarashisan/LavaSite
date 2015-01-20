@@ -24,7 +24,7 @@ Here is an example of localized widget:
 </x:define_resources>
 ```
 
-In the above example, there is a widget, which uses a string HELLO_STRING from resources. Note, that template takes that string
+In the above example, there is a widget definition, which uses a string HELLO_STRING from resources. Note, that template takes that string
 from widget by it's controller name ("$widget" is name of {@link Lava.widget.Standard} class, see {@link Lava.widget.Standard#name}).
 It's recommended to put resources for each locale into separate file.
 
@@ -36,6 +36,40 @@ Widget then may be used as usual:
 It will display a widget with string, chosen by current {@link Lava.schema#LOCALE}. 
 
 Tip: you can set current locale before call to `Lava.init()` or `Lava.bootstrap()`.
+
+##Using widget modifiers
+
+Previous example shows how to insert a string statically, but you can also translate strings in expressions with
+{@link Lava.widget.Standard#translate} and {@link Lava.widget.Standard#ntranslate} modifiers. For example:
+
+```xml
+<x:define title="HelloWidget" controller="Standard">
+	<template>
+		{#> $widget.translate("HELLO_STRING")}
+	</template>
+</x:define>
+```
+
+Translatable string can contain markers, which can be replaced with other values.
+For this reason `translate` modifier accepts the second argument (array): if it's present - then modifier replaces markers 
+in the string with corresponding values from that array. For example:
+
+```xml
+<x:define title="HelloWidget" controller="Standard">
+	<template>
+		{#> $widget.translate("HELLO_STRING", ['World'])}
+	</template>
+</x:define>
+
+<x:define_resources for="HelloWidget" locale="en">
+	<string path="HELLO_STRING">Hello {0}!</string>
+</x:define_resources>
+```
+
+Markers have the following format: `{<number>}`, where &lt;number&gt; is the array index.
+
+With `ntranslate` modifier you can translate plural strings. See {@link Lava.widget.Standard#ntranslate} and 
+{@link reference:ResourcesDefinition}.
 
 ##Resource paths and inheritance
 

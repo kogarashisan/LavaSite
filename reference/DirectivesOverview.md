@@ -63,7 +63,36 @@ return template items (in this case - a widget config).
 
 All directives that can be applied to views (except x:refresher) - can also be applied to widgets.
 
+##Directives versus widget tags
+
+There are many directives, which have similar functionality to widget definition tags, for example: &lt;x:options&gt; directive
+and &lt;options&gt; tag. Tag form should be used inside &lt;x:widget&gt; and &lt;x:define&gt; directives (widget definition),
+while directive form can be applied to views and syntax sugar:
+
+```xml
+<!-- inside widget definition it's a tag -->
+<x:widget extends="MyWidget">
+	<options>
+		{test_option: "Hello world!"}
+	</options>
+</x:widget>
+
+<!-- when applied to views and sugar - it's a directive -->
+{$view()}
+	<x:options>
+		{test_option: "Hello world!"}
+	</x:options>
+	...
+{/view}
+
+<collapsible>
+	<x:options>
+		{test_option: "Hello world!"}
+	</x:options>
+</collapsible>
+```
+
 ##Architecture
 
 {@link Lava.parsers.Directives#processDirective} is the method you can manually call to apply directives to a view's config
-and get their results.
+and get their results. See usage examples in Lava source code.

@@ -1,5 +1,36 @@
 
-<h2>0.10.x</h2>
+<h2>0.10.1</h2>
+
+<div style="padding-left: 2em">
+
+	<h3>Refactoring</h3>
+	<ul>
+		<li>Removed Lava.scheduleRefresh(). Modified widget.Standard#inject() and injectIntoExistingElement().</li>
+		<li>ScopeManager.lock() and unlock() now count locks, so it can be locked multiple times.</li>
+	</ul>
+
+	<h3>Fix</h3>
+	<ul>
+		<li>Tree widget: template now uses "is_expandable" dynamic scope rather than direct reference.</li>
+		<li>Fixed a potential bug with translation of plural strings.</li>
+		<li>Fixed bug in event dispatch algorithm: under certain conditions a call to ViewManager#cancelBubble
+			could cancel the next bubbling event.</li>
+		<li>Fixed a bug in ViewManager: crash, when global role target was removed inside event handler.</li>
+		<li>Refreshers: improved performance and sorting behaviour. Added refresher.Standard#broadcastInDOM().
+			Modified broadcastRemove() method in views and refresher.</li>
+		<li>Fixed 2 bugs in ExpressionParser: <br/>
+			- now it correctly recognizes the "{&amp;gt;" sequence (escaped expression opening)<br/>
+			- does not report a space between array (" [") as error.</li>
+	</ul>
+
+	<h3>Site</h3>
+	<ul>
+		<li>Fixed a couple of bugs on documentation page.</li>
+	</ul>
+
+</div>
+
+<h2>0.10.0</h2>
 
 <p>Once again reworked the Refresher API.</p>
 

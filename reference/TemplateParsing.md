@@ -175,6 +175,10 @@ is preserved.
 It does not make any difference, which syntax you choose, except that text inside the &lt;script&gt; tags is not parsed.
 In your templates you can use both kinds of syntax.
 
+Tip: Lava uses unrecognizable `type="lava/options"` instead of "application/json" to avoid conflicts with user IDE environments.
+For example, to take full advantage of object syntax highlighting in PhpStorm IDE - you should disable JSON validation in settings -
+this will allow you to use "application/json" type.
+
 ##Common view options
 
 You can also supply {@link _cView#label} and {@link _cView#id} via hash options of any view.

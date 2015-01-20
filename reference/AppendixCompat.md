@@ -3,9 +3,10 @@
 #Appendix A - Compatibility notes
 
 Framework does not fix bugs in plain HTML elements, even when they belong to an Element container.
-If you want your input fields to work correctly - you should either:
-- use framework's widgets, which implement bug fixes (easy way, recommended)
-- or manually apply containers with bug fixes to your input elements and listen to their custom events
+In other words, you can create a &lt;select&gt; tag on page and bind it's <var>value</var> property with `x:bind:value` 
+syntax, but that will <b>not</b> work in all browsers, so you should not do it.
+
+If you want your input fields to work correctly - you should use framework's widgets, which implement bug fixes.
 
 ##Release notes
 
