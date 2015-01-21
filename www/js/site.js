@@ -94,7 +94,6 @@ var Site = {
 		index: function() {
 			// twitter
 			(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs'));
-			$('main_page_follow_container').setStyle('visibility', 'visible');
 		},
 		"www/examples": function() {
 			var original_define = Lava.ClassManager.define;
@@ -109,15 +108,10 @@ var Site = {
 	bootstrap: function(page_path) {
 		this.page_path = page_path;
 
-		var href = window.location.href,
-			self = this;
-
-		if (href.indexOf('://kogarashisan.github.io/LiquidLava') > 0) {
-			window.location.href = 'http://www.lava-framework.com/' + page_path + '.html';
-		}
+		var self = this;
 
 		// to prevent tracking from dev's computers
-		if (href.indexOf('://www.lava-framework.com/') > 0) {
+		if (window.location.href.indexOf('://www.lava-framework.com/') > 0) {
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -129,15 +123,17 @@ var Site = {
 		window.addEvent('load', function() {
 
 			Lava.init();
+			Lava.focus_manager.enable(); // before widgets are in DOM, so it could receive focus event
 
-			var page_config = self.pages[self.page_path];
-			var constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget');
+			var page_config = self.pages[self.page_path],
+				constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget'),
+				widget;
+
 			if (Lava.schema.DEBUG && !constructor) Lava.t('Class not found: ' + page_config['class']);
-			var widget = new constructor(page_config);
+			widget = new constructor(page_config);
 			widget.injectIntoExistingElement(document.body);
 
 			Lava.popover_manager.enable();
-			Lava.focus_manager.enable();
 
 			if (self.page_loaded_callbacks[self.page_path]) {
 				self.page_loaded_callbacks[self.page_path]();

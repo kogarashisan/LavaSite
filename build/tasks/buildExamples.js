@@ -92,7 +92,7 @@ module.exports = function(grunt) {
 					'<title>Result</title>' +
 					'<content>' +
 						'<script type="lava/fragment">' +
-						'<iframe src="/todo_app/index.html" style="width: 100%; height: 550px"></iframe>' +
+						'<iframe src="/todo_app/index_compiled.html" style="width: 100%; height: 550px"></iframe>' +
 						'</script>' +
 					'</content>' +
 				'</tab>' +

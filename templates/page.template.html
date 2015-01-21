@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%include:header.inc.html%>
+	<title><%var:page_title%> | LiquidLava Framework</title>
+	<%generator:header_include%>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+	<script src="/lib/lava-master-DEBUG.js"></script>
+	<script src="/www/js/site.js"></script>
+	<script>
+		if (window.location.href.indexOf('://kogarashisan.github.io/LiquidLava') > 0) {
+			window.location.href = 'http://www.lava-framework.com/<%var:page_path%>.html';
+		}
+		/*%generator:page_script%*/
+		Site.bootstrap("<%var:page_path%>");
+	</script>
+	<%generator:footer_include%>
+</head>
+
+<body>
+<!--%generator:loading_indicator%-->
+</body>
+
+</html>
