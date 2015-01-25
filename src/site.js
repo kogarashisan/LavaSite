@@ -120,6 +120,8 @@ var Site = {
 			Lava.init();
 			Lava.focus_manager.enable(); // before widgets are in DOM, so it could receive focus event
 
+			window['utility_widget'] = new Lava.widget.UtilityWidget({is_extended: true, id: "utility"});
+
 			var page_config = self.pages[self.page_path],
 				constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget'),
 				widget;

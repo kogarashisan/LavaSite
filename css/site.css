@@ -203,3 +203,98 @@ footer .container {background: #f7f5fa;}
 
 .widgets-api-link-h1 {float: right;color:gray;padding-top: 0.6em}
 .widgets-api-link-h2 {float: right;color:gray;padding-top: 1em}
+
+/* ========== New theme ========== */
+body {padding-top: 0}
+
+.lava-navbar-logo-link {background: url(/www/design/logo.png) no-repeat left center; height: 79px; width:213px;display: inline-block;margin: 16px 0 15px;float: left;}
+.lava-menu-item-active {border-bottom: 5px solid rgb(255,161,1) !important;font-weight: bold}
+
+.lava-index-promo {font-style: italic;font-family: "Times New Roman", Times, serif;font-size: 2em;text-align: center;margin-top: 75px;margin-bottom: 90px;}
+.lava-index-buttons {text-align: center;padding-bottom: 65px}
+.lava-index-download {background: rgb(49,49,49);color:white;display: inline-block; height:65px}
+.lava-index-download:hover,
+.lava-index-download:focus {color: white;}
+.lava-index-download-icon {background: url(/www/design/main-arrows.png) no-repeat top center;width: 51px;height: 51px;display:inline-block;margin: 6px;float:left}
+.lava-index-download-version {background: rgb(71,131,83);padding: 4px 18px 0 18px;font-size: 1.4em;float:left;height:65px}
+.lava-index-download-version-number {font-weight: bold;font-family: Vardana, Arial, sans-serif;}
+.lava-index-download-version-alpha {font-style: italic;font-family: "Times New Roman", Times, serif;}
+.lava-index-download-text {line-height: 65px;float: left;font-size: 1.65em;font-weight: bold;padding: 0 22px 0 14px;}
+.lava-black-area {background: rgb(49,49,49)}
+.lava-index-features-header {color: white;text-align: center;font-weight: bold;font-size: 3.5em;padding-bottom: 10px;}
+.lava-index-follow-container {text-align: center;padding-top: 28px}
+.lava-index-features-area {padding-bottom: 75px}
+
+.lava-index-advantages-header {background: rgb(71,131,83);padding: 6px 10px;color: white;font-weight: bold;font-size: 1.4em;text-align: center}
+.lava-index-advantages-content {background: rgb(204,234,210);padding: 15px;font-size: 1.4em;height: 10em}
+.lava-index-advantage {background: rgb(71,131,83);padding: 6px 10px;color: white;font-weight: bold;margin: 40px 0;font-size: 1.4em;text-align: center}
+.lava-index-advantages-ok {padding-right: 8px;}
+
+footer {background: rgb(49,49,49);padding: 1em 0;margin-top: 1em}
+.lava-index-page footer {margin-top: 0}
+footer .container {background: transparent;}
+.lava-footer-copyright {color: white;text-align: right;color:#e0e0e0;}
+.lava-footer-logo {width: 14em;text-align: center;}
+.lava-footer-logo-title {color: rgb(251,167,1);font-size: 2em;font-weight: bold;}
+.lava-footer-logo-text {color: white;font-style: italic;font-family: "Times New Roman", Times, serif;font-size: 1.1em;}
+
+.lava-navbar {padding: 21px 0 0 15px;margin: 12px 0 0 0;float: left;list-style: none;}
+.lava-navbar-item {position: relative;display: inline-block;}
+.lava-navbar-item-a {padding: 14px 16px;line-height: 8px;
+	font-size: 1.1em;font-family: Verdana, Arial, Helvetica, sans-serif;
+	display: block;color: white;border-bottom: 5px solid transparent;}
+.lava-navbar-item-a:focus,
+.lava-navbar-item-a:hover {color:white;text-decoration: none}
+@media (min-width: 950px) {
+	.lava-navbar {padding-left: 32px;}
+	.lava-navbar-item {margin: 0 8px;}
+}
+.lava-dropdown-menu {background: rgb(71,131,83);border: 0;padding: 10px;min-width: 180px;box-shadow: 0 6px 12px rgba(0,0,0,.175);
+	position: absolute;top: 100%;left: 0;z-index: 1000;display: none;float: left;font-size: 14px;list-style: none;text-align: left}
+.lava-navbar-area {background: rgb(49,49,49);border-radius: 0;border: 0}
+
+.lava-menu-item-disabled,
+.lava-menu-item-disabled:focus,
+.lava-menu-item-disabled:hover {color: #777 !important;font-weight: normal !important;text-decoration: none;cursor: not-allowed;}
+.lava-dropdown-menu-item-disabled,
+.lava-dropdown-menu-item-disabled:focus,
+.lava-dropdown-menu-item-disabled:hover {color: #C0C0C0 !important;font-weight: normal !important;text-decoration: none;cursor: not-allowed;}
+
+.open .lava-navbar-item-a {background: rgb(71,131,83);}
+.open .lava-dropdown-menu {display: block}
+.lava-menu-dropdown-link {display: block;padding: 3px 20px;clear: both;line-height: 22px;white-space: nowrap;font-weight: bold;color: white}
+.lava-menu-dropdown-link:focus,
+.lava-menu-dropdown-link:hover {background: rgb(204,234,210) !important;color: black;text-decoration: none}
+
+.lava-navbar-container {margin-right: auto;margin-left: auto;padding-right: 15px;padding-left: 15px;text-align: left}
+.lava-navbar-container:before,
+.lava-navbar-container:after {display: table;content: " ";clear: both;}
+
+/*@media (min-width: 768px) {
+	.lava-navbar-container {width: 750px;}
+}
+@media (min-width: 992px) {
+	.lava-navbar-container {width: 970px;}
+}*/
+@media (min-width: 1200px) {
+	.lava-navbar-container {width: 1170px;}
+}
+
+@media (max-width: 850px) {
+	.lava-navbar {margin: 0 auto;display: block;padding: 0; float: none}
+	.lava-navbar-container {text-align: center}
+	.lava-navbar-logo-link {float: none}
+}
+
+@media (max-width: 500px) {
+	.lava-navbar-item {display: block;}
+	.lava-navbar-item-a {padding: 14px 6px;}
+	.lava-index-download-text {padding: 0 8px 0 2px}
+	.lava-index-download-version {padding: 4px 4px 0}
+	.lava-dropdown-menu {position: inherit;float: none}
+}
+
+.lava-footer-copyright-atom {white-space: nowrap;}
+.lava-scroll-top-link {background: url(/www/design/main-arrows.png) no-repeat top left; width: 51px;height:51px;display: block;float: right}
+
+.lava-as-fast-link {white-space: nowrap}

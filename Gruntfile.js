@@ -501,7 +501,7 @@ module.exports = function(grunt) {
 				files: [
 					{
 						src: [
-							"css/bootstrap/bootstrap.css",
+							"css/bootstrap/bootstrap.min.css",
 							"css/bootstrap/bootstrap-theme.min.css",
 							"css/bootstrap/partial-docs.css",
 							"css/site.css",
@@ -516,7 +516,7 @@ module.exports = function(grunt) {
 				files: [
 					{
 						src: [
-							"css/bootstrap/bootstrap.css",
+							"css/bootstrap/bootstrap.min.css",
 							"css/bootstrap/bootstrap-theme.min.css",
 							LAVA_CORE_DIRECTORY + "dist/lava-widgets.css"
 						],
@@ -530,6 +530,7 @@ module.exports = function(grunt) {
 						src: [
 							"src/site.js",
 							"src/sample_data.js",
+							"src/UtilityWidget.class.js",
 							"src/EditableTableExample.class.js",
 							"src/ContentLoader.class.js",
 							"src/ChangelogPage.class.js",

@@ -23,6 +23,39 @@ module.exports = function(grunt) {
 			return result;
 		}
 
+		function renderNavbarDropDown(children_array) {
+			var result = "",
+				is_active = false,
+				child_node,
+				attributes,
+				classes,
+				i = 0,
+				count = children_array.length;
+
+			for (; i < count; i++) {
+				child_node = children_array[i];
+				attributes = " href=\"" + (child_node.href || "#") + "\"";
+				classes = 'lava-menu-dropdown-link';
+				if (child_node.is_blank) {
+					attributes += " target=\"_blank\"";
+				}
+				if (child_node.is_disabled) {
+					classes += " lava-dropdown-menu-item-disabled";
+				}
+				attributes += " class=\"" + classes + "\"";
+				result += "<li><a" + attributes + ">" + child_node.title + "</a></li>";
+
+				if (child_node.href && child_node.href.indexOf("/" + current_page_descriptor.page_path) == 0) {
+					is_active = true;
+				}
+			}
+
+			return {
+				html: "<ul class=\"lava-dropdown-menu\">" + result + "</ul>",
+				is_active: is_active
+			};
+		}
+
 		var generators = {
 			widgets_page_navigation: function () {
 				var result = '';
@@ -100,6 +133,41 @@ module.exports = function(grunt) {
 			},
 			loading_indicator: function() {
 				return includes["loading_indicator.html"];
+			},
+			navbar_items: function() {
+				var menu_items = grunt.config('www_files').navbar,
+					result = '',
+					i = 0,
+					count = menu_items.length,
+					child_node,
+					attributes,
+					classes;
+
+				for (; i < count; i++) {
+					child_node = menu_items[i];
+					if (child_node.children) {
+						var dropdown_result = renderNavbarDropDown(child_node.children);
+						result += "<li class=\"dropdown lava-navbar-item" + (dropdown_result.is_active ? " lava-menu-item-active" : "") + "\" x:widget=\"DropDown\">"
+								+ "<a href=\"#\" class=\"dropdown-toggle lava-navbar-item-a\" x:type=\"view\" x:roles=\"$dropdown.trigger\">"
+									+ child_node.title + " <b class=\"caret\"></b>"
+								+ "</a>"
+								+ dropdown_result.html
+							+ "</li>";
+					} else {
+						classes = "lava-navbar-item-a";
+						attributes = " href=\"" + (child_node.href || "#") + "\"";
+						if (child_node.href && child_node.href.indexOf("/" + current_page_descriptor.page_path) == 0) {
+							classes += " lava-menu-item-active";
+						}
+						if (child_node.is_disabled) {
+							classes += " lava-menu-item-disabled";
+						}
+						attributes += " class=\"" + classes + "\"";
+						result += "<li class=\"lava-navbar-item\"><a" + attributes + ">" + child_node.title + "</a></li>";
+					}
+				}
+
+				return result;
 			}
 		};
 

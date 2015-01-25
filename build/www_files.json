@@ -2,12 +2,34 @@
 	"pages": [
 		{"page_path": "index", "page_title": "Home", "header_include": "main_page_header.html"},
 		{"page_path": "www/widgets", "page_title": "Standard widgets"},
+		{"page_path": "www/demo", "page_title": "Demo"},
 		{"page_path": "www/about", "page_title": "About"},
 		{"page_path": "www/tasks", "page_title": "Tasks"},
 		{"page_path": "www/roadmap", "page_title": "Roadmap"},
 		{"page_path": "www/examples", "page_title": "Examples", "header_include": "examples_page_header.html"},
 		{"page_path": "www/changelog", "page_title": "Changelog"},
 		{"page_path": "www/doc", "page_title": "Documentation", "header_include": "doc_page_header.html", "footer_include": "doc_page_footer.html"}
+	],
+	"navbar": [
+		{"title": "Home", "href": "/index.html"},
+		{"title": "Demo", "href": "/www/demo.html"},
+		{"title": "Learn", "children": [
+		  {"title": "Tutorials", "href": "/www/doc.html#tab=tutorials"},
+		  {"title": "Reference", "href": "/www/doc.html#tab=reference"},
+		  {"title": "API", "href": "/www/doc.html#tab=api"},
+		  {"title": "Examples", "href": "/www/examples.html"}
+		]},
+		{"title": "Develop", "children": [
+			{"title": "Core on GitHub", "href": "https://github.com/kogarashisan/LiquidLava/", "is_blank": true},
+			{"title": "Site on GitHub", "href": "https://github.com/kogarashisan/LavaSite/", "is_blank": true},
+			{"title": "Issues", "href": "https://github.com/kogarashisan/LiquidLava/issues?state=open", "is_blank": true},
+			{"title": "Changelog", "href": "/www/changelog.html"},
+			{"title": "Roadmap", "href": "/www/roadmap.html"},
+			{"title": "Tasks", "href": "/www/tasks.html"},
+			{"title": "Code coverage", "is_disabled": true}
+		]},
+		{"title": "Widgets", "href": "/www/widgets.html"},
+		{"title": "About", "href": "/www/about.html"}
 	],
 	"widget_descriptors": [
 		{"title": "Collapsible", "api_href": "/www/doc.html#class=Lava.widget.Collapsible"},
