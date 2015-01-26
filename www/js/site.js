@@ -90,6 +90,7 @@ var Site = {
 	// current page path
 	page_path: '',
 	pages: {},
+	utility_widget: null,
 	page_loaded_callbacks: {
 		index: function() {
 			// twitter
@@ -125,7 +126,7 @@ var Site = {
 			Lava.init();
 			Lava.focus_manager.enable(); // before widgets are in DOM, so it could receive focus event
 
-			window['utility_widget'] = new Lava.widget.UtilityWidget({is_extended: true, id: "utility"});
+			this.utility_widget = new Lava.widget.UtilityWidget({is_extended: true, id: "utility"});
 
 			var page_config = self.pages[self.page_path],
 				constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget'),
@@ -520,7 +521,7 @@ Lava.define(
 		tutorial: 'tutorials',
 		reference: 'reference',
 		object: 'api',
-		class: 'api'
+		"class": 'api'
 	},
 
 	_properties: {

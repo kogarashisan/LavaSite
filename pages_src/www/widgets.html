@@ -1,49 +1,54 @@
 <body lava-app="WidgetsPage">
 <x:property_string name="lipsum">{literal:}Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.{:literal}</x:property_string>
 
-<%include:navbar.html%>
+<div class="lava-page-wrapper">
 
-<div class="container">
-	<div class="row">
+	<%include:navbar.html%>
 
-		<div class="col-md-3">
-			<div class="bs-sidebar hidden-print affix-top" role="complementary">
-				<ul class="nav bs-sidenav">
-					<%generator:widgets_page_navigation%>
-				</ul>
-			</div>
-		</div>
+	<div class="container">
+		<div class="row">
 
-		<div class="col-md-9" role="main">
-
-			<h1>Standard widgets showcase</h1>
-			<p>
-				These widgets are included with framework by default. Note: they are not limited to bootstrap theme
-				- you can write your own CSS and even HTML markup for any widget.
-			</p>
-			<p>
-				Customizing the code is very easy: you are always encouraged to inherit your own classes,
-				write your own templates and use these widgets as examples when creating your own.
-			</p>
-
-			<div class="bs-callout bs-callout-info">
-				<p>Note: framework also has a collection of form input widgets, which are not shown here (like tri-state Checkbox or Select).</p>
+			<div class="col-md-3">
+				<div class="bs-sidebar hidden-print affix-top" role="complementary">
+					<ul class="nav bs-sidenav">
+						<%generator:widgets_page_navigation%>
+					</ul>
+				</div>
 			</div>
 
-			<p>
-				All headers and all content of almost any widget in Lava is not just a static text,
-				but a normal Lava template, so inside you can use other widgets and data binding.
-				Also, most widgets support styling via "resources", so you can apply styles without changing the markup.
-			</p>
+			<div class="col-md-9" role="main">
 
-			<%generator:widgets_page%>
+				<h1>Standard widgets showcase</h1>
+				<p>
+					These widgets are included with framework by default. Note: they are not limited to bootstrap theme
+					- you can write your own CSS and even HTML markup for any widget.
+				</p>
+				<p>
+					Customizing the code is very easy: you are always encouraged to inherit your own classes,
+					write your own templates and use these widgets as examples when creating your own.
+				</p>
 
-			<!-- some empty space for padding -->
-			<div style="height: 2em">&nbsp;</div>
+				<div class="bs-callout bs-callout-info">
+					<p>Note: framework also has a collection of form input widgets, which are not shown here (like tri-state Checkbox or Select).</p>
+				</div>
+
+				<p>
+					All headers and all content of almost any widget in Lava is not just a static text,
+					but a normal Lava template, so inside you can use other widgets and data binding.
+					Also, most widgets support styling via "resources", so you can apply styles without changing the markup.
+				</p>
+
+				<%generator:widgets_page%>
+
+				<!-- some empty space for padding -->
+				<div style="height: 2em">&nbsp;</div>
+
+			</div>
 
 		</div>
-
 	</div>
+
+	<div class="lava-footer-push"></div>
 </div>
 
 <%include:footer.html%>

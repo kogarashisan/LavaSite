@@ -215,7 +215,6 @@ System/ViewManager.class.js
 	- [P5,Feature,Q,T1] give it ability to cancel event bubbling by elements
 		// now only bubbling by widget hierarchy can be cancelled, not by elements
 View/
-	- [P1,Feature,T4] View/Include.class.js - view, which takes it's template config from a variable (dynamic include)
 	- [P5,Feature,Performance] View/Switch.class.js - analog of the IF view, but with one argument.
 		// will also affect TemplateParser and configs
 	- [P5,Refactoring,Q] replace tagName in container.Morph with nodeName
@@ -310,6 +309,7 @@ Inputs
 	- [P3,Feature] Pagination
 	- [P3,Feature] ColorPicker
 	- [P3,Feature] Rating
+	- [P5,Feature] Tags input
 	- [P3,Feature] Alert widget (floating messages with color background and dismiss button)
 	- [P5,Feature] Carousel
 	- [P5,Feature] DataView

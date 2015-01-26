@@ -482,10 +482,12 @@ footer .container {background: #f7f5fa;}
 	word-break: normal !important;word-wrap: normal !important;
 }
 .lava-code-line-numbers {float: left;margin-right: 5px;margin-top: 0;margin-bottom: 0;padding: 0;padding-right: 4px;padding-left: 4px;border-right: 1px solid #CCCCCC;background-color: #EEEEEE;color: #848484;text-align: right;position: relative;z-index: 3;}
-.lava-code-overlay, .lava-code-tooltips {position: absolute;top: 0;left: 0;width: 100%;padding-top: 0.5em}
+.lava-code-overlay,
+.lava-code-tooltips {position: absolute!important;top: 0;left: 0;width: 100%;padding-top: 0.5em;background: transparent!important;border:1px transparent}
 .lava-code-overlay {z-index: 0;}
 .lava-code-tooltips {z-index: 3;}
-.lava-code-overlay div, .lava-code-tooltips div {height: 18px;width: 100%;}
+.lava-code-overlay div,
+.lava-code-tooltips div {height: 18px;width: 100%;cursor: default}
 .lava-code-overlay-line {background: yellow; opacity: 0.6; cursor: pointer}
 .lava-code-content {background: transparent !important;}
 
@@ -633,14 +635,9 @@ body {padding-top: 0}
 .lava-index-advantages-content {background: rgb(204,234,210);padding: 15px;font-size: 1.4em;height: 10em}
 .lava-index-advantage {background: rgb(71,131,83);padding: 6px 10px;color: white;font-weight: bold;margin: 40px 0;font-size: 1.4em;text-align: center}
 .lava-index-advantages-ok {padding-right: 8px;}
-
-footer {background: rgb(49,49,49);padding: 1em 0;margin-top: 1em}
-.lava-index-page footer {margin-top: 0}
-footer .container {background: transparent;}
-.lava-footer-copyright {color: white;text-align: right;color:#e0e0e0;}
-.lava-footer-logo {width: 14em;text-align: center;}
-.lava-footer-logo-title {color: rgb(251,167,1);font-size: 2em;font-weight: bold;}
-.lava-footer-logo-text {color: white;font-style: italic;font-family: "Times New Roman", Times, serif;font-size: 1.1em;}
+@media (min-width: 500px) and (max-width: 992px) {
+	.lava-index-advantages-content {height: 6em}
+}
 
 .lava-navbar {padding: 21px 0 0 15px;margin: 12px 0 0 0;float: left;list-style: none;}
 .lava-navbar-item {position: relative;display: inline-block;}
@@ -674,12 +671,6 @@ footer .container {background: transparent;}
 .lava-navbar-container:before,
 .lava-navbar-container:after {display: table;content: " ";clear: both;}
 
-/*@media (min-width: 768px) {
-	.lava-navbar-container {width: 750px;}
-}
-@media (min-width: 992px) {
-	.lava-navbar-container {width: 970px;}
-}*/
 @media (min-width: 1200px) {
 	.lava-navbar-container {width: 1170px;}
 }
@@ -693,15 +684,39 @@ footer .container {background: transparent;}
 @media (max-width: 500px) {
 	.lava-navbar-item {display: block;}
 	.lava-navbar-item-a {padding: 14px 6px;}
-	.lava-index-download-text {padding: 0 8px 0 2px}
-	.lava-index-download-version {padding: 4px 4px 0}
+	.lava-index-download-text {padding: 0 4px 0 2px}
+	.lava-index-download-version {padding: 4px 3px 0}
 	.lava-dropdown-menu {position: inherit;float: none}
 }
 
-.lava-footer-copyright-atom {white-space: nowrap;}
-.lava-scroll-top-link {background: url(/www/design/main-arrows.png) no-repeat top left; width: 51px;height:51px;display: block;float: right}
-
 .lava-as-fast-link {white-space: nowrap}
+
+/* sticky footer */
+footer {}
+.lava-footer-index {padding-top: 0 !important;}
+footer .container {background: transparent;}
+.lava-footer-copyright {text-align: right;color:#e0e0e0;}
+.lava-footer-logo {width: 14em;text-align: center;}
+.lava-footer-logo-title {color: rgb(251,167,1);font-size: 2em;font-weight: bold;}
+.lava-footer-logo-text {color: white;font-style: italic;font-family: "Times New Roman", Times, serif;font-size: 1.1em;}
+.lava-footer-copyright-atom {white-space: nowrap;}
+.lava-footer-scroll-top-link {background: url(/www/design/main-arrows.png) no-repeat top left; width: 51px;height:51px;display: block;float: right}
+
+html, body {height: 100%;}
+footer {height: 8.5em}
+.lava-page-wrapper {min-height: 100%;height: auto !important;height: 100%;margin: 0 0 -8.5em;}
+.lava-footer-push {height: 8.5em;}
+.lava-footer-black-area {padding: 1em 0;height: 8.5em}
+
+@media (min-width: 500px) {
+	footer {height: 8.5em;padding-top: 1em}
+	.lava-page-wrapper {margin: 0 0 -8.5em;}
+	.lava-footer-push {height: 8.5em;}
+	.lava-footer-black-area {height: 7.5em}
+}
+/* end */
+
+
 
 /*
 This file contains essential classes for some standard widgets.

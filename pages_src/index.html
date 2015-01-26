@@ -1,50 +1,55 @@
-<body lava-app id="main_page" class="lava-index-page">
+<body lava-app>
 
-<%include:navbar.html%>
+<div class="lava-page-wrapper">
 
-<div class="container lava-index-promo">
-	LiquidLava is a framework for building user interfaces,<br/>
-	which scale from simple interactive elements on page to complex feature-rich applications
-</div>
+	<%include:navbar.html%>
 
-<div class="container lava-index-buttons">
-	<a href="https://github.com/kogarashisan/LiquidLava/releases" target="_blank" class="lava-index-download">
-		<div class="lava-index-download-icon"></div>
-		<div class="lava-index-download-text">Download</div>
-		<div class="lava-index-download-version">
-			<div class="lava-index-download-version-number">v0.11.1</div>
-			<div class="lava-index-download-version-alpha">Alpha</div>
-		</div>
-	</a>
-	<div class="lava-index-follow-container">
-		<iframe src="http://ghbtns.com/github-btn.html?user=kogarashisan&repo=LiquidLava&type=watch&count=true"
-				allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20" style="margin-left: 30px"
-				title="Star on GitHub"></iframe>
-		<!-- follow -->
-		<a href="https://twitter.com/LavaFramework" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false"
-		   style="visibility: hidden">Follow @LavaFramework</a>
+	<div class="container lava-index-promo">
+		LiquidLava is a framework for building user interfaces,<br/>
+		which scale from simple interactive elements on page to complex feature-rich applications
 	</div>
-</div>
 
-<div class="lava-black-area">
-	<div class="container lava-index-features-area">
-		<h2 class="lava-index-features-header">Features</h2>
-		<div class="col-md-4">
-			<div class="lava-index-advantages-header">Transparent internal design</div>
-			<div class="lava-index-advantages-content">This means, that you always know, what you are doing, and what happens inside the framework</div>
-			<div class="lava-index-advantage"><span class="glyphicon glyphicon-ok lava-index-advantages-ok"></span> No magic!</div>
-		</div>
-		<div class="col-md-4">
-			<div class="lava-index-advantages-header">Unique class system</div>
-			<div class="lava-index-advantages-content">Generated classes are almost <a href="http://jsperf.com/liquidlava-class-system-performance/3" alt="Performance comparison of LiquidLava and native JavaScript classes" target="_blank" class="lava-as-fast-link">as fast</a> as their hand-written analogues</div>
-			<div class="lava-index-advantage"><span class="glyphicon glyphicon-ok lava-index-advantages-ok"></span> Fast like hell!</div>
-		</div>
-		<div class="col-md-4">
-			<div class="lava-index-advantages-header">Best practices</div>
-			<div class="lava-index-advantages-content">Software patterns instead of dependency injection</div>
-			<div class="lava-index-advantage"><span class="glyphicon glyphicon-ok lava-index-advantages-ok"></span> Reliable!</div>
+	<div class="container lava-index-buttons">
+		<a href="https://github.com/kogarashisan/LiquidLava/releases" target="_blank" class="lava-index-download">
+			<div class="lava-index-download-icon"></div>
+			<div class="lava-index-download-text">Download</div>
+			<div class="lava-index-download-version">
+				<div class="lava-index-download-version-number">v0.11.1</div>
+				<div class="lava-index-download-version-alpha">Alpha</div>
+			</div>
+		</a>
+		<div class="lava-index-follow-container">
+			<iframe src="http://ghbtns.com/github-btn.html?user=kogarashisan&repo=LiquidLava&type=watch&count=true"
+					allowtransparency="true" frameborder="0" scrolling="0" width="90" height="20" style="margin-left: 30px"
+					title="Star on GitHub"></iframe>
+			<!-- follow -->
+			<a href="https://twitter.com/LavaFramework" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false"
+			   style="visibility: hidden">Follow @LavaFramework</a>
 		</div>
 	</div>
+
+	<div class="lava-black-area">
+		<div class="container lava-index-features-area">
+			<h2 class="lava-index-features-header">Features</h2>
+			<div class="col-md-4">
+				<div class="lava-index-advantages-header">Transparent internal design</div>
+				<div class="lava-index-advantages-content">This means, that you always know, what you are doing, and what happens inside the framework</div>
+				<div class="lava-index-advantage"><span class="glyphicon glyphicon-ok lava-index-advantages-ok"></span> No magic!</div>
+			</div>
+			<div class="col-md-4">
+				<div class="lava-index-advantages-header">Unique class system</div>
+				<div class="lava-index-advantages-content">Generated classes are almost <a href="http://jsperf.com/liquidlava-class-system-performance/3" alt="Performance comparison of LiquidLava and native JavaScript classes" target="_blank" class="lava-as-fast-link">as fast</a> as their hand-written analogues</div>
+				<div class="lava-index-advantage"><span class="glyphicon glyphicon-ok lava-index-advantages-ok"></span> Fast like hell!</div>
+			</div>
+			<div class="col-md-4">
+				<div class="lava-index-advantages-header">Best practices</div>
+				<div class="lava-index-advantages-content">Software patterns instead of dependency injection</div>
+				<div class="lava-index-advantage"><span class="glyphicon glyphicon-ok lava-index-advantages-ok"></span> Reliable!</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="lava-footer-push"></div>
 </div>
 
 <%include:footer.html%>

@@ -121,10 +121,10 @@ module.exports = function(grunt) {
 				}
 				return '';
 			},
-			footer_include: function() {
-				if (current_page_descriptor.footer_include) {
-					if (!includes[current_page_descriptor.footer_include]) throw new Error();
-					return includes[current_page_descriptor.footer_include];
+			header_bottom_include: function() {
+				if (current_page_descriptor.header_bottom_include) {
+					if (!includes[current_page_descriptor.header_bottom_include]) throw new Error();
+					return includes[current_page_descriptor.header_bottom_include];
 				}
 				return '';
 			},
@@ -133,6 +133,9 @@ module.exports = function(grunt) {
 			},
 			loading_indicator: function() {
 				return includes["loading_indicator.html"];
+			},
+			footer_class: function() {
+				return (current_page_descriptor.page_path == "index") ? "lava-footer-index" : '';
 			},
 			navbar_items: function() {
 				var menu_items = grunt.config('www_files').navbar,

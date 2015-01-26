@@ -78,7 +78,7 @@ module.exports = function(grunt) {
 					+ '<pre class="lava-code-content hljs ' + type + '">' + code + '</pre>'
 					+ (overlay_lines ? (
 						'<div class="lava-code-overlay">' + overlay_lines + '</div>'
-							+ '<div class="lava-code-tooltips">' + tooltip_lines + '</div>'
+							+ '<pre class="lava-code-tooltips">' + tooltip_lines + '</pre>'
 						) : '')
 				+ '</div>';
 
@@ -145,13 +145,30 @@ module.exports = function(grunt) {
 				});
 			});
 
+			// In IE there is a bug: highlighted code chars have higher z-index then div with tooltip,
+			// so tooltip does not show over highlighted text.
+			// Fill tooltips with spaces to override z-index with tooltip's own text
+			var longest_line = 0;
+			var longest_line_padding = '';
+			var lines = text.split('\n');
+			for (var i = 0, count = lines.length; i < count; i++) {
+				if (lines[i].length > longest_line) {
+					longest_line = lines[i].length;
+				}
+			}
+
+			for (i = 0; i < longest_line; i++) {
+				longest_line_padding += ' ';
+			}
+			// end
+
 			if (max_tooltip_index > 0 || ('0' in tooltips)) {
 				var skip_lines_count = 0;
-				for (var i = 0; i <= max_tooltip_index; i++) {
+				for (i = 0; i <= max_tooltip_index; i++) {
 					if (i in tooltips) {
 						var style_css = skip_lines_count ? (' style="margin-top: ' + skip_lines_count * this.CSS_CODE_LINE_HEIGHT + 'px"') : '';
 						overlay_text += '<div' + style_css + ' class="lava-code-overlay-line"></div>';
-						tooltip_text += '<div' + style_css + ' data-tooltip="' + tooltips[i] + '"></div>';
+						tooltip_text += '<div' + style_css + ' data-tooltip="' + tooltips[i] + '">' + longest_line_padding + '</div>';
 						skip_lines_count = 0;
 					} else {
 						skip_lines_count++;

@@ -3,47 +3,52 @@
 
 <%include:loading_view.html%>
 
-<%include:navbar.html%>
+<div class="lava-page-wrapper">
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-3">
-			<x:widget extends="ApiTabs">
-				<roles>$page.nav_tabs</roles>
-			</x:widget>
-		</div>
-		<div class="col-md-9" id="default_text">
+	<%include:navbar.html%>
 
-			<h1>Welcome to LiquidLava documentation</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<x:widget extends="ApiTabs">
+					<roles>$page.nav_tabs</roles>
+				</x:widget>
+			</div>
+			<div class="col-md-9" id="default_text">
 
-			<p>Documentation is divided into the following sections:</p>
-			<ul class="doc-default-text-list">
-				<li><span><img src="/www/design/tree/tutorial.gif" /></span><a href="#tab=tutorials">Tutorials</a> - helps you to make your first steps with the framework</li>
-				<li><span><img src="/www/design/tree/reference.gif" /></span><a href="#tab=reference">Reference</a> - detailed explanation of every aspect of the framework</li>
-				<li><span><img src="/www/design/tree/class.gif" /></span><a href="#tab=api">API</a> - generated automatically from source code files</li>
-			</ul>
+				<h1>Welcome to LiquidLava documentation</h1>
 
-			<h2>Introducing LiquidLava</h2>
+				<p>Documentation is divided into the following sections:</p>
+				<ul class="doc-default-text-list">
+					<li><span><img src="/www/design/tree/tutorial.gif" /></span><a href="#tab=tutorials">Tutorials</a> - helps you to make your first steps with the framework</li>
+					<li><span><img src="/www/design/tree/reference.gif" /></span><a href="#tab=reference">Reference</a> - detailed explanation of every aspect of the framework</li>
+					<li><span><img src="/www/design/tree/class.gif" /></span><a href="#tab=api">API</a> - generated automatically from source code files</li>
+				</ul>
 
-			<p>LiquidLava is an MVC framework with unique architecture: everything here is a class,
-				or at least a JavaScript object. Lava is very modular and decoupled, for example you can parse your templates on server
-				and exclude parsers from client package. Or you can exclude Animation and Data folders, if you don't need them.</p>
+				<h2>Introducing LiquidLava</h2>
 
-			<p>Framework has excellent sources, so if something is unclear to you -
-				then sources is the first place, where you should search for answers.</p>
+				<p>LiquidLava is an MVC framework with unique architecture: everything here is a class,
+					or at least a JavaScript object. Lava is very modular and decoupled, for example you can parse your templates on server
+					and exclude parsers from client package. Or you can exclude Animation and Data folders, if you don't need them.</p>
 
-			<h2>Introducing Firestorm</h2>
+				<p>Framework has excellent sources, so if something is unclear to you -
+					then sources is the first place, where you should search for answers.</p>
 
-			<p>Firestorm is a low-level DOM access library, currently built on top of MooTools.
-				It does not extend prototypes of native JavaScript objects - this makes it extremely simple and reusable.
-				In fact, it's a collection of JavaScript objects with public API.</p>
-			<p>Any access to DOM tree must be done using Firestorm API (although, there are exceptions).</p>
+				<h2>Introducing Firestorm</h2>
 
-		</div>
-		<div class="col-md-9" role="main" id="content_area" x:type="view" x:event:click="$page.content_area_click">
+				<p>Firestorm is a low-level DOM access library, currently built on top of MooTools.
+					It does not extend prototypes of native JavaScript objects - this makes it extremely simple and reusable.
+					In fact, it's a collection of JavaScript objects with public API.</p>
+				<p>Any access to DOM tree must be done using Firestorm API (although, there are exceptions).</p>
 
+			</div>
+			<div class="col-md-9" role="main" id="content_area" x:type="view" x:event:click="$page.content_area_click">
+
+			</div>
 		</div>
 	</div>
+
+	<div class="lava-footer-push"></div>
 </div>
 
 <%include:footer.html%>

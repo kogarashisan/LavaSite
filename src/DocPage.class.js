@@ -23,7 +23,7 @@ Lava.define(
 		tutorial: 'tutorials',
 		reference: 'reference',
 		object: 'api',
-		class: 'api'
+		"class": 'api'
 	},
 
 	_properties: {
