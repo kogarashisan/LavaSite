@@ -117,6 +117,7 @@
 	});
 </script>
 <body lava-app="HelloApp">
+
 	{$if(your_name.length < 2)}
 		Your name is too short
 	{elseif(your_name.length > 20)}
@@ -124,10 +125,13 @@
 	{else}
 		Your name is {$> your_name.length} characters long
 	{/if}
+
 	<br/>
+
 	{$foreach(people) as=person}
 		Hello {$> person.title}!<br/>
 	{/foreach}
+
 </body>
 		</x:content>
 	</code>
