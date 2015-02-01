@@ -90,12 +90,6 @@ var quick_start_schema ={
 		},
 		{
 			code_name: "HelloApp",
-			active_highlights: ["bind_directive"],
-			text_class_suffix: "-compact",
-			text: "\r\n\t\t\t<p>Each time you modify text in the browser's input element - <br/>\r\n\t\t\t\tit triggers an update of the <code>value</code> property in &lt;text_input&gt; widget.<br/>\r\n\t\t\t\tAnd each time <code>value</code> is updated - it triggers an update <br/>\r\n\t\t\t\tof <code>your_name</code> property in HelloApp.</p>\r\n\t\t"
-		},
-		{
-			code_name: "HelloApp",
 			active_highlights: ["expression_view"],
 			text_class_suffix: "-compact",
 			text: "\r\n\t\t\t<p>&nbsp;</p>\r\n\t\t\t<p>This is Expression view, it shows result of an expression.</p>\r\n\t\t\t<p>&nbsp;</p>\r\n\t\t"
