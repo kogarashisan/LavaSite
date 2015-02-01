@@ -103,6 +103,7 @@
 	</code>
 	<code name="if_and_foreach_views">
 		<x:content><script>
+
 	Lava.define('Lava.widget.HelloApp', {
 		Extends: 'Lava.widget.Standard',
 
@@ -115,6 +116,7 @@
 			]
 		}
 	});
+
 </script>
 <body lava-app="HelloApp">
 
@@ -137,6 +139,7 @@
 	</code>
 	<code name="events_example">
 		<x:content><script>
+
 	Lava.define('Lava.widget.HelloApp', {
 		Extends: 'Lava.widget.Standard',
 
@@ -154,11 +157,14 @@
 
 		}
 	});
+
 </script>
 <body lava-app="HelloApp">
+
 	<button x:type="view" x:event:click="button_click">
 		I was clicked {#> click_count} times
 	</button>
+
 </body></x:content>
 		<highlight type="span" data-group="event_on_element">
 			<search>x:event:click="button_click"</search>
@@ -381,7 +387,7 @@
 				It's completely transparent, so you will never have to fight with it.</p>
 			<p>Lava is powerful. Every part of it can be customized: <br/>
 				from widgets to core components.</p>
-			<p><a href="http://localhost/www/doc.html#tab=tutorials">Proceed to tutorials</a></p>
+			<p><a href="/www/doc.html#tab=tutorials">Proceed to tutorials</a></p>
 		</text>
 	</step>
 </steps>
