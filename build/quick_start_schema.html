@@ -1,0 +1,391 @@
+<codes>
+	<code name="blank">
+		<x:content type="xml"><!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+	<script src="http://lava-framework.com/lib/lava-master-DEBUG.js"></script>
+	<link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
+</head>
+
+<body></body>
+
+</html></x:content>
+		<highlight type="lines" data-group="scripts">
+			<search>script</search>
+		</highlight>
+		<highlight type="lines" data-group="style">
+			<search>stylesheet</search>
+		</highlight>
+	</code>
+	<code name="bootstrapped">
+		<x:content type="xml"><!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+	<script src="http://lava-framework.com/lib/lava-master-DEBUG.js"></script>
+	<link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
+
+	<script>
+		/*region:class_content*/Lava.define('Lava.widget.HelloApp', {
+			Extends: 'Lava.widget.Standard'
+		});/*:region*/
+
+		window.addEvent('load', function() {
+			Lava.bootstrap();
+		});
+	</script>
+</head>
+
+<body lava-app="HelloApp">
+<x:placeholder name="body_content" />
+</body>
+
+</html></x:content>
+		<highlight type="lines_span" data-group="widget_definition">
+			<search_start>Lava.define</search_start>
+			<search_end>});</search_end>
+		</highlight>
+		<highlight type="span" data-group="lava_app">
+			<search>lava-app="HelloApp"</search>
+		</highlight>
+		<highlight type="span" data-group="bootstrap_call">
+			<search>Lava.bootstrap();</search>
+		</highlight>
+		<highlight type="span" data-group="mootools_call">
+			<search>window.addEvent</search>
+		</highlight>
+	</code>
+	<code name="bootstrapped_with_property" extends="bootstrapped">
+		<x:region_content for="class_content">Lava.define('Lava.widget.HelloApp', {
+			Extends: 'Lava.widget.Standard',
+
+			_properties: {
+				your_name: "World"
+			}
+		});</x:region_content>
+		<x:placeholder_content for="body_content">	<h1>Hello {$> your_name}!</h1></x:placeholder_content>
+		<highlight type="lines_span" data-group="property_definition">
+			<search_start>_properties:</search_start>
+			<search_end>}</search_end>
+		</highlight>
+		<highlight type="span" data-group="expression_view">
+			<search>{:L:}$> your_name}</search>
+		</highlight>
+	</code>
+	<code name="HelloApp" extends="bootstrapped_with_property">
+		<x:region_content for="body_content">	<label>Name:</label>
+	<text_input>
+		<x:bind name="value">your_name</x:bind>
+	</text_input>
+	<br/>
+	<h1>Hello {$> your_name}!</h1>
+</x:region_content>
+		<highlight type="lines" data-group="text_input">
+			<search>text_input</search>
+		</highlight>
+		<highlight type="lines" data-group="bind_directive">
+			<search>x:bind</search>
+		</highlight>
+		<highlight type="span" data-group="your_name_property">
+			<search>your_name</search>
+		</highlight>
+		<highlight type="span" data-group="expression_view">
+			<search>{:L:}$> your_name}</search>
+		</highlight>
+	</code>
+	<code name="hello_with_complex_expression">
+		<x:content><body lava-app="HelloApp">
+	<h1>{$> 'Hello ' + ucFirst(your_name)}!</h1>
+	Your name is {$> your_name.length} characters long.
+</body>
+</x:content>
+	</code>
+	<code name="if_and_foreach_views">
+		<x:content><script>
+	Lava.define('Lava.widget.HelloApp', {
+		Extends: 'Lava.widget.Standard',
+
+		_properties: {
+			your_name: "World",
+			people: [
+				{title: "Mary", birth_year: 1979},
+				{title: "Jane", birth_year: 1980},
+				{title: "Mark", birth_year: 1981}
+			]
+		}
+	});
+</script>
+<body lava-app="HelloApp">
+	{$if(your_name.length < 2)}
+		Your name is too short
+	{elseif(your_name.length > 20)}
+		Your name is too long
+	{else}
+		Your name is {$> your_name.length} characters long
+	{/if}
+	<br/>
+	{$foreach(people) as=person}
+		Hello {$> person.title}!<br/>
+	{/foreach}
+</body>
+		</x:content>
+	</code>
+	<code name="events_example">
+		<x:content><script>
+	Lava.define('Lava.widget.HelloApp', {
+		Extends: 'Lava.widget.Standard',
+
+		_properties: {
+			click_count: 0
+		},
+
+		_event_handlers: {
+			button_click: '_onButtonClick'
+		},
+
+		_onButtonClick: function() {
+
+			this.set('click_count', this._properties.click_count + 1);
+
+		}
+	});
+</script>
+<body lava-app="HelloApp">
+	<button x:type="view" x:event:click="button_click">
+		I was clicked {#> click_count} times
+	</button>
+</body></x:content>
+		<highlight type="span" data-group="event_on_element">
+			<search>x:event:click="button_click"</search>
+		</highlight>
+		<highlight type="span" data-group="event_in_widget">
+			<search>button_click: '_onButtonClick'</search>
+		</highlight>
+		<highlight type="span" data-group="set">
+			<search>this.set</search>
+		</highlight>
+		<highlight type="span" data-group="property_access">
+			<search>this._properties.click_count</search>
+		</highlight>
+	</code>
+	<code name="button_with_bound_style">
+		<x:content><body lava-app="HelloApp">
+	<button x:type="view" x:event:click="button_click" x:style:padding="click_count + 'px'">
+		I was clicked {#> click_count} times
+	</button>
+</body></x:content>
+		<highlight type="span" data-group="style_binding">
+			<search>x:style:padding="click_count + 'px'"</search>
+		</highlight>
+	</code>
+</codes>
+<steps>
+	<step>
+		<text>
+			<p>LiquidLava differs from anything you have known before.</p>
+
+			<p>For example, templates here are parsed into configs for JavaScript classes<br/>
+			(they are not compiled into functions, like in other frameworks).</p>
+
+			<p>That's why syntax of Lava templates may seem a bit weird at first glance.<br/>
+				In fact it's actually simple and convenient<br/>
+				- you just need to understand how everything works.</p>
+
+			<p>Let's start with a completely blank page...</p>
+		</text>
+	</step>
+	<step code_name="blank" active_highlights="scripts">
+		<text>
+			<p>First, you include MooTools and Lava framework.<br/>
+				(currently Lava depends on MooTools,
+				but in future builds this dependency will be removed.</p>
+		</text>
+	</step>
+	<step code_name="blank" active_highlights="style" text_class_suffix="-compact">
+		<text>
+			<p>If you want to use widgets, that come with the framework
+			- then you should also include styles for them.</p>
+
+			<p>Framework widgets use Bootstrap theme (which is already included in this CSS file).</p>
+
+			<p><i>You are not limited to Bootstrap theme: you can write your own styles and even HTML code for framework widgets.</i></p>
+		</text>
+	</step>
+	<step code_name="bootstrapped" active_highlights="widget_definition" text_class_suffix="-compact">
+		<text>
+			<p>Let's create a controller for our page.
+				Controllers respond to events, hold properties, and contain all user-defined logic.</p>
+
+			<p>A piece of HTML with it's own controller is called a <b>widget</b>.
+				In this example the &lt;body&gt; tag becomes a widget.</p>
+
+			<p>
+				All widget controllers must be inherited from <b>Lava.widget.Standard</b>,
+				so here we define <b>HelloApp</b> class, which extends it...
+			</p>
+		</text>
+	</step>
+	<step code_name="bootstrapped" active_highlights="lava_app" text_class_suffix="-compact">
+		<text>
+			<p>&nbsp;</p>
+			<p>...and that's how we attach it to page body.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="bootstrapped" active_highlights="bootstrap_call" text_class_suffix="-compact">
+		<text>
+			<p>Then we manually call <code>Lava.bootstrap()</code>.</p>
+
+			<p><b>Why should you do it manually?</b></p>
+
+			<p>This gives you total control over this process.
+				You can even write your own bootstrap method, if you want.</p>
+		</text>
+	</step>
+	<step code_name="bootstrapped" active_highlights="mootools_call" text_class_suffix="-compact">
+		<text>
+			<p>addEvent is a method from MooTools.</p>
+			<p>When page loads - <code>bootstrap</code> method parses content
+				of the &lt;body&gt; tag into widget config. Then it creates an instance of <code>HelloApp</code> class
+				with that config. which is then rendered and inserted into &lt;body&gt;.</p>
+		</text>
+	</step>
+	<step code_name="bootstrapped_with_property" active_highlights="property_definition" text_class_suffix="-compact">
+		<text>
+			<p>&nbsp;</p>
+			<p>Let's add a property to our controller...</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="bootstrapped_with_property" active_highlights="expression_view" text_class_suffix="-compact">
+		<text>
+			<p>&nbsp;</p>
+			<p>...and show it on page.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="HelloApp" active_highlights="text_input" text_class_suffix="-compact">
+		<text>
+			<p>We also need a way to edit this property. <br/>
+				Let's add a text input...</p>
+		</text>
+	</step>
+	<step code_name="HelloApp" active_highlights="bind_directive,your_name_property" text_class_suffix="-compact">
+		<text>
+			<p>&nbsp;</p>
+			<p>...and bind it's value to <code>your_name</code> property.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step result_href="/www/quick_start/hello_example.html">
+		<text>
+			<p>Let's see this example in action:</p>
+		</text>
+	</step>
+	<step code_name="HelloApp" text_class_suffix="-compact">
+		<text>
+			<p><i>Tip: you can paste this code into a new HTML file on your computer to play with it.</i></p>
+			<p>How this works: &lt;text_input&gt; is not a plain HTML tag, but a widget<br/>
+				with it's own HTML markup, controller and properties like <code>value</code> or <code>is_enabled</code>.</p>
+		</text>
+	</step>
+	<step code_name="HelloApp" active_highlights="bind_directive" text_class_suffix="-compact">
+		<text>
+			<p>This is called a directive - it modifies configs, which are produced by template parser. <br/>
+				This directive creates a config for bi-directional binding between <code>your_name</code> <br/>
+				property from <code>HelloApp</code> widget and <code>value</code> property from &lt;text_input&gt; widget.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="HelloApp" active_highlights="bind_directive" text_class_suffix="-compact">
+		<text>
+			<p>Each time you modify text in the browser's input element - <br/>
+				it triggers an update of the <code>value</code> property in &lt;text_input&gt; widget.<br/>
+				And each time <code>value</code> is updated - it triggers an update <br/>
+				of <code>your_name</code> property in HelloApp.</p>
+		</text>
+	</step>
+	<step code_name="HelloApp" active_highlights="expression_view" text_class_suffix="-compact">
+		<text>
+			<p>&nbsp;</p>
+			<p>This is Expression view, it shows result of an expression.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="hello_with_complex_expression" text_class_suffix="-compact">
+		<text>
+			<p>It can be almost any JavaScript expression (with certain limitations).</p>
+			<p>You can also access properties of objects and call a set of allowed methods.</p>
+			<p><code>ucFirst</code> is a method to "Upper Case First letter".</p>
+		</text>
+	</step>
+	<step code_name="if_and_foreach_views" text_class_suffix="-compact">
+		<text>
+			<p>There are also <code>If</code> and <code>Foreach</code> views<br/>
+				(surrounding code was removed for better readability).</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step>
+		<text>
+			<p>Now, let's learn to use events.</p>
+		</text>
+	</step>
+	<step code_name="events_example" text_class_suffix="-compact">
+		<text>
+			<p>Here we have a &lt;button&gt; element, <br/>
+				and we want to delegate it's <code>click</code> event to a widget's <code>_onButtonClick</code> method.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="events_example" active_highlights="event_on_element" text_class_suffix="-compact">
+		<text>
+			<p>This declaration says, that DOM <code>click</code> event should raise <br/>
+				<code>button_click</code> event in the framework.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="events_example" active_highlights="event_in_widget" text_class_suffix="-compact">
+		<text>
+			<p>And this declaration sets handler for the framework's <code>button_click</code> event.<br/>
+				<i>This way of event routing adds more flexibility to the framework.</i></p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="events_example" active_highlights="set" text_class_suffix="-compact">
+		<text>
+			<p>Handler uses <code>set</code> API method of <code>Lava.widget.Standard</code><br>
+				to increment the counter value.<br/>
+				You must not directly set widget properties, cause in this case views will not be notified of changes.</p>
+		</text>
+	</step>
+	<step code_name="events_example" active_highlights="property_access" text_class_suffix="-compact">
+		<text>
+			<p>Also notice, that there are no autogenerated getters and setters.</p>
+			<p>Very simple.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step code_name="button_with_bound_style" active_highlights="style_binding" text_class_suffix="-compact">
+		<text>
+			<p>For even more fun let's bind button's padding,<br/>
+				so it grows in size each time it's clicked.</p>
+			<p>&nbsp;</p>
+		</text>
+	</step>
+	<step result_href="/www/quick_start/events_example.html">
+		<text>
+			<p>See this example in action:</p>
+		</text>
+	</step>
+	<step>
+		<text>
+			<p>Lava is simple and beautiful.<br/>
+				It's completely transparent, so you will never have to fight with it.</p>
+			<p>Lava is powerful. Every part of it can be customized: <br/>
+				from widgets to core components.</p>
+			<p><a href="http://localhost/www/doc.html#tab=tutorials">Proceed to tutorials</a></p>
+		</text>
+	</step>
+</steps>

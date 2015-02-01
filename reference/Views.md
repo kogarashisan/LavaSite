@@ -110,3 +110,35 @@ This view is also created for element containers with `x:type="view"` attribute:
 </lavabuild:template_result>
 
 See article about {@link reference:ElementSyntax|element syntax}.
+
+##Include view
+
+This view allows you to display and dynamically update a template, which is returned as result of an expression. 
+You should not confuse it with common includes.
+
+<lavabuild:codeblocks>
+	<codeblock title="Script" lang="javascript">
+Lava.define('Lava.widget.MyWidget', {
+
+	Extends: 'Lava.widget.Standard',
+	name: 'my_widget',
+
+	_properties: {
+		name: 'World',
+		dynamic_template: Lava.TemplateParser.parse("{#> 'Hello' + name}")
+	}
+});
+	</codeblock>
+	<codeblock title="Template" lang="xml">
+{#include($my_widget.dynamic_template)}
+	Default template
+{/include}
+	</codeblock>
+</lavabuild:codeblocks>
+
+View can have a default template, which is used when it's argument returns <kw>null</kw>.
+
+Tip: you can not put a template directly into {@link _cWidget#properties} - you can assign template to a property 
+only in JavaScript code, not in widget templates. This is due to a reason that view configs must be traversable 
+(they must have predictable structure). But templates can be taken from widget's storage - for an example see 
+{@link Lava.widget.Tabs} or {@link Lava.widget.Accordion}.

@@ -1,0 +1,48 @@
+<body lava-app="QuickStartPage">
+
+<div class="lava-page-wrapper">
+
+	<%include:navbar.html%>
+
+	<div class="container">
+		<div class="lava-quick-start-steps-count-container" x:type="view">
+			{#if(current_step_index > 0)}
+				<span class="glyphicon glyphicon-chevron-left lava-quick-start-back-button" title="Previous step"
+					x:type="view" x:event:click="$page.back_click"></span>
+			{/if}
+			<div class="lava-quick-start-steps-count">Step {#> current_step_index + 1} of {#> steps.length}</div>
+			{#if(current_step_index < steps.length - 1)}
+				<span class="glyphicon glyphicon-chevron-right lava-quick-start-next-button" title="Next step"
+					x:type="view" x:event:click="$page.continue_click"></span>
+			{/if}
+		</div>
+	</div>
+	<div class="container" x:type="view">
+		<div x:classes="'lava-quick-start-presentation-text' + (current_step.text_class_suffix || '')" x:type="container">
+			{#expression(current_step.text) escape_off}{/expression}
+		</div>
+		{#if(current_code)}
+			<div x:type="container" class="lava-quick-start-code">
+				{#expression(current_code) escape_off}{/expression}
+			</div>
+		{/if}
+		{#if(current_step.result_href)}
+		<div class="lava-quick-start-result-frame-container">
+			<iframe x:type="view" x:bind:src="current_step.result_href" class="lava-quick-start-result-frame"></iframe>
+		</div>
+		{/if}
+	</div>
+	{#if(current_step_index < steps.length - 1)}
+		<div class="lava-quick-start-presentation-continue-button-container">
+			<div class="lava-quick-start-presentation-continue-button" x:type="view" x:event:click="$page.continue_click">
+				Continue
+			</div>
+		</div>
+	{/if}
+
+	<div class="lava-footer-push"></div>
+</div>
+
+<%include:footer.html%>
+
+</body>

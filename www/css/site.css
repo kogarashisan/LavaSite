@@ -613,7 +613,8 @@ footer .container {background: #f7f5fa;}
 /* ========== New theme ========== */
 body {padding-top: 0}
 
-.lava-navbar-logo-link {background: url(/www/design/logo.png) no-repeat left center; height: 79px; width:213px;display: inline-block;margin: 16px 0 15px;float: left;}
+.lava-navbar-logo-link {background: /*url(/www/design/logo.png)*/ url('data:image/png;base64,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') no-repeat left center;
+	height: 79px; width:213px;display: inline-block;margin: 16px 0 15px;float: left;}
 .lava-menu-item-active {border-bottom: 5px solid rgb(255,161,1) !important;font-weight: bold}
 
 .lava-index-promo {font-style: italic;font-family: "Times New Roman", Times, serif;font-size: 2em;text-align: center;margin-top: 75px;margin-bottom: 90px;}
@@ -626,6 +627,11 @@ body {padding-top: 0}
 .lava-index-download-version-number {font-weight: bold;font-family: Vardana, Arial, sans-serif;}
 .lava-index-download-version-alpha {font-style: italic;font-family: "Times New Roman", Times, serif;}
 .lava-index-download-text {line-height: 65px;float: left;font-size: 1.65em;font-weight: bold;padding: 0 22px 0 14px;}
+.lava-index-quick-start-link {background: rgb(49,49,49);color:white;display: inline-block; height:65px;padding-right: 5.5em}
+.lava-index-quick-start-link:hover,
+.lava-index-quick-start-link:focus {color: white;}
+.lava-index-quick-start-icon {background: url(/www/design/main-arrows.png) no-repeat top right;width: 51px;height: 51px;display:inline-block;margin: 6px;float:left}
+.lava-index-quick-start-text {line-height: 65px;float: left;font-size: 1.65em;font-weight: bold;padding: 0 22px 0 14px;}
 .lava-black-area {background: rgb(49,49,49)}
 .lava-index-features-header {color: white;text-align: center;font-weight: bold;font-size: 3.5em;padding-bottom: 10px;}
 .lava-index-follow-container {text-align: center;padding-top: 28px}
@@ -686,6 +692,7 @@ body {padding-top: 0}
 	.lava-navbar-item-a {padding: 14px 6px;}
 	.lava-index-download-text {padding: 0 4px 0 2px}
 	.lava-index-download-version {padding: 4px 3px 0}
+	.lava-index-quick-start-link {padding-right: 0}
 	.lava-dropdown-menu {position: inherit;float: none}
 }
 
@@ -700,7 +707,9 @@ footer .container {background: transparent;}
 .lava-footer-logo-title {color: rgb(251,167,1);font-size: 2em;font-weight: bold;}
 .lava-footer-logo-text {color: white;font-style: italic;font-family: "Times New Roman", Times, serif;font-size: 1.1em;}
 .lava-footer-copyright-atom {white-space: nowrap;}
-.lava-footer-scroll-top-link {background: url(/www/design/main-arrows.png) no-repeat top left; width: 51px;height:51px;display: block;float: right}
+.lava-footer-scroll-top-link {background: url(/www/design/main-arrows.png) no-repeat top left; width: 51px;height:51px;display: block;float: right;outline: none}
+.lava-footer-scroll-top-link:focus,
+.lava-footer-scroll-top-link:hover {outline: none}
 
 html, body {height: 100%;}
 footer {height: 8.5em}
@@ -716,7 +725,71 @@ footer {height: 8.5em}
 }
 /* end */
 
+.lava-navbar-area a,
+.lava-navbar-area a:focus,
+.lava-navbar-area a:hover,
+.bs-sidenav a,
+.bs-sidenav a:focus,
+.bs-sidenav a:hover {outline: none}
 
+/* new code highlighter */
+.lava-new-code-container {clear: both;margin: 10px 0;text-align: left;display: inline-block} /* contains headers and boxes with code */
+.lava-new-code-header {clear: both;background: #EEEEEE;font-weight: bold;padding: 3px 0 3px 3em;}
+.lava-new-code-box {clear: both;position: relative;} /* single box with highlighted code, line numbers and overlays */
+.lava-new-code-overlays {position: relative;overflow-x: auto;overflow-y: hidden;}
+
+.lava-new-code-line-numbers {border-right: 1px solid #CCCCCC;background-color: #EEEEEE;color: #848484;text-align: right;float: left;z-index: 1;}
+.lava-new-code-content {z-index: 1} /* actual container for highlighted code */
+.lava-new-code-highlights {z-index: 0;} /* colored highlights of strings UNDER the box */
+.lava-new-code-tooltips {z-index: 2}
+
+.lava-new-code-highlights,
+.lava-new-code-tooltips {position: absolute!important;top: 0;left: 0;padding-top: 0.5em;
+	background: transparent!important;border: 1px transparent;}
+
+.lava-new-code-highlights,
+.lava-new-code-tooltips,
+.lava-new-code-content {background: transparent !important;}
+
+.lava-new-code-line-numbers,
+.lava-new-code-content,
+.lava-new-code-highlights {font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-size: 14px;
+	line-height: 18px;
+	white-space: pre !important;
+	overflow-x: visible!important;
+	overflow-y: visible!important;
+	position: relative;
+	padding: 0.5em !important;
+	word-break: normal !important;
+	word-wrap: normal !important;
+	border: 0!important;
+	border-radius: 0!important;
+	margin: 0!important;}
+.lava-new-code-highlight-line {background: #ffff86;} /* highlighted line of text in overlay */
+.lava-new-code-highlight-span {background: #ffff86} /* highlighted word in overlay */
+/* end: content highlighter */
+
+.lava-quick-start-highlight {
+	opacity: 0;
+	-webkit-transition: opacity .7s linear;-o-transition: opacity .7s linear;transition: opacity .7s linear;
+}
+.lava-quick-start-presentation-text {font-family: "Times New Roman", Times, serif;font-size: 1.8em;text-align: center;margin: 1em 0}
+.lava-quick-start-presentation-text p {margin: 0 0 1em}
+.lava-quick-start-presentation-text-compact {font-size: 1.4em;font-family: "Times New Roman", Times, serif;text-align: center;margin: 1em 0}
+.lava-quick-start-presentation-text-compact p {margin: 0}
+.lava-quick-start-presentation-continue-button-container {text-align: center;margin-top: 1em}
+.lava-quick-start-presentation-continue-button {background: rgb(71,131,83);color: white;font-size: 1.65em;font-weight: bold;
+	padding: 10px 20px;display: inline-block;cursor: pointer;}
+.lava-quick-start-extended-text {}
+.lava-quick-start-code {text-align: center}
+
+.lava-quick-start-steps-count-container {font-size: 2em;font-weight: bold;margin: 0.2em 0;float: right;}
+.lava-quick-start-back-button,
+.lava-quick-start-next-button {color: rgb(71,131,83);cursor: pointer;text-decoration: none}
+.lava-quick-start-steps-count {display: inline-block;padding: 0 0.5em}
+.lava-quick-start-result-frame-container {text-align: center}
+.lava-quick-start-result-frame {width: 300px}
 
 /*
 This file contains essential classes for some standard widgets.

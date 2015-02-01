@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="/favicon.ico">
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="/www/css/site.css">
+
+<!-- cause site is also accessible via kogarashisan.github.io -->
+<link rel="canonical" href="http://www.lava-framework.com/www/quick_start.html"/>
+	<title>Quick start | LiquidLava Framework</title>
+	<script src="/www/js/quick_start_schema.js"></script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+	<script src="/lib/lava-master-DEBUG.js"></script>
+	<script src="/www/js/site.js"></script>
+	<script>
+		if (window.location.href.indexOf('://kogarashisan.github.io/LiquidLava') > 0) {
+			window.location.href = 'http://www.lava-framework.com/www/quick_start.html';
+		}
+		Site.pages['www/quick_start'] = {
+	type: "widget",
+	"class": "QuickStartPage",
+	extender_type: "Standard",
+	container: {
+		type: "Element",
+		tag_name: "body",
+		static_properties: {"lava-app": "QuickStartPage"}
+	},
+	template: [
+		"\r\n\r\n<div class=\"lava-page-wrapper\">\r\n\r\n\t<div class=\"lava-navbar-area\" role=\"navigation\">\r\n\t<div class=\"lava-navbar-container\">\r\n\t\t<a href=\"http://www.lava-framework.com/\" title=\"LiquidLava - Home\" class=\"lava-navbar-logo-link\"></a>\r\n\t\t<ul class=\"lava-navbar\">\r\n\t\t\t<li class=\"lava-navbar-item\"><a href=\"/index.html\" class=\"lava-navbar-item-a\">Home</a></li><li class=\"lava-navbar-item\"><a href=\"/www/demo.html\" class=\"lava-navbar-item-a\">Demo</a></li>",
+		{
+			type: "widget",
+			"class": "Lava.WidgetConfigExtensionGateway",
+			extender_type: "Standard",
+			"extends": "DropDown",
+			container: {
+				type: "Element",
+				tag_name: "li",
+				static_classes: [
+					"dropdown",
+					"lava-navbar-item",
+					"lava-menu-item-active"
+				]
+			},
+			template: [
+				{
+					type: "view",
+					"class": "View",
+					container: {
+						type: "Element",
+						tag_name: "a",
+						static_classes: [
+							"dropdown-toggle",
+							"lava-navbar-item-a"
+						],
+						static_properties: {href: "#"}
+					},
+					roles: [{
+						locator_type: "Name",
+						locator: "dropdown",
+						name: "trigger"
+					}],
+					template: ["Learn <b class=\"caret\"></b>"]
+				},
+				"<ul class=\"lava-dropdown-menu\"><li><a href=\"/www/quick_start.html\" class=\"lava-menu-dropdown-link\">Quick start</a></li><li><a href=\"/www/doc.html#tab=tutorials\" class=\"lava-menu-dropdown-link\">Tutorials</a></li><li><a href=\"/www/doc.html#tab=reference\" class=\"lava-menu-dropdown-link\">Reference</a></li><li><a href=\"/www/doc.html#tab=api\" class=\"lava-menu-dropdown-link\">API</a></li><li><a href=\"/www/examples.html\" class=\"lava-menu-dropdown-link\">Examples</a></li></ul>"
+			]
+		},
+		{
+			type: "widget",
+			"class": "Lava.WidgetConfigExtensionGateway",
+			extender_type: "Standard",
+			"extends": "DropDown",
+			container: {
+				type: "Element",
+				tag_name: "li",
+				static_classes: [
+					"dropdown",
+					"lava-navbar-item"
+				]
+			},
+			template: [
+				{
+					type: "view",
+					"class": "View",
+					container: {
+						type: "Element",
+						tag_name: "a",
+						static_classes: [
+							"dropdown-toggle",
+							"lava-navbar-item-a"
+						],
+						static_properties: {href: "#"}
+					},
+					roles: [{
+						locator_type: "Name",
+						locator: "dropdown",
+						name: "trigger"
+					}],
+					template: ["Develop <b class=\"caret\"></b>"]
+				},
+				"<ul class=\"lava-dropdown-menu\"><li><a href=\"https://github.com/kogarashisan/LiquidLava/\" target=\"_blank\" class=\"lava-menu-dropdown-link\">Core on GitHub</a></li><li><a href=\"https://github.com/kogarashisan/LavaSite/\" target=\"_blank\" class=\"lava-menu-dropdown-link\">Site on GitHub</a></li><li><a href=\"https://github.com/kogarashisan/LiquidLava/issues?state=open\" target=\"_blank\" class=\"lava-menu-dropdown-link\">Issues</a></li><li><a href=\"/www/changelog.html\" class=\"lava-menu-dropdown-link\">Changelog</a></li><li><a href=\"/www/roadmap.html\" class=\"lava-menu-dropdown-link\">Roadmap</a></li><li><a href=\"#\" class=\"lava-menu-dropdown-link lava-dropdown-menu-item-disabled\">Code coverage</a></li></ul>"
+			]
+		},
+		"<li class=\"lava-navbar-item\"><a href=\"/www/widgets.html\" class=\"lava-navbar-item-a\">Widgets</a></li><li class=\"lava-navbar-item\"><a href=\"/www/about.html\" class=\"lava-navbar-item-a\">About</a></li>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n\r\n\t<div class=\"container\">\r\n\t\t",
+		{
+			type: "view",
+			"class": "View",
+			container: {
+				type: "Element",
+				tag_name: "div",
+				static_classes: ["lava-quick-start-steps-count-container"]
+			},
+			template: [
+				"\r\n\t\t\t",
+				{
+					type: "view",
+					"class": "If",
+					argument: {
+						evaluator: function() {
+return (this._binds[0].getValue() > 0);
+},
+						binds: [{property_name: "current_step_index"}]
+					},
+					template: [
+						"\r\n\t\t\t\t",
+						{
+							type: "view",
+							"class": "View",
+							container: {
+								type: "Element",
+								tag_name: "span",
+								static_classes: [
+									"glyphicon",
+									"glyphicon-chevron-left",
+									"lava-quick-start-back-button"
+								],
+								static_properties: {title: "Previous step"},
+								events: {
+									click: [{
+										locator_type: "Name",
+										locator: "page",
+										name: "back_click"
+									}]
+								}
+							}
+						},
+						"\r\n\t\t\t"
+					]
+				},
+				"\r\n\t\t\t<div class=\"lava-quick-start-steps-count\">Step ",
+				{
+					type: "view",
+					"class": "Expression",
+					argument: {
+						evaluator: function() {
+return (this._binds[0].getValue() + 1);
+},
+						binds: [{property_name: "current_step_index"}]
+					}
+				},
+				" of ",
+				{
+					type: "view",
+					"class": "Expression",
+					argument: {
+						evaluator: function() {
+return (this._binds[0].getValue());
+},
+						flags: {isScopeEval: true},
+						binds: [{
+							property_name: "steps",
+							tail: ["length"]
+						}]
+					}
+				},
+				"</div>\r\n\t\t\t",
+				{
+					type: "view",
+					"class": "If",
+					argument: {
+						evaluator: function() {
+return (this._binds[0].getValue() < this._binds[1].getValue() - 1);
+},
+						binds: [
+							{property_name: "current_step_index"},
+							{
+								property_name: "steps",
+								tail: ["length"]
+							}
+						]
+					},
+					template: [
+						"\r\n\t\t\t\t",
+						{
+							type: "view",
+							"class": "View",
+							container: {
+								type: "Element",
+								tag_name: "span",
+								static_classes: [
+									"glyphicon",
+									"glyphicon-chevron-right",
+									"lava-quick-start-next-button"
+								],
+								static_properties: {title: "Next step"},
+								events: {
+									click: [{
+										locator_type: "Name",
+										locator: "page",
+										name: "continue_click"
+									}]
+								}
+							}
+						},
+						"\r\n\t\t\t"
+					]
+				},
+				"\r\n\t\t"
+			]
+		},
+		"\r\n\t</div>\r\n\t",
+		{
+			type: "view",
+			"class": "View",
+			container: {
+				type: "Element",
+				tag_name: "div",
+				static_classes: ["container"]
+			},
+			template: [
+				"\r\n\t\t",
+				{
+					type: "view",
+					"class": "Expression",
+					argument: {
+						evaluator: function() {
+return (this._binds[0].getValue());
+},
+						flags: {isScopeEval: true},
+						binds: [{
+							property_name: "current_step",
+							tail: ["text"]
+						}]
+					},
+					escape_off: true,
+					template: [],
+					container: {
+						type: "Element",
+						tag_name: "div",
+						class_bindings: {
+							"0": {
+								evaluator: function() {
+return ('lava-quick-start-presentation-text' + (this._binds[0].getValue() || ''));
+},
+								binds: [{
+									property_name: "current_step",
+									tail: ["text_class_suffix"]
+								}]
+							}
+						}
+					}
+				},
+				"\r\n\t\t",
+				{
+					type: "view",
+					"class": "If",
+					argument: {
+						evaluator: function() {
+return (this._binds[0].getValue());
+},
+						flags: {isScopeEval: true},
+						binds: [{property_name: "current_code"}]
+					},
+					template: [
+						"\r\n\t\t\t",
+						{
+							type: "view",
+							"class": "Expression",
+							argument: {
+								evaluator: function() {
+return (this._binds[0].getValue());
+},
+								flags: {isScopeEval: true},
+								binds: [{property_name: "current_code"}]
+							},
+							escape_off: true,
+							template: [],
+							container: {
+								type: "Element",
+								tag_name: "div",
+								static_classes: ["lava-quick-start-code"]
+							}
+						},
+						"\r\n\t\t"
+					]
+				},
+				"\r\n\t\t",
+				{
+					type: "view",
+					"class": "If",
+					argument: {
+						evaluator: function() {
+return (this._binds[0].getValue());
+},
+						flags: {isScopeEval: true},
+						binds: [{
+							property_name: "current_step",
+							tail: ["result_href"]
+						}]
+					},
+					template: [
+						"\r\n\t\t<div class=\"lava-quick-start-result-frame-container\">\r\n\t\t\t",
+						{
+							type: "view",
+							"class": "View",
+							container: {
+								type: "Element",
+								tag_name: "iframe",
+								static_classes: ["lava-quick-start-result-frame"],
+								property_bindings: {
+									src: {
+										evaluator: function() {
+return (this._binds[0].getValue());
+},
+										flags: {isScopeEval: true},
+										binds: [{
+											property_name: "current_step",
+											tail: ["result_href"]
+										}]
+									}
+								}
+							}
+						},
+						"\r\n\t\t</div>\r\n\t\t"
+					]
+				},
+				"\r\n\t"
+			]
+		},
+		"\r\n\t",
+		{
+			type: "view",
+			"class": "If",
+			argument: {
+				evaluator: function() {
+return (this._binds[0].getValue() < this._binds[1].getValue() - 1);
+},
+				binds: [
+					{property_name: "current_step_index"},
+					{
+						property_name: "steps",
+						tail: ["length"]
+					}
+				]
+			},
+			template: [
+				"\r\n\t\t<div class=\"lava-quick-start-presentation-continue-button-container\">\r\n\t\t\t",
+				{
+					type: "view",
+					"class": "View",
+					container: {
+						type: "Element",
+						tag_name: "div",
+						static_classes: ["lava-quick-start-presentation-continue-button"],
+						events: {
+							click: [{
+								locator_type: "Name",
+								locator: "page",
+								name: "continue_click"
+							}]
+						}
+					},
+					template: ["\r\n\t\t\t\tContinue\r\n\t\t\t"]
+				},
+				"\r\n\t\t</div>\r\n\t"
+			]
+		},
+		"\r\n\r\n\t<div class=\"lava-footer-push\"></div>\r\n</div>\r\n\r\n<footer class=\"\">\r\n\t<div class=\"lava-black-area lava-footer-black-area\">\r\n\t\t<div class=\"container\">\r\n\t\t\t",
+		{
+			type: "view",
+			"class": "View",
+			container: {
+				type: "Element",
+				tag_name: "a",
+				static_classes: ["lava-footer-scroll-top-link"],
+				static_properties: {
+					href: "#",
+					title: "Scroll to top of the page"
+				},
+				events: {
+					click: [{
+						locator_type: "Id",
+						locator: "utility",
+						name: "scroll_top"
+					}]
+				}
+			}
+		},
+		"\r\n\t\t\t<div class=\"lava-footer-logo\">\r\n\t\t\t\t<div class=\"lava-footer-logo-title\">LiquidLava</div>\r\n\t\t\t\t<div class=\"lava-footer-logo-text\">When art is beautiful</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"lava-footer-copyright\">\r\n\t\t\t\t<span class=\"lava-footer-copyright-atom\">© 2015 Alex Galashov (MIT Licence).</span>\r\n\t\t\t\t<span class=\"lava-footer-copyright-atom\">All rights reserved.</span>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</footer>\r\n\r\n"
+	],
+	is_extended: true
+};
+		Site.bootstrap("www/quick_start");
+	</script>
+	
+</head>
+
+<body>
+<!--%generator:loading_indicator%-->
+</body>
+
+</html>

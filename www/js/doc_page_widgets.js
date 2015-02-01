@@ -2232,20 +2232,19 @@ return (this._binds[0].getValue() ? 'api-tabs-header-link-active' : '');
 							template: [
 								"\r\n\t\t\t\t\t\t",
 								{
-									locator_type: "Name",
-									locator: "tabs",
-									name: "tab_include",
-									arguments: [
-										{
-											type: 2,
-											data: {property_name: "tab"}
-										},
-										{
-											type: 1,
-											data: "title"
-										}
-									],
-									type: "include"
+									type: "view",
+									"class": "Include",
+									argument: {
+										evaluator: function() {
+return (this._binds[0].getValue());
+},
+										flags: {isScopeEval: true},
+										binds: [{
+											property_name: "tab",
+											tail: ["title_template"]
+										}]
+									},
+									template: []
 								},
 								"\r\n\t\t\t\t\t"
 							]
@@ -2302,20 +2301,19 @@ return (this._binds[0].getValue() ? 'block' : 'none');
 					template: [
 						"\r\n\t\t\t\t\t",
 						{
-							locator_type: "Name",
-							locator: "tabs",
-							name: "tab_include",
-							arguments: [
-								{
-									type: 2,
-									data: {property_name: "tab"}
-								},
-								{
-									type: 1,
-									data: "content"
-								}
-							],
-							type: "include"
+							type: "view",
+							"class": "Include",
+							argument: {
+								evaluator: function() {
+return (this._binds[0].getValue());
+},
+								flags: {isScopeEval: true},
+								binds: [{
+									property_name: "tab",
+									tail: ["content_template"]
+								}]
+							},
+							template: []
 						},
 						"\r\n\t\t\t\t"
 					]

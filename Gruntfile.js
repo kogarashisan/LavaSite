@@ -45,6 +45,7 @@ module.exports = function(grunt) {
 		Firestorm = global.Firestorm,
 		LAVA_CORE_DIRECTORY = global.LAVA_CORE_DIRECTORY;
 
+	global.highlight_js = highlight_js;
 	eval(grunt.file.read(LAVA_CORE_DIRECTORY + 'build/temp/lava_widgets.js'));
 
 	var LavaBuild = {
@@ -63,6 +64,7 @@ module.exports = function(grunt) {
 			pretty_print_functions: true
 		}),
 
+		// old code block with rounded corners and without headers
 		wrapHighlightedCode: function(code, type, line_numbers, overlay_lines, tooltip_lines) {
 
 			return '<div class="lava-code-container">'
@@ -71,6 +73,7 @@ module.exports = function(grunt) {
 
 		},
 
+		// result requires another container around it
 		_wrapCodeBlock: function(code, type, line_numbers, overlay_lines, tooltip_lines) {
 
 			return '<div class="lava-code">'
@@ -78,8 +81,8 @@ module.exports = function(grunt) {
 					+ '<pre class="lava-code-content hljs ' + type + '">' + code + '</pre>'
 					+ (overlay_lines ? (
 						'<div class="lava-code-overlay">' + overlay_lines + '</div>'
-							+ '<pre class="lava-code-tooltips">' + tooltip_lines + '</pre>'
-						) : '')
+						+ '<pre class="lava-code-tooltips">' + tooltip_lines + '</pre>'
+					) : '')
 				+ '</div>';
 
 		},
@@ -105,6 +108,8 @@ module.exports = function(grunt) {
 
 		},
 
+		// produces new-style box with multiple code areas and square corners.
+		// Version for use in markdown.
 		wrapHighlightedBlocks: function(blocks, custom_wrapper_class) {
 
 			return '```formatted\n' + this.wrapHighlightedBlocks_A(blocks, custom_wrapper_class) + '\n```';
@@ -552,6 +557,7 @@ module.exports = function(grunt) {
 							"src/ContentLoader.class.js",
 							"src/ChangelogPage.class.js",
 							"src/DocPage.class.js",
+							"src/QuickStartPage.class.js",
 							"src/ExamplesPage.class.js",
 							"src/WidgetsPage.class.js",
 							"src/ApiCommon.js",
@@ -640,7 +646,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadTasks('build/tasks/');
 
-	grunt.registerTask('default', ['copy', 'buildSiteWidgets', 'buildExamples', 'buildTasksPage', 'buildWeb', 'concat']);
+	grunt.registerTask('default', ['copy', 'buildSiteWidgets', 'buildExamples', 'buildQuickStart', 'buildWeb', 'concat']);
 	// depends on "default"
 	grunt.registerTask('doc', ['buildSugar', 'buildDoc', 'buildSupport']);
 

@@ -55,6 +55,7 @@ var Examples = {
 
 var LavaVersions = [
 	{name: 'master'},
+	{name: '0.12.x'},
 	{name: '0.11.x'},
 	{name: '0.10.x'},
 	{name: '0.9.x'},

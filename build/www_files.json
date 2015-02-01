@@ -4,16 +4,17 @@
 		{"page_path": "www/widgets", "page_title": "Standard widgets"},
 		{"page_path": "www/demo", "page_title": "Demo"},
 		{"page_path": "www/about", "page_title": "About"},
-		{"page_path": "www/tasks", "page_title": "Tasks"},
 		{"page_path": "www/roadmap", "page_title": "Roadmap"},
 		{"page_path": "www/examples", "page_title": "Examples", "header_include": "examples_page_header.html"},
 		{"page_path": "www/changelog", "page_title": "Changelog"},
+		{"page_path": "www/quick_start", "page_title": "Quick start", "header_include": "quick_start_header.html"},
 		{"page_path": "www/doc", "page_title": "Documentation", "header_include": "doc_page_header.html", "header_bottom_include": "doc_page_header_bottom.html"}
 	],
 	"navbar": [
 		{"title": "Home", "href": "/index.html"},
 		{"title": "Demo", "href": "/www/demo.html"},
 		{"title": "Learn", "children": [
+		  {"title": "Quick start", "href": "/www/quick_start.html"},
 		  {"title": "Tutorials", "href": "/www/doc.html#tab=tutorials"},
 		  {"title": "Reference", "href": "/www/doc.html#tab=reference"},
 		  {"title": "API", "href": "/www/doc.html#tab=api"},
@@ -25,7 +26,6 @@
 			{"title": "Issues", "href": "https://github.com/kogarashisan/LiquidLava/issues?state=open", "is_blank": true},
 			{"title": "Changelog", "href": "/www/changelog.html"},
 			{"title": "Roadmap", "href": "/www/roadmap.html"},
-			{"title": "Tasks", "href": "/www/tasks.html"},
 			{"title": "Code coverage", "is_disabled": true}
 		]},
 		{"title": "Widgets", "href": "/www/widgets.html"},
