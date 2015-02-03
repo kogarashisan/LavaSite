@@ -56,7 +56,6 @@ cause format of generated data can change without notice.</b>
 
 ##Bugs
 
-For list of open bugs see the <a href="/www/tasks.html">Tasks</a> page and GitHub 
-<a href="https://github.com/kogarashisan/LiquidLava/issues?state=open">issues</a>.
+For list of open bugs see the GitHub <a href="https://github.com/kogarashisan/LiquidLava/issues?state=open">issues</a> page.
 
 If you found a bug or a mistake somewhere, please, submit an issue to GitHub with detailed description and source code.
