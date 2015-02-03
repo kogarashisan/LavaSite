@@ -59,7 +59,7 @@ You can also call a set of predefined methods in expressions:
 <i>If</i> view conditionally displays a template:
 
 ```xml
-{#if(your_name.length &lt; 3)}
+{#if(your_name.length < 3)}
 	Error: your name is too short
 {/if}
 ```
@@ -68,7 +68,7 @@ You can set `your_name` to something shorter, than 3 letters and you will see th
 "elseif" and "else" sections are also supported:
 
 ```xml
-{#if(your_name.length &gt; 3)}
+{#if(your_name.length > 3)}
 	Error: your name is too short
 {else}
 	Your name is {#> your_name.length} characters long

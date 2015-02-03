@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 		// old code block with rounded corners and without headers
 		wrapHighlightedCode: function(code, type, line_numbers, overlay_lines, tooltip_lines) {
 
-			return '<div class="lava-code-container">'
+			return '<div class="lava-new-code-container lava-new-code-container-primary">'
 					+ this._wrapCodeBlock(code, type, line_numbers, overlay_lines, tooltip_lines)
 				+ '</div>';
 
@@ -76,13 +76,13 @@ module.exports = function(grunt) {
 		// result requires another container around it
 		_wrapCodeBlock: function(code, type, line_numbers, overlay_lines, tooltip_lines) {
 
-			return '<div class="lava-code">'
-					+ '<pre class="lava-code-line-numbers">' + line_numbers + '</pre>'
-					+ '<pre class="lava-code-content hljs ' + type + '">' + code + '</pre>'
-					+ (overlay_lines ? (
-						'<div class="lava-code-overlay">' + overlay_lines + '</div>'
-						+ '<pre class="lava-code-tooltips">' + tooltip_lines + '</pre>'
-					) : '')
+			return '<div class="lava-new-code-box">'
+					+ '<pre class="lava-new-code-line-numbers">' + line_numbers + '</pre>'
+					+ '<div class="lava-new-code-overlays">'
+						+ (overlay_lines ? ('<pre class="lava-new-code-highlights">' + overlay_lines + '</pre>') : '')
+						+ '<pre class="lava-new-code-content hljs ' + type + '">' + code + '</pre>'
+						+ (tooltip_lines ? ('<pre class="lava-new-code-tooltips">' + tooltip_lines + '</pre>') : '')
+					+ '</div>'
 				+ '</div>';
 
 		},
@@ -99,12 +99,12 @@ module.exports = function(grunt) {
 				block = blocks[i];
 				parse_result = block['parse_result'];
 				if (block['header_text']) {
-					content += '<div class="api-code-header ' + (block['custom_class'] || '') + '">' + block['header_text'] + '</div>\n';
+					content += '<div class="lava-new-code-header ' + (block['custom_class'] || '') + '">' + block['header_text'] + '</div>\n';
 				}
 				content += this._wrapCodeBlock(parse_result.text, parse_result.type, parse_result.lines_text, parse_result.overlay_text, parse_result.tooltip_text);
 			}
 
-			return '<div class="lava-code-container ' + (custom_wrapper_class || 'lava-code-container-plain') + '">' + content + '</div>';
+			return '<div class="lava-new-code-container lava-new-code-container-primary ' + (custom_wrapper_class || '') + '">' + content + '</div>';
 
 		},
 
@@ -126,14 +126,13 @@ module.exports = function(grunt) {
 		parseHighlight: function(type, text) {
 
 			text = text.trim();
-			if (type == 'xml') {
-				text = text.replace(/\t/g, '  ');
-			}
+			//if (type == 'xml') {
+				text = text
+					.replace(/\r\n/g, '\n') // otherwise line length will include invisible \r characters
+					.replace(/\t/g, '  ');
+			//}
 
-			var tooltips = {};
-			var max_tooltip_index = 0;
-			var tooltip_text = '';
-			var overlay_text = '';
+			var tooltips = [];
 
 			// extract regions with tooltips
 			[/\{\*H\:([\s\S]+?)\*\}/g, /\/\*H\:([\s\S]+?)\*\//g].forEach(function(tooltip_pattern){
@@ -141,9 +140,6 @@ module.exports = function(grunt) {
 
 					// count the lines before the tooltip
 					var tooltip_index = source.substr(0, index).split('\n').length;
-					if (tooltip_index > max_tooltip_index) {
-						max_tooltip_index = tooltip_index;
-					}
 					tooltips[tooltip_index - 1] = tooltip_text;
 					return '';
 
@@ -153,34 +149,33 @@ module.exports = function(grunt) {
 			// In IE there is a bug: highlighted code chars have higher z-index then div with tooltip,
 			// so tooltip does not show over highlighted text.
 			// Fill tooltips with spaces to override z-index with tooltip's own text
-			var longest_line = 0;
-			var longest_line_padding = '';
+			var longest_line_length = 0;
 			var lines = text.split('\n');
 			for (var i = 0, count = lines.length; i < count; i++) {
-				if (lines[i].length > longest_line) {
-					longest_line = lines[i].length;
+				if (lines[i].length > longest_line_length) {
+					longest_line_length = lines[i].length;
 				}
 			}
-
-			for (i = 0; i < longest_line; i++) {
-				longest_line_padding += ' ';
-			}
+			var longest_line_padding = Firestorm.String.repeat(' ', longest_line_length);
 			// end
 
-			if (max_tooltip_index > 0 || ('0' in tooltips)) {
-				var skip_lines_count = 0;
-				for (i = 0; i <= max_tooltip_index; i++) {
+			var tooltip_lines = [];
+			var overlay_lines = [];
+			count = tooltips.length;
+			if (count) {
+				for (i = 0; i < count; i++) {
 					if (i in tooltips) {
-						var style_css = skip_lines_count ? (' style="margin-top: ' + skip_lines_count * this.CSS_CODE_LINE_HEIGHT + 'px"') : '';
-						overlay_text += '<div' + style_css + ' class="lava-code-overlay-line"></div>';
-						tooltip_text += '<div' + style_css + ' data-tooltip="' + tooltips[i] + '">' + longest_line_padding + '</div>';
-						skip_lines_count = 0;
+						overlay_lines.push('<span class="lava-new-code-highlight-line">' + longest_line_padding + '</span>');
+						tooltip_lines.push('<span data-tooltip="' + tooltips[i] + '">' + longest_line_padding + '</span>');
 					} else {
-						skip_lines_count++;
+						tooltip_lines.push(' ');
+						overlay_lines.push(' ');
 					}
 				}
 			}
 
+			var overlay_text = overlay_lines.join('\n');
+			var tooltip_text = tooltip_lines.join('\n');
 			var highlighted = highlight_js.highlight(type, text).value;
 
 			if (type == 'xml') {
@@ -573,8 +568,8 @@ module.exports = function(grunt) {
 
 		copy: {
 			main: {
-				src: LAVA_CORE_DIRECTORY + 'dist/lava-master-DEBUG.js',
-				dest: 'lib/lava-master-DEBUG.js'
+				src: LAVA_CORE_DIRECTORY + 'dist/lava-master-DEV.js',
+				dest: 'lib/lava-master-DEV.js'
 			}
 		},
 

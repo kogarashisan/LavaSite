@@ -14,8 +14,7 @@ If you want your input fields to work correctly - you should use framework's wid
 - Naturally, LiquidLava and Firestorm frameworks can not coexist with code that modifies the native object's ptototype.
 - Currently, the framework cannot used with advanced/unsafe compression methods: function renaming will break it. 
 Advanced compression will be implemented later.
-- <b>IE8 and below are currently not supported.</b> Some features may work for you, but some are broken, 
-including non-bubbling input events like focus/blur and submit.
+- <b>IE8 and below are not supported, and probably will never be.</b>
 
 ##IE
 

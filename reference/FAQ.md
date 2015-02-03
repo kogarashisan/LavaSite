@@ -3,7 +3,7 @@
 
 <b>Is your framework related to "lava flow" anti-pattern?</b>
 
-No, in no way. LiquidLava source and architecture is a work of art, see it yourself.
+Absolutely not. LiquidLava source and architecture is a work of art, see it yourself.
 
 <b>I got "Debug assertion failed" in console. What should I do?</b>
 

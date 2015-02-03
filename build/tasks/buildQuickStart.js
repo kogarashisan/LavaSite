@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 		initStructure: function(src, language, title) {
 
 			src = src.replace(/\t/g, (language == 'xml') ? '  ' : '  ');
-			src = src.replace(/\r?\n/g, "\n");
+			src = src.replace(/\r\n/g, "\n"); // otherwise line length will include invisible \r characters
 
 			return {
 				blocks: this._parseRegions(src),

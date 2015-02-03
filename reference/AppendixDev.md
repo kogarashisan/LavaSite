@@ -41,7 +41,7 @@ grunt
 grunt export
 ```
 
-This will produce `dist/lava-master-compiled-DEBUG.js`.
+This will produce `dist/lava-master-compiled-DEV.js`.
 
 ##Versioning
 

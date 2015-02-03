@@ -91,6 +91,21 @@ Lava.define(
 
 		window.location.hash = "#step=" + (new_step_index + 1);
 
+		this._trackPerformance();
+
+	},
+
+	_trackPerformance: function() {
+
+		var current_step_index = this._properties.current_step_index;
+		try {
+			if (current_step_index == this._properties.steps.length - 1) {
+				ga('send', 'event', 'quick_start', 'reach_end');
+			} else if ([5,10,15].indexOf(current_step_index) != -1) {
+				ga('send', 'event', 'quick_start', 'reach_step', '', current_step_index);
+			}
+		} catch (e) {}
+
 	}
 
 });

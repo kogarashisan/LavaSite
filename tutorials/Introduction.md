@@ -18,7 +18,7 @@ First, we include the libraries and styles for standard widgets:
 
 ```xml
 <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
-<script src="http://lava-framework.com/lib/lava-master-DEBUG.js"></script>
+<script src="http://lava-framework.com/lib/lava-master-DEV.js"></script>
 <link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
 ```
 

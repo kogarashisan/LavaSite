@@ -80,11 +80,11 @@ footer .container {background: #f7f5fa;}
 .lava-code-line-numbers {float: left;margin-right: 5px;margin-top: 0;margin-bottom: 0;padding: 0;padding-right: 4px;padding-left: 4px;border-right: 1px solid #CCCCCC;background-color: #EEEEEE;color: #848484;text-align: right;position: relative;z-index: 3;}
 .lava-code-overlay,
 .lava-code-tooltips {position: absolute!important;top: 0;left: 0;width: 100%;padding-top: 0.5em;background: transparent!important;border:1px transparent}
-.lava-code-overlay {z-index: 0;}
+.lava-code-overlay {z-index: 0!important;}
 .lava-code-tooltips {z-index: 3;}
-.lava-code-overlay div,
-.lava-code-tooltips div {height: 18px;width: 100%;cursor: default}
-.lava-code-overlay-line {background: yellow; opacity: 0.6; cursor: pointer}
+.lava-code-overlay span,
+.lava-code-tooltips span {cursor: default}
+.lava-code-overlay-line {background: yellow; opacity: 0.6; cursor: pointer;}
 .lava-code-content {background: transparent !important;}
 
 .loading-box {position: fixed;left: 50%;top: 50%;z-index: 100;opacity: 0.5;margin: 0 auto;display: none}
@@ -219,9 +219,9 @@ body {padding-top: 0}
 .lava-index-download:hover,
 .lava-index-download:focus {color: white;}
 .lava-index-download-icon {background: url(/www/design/main-arrows.png) no-repeat top center;width: 51px;height: 51px;display:inline-block;margin: 6px;float:left}
-.lava-index-download-version {background: rgb(71,131,83);padding: 4px 18px 0 18px;font-size: 1.4em;float:left;height:65px}
-.lava-index-download-version-number {font-weight: bold;font-family: Vardana, Arial, sans-serif;}
-.lava-index-download-version-alpha {font-style: italic;font-family: "Times New Roman", Times, serif;}
+.lava-index-download-version {background: rgb(71,131,83);/*padding: 4px 18px 0 18px;*/padding: 0 18px;font-size: 1.4em;float:left;height:65px}
+.lava-index-download-version-number {font-weight: bold;font-family: Vardana, Arial, sans-serif;line-height: 65px}
+/*.lava-index-download-version-alpha {font-style: italic;font-family: "Times New Roman", Times, serif;}*/
 .lava-index-download-text {line-height: 65px;float: left;font-size: 1.65em;font-weight: bold;padding: 0 22px 0 14px;}
 .lava-index-quick-start-link {background: rgb(49,49,49);color:white;display: inline-block; height:65px;padding-right: 5.5em}
 .lava-index-quick-start-link:hover,
@@ -330,18 +330,20 @@ footer {height: 8.5em}
 
 /* new code highlighter */
 .lava-new-code-container {clear: both;margin: 10px 0;text-align: left;display: inline-block} /* contains headers and boxes with code */
+.lava-new-code-container-primary {display: block}
 .lava-new-code-header {clear: both;background: #EEEEEE;font-weight: bold;padding: 3px 0 3px 3em;}
 .lava-new-code-box {clear: both;position: relative;} /* single box with highlighted code, line numbers and overlays */
 .lava-new-code-overlays {position: relative;overflow-x: auto;overflow-y: hidden;}
 
-.lava-new-code-line-numbers {border-right: 1px solid #CCCCCC;background-color: #EEEEEE;color: #848484;text-align: right;float: left;z-index: 1;}
+.lava-new-code-line-numbers {background-color: #EEEEEE;color: #848484;text-align: right;float: left;z-index: 1;}
 .lava-new-code-content {z-index: 1} /* actual container for highlighted code */
 .lava-new-code-highlights {z-index: 0;} /* colored highlights of strings UNDER the box */
-.lava-new-code-tooltips {z-index: 2}
+.lava-new-code-tooltips {z-index: 2;}
+.lava-new-code-tooltips span {cursor: pointer}
 
 .lava-new-code-highlights,
 .lava-new-code-tooltips {position: absolute!important;top: 0;left: 0;padding-top: 0.5em;
-	background: transparent!important;border: 1px transparent;}
+	background: transparent!important;border: 0;}
 
 .lava-new-code-highlights,
 .lava-new-code-tooltips,
@@ -349,7 +351,8 @@ footer {height: 8.5em}
 
 .lava-new-code-line-numbers,
 .lava-new-code-content,
-.lava-new-code-highlights {font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+.lava-new-code-highlights,
+.lava-new-code-tooltips {font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 	font-size: 14px;
 	line-height: 18px;
 	white-space: pre !important;

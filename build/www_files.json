@@ -23,10 +23,9 @@
 		{"title": "Develop", "children": [
 			{"title": "Core on GitHub", "href": "https://github.com/kogarashisan/LiquidLava/", "is_blank": true},
 			{"title": "Site on GitHub", "href": "https://github.com/kogarashisan/LavaSite/", "is_blank": true},
-			{"title": "Issues", "href": "https://github.com/kogarashisan/LiquidLava/issues?state=open", "is_blank": true},
+			{"title": "Tasks / Issues", "href": "https://github.com/kogarashisan/LiquidLava/issues?state=open", "is_blank": true},
 			{"title": "Changelog", "href": "/www/changelog.html"},
-			{"title": "Roadmap", "href": "/www/roadmap.html"},
-			{"title": "Code coverage", "is_disabled": true}
+			{"title": "Roadmap", "href": "/www/roadmap.html"}
 		]},
 		{"title": "Widgets", "href": "/www/widgets.html"},
 		{"title": "About", "href": "/www/about.html"}

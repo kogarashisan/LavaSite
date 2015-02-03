@@ -28,7 +28,7 @@ Let's start with totally blank page:
 <html lang="en">
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
-	<script src="http://lava-framework.com/lib/lava-master-DEBUG.js"></script>
+	<script src="http://lava-framework.com/lib/lava-master-DEV.js"></script>
 	<script>
 		window.addEvent('load', function() {
 			Lava.bootstrap();
