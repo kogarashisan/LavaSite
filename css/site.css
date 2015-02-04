@@ -296,9 +296,9 @@ body {padding-top: 0}
 
 /* sticky footer */
 footer {}
-.lava-footer-index {padding-top: 0 !important;}
+.lava-footer-index {background: rgb(49,49,49)}
 footer .container {background: transparent;}
-.lava-footer-copyright {text-align: right;color:#e0e0e0;}
+.lava-footer-copyright {text-align: right;color:#A6A6A6;}
 .lava-footer-logo {width: 14em;text-align: center;}
 .lava-footer-logo-title {color: rgb(251,167,1);font-size: 2em;font-weight: bold;}
 .lava-footer-logo-text {color: white;font-style: italic;font-family: "Times New Roman", Times, serif;font-size: 1.1em;}
@@ -314,9 +314,7 @@ footer {height: 8.5em}
 .lava-footer-black-area {padding: 1em 0;height: 8.5em}
 
 @media (min-width: 500px) {
-	footer {height: 8.5em;padding-top: 1em}
-	.lava-page-wrapper {margin: 0 0 -8.5em;}
-	.lava-footer-push {height: 8.5em;}
+	footer {padding-top: 1em;}
 	.lava-footer-black-area {height: 7.5em}
 }
 /* end */

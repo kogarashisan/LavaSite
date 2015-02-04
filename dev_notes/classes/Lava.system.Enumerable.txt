@@ -3,9 +3,23 @@ There was a try to make some kind of a "write lock", and some kind of public-rea
 (instance of Enumerable which could be writable by only one instance of another class, 
 and readable by anyone else).
 
-Reason: sometimes there are collections, which you should not modify from outside, 
-for example collections of widgets in another widget (Tabs, Accordion).
+Reason:
+	sometimes there are collections, which you should not modify from outside,
+	for example collections of widgets in another widget (Tabs, Accordion).
 
-Result: failed, and made a conclusion that having something like this is wrong by design.
-The right way is "private widget properties" (name starts with underscore).
-If such write lock existed - it could be implemented with Object.freeze on one of Enumerable arrays.
+Result:
+	failed, and made a conclusion that having something like this is wrong by design.
+	The right way is "private widget properties" (name starts with underscore).
+
+Discussion:
+	If such write lock existed - it could be implemented with Object.freeze on one of Enumerable arrays.
+	Something like this:
+	lock: function(lock_owner) {
+		this._lock_owner = lock_owner;
+		Object.freeze(this._uids);
+	},
+	unlock: function(lock_owner) {
+		if (this._lock_owner && this._lock_owner == lock_owner) {
+			this._uids = this._uids.slice();
+		}
+	}
