@@ -1,85 +1,35 @@
+<!--
+This is bundled version of index_raw
+-->
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<title>LiquidLava • TodoMVC</title>
-		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 		<link rel="stylesheet" href="css/app.css">
 
 		<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
-		<script src="/lib/lava-master-DEV.js"></script>
-		<script src="bower_components/director/build/director.js"></script>
-		<script src="js/Widget/Input/AutofocusText.class.js"></script>
-		<script src="js/Widget/TodoApp.class.js"></script>
+		<script src="bundle.min.js"></script>
+
 		<script>
+
+			Lava.init();
+			Lava.focus_manager.enable();
+
 			window.addEvent('load', function() {
-				Lava.bootstrap();
+
+				var constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget'),
+					widget;
+
+				if (Lava.schema.DEBUG && !constructor) Lava.t('Class not found: ' + page_config['class']);
+				widget = new constructor(page_config);
+				widget.injectIntoExistingElement(document.body);
+
 			});
 		</script>
+		<script src="node_modules/todomvc-common/base.js"></script>
 	</head>
-	<body lava-app="TodoApp">
-		<section class="todoapp">
-			<header class="header" x:type="view">
-				<h1>todos</h1>
-				<text_input id="new_todo" x:controller="input.AutofocusText" class="new-todo" placeholder="What needs to be done?"></text_input>
-			</header>
-			{$if($todo_app.todo_list.length)}
-				<section class="main" x:type="view">
-					<checkbox id="toggle_all" class="toggle-all" x:roles="$todo_app.toggle_all_checkbox"></checkbox>
-					<label x:type="view" x:roles="#toggle_all.label" class="toggle-all-label">Mark all as complete</label>
-					<ul x:type="container" class="todo-list">
-						{#foreach($todo_app.filtered_list) as=item}
-							<li x:type="container" x:classes="item.is_completed ? 'completed' : ''; (item == $todo_app.edited_item) ? 'editing' : ''">
-								{#if(item != $todo_app.edited_item)}
-									<div class="view" x:type="view" x:event:dblclick="$todo_app.item_double_click(item)">
-										<checkbox class="toggle">
-											<x:bind name="is_checked">item.is_completed</x:bind>
-										</checkbox>
-										<label x:type="container">{#> item.title}</label>
-										<button class="destroy" x:type="view" x:event:click="$todo_app.delete_item_click(item)"></button>
-									</div>
-								{else}
-									<text_input x:controller="input.AutofocusText" class="edit">
-										<x:bind name="value">$todo_app.edited_item_text</x:bind>
-									</text_input>
-								{/if}
-							</li>
-						{/foreach}
-					</ul>
-				</section>
-				<footer class="footer">
-					<span class="todo-count" x:type="view">
-						<strong>{#> $todo_app.remaining_count}</strong> item{#> $todo_app.remaining_count != 1 ? 's' : ''} left
-					</span>
-					<ul class="filters" x:type="container">
-						{#foreach($todo_app.filter_names) as=filter_name}
-							<li>
-								<a x:type="container" x:classes="filter_name == $todo_app.filter_name ? 'selected' : ''" x:bind:href="'#/' + filter_name">
-									{#> ucFirst(filter_name)}
-								</a>
-							</li>
-						{/foreach}
-					</ul>
-					{$if($todo_app.completed_count)}
-						<x:refresher>{type: 'Standard'}</x:refresher>
-						<x:container_config>
-							{
-								type: "Emulated",
-								options: {prepender: 'AfterPrevious'}
-							}
-						</x:container_config>
-						<button class="clear-completed" x:type="container" x:event:click="$todo_app.clear_completed_click">
-							{#> "Clear completed (" + $todo_app.completed_count + ")"}
-						</button>
-					{/if}
-				</footer>
-			{/if}
-		</section>
-		<footer class="info">
-			<p>Double-click to edit a todo</p>
-			<p>Created by <a href="http://lava-framework.com/">Alex Galashov</a></p>
-			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-		</footer>
-		<script src="bower_components/todomvc-common/base.js"></script>
+	<body>
 	</body>
 </html>

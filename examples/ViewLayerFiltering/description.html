@@ -26,4 +26,7 @@
 </ul>
 
 <p>Note: this example removes elements from DOM, but the same visual result could be achieved by hiding
-	them with display:none.</p>
+	them with display:none or creating a new list each time when filter changes.
+	But in first case the sorting operation will become heavier (cause all items, which are in DOM, need to be moved).
+	And in second case the list needs to be re-rendered each time the filter or sorting changes (animation is impossible),
+	and you will also need to manually update it when items are added or removed.</p>

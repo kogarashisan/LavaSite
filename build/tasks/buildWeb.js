@@ -219,34 +219,7 @@ module.exports = function(grunt) {
 			vars['page_title'] = current_page_descriptor.page_title;
 			grunt.file.write(page_path + '.html', processTemplates(page_template));
 
-			//grunt.file.write('pages/' + page_path + '.page.js', createPageScript(page_path));
-
 		}
-
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// build To Do MVC APP
-
-		var page_src = grunt.file.read('todo_app/index.html'),
-			page_widget_src;
-
-		// parse body of existing index
-		page_src.replace(/\<body([\s\S]+?)\<\/body\>/, function(body) {
-			body = body.replace(/\<script src="bower_components\/todomvc-common\/base.js"\>\<\/script\>/, '');
-			page_widget_src = "page_config = " + Lava.serializer.serialize(page_to_widget(body)) + ';';
-		});
-
-		page_src = grunt.file.read('pages_src/todo_app.html');
-		page_src = page_src.replace(/\/\*lavabuild\:scripts\*\//, function() {
-			return grunt.file.read('todo_app/bower_components/director/build/director.js') + "\n\n"
-				+ grunt.file.read('todo_app/js/Widget/Input/AutofocusText.class.js') + "\n\n"
-				+ grunt.file.read('todo_app/js/Widget/TodoApp.class.js') + "\n\n"
-				+ page_widget_src + "\n\n";
-		});
-
-		grunt.file.write('todo_app/index_compiled.html', page_src);
-
-		// end
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	}));
 

@@ -3,6 +3,7 @@
  Perfection kills. Even God needs to rest sometimes. Amen.
  */
 global.LAVA_CORE_DIRECTORY = 'D:/LiquidLava/';
+global.FIRESTORM_DIRECTORY = 'D:/Firestorm/';
 
 global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS = ['sugar', 'storage', 'storage_schema', 'edit_template', 'include'];
 global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS = ['bind', 'assign', 'option', 'property', 'options', 'properties', 'roles', 'resources', 'default_events'];
@@ -34,19 +35,30 @@ global.DIRECTIVE_MULTIPLICITY = {
 	attach_directives: null
 };
 
+global.Lava = require(global.LAVA_CORE_DIRECTORY);
+global.Firestorm = global.Lava.getFirestorm();
+global.highlight_js = require('highlight.js');
+require("./build/ApiHelper.js");
+
+// workaround for a bug in Grunt, https://github.com/gruntjs/grunt/issues/1135
+global.bug1135 = function(callback) {
+	return function() {
+		try {
+			return callback();
+		} catch (e) {
+			if (typeof(e) == 'string' || typeof(e) == 'number') throw new Error(e);
+			throw e;
+		}
+	}
+};
+
 module.exports = function(grunt) {
 
-	require(global.LAVA_CORE_DIRECTORY + 'build/temp/lava_module.js');
-
-	var fs = require('fs'),
-		highlight_js = require('highlight.js'),
-		marked = require('marked'),
-		Lava = global.Lava,
+	var Lava = global.Lava,
 		Firestorm = global.Firestorm,
-		LAVA_CORE_DIRECTORY = global.LAVA_CORE_DIRECTORY;
-
-	global.highlight_js = highlight_js;
-	eval(grunt.file.read(LAVA_CORE_DIRECTORY + 'build/temp/lava_widgets.js'));
+		highlight_js = global.highlight_js,
+		fs = require('fs'),
+		marked = require('marked');
 
 	var LavaBuild = {
 
@@ -491,23 +503,11 @@ module.exports = function(grunt) {
 
 	global.LavaBuild = LavaBuild;
 
-	// workaround for a bug in Grunt, https://github.com/gruntjs/grunt/issues/1135
-	global.bug1135 = function(callback) {
-		return function() {
-			try {
-				return callback();
-			} catch (e) {
-				if (typeof(e) == 'string' || typeof(e) == 'number') throw new Error(e);
-				throw e;
-			}
-		}
-	};
-
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	grunt.initConfig({
 
-		js_files: grunt.file.readJSON(global.LAVA_CORE_DIRECTORY + 'build/js_files.json'),
+		firestorm_files: grunt.file.readJSON(global.FIRESTORM_DIRECTORY + 'build/files.json'),
 		www_files: grunt.file.readJSON('build/www_files.json'),
 
 		concat: {
@@ -522,7 +522,7 @@ module.exports = function(grunt) {
 							"css/bootstrap/bootstrap-theme.min.css",
 							"css/bootstrap/partial-docs.css",
 							"css/site.css",
-							LAVA_CORE_DIRECTORY + "dist/lava-widgets.css",
+							global.LAVA_CORE_DIRECTORY + "css/lava-widgets.css",
 							"css/highlightjs/vs.css"
 						],
 						dest: 'www/css/site.css'
@@ -535,7 +535,7 @@ module.exports = function(grunt) {
 						src: [
 							"css/bootstrap/bootstrap.min.css",
 							"css/bootstrap/bootstrap-theme.min.css",
-							LAVA_CORE_DIRECTORY + "dist/lava-widgets.css"
+							global.LAVA_CORE_DIRECTORY + "css/lava-widgets.css"
 						],
 						dest: 'www/css/widgets.css'
 					}
@@ -563,12 +563,17 @@ module.exports = function(grunt) {
 						dest: 'www/js/site.js'
 					}
 				]
-			}
-		},
-
-		copy: {
+			},
 			main: {
-				src: LAVA_CORE_DIRECTORY + 'dist/lava-master-DEV.js',
+				src: [
+					global.FIRESTORM_DIRECTORY + 'lib/firestorm.js',
+					global.LAVA_CORE_DIRECTORY + 'lib/packages/core.js',
+					global.LAVA_CORE_DIRECTORY + 'lib/packages/parsers.js',
+					global.LAVA_CORE_DIRECTORY + 'lib/packages/core-classes.js',
+					global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-classes.js',
+					global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-templates.js',
+					global.LAVA_CORE_DIRECTORY + 'lib/locale/en.js'
+				],
 				dest: 'lib/lava-master-DEV.js'
 			}
 		},
@@ -638,11 +643,42 @@ module.exports = function(grunt) {
 
 	grunt.option('stack', true);
 	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-copy');
+	//grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadTasks('build/tasks/');
 
-	grunt.registerTask('default', ['copy', 'buildSiteWidgets', 'buildExamples', 'buildQuickStart', 'buildWeb', 'concat']);
+	grunt.registerTask('default', [
+		'concat:main',
+		'buildSiteWidgets',
+		'buildExamples',
+		'buildDemoPageContent',
+		'buildQuickStart',
+		'buildWeb',
+		'concat:site_css',
+		'concat:public_css',
+		'concat:site_js' // depends on previous tasks, which generate files
+	]);
+
+	grunt.registerTask('cleanDoc', function() {
+		LavaBuild.recursiveRemoveDirectory('www/api/');
+		fs.mkdirSync('www/api/');
+		LavaBuild.recursiveRemoveDirectory('www/reference/');
+		fs.mkdirSync('www/reference/');
+		LavaBuild.recursiveRemoveDirectory('www/tutorials/');
+		fs.mkdirSync('www/tutorials/');
+	});
+
+	grunt.registerTask('finalizeDoc', function() {
+		if (global.LavaBuild.has_errors) throw new Error("build process has errors, aborting");
+	});
+
 	// depends on "default"
-	grunt.registerTask('doc', ['buildSugar', 'buildDoc', 'buildSupport']);
+	grunt.registerTask('doc', [
+		'cleanDoc',
+		'jsdocExport',
+		'buildSugar',
+		'buildDoc',
+		'buildSupport',
+		'finalizeDoc'
+	]);
 
 };

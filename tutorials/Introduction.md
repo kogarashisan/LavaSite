@@ -22,9 +22,12 @@ First, we include the libraries and styles for standard widgets:
 <link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
 ```
 
-Currently, Lava framework depends on MooTools, but this dependency may be removed later.
+<i>`lava-master-DEV.js` is a packaged bundle, that you can use for educational purposes. In real projects you 
+should use the <a href="https://www.npmjs.com/package/lava">lava NPM module</a>.</i>
+
+Currently, Lava framework depends on MooTools, but this dependency will be removed later.
 For now there is only one theme available for standard widgets: Bootstrap.
-Stylesheet includes Bootstrap core, Bootstrap theme and `lava-widgets.css` from framework repository. 
+`widgets.css` includes Bootstrap core, Bootstrap theme and `lava-widgets.css` from framework repository. 
 If you don't plan to use standard widgets, then you can remove the CSS reference.
 
 Framework initialization is done manually - this gives you total control over the process:

@@ -14,7 +14,7 @@ var quick_start_schema ={
 		{
 			code_name: "blank",
 			active_highlights: ["scripts"],
-			text: "\r\n\t\t\t<p>First, you include MooTools and Lava framework.<br/>\r\n\t\t\t\t(currently Lava depends on MooTools,\r\n\t\t\t\tbut in future builds this dependency will be removed.</p>\r\n\t\t"
+			text: "\r\n\t\t\t<p>First, you include MooTools and Lava framework bundle<br/>\r\n\t\t\t\t(currently Lava depends on MooTools,\r\n\t\t\t\tbut in future builds this dependency will be removed)</p>\r\n\t\t\t<p><i>In real-world applications you will use NPM packages \"firestorm\" and \"lava\",<br/>\r\n\t\t\t\tbut for educational purposes you can take the bundle from site.</i></p>\r\n\t\t"
 		},
 		{
 			code_name: "blank",

@@ -1,5 +1,5 @@
 
-// warning: task modifies widget configs
+// warning: task extends widget configs in loaded Lava module
 
 module.exports = function(grunt) {
 
@@ -260,13 +260,6 @@ module.exports = function(grunt) {
 			result += '</tbody></table>';
 
 		}
-
-		LavaBuild.recursiveRemoveDirectory('www/api/');
-		fs.mkdirSync('www/api/');
-		LavaBuild.recursiveRemoveDirectory('www/reference/');
-		fs.mkdirSync('www/reference/');
-		LavaBuild.recursiveRemoveDirectory('www/tutorials/');
-		fs.mkdirSync('www/tutorials/');
 
 		var temp = JSON.stringify({
 			description: result

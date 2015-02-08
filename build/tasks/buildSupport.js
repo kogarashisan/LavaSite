@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 
 		var fs = require('fs');
 		var LavaBuild = global.LavaBuild;
-		var jsdoc_support = eval('(' + grunt.file.read(global.LAVA_CORE_DIRECTORY + 'build/temp/jsdoc_support_export.js') + ')');
+		var jsdoc_support = eval('(' + grunt.file.read('build/temp/jsdoc_support_export.js') + ')');
 		var result = LavaBuild.processMarkdown(grunt.file.read("build/Support.page.md")) + "\n\n";
 
 		if (jsdoc_support.typedefs) {
@@ -113,8 +113,6 @@ module.exports = function(grunt) {
 			description: result,
 			support_objects: jsdoc_support.objects
 		}));
-
-		if (global.LavaBuild.has_errors) throw new Error("build process has errors, aborting");
 
 	}));
 

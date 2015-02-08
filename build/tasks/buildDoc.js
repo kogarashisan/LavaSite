@@ -751,17 +751,19 @@ module.exports = function(grunt) {
 			Firestorm = global.Firestorm,
 			LavaBuild = global.LavaBuild,
 			fs = require('fs'),
-			groups = grunt.file.readJSON(global.LAVA_CORE_DIRECTORY + 'build/js_files.json'),
-			filelist = groups['classes'].concat(groups['widgets']),
+			groups = grunt.file.readJSON(global.LAVA_CORE_DIRECTORY + 'build/files.json'),
+			filelist,
 			support_names = [],
 			missing_descriptions_log = [];
 
+		filelist = groups['classes'].concat(groups['widgets']);
+
 		Lava.init = function(){}; // this fixes the fact that Lava replaces it's init method with null after init was done
 
-		var jsdoc_data = eval('(' + grunt.file.read(global.LAVA_CORE_DIRECTORY + 'build/temp/jsdoc_classes_export.js') + ')');
-		var jsdoc_ignored = eval('(' + grunt.file.read(global.LAVA_CORE_DIRECTORY + 'build/temp/jsdoc_ignored_export.js') + ')');
+		var jsdoc_data = eval('(' + grunt.file.read('build/temp/jsdoc_classes_export.js') + ')');
+		var jsdoc_ignored = eval('(' + grunt.file.read('build/temp/jsdoc_ignored_export.js') + ')');
 
-		var support_links = eval('(' + grunt.file.read(global.LAVA_CORE_DIRECTORY + 'build/temp/jsdoc_support_links_export.js') + ')');
+		var support_links = eval('(' + grunt.file.read('build/temp/jsdoc_support_links_export.js') + ')');
 		support_links.forEach(function(link_data){
 			LavaBuild.registerLink(link_data.title, link_data);
 			support_names.push(link_data.title);
@@ -1027,7 +1029,7 @@ module.exports = function(grunt) {
 		// load and attach events
 
 		// full class name => [<event>]
-		var jsdoc_events = eval('(' + grunt.file.read(global.LAVA_CORE_DIRECTORY + 'build/temp/jsdoc_events_export.js') + ')');
+		var jsdoc_events = eval('(' + grunt.file.read('build/temp/jsdoc_events_export.js') + ')');
 		for (name in jsdoc_events) {
 			if (!(name in extended_class_descriptors)) throw new Error();
 			extended_class_descriptors[name].events = jsdoc_events[name];
@@ -1222,7 +1224,7 @@ module.exports = function(grunt) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// write reference
 
-		function writeDocs(file_contents, dir_path, src_path) {
+		function writeDocs(file_contents, dir_path) {
 			for (var relative_path in file_contents) {
 				var content = file_contents[relative_path];
 				var markdown = LavaBuild.processMarkdown(content, true);
@@ -1256,7 +1258,7 @@ module.exports = function(grunt) {
 		});
 		var missing_descriptions_log_count = missing_descriptions_log.length;
 		missing_descriptions_log = missing_descriptions_log.slice(0, 50);
-		missing_descriptions_log.forEach(function(log_entry, index){
+		missing_descriptions_log.forEach(function(log_entry){
 			grunt.log.ok(log_entry.text);
 		});
 		grunt.log.ok('Total warnings: ' + missing_descriptions_log_count);

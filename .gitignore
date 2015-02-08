@@ -1,4 +1,4 @@
-node\_modules
-\.idea
-\.ssh
-build/temp/*
+/node_modules
+/.idea
+/.ssh
+/build/temp/*

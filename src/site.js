@@ -54,7 +54,6 @@ var Examples = {
 };
 
 var LavaVersions = [
-	{name: 'master'},
 	{name: '0.13.x'},
 	{name: '0.12.x'},
 	{name: '0.11.x'},
@@ -123,7 +122,7 @@ var Site = {
 			Lava.init();
 			Lava.focus_manager.enable(); // before widgets are in DOM, so it could receive focus event
 
-			this.utility_widget = new Lava.widget.UtilityWidget({is_extended: true, id: "utility"});
+			this.utility_widget = new Lava.widget.UtilityWidget({is_extended: true});
 
 			var page_config = self.pages[self.page_path],
 				constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget'),

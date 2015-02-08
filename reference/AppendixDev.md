@@ -12,24 +12,29 @@ Install process is not covered in this reference, please read the corresponding 
 - Never modify original framework file. Use "monkey patching" instead.
 - Distribute your widgets with sources of their templates. Distributing only parsed configs is not enough.
 
-##Using bower
+##Using NPM
 
-For your projects you want to use specific versions of Lava.
-Bower is a dependency management tool, which automates this task. Example `bower.json`:
+Lava framework and Firestorm library can be installed as "lava" and "firestorm" NPM modules.
+Example package.json:
 
 ```javascript
 {
 	"dependencies": {
-		"lava-framework": "~0.8.0"
+		"lava": "^0.13.2"
 	}
 }
 ```
 
-This will create directory `bower_components/lava-framework` in your project's folder, 
-and checkout version 0.8.x of Lava from GitHub to that folder.
-After checkout you can manually delete all files, that you don't need.
+Lava module already includes Firestorm dependency. In Node.js environment you can access it like this:
 
-To learn more, visit the official <a href="http://bower.io/">Bower website</a>.
+```javascript
+var Lava = require('lava'),
+	Firestorm = Lava.getFirestorm();
+```
+
+All packaged files can be found in the `lib/` directory of Lava module.
+Note, that <i>in browser you do not need to include the Node.js loader</i> `lib/node-module.js`,
+instead you should manually include `firestorm.js` and all files from `lib/packages/`.
 
 ##Building
 

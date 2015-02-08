@@ -12,6 +12,7 @@ The [LiquidLava website](http://lava-framework.com/) is a great resource for get
 
 Here are some links you may find helpful:
 
+* [Quick start](http://www.lava-framework.com/www/quick_start.html)
 * [Tutorials](http://www.lava-framework.com/www/doc.html#tab=tutorials)
 * [Reference](http://www.lava-framework.com/www/doc.html#tab=reference)
 * [API](http://www.lava-framework.com/www/doc.html#tab=api)
@@ -20,3 +21,10 @@ Here are some links you may find helpful:
 * [LiquidLava on GitHub](https://github.com/kogarashisan/LiquidLava/)
 
 _If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+
+##Build
+
+There are two index files in this example: "index_raw.html" - the original source,
+and "index.html" - bundled version of index_raw.
+
+Bundled version loads faster, although you can launch "index_raw.html" in browser, and it will work as expected.

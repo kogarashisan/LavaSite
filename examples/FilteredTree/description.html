@@ -12,4 +12,7 @@
 <p>Better algorithm would use a Module data source with listeners on "title" and "parent" fields.</p>
 
 <p>Note: this example removes nodes from DOM, but the same visual result could be achieved by hiding
-	them with display:none.</p>
+	them with display:none or creating a new tree each time when filter changes.
+	But in first case the sorting operation will become heavier (cause all nodes, which are in DOM, need to be moved).
+	And in second case all tree needs to be re-rendered each time the filter or sorting changes (animation is impossible),
+	and it will not react to changes (added or removed nodes).</p>
