@@ -571,6 +571,7 @@ module.exports = function(grunt) {
 					global.LAVA_CORE_DIRECTORY + 'lib/packages/parsers.js',
 					global.LAVA_CORE_DIRECTORY + 'lib/packages/core-classes.js',
 					global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-classes.js',
+					//global.LAVA_CORE_DIRECTORY + 'lib/packages/all-classes-compiled.js',
 					global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-templates.js',
 					global.LAVA_CORE_DIRECTORY + 'lib/locale/en.js'
 				],

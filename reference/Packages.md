@@ -1,4 +1,4 @@
-#Packages [ALPHA]
+#Packages
 
 When you create a widget - you don't need it to be one monolithic class:
 you can create some helper views or widgets, which will be used by main widget.

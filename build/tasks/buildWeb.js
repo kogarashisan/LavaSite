@@ -43,7 +43,12 @@ module.exports = function(grunt) {
 					classes += " lava-dropdown-menu-item-disabled";
 				}
 				attributes += " class=\"" + classes + "\"";
-				result += "<li><a" + attributes + ">" + child_node.title + "</a></li>";
+
+				if (child_node.type == "header") {
+					result += "<li class='lava-dropdown-header'>" + child_node.title + "</li>";
+				} else {
+					result += "<li><a" + attributes + ">" + child_node.title + "</a></li>";
+				}
 
 				if (child_node.href && child_node.href.indexOf("/" + current_page_descriptor.page_path) == 0) {
 					is_active = true;
@@ -117,14 +122,14 @@ module.exports = function(grunt) {
 			header_include: function() {
 				if (current_page_descriptor.header_include) {
 					if (!includes[current_page_descriptor.header_include]) throw new Error();
-					return includes[current_page_descriptor.header_include];
+					return processTemplates(includes[current_page_descriptor.header_include]);
 				}
 				return '';
 			},
 			header_bottom_include: function() {
 				if (current_page_descriptor.header_bottom_include) {
 					if (!includes[current_page_descriptor.header_bottom_include]) throw new Error();
-					return includes[current_page_descriptor.header_bottom_include];
+					return processTemplates(includes[current_page_descriptor.header_bottom_include]);
 				}
 				return '';
 			},
@@ -171,13 +176,41 @@ module.exports = function(grunt) {
 				}
 
 				return result;
+			},
+			core_version: function() {
+				var version_string = grunt.file.readJSON(global.LAVA_CORE_DIRECTORY + 'package.json').version;
+				if (!version_string.match(/\d+\.\d+\.\d+/)) Lava.t();
+				return "v" + version_string;
+			},
+			changelog_versions: function() {
+				var filenames = fs.readdirSync('www/versions');
+				var versions = [];
+				filenames.forEach(function (filename) {
+					if (filename.match(/\d+\.(\d+|x)(\.(\d+|x))?\.html/)) {
+						var parts = filename.split('.');
+						if (parts[0].match(/\d+/)) parts[0] = +parts[0];
+						if (parts[1].match(/\d+/)) parts[1] = +parts[1];
+						if (parts[2].match(/\d+/)) parts[2] = +parts[2];
+						parts.pop();
+						versions.push(parts);
+					}
+				});
+				versions = Lava.algorithms.sorting[Lava.schema.DEFAULT_UNSTABLE_SORT_ALGORITHM](versions, function(a, b) {
+					return a[0] > b[0] || a[1] > b[1] || a[2] > b[2];
+				});
+				var result = [];
+				versions.forEach(function (version) {
+					result.push({name: version.join('.')});
+				});
+				result.push({name: 'older'});
+				return "var LavaVersions = " + Lava.serializer.serialize(result) + ";";
 			}
 		};
 
 		function processTemplates(src) {
 			src = src.replace(/(?:\/\*|\<)\%include\:(.+?)\%(?:\>|\*\/)/g, function(_, include_name) {
 				if (!(include_name in includes)) throw new Error();
-				return includes[include_name];
+				return processTemplates(includes[include_name]);
 			});
 			src = src.replace(/(?:\/\*|\<)\%var\:(.+?)\%(?:\>|\*\/)/g, function(_, var_name) {
 				if (!(var_name in vars)) throw new Error();

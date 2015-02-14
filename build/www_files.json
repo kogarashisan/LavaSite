@@ -6,7 +6,7 @@
 		{"page_path": "www/about", "page_title": "About"},
 		{"page_path": "www/roadmap", "page_title": "Roadmap"},
 		{"page_path": "www/examples", "page_title": "Examples", "header_include": "examples_page_header.html"},
-		{"page_path": "www/changelog", "page_title": "Changelog"},
+		{"page_path": "www/changelog", "page_title": "Changelog", "header_include": "changelog_page_header.html"},
 		{"page_path": "www/quick_start", "page_title": "Quick start", "header_include": "quick_start_header.html"},
 		{"page_path": "www/doc", "page_title": "Documentation", "header_include": "doc_page_header.html", "header_bottom_include": "doc_page_header_bottom.html"}
 	],
@@ -21,11 +21,14 @@
 		  {"title": "Examples", "href": "/www/examples.html"}
 		]},
 		{"title": "Develop", "children": [
-			{"title": "Core on GitHub", "href": "https://github.com/kogarashisan/LiquidLava/", "is_blank": true},
-			{"title": "Site on GitHub", "href": "https://github.com/kogarashisan/LavaSite/", "is_blank": true},
 			{"title": "Tasks / Issues", "href": "https://github.com/kogarashisan/LiquidLava/issues?state=open", "is_blank": true},
 			{"title": "Changelog", "href": "/www/changelog.html"},
-			{"title": "Roadmap", "href": "/www/roadmap.html"}
+			{"title": "Roadmap", "href": "/www/roadmap.html"},
+			{"title": "GitHub repositories", "type": "header"},
+			{"title": "Core", "href": "https://github.com/kogarashisan/LiquidLava/", "is_blank": true},
+			{"title": "ClassManager", "href": "https://github.com/kogarashisan/ClassManager/", "is_blank": true},
+			{"title": "Firestorm", "href": "https://github.com/kogarashisan/Firestorm/", "is_blank": true},
+			{"title": "Site", "href": "https://github.com/kogarashisan/LavaSite/", "is_blank": true}
 		]},
 		{"title": "Widgets", "href": "/www/widgets.html"},
 		{"title": "About", "href": "/www/about.html"}

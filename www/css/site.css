@@ -608,7 +608,7 @@ footer .container {background: #f7f5fa;}
 }
 
 .widgets-api-link-h1 {float: right;color:gray;padding-top: 0.6em}
-.widgets-api-link-h2 {float: right;color:gray;padding-top: 1em}
+.widgets-api-link-h2 {float: right;color:gray;}
 
 /* ========== New theme ========== */
 body {padding-top: 0}
@@ -656,6 +656,7 @@ body {padding-top: 0}
 	.lava-navbar {padding-left: 32px;}
 	.lava-navbar-item {margin: 0 8px;}
 }
+.lava-dropdown-header {display: block;padding: 3px 20px;clear: both;line-height: 22px;white-space: nowrap;font-weight: bold;color: rgb(255,161,1);background: rgb(49,49,49);}
 .lava-dropdown-menu {background: rgb(71,131,83);border: 0;padding: 10px;min-width: 180px;box-shadow: 0 6px 12px rgba(0,0,0,.175);
 	position: absolute;top: 100%;left: 0;z-index: 1000;display: none;float: left;font-size: 14px;list-style: none;text-align: left}
 .lava-navbar-area {background: rgb(49,49,49);border-radius: 0;border: 0}

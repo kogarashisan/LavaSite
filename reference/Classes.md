@@ -139,8 +139,7 @@ Implements can be used together with Extends. Several classes may be implemented
 
 ###Shared
 
-Shared objects are moved to prototype, this makes them common to all class instances.
-Currently, only objects can be shared.
+Shared objects and arrays are moved to prototype, this makes them common to all class instances.
 
 When you inherit shared objects from parent - they are copied.
 In the following example, all instances of "MyClass" and "InheritedClass" will have two different copies of `_shared`
@@ -153,6 +152,7 @@ so it will be shared among all class hierarchy, and `true_shared_counter` will b
 ```javascript
 Lava.define('Lava.user.MyClass', {
 	Shared: '_shared',
+	// Shared: ['_shared'], // you can share multiple objects
 	_shared: {
 		shared_counter: 0,
 		shared_object: {
@@ -173,6 +173,13 @@ Several properties can be shared with one directive (`Shared: [/*...*/]`).
 
 In production environment you can speed up class generation even more, if you export generated class data.
 See the build script for an example usage of `exportClass()` and `loadClass()`.
+
+```javascript
+var exported = Lava.ClassManager.exportClass('Lava.mixin.Observable');
+delete exported.skeleton;
+delete exported.source_object;
+result = "Lava.ClassManager.loadClass(" + Lava.serializer.serialize(exported) + ");\n\n";
+```
 
 Build script does not export skeletons, cause they are rather heavy.
 But they are needed for inheritance, so you have two choices: either inherit your classes on server and export them

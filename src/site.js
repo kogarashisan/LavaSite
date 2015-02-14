@@ -53,35 +53,6 @@ var Examples = {
 
 };
 
-var LavaVersions = [
-	{name: '0.13.x'},
-	{name: '0.12.x'},
-	{name: '0.11.x'},
-	{name: '0.10.x'},
-	{name: '0.9.x'},
-	{name: '0.8.x'},
-	{name: '0.7.x'},
-	{name: '0.6.x'},
-	{name: '0.5.x'},
-	{name: 'older'}
-];
-
-var LavaExamples = [
-	{name: 'Hello', title: 'Hello'},
-	{name: 'HorizontalAccordion', title: 'Horizontal Accordion'},
-	{name: 'Draggable', title: 'Draggable'},
-	{name: 'Circles', title: 'Draggable circles editor'},
-	{name: 'Panel1', title: 'Panel 1'},
-	{name: 'Panel2', title: 'Panel 2'},
-	{name: 'Panel3', title: 'Panel 3'},
-	{name: 'BasicTree', title: 'Tree - Basic'},
-	{name: 'CheckTree', title: 'Tree - Checkboxes'},
-	{name: 'EditableTable', title: 'Editable table'},
-	{name: 'ModifiedCalendar', title: 'Modified calendar'},
-	{name: 'ViewLayerFiltering', title: 'View layer filtering'},
-	{name: 'FilteredTree', title: 'Filtered tree'}
-];
-
 var Site = {
 	// current page path
 	page_path: '',

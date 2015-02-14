@@ -1,4 +1,44 @@
 
+<h2>0.13.4</h2>
+
+<div style="padding-left: 2em">
+
+	<h3>Feature</h3>
+	<ul>
+		<li>ClassManager: added possibility to store arrays in Shared</li>
+	</ul>
+
+	<h3>Refactoring</h3>
+	<ul>
+		<li>Upgraded Firestorm to v0.1.5 and used "class" property accessors from Firestorm.Element,
+			as well as new way of referencing browser tests.</li>
+		<li>Removed _cClassData#level as redundant.</li>
+		<li>
+			ClassManager:
+			<ul>
+				<li>exportClass now produces slightly less data.</li>
+				<li>Now it ensures that members, which are shared in parent class, are not marked as shared in inherited class.</li>
+				<li>
+					Shared objects are now copied directly from class body, instead of shallow copy.
+					May matter, if you create class instances before calling ClassManager#exportClass, otherwise ignore.
+				</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h3>Fix</h3>
+	<ul>
+		<li>Serializer now correctly serializes properties with "bad" names.</li>
+	</ul>
+
+	<h3>Firestorm v0.1.5</h3>
+	<ul>
+		<li>Added class accessors like hasClass, addClass and removeClass.</li>
+		<li>Refactored browser compatibility checks in Environment.</li>
+	</ul>
+
+</div>
+
 <h2>0.13.3</h2>
 
 <div style="padding-left: 2em">
