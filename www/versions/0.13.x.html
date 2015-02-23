@@ -1,4 +1,58 @@
 
+<h2>0.13.6</h2>
+
+<div style="padding-left: 2em">
+
+	<h3>Feature</h3>
+	<ul>
+		<li>ClassManager</li>
+		<ul>
+			<li>Added `Lava.ClassManager.IS_MONOMORPHIC` property (`true` by default) - in this mode
+				generated constructors will preallocate all class properties to reduce function polymorphism.
+				This will make construction slower, but operation will be faster.
+				Each `_cClassData` now has `is_monomorphic` property, which indicates if it was built in monomorphic mode.</li>
+			<li>Added `loadClasses()` and `loadSkeletons()` convenience methods</li>
+			<li>Light performance improvements</li>
+		</ul>
+	</ul>
+
+	<h3>Refactoring</h3>
+	<ul>
+		<li>
+			ClassManager
+			<ul>
+				<li>RegExp objects are now moved to prototype. If you want to have unique copy of regular expression object
+					for each class instance - then you should assign it in constructor.</li>
+				<li>Changed format of exported classes: now it exports both `references` and `own_references` arrays -
+					you should delete either one of them. If you leave `references` - then you will get large, but fast and
+					truly monomorphic class with it's own methods. In most scenarios you will want to leave `own_references` for smaller output.</li>
+				<li>Changed format of generated skeleton (if you did not export classes - then ignore).</li>
+				<li>Renamed INLINE_SIMPLE_ARRAYS -> inline_simple_arrays.</li>
+			</ul>
+		</li>
+		<li>Fixed Lava.Cron to better work with compression</li>
+		<li>Fixed a bug in template rendering</li>
+	</ul>
+
+	<h3>Fix</h3>
+	<ul>
+		<li>ClassManager: fixed several serialization bugs</li>
+	</ul>
+
+</div>
+
+<h2>0.13.5</h2>
+
+<div style="padding-left: 2em">
+
+	<h3>Fix</h3>
+	<ul>
+		<li>ClassManager: fixed an issue in Node.js environment, when generated constructor was invalid.
+			Slightly improved performance.</li>
+	</ul>
+
+</div>
+
 <h2>0.13.4</h2>
 
 <div style="padding-left: 2em">

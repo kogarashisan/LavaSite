@@ -1,4 +1,6 @@
-Lava.define('Lava.widget.UtilityWidget', {
+Lava.define(
+'Lava.widget.UtilityWidget',
+{
 
 	Extends: 'Lava.widget.Standard',
 

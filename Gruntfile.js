@@ -46,8 +46,7 @@ global.bug1135 = function(callback) {
 		try {
 			return callback();
 		} catch (e) {
-			if (typeof(e) == 'string' || typeof(e) == 'number') throw new Error(e);
-			throw e;
+			throw new Error(e);
 		}
 	}
 };
@@ -545,22 +544,24 @@ module.exports = function(grunt) {
 				files: [
 					{
 						src: [
+							global.FIRESTORM_DIRECTORY + 'lib/firestorm.js',
+							global.LAVA_CORE_DIRECTORY + 'lib/packages/core.js',
+							global.LAVA_CORE_DIRECTORY + 'lib/packages/parsers.js',
+							//global.LAVA_CORE_DIRECTORY + 'lib/packages/core-classes.js',
+							//global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-classes.js',
+							global.LAVA_CORE_DIRECTORY + 'lib/compiled/all-classes.js',
+							global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-templates.js',
+							global.LAVA_CORE_DIRECTORY + 'lib/locale/en.js',
 							"src/site.js",
 							"src/sample_data.js",
-							"src/UtilityWidget.class.js",
-							"src/EditableTableExample.class.js",
-							"src/ContentLoader.class.js",
-							"src/ChangelogPage.class.js",
-							"src/DocPage.class.js",
-							"src/QuickStartPage.class.js",
-							"src/ExamplesPage.class.js",
-							"src/WidgetsPage.class.js",
+							"build/temp/site-compiled-classes.js",
+							"build/temp/site-skeletons.js",
 							"src/ApiCommon.js",
 							"src/MooTools/More.js",
 							"src/MooTools/Fx.Scroll.js",
 							"build/temp/site_widgets.js"
 						],
-						dest: 'www/js/site.js'
+						dest: 'build/temp/site.js'
 					}
 				]
 			},
@@ -571,7 +572,7 @@ module.exports = function(grunt) {
 					global.LAVA_CORE_DIRECTORY + 'lib/packages/parsers.js',
 					global.LAVA_CORE_DIRECTORY + 'lib/packages/core-classes.js',
 					global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-classes.js',
-					//global.LAVA_CORE_DIRECTORY + 'lib/packages/all-classes-compiled.js',
+					//global.LAVA_CORE_DIRECTORY + 'lib/compiled/all-classes.js',
 					global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-templates.js',
 					global.LAVA_CORE_DIRECTORY + 'lib/locale/en.js'
 				],
@@ -632,6 +633,18 @@ module.exports = function(grunt) {
 			'tutorials/Directives.md',
 			'tutorials/Roles.md',
 			'tutorials/WidgetProperties.md'
+		],
+
+		// compiled on server
+		site_classes_list: [
+			{path: "src/classes/ContentLoader.class.js", name: "Lava.widget.ContentLoader"},
+			{path: "src/classes/UtilityWidget.class.js", name: "Lava.widget.UtilityWidget"},
+			{path: "src/classes/EditableTableExample.class.js", name: "Lava.widget.EditableTableExample"},
+			{path: "src/classes/ChangelogPage.class.js", name: "Lava.widget.ChangelogPage"},
+			{path: "src/classes/DocPage.class.js", name: "Lava.widget.DocPage"},
+			{path: "src/classes/QuickStartPage.class.js", name: "Lava.widget.QuickStartPage"},
+			{path: "src/classes/ExamplesPage.class.js", name: "Lava.widget.ExamplesPage"},
+			{path: "src/classes/WidgetsPage.class.js", name: "Lava.widget.WidgetsPage"}
 		]
 
 	});
@@ -654,10 +667,16 @@ module.exports = function(grunt) {
 		'buildDemoPageContent',
 		'buildQuickStart',
 		'buildWeb',
+		'buildSiteJS',
 		'concat:site_css',
 		'concat:public_css',
-		'concat:site_js' // depends on previous tasks, which generate files
+		// depends on previous tasks, which generate files
+		'concat:site_js',
+		'applyCompression'
 	]);
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// documentation-related
 
 	grunt.registerTask('cleanDoc', function() {
 		LavaBuild.recursiveRemoveDirectory('www/api/');

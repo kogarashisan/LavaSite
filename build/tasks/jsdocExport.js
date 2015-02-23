@@ -1,7 +1,8 @@
 
 module.exports = function(grunt) {
 
-	grunt.registerTask('jsdocExport', function() {
+	// bug1135 is commented, cause otherwise "this" will not work inside method
+	grunt.registerTask('jsdocExport', /* global.bug1135() */ function() {
 
 		var child_process = require('child_process');
 		var done = this.async();

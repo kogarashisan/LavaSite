@@ -44,6 +44,7 @@ event:
 
 var Lava = require('../../../LiquidLava');
 global.Firestorm = Lava.getFirestorm();
+global.Lava = Lava;
 require("../ApiHelper.js");
 
 var template = require('jsdoc/template'),

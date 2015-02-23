@@ -156,7 +156,7 @@ There are certain limitations to using `patch`:
 1. The class may patch only itself, and never it's child or parent classes. 
 In other words, replaced method must belong to current class.
 2. `init` method can not be removed for the root (bottom) classes, cause generated constructor still calls it.
-3. Current system allows you to replace a method only once. You can not swap them multiple times.
+3. You can replace the `init` method only once. You can not swap them multiple times.
 
 ##Patching methods
 
@@ -262,3 +262,25 @@ instance.getWay(); // returns "Way of the gun"
 As you see, you can swap methods in class instance freely. And this example supports inheritance:
 you can define a new class, which inherits from <str>"Lava.user.MyClass"</str>, override `getWay_Normal` and
 `getWay_Alternative` methods, and it will work as expected.
+
+###Performance warning
+
+Methods are served from prototype, so if you plan to assign a method dynamically - 
+then it's recommended to always assign it's initial value in constructor,
+even if initial value equals to prototype value. This reduces polymorphism and makes the class faster.
+
+As alternative, you can set value of the assigned method to <kw>null</kw> in class body, so it's assigned automatically 
+in generated constructor:
+
+```javascript
+Lava.define(
+'Lava.user.MyClass',
+{
+
+	getWay: null,
+	// ...
+
+}
+```
+
+Above applies only to classes, created in monomorphic mode ({@link Lava.ClassManager#is_monomorphic} is <kw>true</kw>).

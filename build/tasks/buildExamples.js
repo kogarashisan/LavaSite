@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 		var define_source = grunt.file.read('templates/editable_table.html');
 		define_source = define_source.replace(/^\<!\-\-[\s\S]+?\-\-\>\r?\n/, ''); // remove the topmost comment
 		makeTab(packs['EditableTable'], 'Defines', 'xml', define_source);
-		makeTab(packs['EditableTable'], 'Classes', 'javascript', grunt.file.read('src/EditableTableExample.class.js'));
+		makeTab(packs['EditableTable'], 'Classes', 'javascript', grunt.file.read('src/classes/EditableTableExample.class.js'));
 
 		for (var example_name in packs) {
 			// 1) have to use Lava serializer, cause template config contains functions

@@ -6,14 +6,12 @@ Framework does not fix bugs in plain HTML elements, even when they belong to an 
 In other words, you can create a &lt;select&gt; tag on page and bind it's <var>value</var> property with `x:bind:value` 
 syntax, but that will <b>not</b> work in all browsers, so you should not do it.
 
-If you want your input fields to work correctly - you should use framework's widgets, which implement bug fixes.
+<i>If you want your input fields to work correctly - you should use framework's widgets, which implement bug fixes.</i>
 
 ##Release notes
 
 - Framework depends on MooTools. Recommended version: 1.51 and newer, but may work with 1.45, but not older.
 - Naturally, LiquidLava and Firestorm frameworks can not coexist with code that modifies the native object's ptototype.
-- Currently, the framework cannot used with advanced/unsafe compression methods: function renaming will break it. 
-Advanced compression will be implemented later.
 - <b>IE8 and below are not supported, and probably will never be.</b>
 
 ##IE

@@ -1,5 +1,6 @@
 
 var Firestorm = global.Firestorm;
+var Lava = global.Lava;
 
 var ApiHelper = {
 
@@ -96,28 +97,32 @@ var ApiHelper = {
 
 	setDefaultValue: function(member_descriptor, type, value, is_empty) {
 
-		var default_value = null;
+		var default_value = null,
+			real_type = typeof value,
+			is_null = (type == Lava.ClassManager.MEMBER_TYPES.PRIMITIVE && value == null);
 
-		if (['null','undefined'].indexOf(type) != -1) {
-			default_value = '<span class="api-keyword">' + type + '</span>';
-		} else if (type == 'boolean') {
+		if (is_null) {
 			default_value = '<span class="api-keyword">' + value + '</span>';
-		} else if (type == 'object') {
+		} else if (type == Lava.ClassManager.MEMBER_TYPES.PRIMITIVE && real_type == "boolean") {
+			default_value = '<span class="api-keyword">' + value + '</span>';
+		} else if (type == Lava.ClassManager.MEMBER_TYPES.OBJECT) {
 			if (is_empty) {
 				default_value = '<span class="api-highlight-empty">{ }</span>';
 			} else {
 				default_value = '<span class="api-highlight-gray">{ ... }</span>';
 			}
-		} else if (type == 'inlineArray' && is_empty) {
+		} else if (type == Lava.ClassManager.MEMBER_TYPES.EMPTY_ARRAY) {
 			default_value = '<span class="api-highlight-empty">[ ]</span>';
-		} else if (type == 'inlineArray' || type == 'sliceArray') {
+		} else if (type == Lava.ClassManager.MEMBER_TYPES.INLINE_ARRAY || type == Lava.ClassManager.MEMBER_TYPES.SLICE_ARRAY) {
 			default_value = '<span class="api-highlight-gray">[ ... ]</span>';
-		} else if (type == 'number') {
+		} else if (type == Lava.ClassManager.MEMBER_TYPES.PRIMITIVE && real_type == 'number') {
 			default_value = value;
-		} else if (type == 'string') {
+		} else if (type == Lava.ClassManager.MEMBER_TYPES.STRING) {
 			default_value = '<span class="api-string">' + Firestorm.String.quote(value) + '</span>';
-		} else if (type == 'regexp') {
+		} else if (type == Lava.ClassManager.MEMBER_TYPES.REGEXP) {
 			default_value = '<span class="api-highlight-gray">/ ... /</span>';
+		} else {
+			Lava.t();
 		}
 
 		if (default_value != null) member_descriptor.default_value = default_value;
@@ -126,22 +131,35 @@ var ApiHelper = {
 
 	setDefaultFromValue: function(member_descriptor, value) {
 
+		var map = {
+			"function": Lava.ClassManager.MEMBER_TYPES.FUNCTION,
+			"null": Lava.ClassManager.MEMBER_TYPES.PRIMITIVE,
+			"undefined": Lava.ClassManager.MEMBER_TYPES.PRIMITIVE,
+			"boolean": Lava.ClassManager.MEMBER_TYPES.PRIMITIVE,
+			"number": Lava.ClassManager.MEMBER_TYPES.PRIMITIVE,
+			"string": Lava.ClassManager.MEMBER_TYPES.STRING,
+			"regexp": Lava.ClassManager.MEMBER_TYPES.REGEXP,
+		};
+
 		var is_empty = false;
 		var member_type = Firestorm.getType(value);
-		if (['object', 'function', 'array', 'null', 'undefined', 'boolean', 'number', 'string', 'regexp'].indexOf(member_type) == -1) throw new Error();
+		if (['object', 'array', 'function', 'null', 'undefined', 'boolean', 'number', 'string', 'regexp'].indexOf(member_type) == -1) throw new Error();
 		if (member_type == 'array') {
 			if (value.length == 0) {
 				is_empty = true;
-				member_type = 'inlineArray';
-			} else if (Lava.ClassManager.INLINE_SIMPLE_ARRAYS && Lava.ClassManager.isInlineArray(value)) {
-				member_type = 'inlineArray';
+				member_type = Lava.ClassManager.MEMBER_TYPES.EMPTY_ARRAY;
+			} else if (Lava.ClassManager.inline_simple_arrays && Lava.ClassManager.isInlineArray(value)) {
+				member_type = Lava.ClassManager.MEMBER_TYPES.INLINE_ARRAY;
 			} else {
-				member_type = 'sliceArray';
+				member_type = Lava.ClassManager.MEMBER_TYPES.SLICE_ARRAY;
 			}
 		} else if (member_type == 'object') {
 			if (Firestorm.Object.isEmpty(value)) {
 				is_empty = true;
 			}
+			member_type = Lava.ClassManager.MEMBER_TYPES.OBJECT;
+		} else {
+			member_type = map[member_type];
 		}
 		ApiHelper.setDefaultValue(member_descriptor, member_type, value, is_empty);
 
@@ -168,5 +186,14 @@ var ApiHelper = {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 };
+
+/*
+ApiHelper.TYPE_TRANSLATIONS[Lava.ClassManager.MEMBER_TYPES.FUNCTION] = 'function';
+ApiHelper.TYPE_TRANSLATIONS[Lava.ClassManager.MEMBER_TYPES.OBJECT] = 'object';
+ApiHelper.TYPE_TRANSLATIONS[Lava.ClassManager.MEMBER_TYPES.STRING] = 'string';
+ApiHelper.TYPE_TRANSLATIONS[Lava.ClassManager.MEMBER_TYPES.REGEXP] = 'regexp';
+ApiHelper.TYPE_TRANSLATIONS[Lava.ClassManager.MEMBER_TYPES.EMPTY_ARRAY] = 'array';
+ApiHelper.TYPE_TRANSLATIONS[Lava.ClassManager.MEMBER_TYPES.INLINE_ARRAY] = 'inlineArray';
+ApiHelper.TYPE_TRANSLATIONS[Lava.ClassManager.MEMBER_TYPES.SLICE_ARRAY] = 'array';*/
 
 global.ApiHelper = ApiHelper;

@@ -2,3 +2,4 @@
 /.idea
 /.ssh
 /build/temp/*
+/site.js.map

@@ -361,14 +361,14 @@ module.exports = function(grunt) {
 				if (name in skeleton) { // name may be a directive, like Shared or Extends
 
 					longname = cd.path + '#' + name;
-					var jsdoc_descriptor = getJSDocDescriptor(longname, (skeleton[name].type == 'function'));
+					var jsdoc_descriptor = getJSDocDescriptor(longname, (skeleton[name].type == Lava.ClassManager.MEMBER_TYPES.FUNCTION));
 
 					member_descriptor = {
 						name: name,
 						belongs: cd.path, // if the member is overridden - this is set to the overriding class
 						defined: cd.path, // the first class in inheritance chain, where the member was defined. Never changes.
 						is_private: name[0] == '_',
-						type: (skeleton[name].type == 'function') ? 'function' : 'member'
+						type: (skeleton[name].type == Lava.ClassManager.MEMBER_TYPES.FUNCTION) ? 'function' : 'member'
 					};
 					if (is_mixin) member_descriptor.is_from_mixin = true;
 
@@ -387,7 +387,8 @@ module.exports = function(grunt) {
 							//descriptor.default = jsdoc_descriptor.default_value;
 							throw new Error('TODO buildDoc: member with default value in import data: ' + longname);
 						}
-						var is_empty = skeleton[name].is_empty || (skeleton[name].type == 'object' && Firestorm.Object.isEmpty(skeleton[name].skeleton));
+						var is_empty = (skeleton[name].type == Lava.ClassManager.MEMBER_TYPES.EMPTY_ARRAY)
+							|| (skeleton[name].type == Lava.ClassManager.MEMBER_TYPES.OBJECT && Firestorm.Object.isEmpty(skeleton[name].skeleton));
 						ApiHelper.setDefaultValue(member_descriptor, skeleton[name].type, skeleton[name].value, is_empty);
 
 						ApiHelper.importVars(member_descriptor, jsdoc_descriptor, ['is_nullable', 'is_non_nullable', 'is_readonly', 'type_names', 'is_constant', 'description']);
@@ -577,7 +578,8 @@ module.exports = function(grunt) {
 						name: name
 					};
 					if (name[0] == '_') export_descriptor.is_private = true;
-					var is_empty = proeprties_skeleton[name].is_empty || (proeprties_skeleton[name].type == 'object' && Firestorm.Object.isEmpty(proeprties_skeleton[name].skeleton));
+					var is_empty = (proeprties_skeleton[name].type == Lava.ClassManager.MEMBER_TYPES.EMPTY_ARRAY)
+						|| (proeprties_skeleton[name].type == Lava.ClassManager.MEMBER_TYPES.OBJECT && Firestorm.Object.isEmpty(proeprties_skeleton[name].skeleton));
 					ApiHelper.setDefaultValue(export_descriptor, proeprties_skeleton[name].type, proeprties_skeleton[name].value, is_empty);
 
 					if (longname in jsdoc_data) {
