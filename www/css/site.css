@@ -697,8 +697,6 @@ body {padding-top: 0}
 	.lava-dropdown-menu {position: inherit;float: none}
 }
 
-.lava-as-fast-link {white-space: nowrap}
-
 /* sticky footer */
 footer {}
 .lava-footer-index {background: rgb(49,49,49)}

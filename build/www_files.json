@@ -28,7 +28,8 @@
 			{"title": "Core", "href": "https://github.com/kogarashisan/LiquidLava/", "is_blank": true},
 			{"title": "ClassManager", "href": "https://github.com/kogarashisan/ClassManager/", "is_blank": true},
 			{"title": "Firestorm", "href": "https://github.com/kogarashisan/Firestorm/", "is_blank": true},
-			{"title": "Site", "href": "https://github.com/kogarashisan/LavaSite/", "is_blank": true}
+			{"title": "Site", "href": "https://github.com/kogarashisan/LavaSite/", "is_blank": true},
+			{"title": "Performance tests", "href": "https://github.com/kogarashisan/PerfTests", "is_blank": true}
 		]},
 		{"title": "Widgets", "href": "/www/widgets.html"},
 		{"title": "About", "href": "/www/about.html"}
