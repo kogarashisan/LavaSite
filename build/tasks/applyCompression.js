@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 		var UglifyJS = require('uglify-js');
 
 		var result = UglifyJS.minify(['build/temp/site.js'], {
-			outSourceMap: "/site.js.map",
+			//outSourceMap: "/site.js.map",
 			mangle: true,
 				// sort
 				// toplevel
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
 		});
 
 		grunt.file.write("www/js/site.js", result.code);
-		grunt.file.write("site.js.map", result.map);
+		//grunt.file.write("site.js.map", result.map);
 
 	}));
 
