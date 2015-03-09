@@ -1,5 +1,6 @@
-
 #Classes
+
+<i>Update 09.03.15: "polymorphic mode" and "full export" features are deprecated.</i>
 
 ClassManager generates class constructors from class bodies. Generated constructor assigns instance properties 
 and calls `init()`, if it exists. Methods and other shared members are assigned to generated constructor's prototype.
