@@ -5,7 +5,7 @@
 global.LAVA_CORE_DIRECTORY = 'D:/LiquidLava/';
 global.FIRESTORM_DIRECTORY = 'D:/Firestorm/';
 
-global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS = ['sugar', 'storage', 'storage_schema', 'edit_template', 'include'];
+global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS = ['sugar', 'storage', 'storage_schema', 'include'];
 global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS = ['bind', 'assign', 'option', 'property', 'options', 'properties', 'roles', 'resources', 'default_events'];
 global.WIDGET_ONLY_DIRECTIVES = ['bind', 'property', 'properties', 'property_string', 'resources', 'default_events'];
 global.DIRECTIVE_NAMES = ['define', 'define_resources', 'widget', 'static_value', 'static_eval', 'attach_directives',
@@ -559,7 +559,8 @@ module.exports = function(grunt) {
 							"src/ApiCommon.js",
 							"src/MooTools/More.js",
 							"src/MooTools/Fx.Scroll.js",
-							"build/temp/site_widgets.js"
+							"build/temp/site_widgets.js",
+							"build/suffix.js"
 						],
 						dest: 'build/temp/site.js'
 					}

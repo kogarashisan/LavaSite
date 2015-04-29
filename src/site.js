@@ -10,7 +10,7 @@ var SafeRequest = new Class({
 var Examples = {
 
 	/**
-	 * Recursively turn argument into Enumerable and Properties.
+	 * Recursively turn argument into Enumerable and Properties to allow binding
 	 * @param arg
 	 */
 	makeLive: function(arg) {
