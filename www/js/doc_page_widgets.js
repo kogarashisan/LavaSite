@@ -9,17 +9,26 @@ Lava.widgets["ClassContent"] = {
 			"class": "If",
 			argument: {
 				evaluator: function() {
-return (this._binds[0].getValue());
+return (this._binds[0].getValue() || this._binds[1].getValue());
 },
-				flags: {isScopeEval: true},
-				binds: [{
-					locator_type: "Name",
-					locator: "widget",
-					tail: [
-						"descriptor",
-						"extends"
-					]
-				}]
+				binds: [
+					{
+						locator_type: "Name",
+						locator: "widget",
+						tail: [
+							"descriptor",
+							"extends"
+						]
+					},
+					{
+						locator_type: "Name",
+						locator: "widget",
+						tail: [
+							"descriptor",
+							"implements"
+						]
+					}
+				]
 			},
 			template: [
 				"\r\n\t\t\t\t<div class=\"api-extends-box\">\r\n\t\t\t\t\t<div class=\"api-extends-box-header\">\r\n\t\t\t\t\t\t<span class=\"api-extends-box-header-left\">EXTENDS</span>\r\n\t\t\t\t\t\t",
@@ -28,17 +37,26 @@ return (this._binds[0].getValue());
 					"class": "If",
 					argument: {
 						evaluator: function() {
-return (this._binds[0].getValue());
+return (this._binds[0].getValue() || this._binds[1].getValue());
 },
-						flags: {isScopeEval: true},
-						binds: [{
-							locator_type: "Name",
-							locator: "widget",
-							tail: [
-								"descriptor",
-								"has_implements"
-							]
-						}]
+						binds: [
+							{
+								locator_type: "Name",
+								locator: "widget",
+								tail: [
+									"descriptor",
+									"has_implements"
+								]
+							},
+							{
+								locator_type: "Name",
+								locator: "widget",
+								tail: [
+									"descriptor",
+									"implements"
+								]
+							}
+						]
 					},
 					template: ["\r\n\t\t\t\t\t\t\t<span class=\"api-extends-box-header-right\">IMPLEMENTS</span>\r\n\t\t\t\t\t\t"]
 				},
@@ -118,9 +136,14 @@ return (this._binds[0].getValue());
 										property_bindings: {
 											href: {
 												evaluator: function() {
-return ('#object=' + this._binds[0].getValue());
+return (this._callModifier("0", ['object', this._binds[0].getValue()]));
 },
-												binds: [{property_name: "name"}]
+												binds: [{property_name: "name"}],
+												modifiers: [{
+													locator_type: "Id",
+													locator: "page",
+													callback_name: "render_link"
+												}]
 											}
 										}
 									}
@@ -172,11 +195,16 @@ return (this._binds[0].getValue());
 								property_bindings: {
 									href: {
 										evaluator: function() {
-return ('#object=' + this._binds[0].getValue());
+return (this._callModifier("0", ['object', this._binds[0].getValue()]));
 },
 										binds: [{
 											property_name: "chain_block",
 											tail: ["extends"]
+										}],
+										modifiers: [{
+											locator_type: "Id",
+											locator: "page",
+											callback_name: "render_link"
 										}]
 									}
 								}
@@ -231,9 +259,14 @@ return (this._binds[0].getValue());
 												property_bindings: {
 													href: {
 														evaluator: function() {
-return ('#object=' + this._binds[0].getValue());
+return (this._callModifier("0", ['object', this._binds[0].getValue()]));
 },
-														binds: [{property_name: "name"}]
+														binds: [{property_name: "name"}],
+														modifiers: [{
+															locator_type: "Id",
+															locator: "page",
+															callback_name: "render_link"
+														}]
 													}
 												}
 											}
@@ -369,11 +402,16 @@ return (this._binds[0].getValue());
 										property_bindings: {
 											href: {
 												evaluator: function() {
-return ('#object=Widgets;member=' + this._binds[0].getValue());
+return (this._callModifier("0", ['object', 'Widgets', 'member=' + this._binds[0].getValue()]));
 },
 												binds: [{
 													property_name: "data",
 													tail: ["title"]
+												}],
+												modifiers: [{
+													locator_type: "Id",
+													locator: "page",
+													callback_name: "render_link"
 												}]
 											}
 										}
@@ -497,8 +535,8 @@ return (this._callModifier("0", [this._binds[0].getValue(), 'api-member-table', 
 							]
 						}],
 						modifiers: [{
-							locator_type: "Id",
-							locator: "page",
+							locator_type: "Name",
+							locator: "widget",
 							callback_name: "render_params"
 						}]
 					},
@@ -650,11 +688,16 @@ return ('Lava.types.' + this._binds[0].getValue());
 												property_bindings: {
 													href: {
 														evaluator: function() {
-return ('#object=Lava.types;member=' + this._binds[0].getValue());
+return (this._callModifier("0", ['object', 'Lava.types', 'member=' + this._binds[0].getValue()]));
 },
 														binds: [{
 															property_name: "descriptor",
 															tail: ["lava_type"]
+														}],
+														modifiers: [{
+															locator_type: "Id",
+															locator: "page",
+															callback_name: "render_link"
 														}]
 													}
 												}
@@ -834,8 +877,8 @@ return (this._binds[0].getValue());
 								static_classes: ["api-member-row"],
 								events: {
 									click: [{
-										locator_type: "Id",
-										locator: "page",
+										locator_type: "Name",
+										locator: "widget",
 										name: "member_row_click",
 										arguments: [{
 											type: 2,
@@ -940,8 +983,8 @@ return (this._binds[0].getValue());
 },
 								flags: {isScopeEval: true},
 								binds: [{
-									locator_type: "Id",
-									locator: "page",
+									locator_type: "Name",
+									locator: "widget",
 									tail: [
 										"meta_storage",
 										{
@@ -978,8 +1021,8 @@ return (this._callModifier("0", [this._binds[0].getValue()]));
 },
 												binds: [{property_name: "descriptor"}],
 												modifiers: [{
-													locator_type: "Id",
-													locator: "page",
+													locator_type: "Name",
+													locator: "widget",
 													callback_name: "render_event_ext"
 												}]
 											},
@@ -1250,9 +1293,14 @@ return (this._binds[0].getValue());
 														property_bindings: {
 															href: {
 																evaluator: function() {
-return ('#object=Support;member=' + this._binds[0].getValue());
+return (this._callModifier("0", ['object', 'Support', 'member=' + this._binds[0].getValue()]));
 },
-																binds: [{property_name: "name"}]
+																binds: [{property_name: "name"}],
+																modifiers: [{
+																	locator_type: "Id",
+																	locator: "page",
+																	callback_name: "render_link"
+																}]
 															}
 														}
 													}
@@ -1500,8 +1548,8 @@ return (this._binds[0].getValue());
 							static_classes: ["api-member-row"],
 							events: {
 								click: [{
-									locator_type: "Id",
-									locator: "page",
+									locator_type: "Name",
+									locator: "widget",
 									name: "member_row_click",
 									arguments: [{
 										type: 2,
@@ -1661,8 +1709,8 @@ return (this._binds[0].getValue());
 },
 							flags: {isScopeEval: true},
 							binds: [{
-								locator_type: "Id",
-								locator: "page",
+								locator_type: "Name",
+								locator: "widget",
 								tail: [
 									"meta_storage",
 									{
@@ -1699,8 +1747,8 @@ return (this._callModifier("0", [this._binds[0].getValue(), 'api-member-inner-ta
 },
 											binds: [{property_name: "descriptor"}],
 											modifiers: [{
-												locator_type: "Id",
-												locator: "page",
+												locator_type: "Name",
+												locator: "widget",
 												callback_name: "render_method_extended"
 											}]
 										},
@@ -1984,13 +2032,7 @@ return (this._binds[0].getValue());
 			"\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t\t\r\n\t"
 		]
 	},
-	properties: {
-		extended_scroll_names: false,
-		object: null,
-		descriptor: null,
-		extended_descriptor: null
-	},
-	real_class: "Standard",
+	real_class: "DocClassView",
 	is_extended: false
 };
 Lava.widgets["ApiTree"] = {
@@ -2080,7 +2122,7 @@ return (this._binds[0].getValue());
 							events: {
 								click: [{
 									locator_type: "Name",
-									locator: "page",
+									locator: "tree",
 									name: "node_click",
 									arguments: [{
 										type: 2,
@@ -2091,7 +2133,7 @@ return (this._binds[0].getValue());
 							property_bindings: {
 								href: {
 									evaluator: function() {
-return ('#' + this._binds[0].getValue() + '=' + this._binds[1].getValue());
+return (this._callModifier("0", [this._binds[0].getValue(), this._binds[1].getValue()]));
 },
 									binds: [
 										{
@@ -2102,7 +2144,12 @@ return ('#' + this._binds[0].getValue() + '=' + this._binds[1].getValue());
 											property_name: "node",
 											tail: ["name"]
 										}
-									]
+									],
+									modifiers: [{
+										locator_type: "Id",
+										locator: "page",
+										callback_name: "render_link"
+									}]
 								}
 							}
 						}
@@ -2361,7 +2408,7 @@ return (this._binds[0].getValue());
 },
 								flags: {isScopeEval: true},
 								binds: [{
-									locator_type: "Name",
+									locator_type: "Id",
 									locator: "page",
 									tail: ["tutorials_nav_tree"]
 								}]
@@ -2405,7 +2452,7 @@ return (this._binds[0].getValue());
 },
 								flags: {isScopeEval: true},
 								binds: [{
-									locator_type: "Name",
+									locator_type: "Id",
 									locator: "page",
 									tail: ["reference_nav_tree"]
 								}]
@@ -2450,7 +2497,7 @@ return (this._binds[0].getValue());
 },
 								flags: {isScopeEval: true},
 								binds: [{
-									locator_type: "Name",
+									locator_type: "Id",
 									locator: "page",
 									tail: ["api_tree"]
 								}]
@@ -2468,21 +2515,18 @@ return (this._binds[0].getValue());
 							type: "Element",
 							tag_name: "a",
 							static_classes: ["api-system-link"],
-							static_properties: {href: "#object=Widgets"},
-							events: {
-								click: [{
-									locator_type: "Name",
-									locator: "page",
-									name: "node_click",
-									arguments: [{
-										type: 2,
-										data: {
-											locator_type: "Id",
-											locator: "page",
-											tail: ["sugar_descriptor"]
-										}
+							property_bindings: {
+								href: {
+									evaluator: function() {
+return (this._callModifier("0", ['object', 'Widgets']));
+},
+									flags: {isStatic: true},
+									modifiers: [{
+										locator_type: "Id",
+										locator: "page",
+										callback_name: "render_link"
 									}]
-								}]
+								}
 							}
 						},
 						template: ["Widgets"]
@@ -2495,21 +2539,18 @@ return (this._binds[0].getValue());
 							type: "Element",
 							tag_name: "a",
 							static_classes: ["api-system-link"],
-							static_properties: {href: "#object=Support"},
-							events: {
-								click: [{
-									locator_type: "Name",
-									locator: "page",
-									name: "node_click",
-									arguments: [{
-										type: 2,
-										data: {
-											locator_type: "Id",
-											locator: "page",
-											tail: ["support_descriptor"]
-										}
+							property_bindings: {
+								href: {
+									evaluator: function() {
+return (this._callModifier("0", ['object', 'Support']));
+},
+									flags: {isStatic: true},
+									modifiers: [{
+										locator_type: "Id",
+										locator: "page",
+										callback_name: "render_link"
 									}]
-								}]
+								}
 							}
 						},
 						template: ["Support"]
@@ -2524,7 +2565,7 @@ return (this._binds[0].getValue());
 },
 								flags: {isScopeEval: true},
 								binds: [{
-									locator_type: "Name",
+									locator_type: "Id",
 									locator: "page",
 									tail: ["firestorm_api_tree"]
 								}]

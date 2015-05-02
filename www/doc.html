@@ -4,28 +4,18 @@
 	<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
 <link rel="shortcut icon" href="/favicon.ico">
-
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-<![endif]-->
 <link rel="stylesheet" href="/www/css/site.css">
 
-<!-- cause site is also accessible via kogarashisan.github.io -->
+
 <link rel="canonical" href="http://www.lava-framework.com/www/doc.html"/>
 	<title>Documentation | LiquidLava Framework</title>
 	<script src="/www/js/doc_nav_trees.js"></script>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
 	<script src="/www/js/site.js"></script>
+	<!--PAGE_SCRIPT_START-->
 	<script>
-		if (window.location.href.indexOf('://kogarashisan.github.io/LiquidLava') > 0) {
-			window.location.href = 'http://www.lava-framework.com/www/doc.html';
-		}
 		Site.pages['www/doc'] = {
 	type: "widget",
 	"class": "DocPage",
@@ -155,14 +145,7 @@ return ((this._binds[0].getValue()) ? 'block' : 'none');
 				type: "Element",
 				tag_name: "div",
 				static_classes: ["col-md-9"],
-				static_properties: {role: "main"},
-				events: {
-					click: [{
-						locator_type: "Name",
-						locator: "page",
-						name: "content_area_click"
-					}]
-				}
+				static_properties: {role: "main"}
 			},
 			id: "content_area",
 			template: ["\r\n\r\n\t\t\t"]
@@ -194,6 +177,7 @@ return ((this._binds[0].getValue()) ? 'block' : 'none');
 };
 		Site.bootstrap("www/doc");
 	</script>
+	<!--PAGE_SCRIPT_END-->
 	<script src="/www/js/doc_page_widgets.js"></script>
 </head>
 

@@ -7,13 +7,12 @@
 
 	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
 	<script src="/www/js/site.js"></script>
+	<!--PAGE_SCRIPT_START-->
 	<script>
-		if (window.location.href.indexOf('://kogarashisan.github.io/LiquidLava') > 0) {
-			window.location.href = 'http://www.lava-framework.com/<%var:page_path%>.html';
-		}
 		/*%generator:page_script%*/
 		Site.bootstrap("<%var:page_path%>");
 	</script>
+	<!--PAGE_SCRIPT_END-->
 	<%generator:header_bottom_include%>
 </head>
 

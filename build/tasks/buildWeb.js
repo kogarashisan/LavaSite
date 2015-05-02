@@ -208,10 +208,7 @@ module.exports = function(grunt) {
 		};
 
 		function processTemplates(src) {
-			src = src.replace(/(?:\/\*|\<)\%include\:(.+?)\%(?:\>|\*\/)/g, function(_, include_name) {
-				if (!(include_name in includes)) throw new Error();
-				return processTemplates(includes[include_name]);
-			});
+			src = src.replace(/<!--\{\*.+?\*\}-->/g, "");
 			src = src.replace(/(?:\/\*|\<)\%var\:(.+?)\%(?:\>|\*\/)/g, function(_, var_name) {
 				if (!(var_name in vars)) throw new Error();
 				return vars[var_name];
@@ -219,6 +216,10 @@ module.exports = function(grunt) {
 			src = src.replace(/(?:\/\*|\<)\%generator\:(.+?)\%(?:\>|\*\/)/g, function(_, generator_name) {
 				if (!(generator_name in generators)) throw new Error();
 				return generators[generator_name]();
+			});
+			src = src.replace(/(?:\/\*|\<)\%include\:(.+?)\%(?:\>|\*\/)/g, function(_, include_name) {
+				if (!(include_name in includes)) throw new Error();
+				return processTemplates(includes[include_name]);
 			});
 			return src;
 		}

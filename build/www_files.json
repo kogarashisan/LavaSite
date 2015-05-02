@@ -35,15 +35,15 @@
 		{"title": "About", "href": "/www/about.html"}
 	],
 	"widget_descriptors": [
-		{"title": "Collapsible", "api_href": "/www/doc.html#class=Lava.widget.Collapsible"},
-		{"title": "CollapsiblePanel", "api_href": "/www/doc.html#class=Lava.widget.CollapsiblePanel"},
-		{"title": "CollapsiblePanelExt", "api_href": "/www/doc.html#class=Lava.widget.CollapsiblePanelExt"},
-		{"title": "Accordion", "api_href": "/www/doc.html#class=Lava.widget.Accordion"},
-		{"title": "Tabs", "api_href": "/www/doc.html#class=Lava.widget.Tabs"},
-		{"title": "Tooltip", "api_href": "/www/doc.html#class=Lava.widget.Tooltip", "api_title": "API (Widget)"},
-		{"title": "Dropdown", "api_href": "/www/doc.html#class=Lava.widget.DropDown"},
-		{"title": "Table", "api_href": "/www/doc.html#class=Lava.widget.Table"},
-		{"title": "Calendar", "api_href": "/www/doc.html#class=Lava.widget.Calendar"},
-		{"title": "Tree", "api_href": "/www/doc.html#class=Lava.widget.Tree"}
+		{"title": "Collapsible", "api_href": "/www/doc/class/Lava.widget.Collapsible.html"},
+		{"title": "CollapsiblePanel", "api_href": "/www/doc/class/Lava.widget.CollapsiblePanel.html"},
+		{"title": "CollapsiblePanelExt", "api_href": "/www/doc/class/Lava.widget.CollapsiblePanelExt.html"},
+		{"title": "Accordion", "api_href": "/www/doc/class/Lava.widget.Accordion.html"},
+		{"title": "Tabs", "api_href": "/www/doc/class/Lava.widget.Tabs.html"},
+		{"title": "Tooltip", "api_href": "/www/doc/class/Lava.widget.Tooltip.html", "api_title": "API (Widget)"},
+		{"title": "Dropdown", "api_href": "/www/doc/class/Lava.widget.DropDown.html"},
+		{"title": "Table", "api_href": "/www/doc/class/Lava.widget.Table.html"},
+		{"title": "Calendar", "api_href": "/www/doc/class/Lava.widget.Calendar.html"},
+		{"title": "Tree", "api_href": "/www/doc/class/Lava.widget.Tree.html"}
 	]
 }

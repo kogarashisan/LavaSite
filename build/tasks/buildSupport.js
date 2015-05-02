@@ -109,10 +109,11 @@ module.exports = function(grunt) {
 			});
 		}
 
-		fs.writeFileSync('www/api/Support.js', JSON.stringify({
+		fs.writeFileSync('www/api/Support.js', "var page_json = " + JSON.stringify({
 			description: result,
 			support_objects: jsdoc_support.objects
 		}));
+		LavaBuild.createItemDocPage("object", "Support");
 
 	}));
 

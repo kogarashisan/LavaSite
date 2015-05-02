@@ -1,12 +1,12 @@
-<x:define title="ClassContent" controller="Standard">
+<x:define title="ClassContent" controller="DocClassView">
 	<view>
 		<div x:type="view">
 
-			{#if($widget.descriptor.extends)}
+			{#if($widget.descriptor.extends || $widget.descriptor.implements)}
 				<div class="api-extends-box">
 					<div class="api-extends-box-header">
 						<span class="api-extends-box-header-left">EXTENDS</span>
-						{#if($widget.descriptor.has_implements)}
+						{#if($widget.descriptor.has_implements || $widget.descriptor.implements)}
 							<span class="api-extends-box-header-right">IMPLEMENTS</span>
 						{/if}
 					</div>
@@ -15,7 +15,7 @@
 						{#if($widget.descriptor.implements)}
 							<div class="api-extends-right">
 								{#foreach($widget.descriptor.implements) as=name}
-									<a x:bind:href="'#object=' + name" x:type="container" class="api-extends-link">{#>name}</a>
+									<a x:bind:href="#page.render_link('object', name)" x:type="container" class="api-extends-link">{#>name}</a>
 								{/foreach}
 							</div>
 						{/if}
@@ -23,12 +23,12 @@
 					{#foreach($widget.descriptor.extends_chain) as=chain_block}
 						<div class="api-extends-box-block">
 							<div class="api-extends-left">
-								<a x:bind:href="'#object=' + chain_block.extends" x:type="container" class="api-extends-link">{#>chain_block.extends}</a>
+								<a x:bind:href="#page.render_link('object', chain_block.extends)" x:type="container" class="api-extends-link">{#>chain_block.extends}</a>
 							</div>
 							{#if(chain_block.implements)}
 							<div class="api-extends-right">
 								{#foreach(chain_block.implements) as=name}
-									<a x:bind:href="'#object=' + name" x:type="container" class="api-extends-link">{#>name}</a>
+									<a x:bind:href="#page.render_link('object', name)" x:type="container" class="api-extends-link">{#>name}</a>
 								{/foreach}
 							</div>
 							{/if}
@@ -46,7 +46,7 @@
 				<div><b>Widgets that use this class as controller:</b></div>
 				<div>
 					{#foreach($widget.extended_descriptor.associated_widgets) as=data}
-						{#>data.title} {#if(data.has_sugar)}(<a x:type="view" x:bind:href="'#object=Widgets;member=' + data.title">sugar</a>){/if}
+						{#>data.title} {#if(data.has_sugar)}(<a x:type="view" x:bind:href="#page.render_link('object','Widgets','member=' + data.title)">sugar</a>){/if}
 					{/foreach}
 				</div>
 			{/if}
@@ -63,7 +63,7 @@
 
 			{#if($widget.extended_descriptor.config_options)}
 				<h2 class="api-table-header">Config options</h2>
-				{#expression(#page.render_params($widget.extended_descriptor.config_options, 'api-member-table', 'config:')) escape_off}{/expression}
+				{#expression($widget.render_params($widget.extended_descriptor.config_options, 'api-member-table', 'config:')) escape_off}{/expression}
 			{/if}
 
 			{$if($widget.extended_descriptor.properties)}
@@ -89,7 +89,7 @@
 							<td class="api-name-column">{#>descriptor.name}</td>
 							<td>
 								{#if(descriptor.lava_type)}
-									<a x:type="container" class="api-lava-type-link" x:bind:href="'#object=Lava.types;member=' + descriptor.lava_type">
+									<a x:type="container" class="api-lava-type-link" x:bind:href="#page.render_link('object','Lava.types','member=' + descriptor.lava_type)">
 										{#>'Lava.types.' + descriptor.lava_type}
 									</a>
 								{elseif(descriptor.type_names)}
@@ -128,7 +128,7 @@
 						<tr x:type="view"
 							class="api-member-row"
 							x:classes="(descriptor.type_names || descriptor.params) ? 'api-member-row-expandable' : ''"
-							x:event:click="#page.member_row_click(descriptor)"
+							x:event:click="$widget.member_row_click(descriptor)"
 							x:bind:data-scroll-name="'event:' + descriptor.name">
 							<td class="api-flag-td">
 								<img title="Event" src="/www/design/event.png" />
@@ -141,7 +141,7 @@
 								<td></td>
 							{/if}
 						</tr>
-						{$if(#page.meta_storage[descriptor.guid].is_expanded)}
+						{$if($widget.meta_storage[descriptor.guid].is_expanded)}
 							<x:container_config>
 								{
 									type: "Emulated",
@@ -153,7 +153,7 @@
 							<x:refresher>{type: 'Standard'}</x:refresher>
 							<tr x:type="view" class="api-member-extended-row">
 								<td colspan="3">
-									{#expression(#page.render_event_ext(descriptor)) escape_off}{/expression}
+									{#expression($widget.render_event_ext(descriptor)) escape_off}{/expression}
 								</td>
 								<td class="api-member-cell-expandable"></td>
 							</tr>
@@ -188,7 +188,7 @@
 						{#if(object.extends_list)}
 							<span class="api-support-extends-list">@extends</span>
 							{#foreach(object.extends_list) as=name}
-								<a x:type="container" x:bind:href="'#object=Support;member=' + name">{#>name}</a>
+								<a x:type="container" x:bind:href="#page.render_link('object','Support','member=' + name)">{#>name}</a>
 							{/foreach}
 						{/if}
 					</h3>
@@ -232,7 +232,7 @@
 			{#foreach(method_group.descriptors) as=descriptor}
 				<tr x:type="view" class="api-member-row"
 					x:classes="(descriptor.returns || descriptor.params) ? 'api-member-row-expandable' : ''"
-					x:event:click="#page.member_row_click(descriptor)"
+					x:event:click="$widget.member_row_click(descriptor)"
 					x:bind:data-scroll-name="'member:' + (extended_scroll_names ? object.name + '.' : '') + descriptor.name">
 					<td class="api-flag-td">
 						{#if(descriptor.is_private)}
@@ -252,7 +252,7 @@
 						<td></td>
 					{/if}
 				</tr>
-				{$if(#page.meta_storage[descriptor.guid].is_expanded)}
+				{$if($widget.meta_storage[descriptor.guid].is_expanded)}
 					<x:container_config>
 						{
 							type: "Emulated",
@@ -264,7 +264,7 @@
 					<x:refresher>{type: 'Standard'}</x:refresher>
 					<tr x:type="view" class="api-member-extended-row">
 						<td colspan="3">
-							{#expression(#page.render_method_extended(descriptor, 'api-member-inner-table')) escape_off}{/expression}
+							{#expression($widget.render_method_extended(descriptor, 'api-member-inner-table')) escape_off}{/expression}
 						</td>
 						<td class="api-member-cell-expandable"></td>
 					</tr>
@@ -324,14 +324,6 @@
 		</table>
 		</script>
 	</include>
-	<script type="lava/options" x:equiv="properties">
-		{
-			extended_scroll_names: false,
-			object: null,
-			descriptor: null,
-			extended_descriptor: null
-		}
-	</script>
 </x:define>
 
 <x:define title="ApiTree" extends="FolderTree">
@@ -343,7 +335,7 @@
 				{#>node.title}
 			</span>
 		{else}
-			<a class="lava-tree-title" x:bind:href="'#' + node.type + '=' + node.name" x:type="container" x:event:click="$page.node_click(node)">
+			<a class="lava-tree-title" x:bind:href="#page.render_link(node.type,node.name)" x:type="container" x:event:click="$tree.node_click(node)">
 				{#>node.title}
 			</a>
 		{/if}
@@ -388,7 +380,7 @@
 				<content>
 					<div class="api-tree-header">Tutorials</div>
 					<x:widget extends="ApiTree">
-						<assign name="records">$page.tutorials_nav_tree</assign>
+						<assign name="records">#page.tutorials_nav_tree</assign>
 					</x:widget>
 				</content>
 			</tab>
@@ -399,7 +391,7 @@
 				<content>
 					<div class="api-tree-header">Reference</div>
 					<x:widget extends="ApiTree">
-						<assign name="records">$page.reference_nav_tree</assign>
+						<assign name="records">#page.reference_nav_tree</assign>
 					</x:widget>
 				</content>
 			</tab>
@@ -410,13 +402,13 @@
 				<content>
 					<div class="api-tree-header">LiquidLava API</div>
 					<x:widget extends="ApiTree">
-						<assign name="records">$page.api_tree</assign>
+						<assign name="records">#page.api_tree</assign>
 					</x:widget>
-					<a class="api-system-link" x:type="view" x:event:click="$page.node_click(#page.sugar_descriptor)" href="#object=Widgets">Widgets</a>
-					<a class="api-system-link" x:type="view" x:event:click="$page.node_click(#page.support_descriptor)" href="#object=Support">Support</a>
+					<a class="api-system-link" x:type="view" x:bind:href="#page.render_link('object','Widgets')">Widgets</a>
+					<a class="api-system-link" x:type="view" x:bind:href="#page.render_link('object','Support')">Support</a>
 					<div class="api-tree-header">Firestorm API</div>
 					<x:widget extends="ApiTree">
-						<assign name="records">$page.firestorm_api_tree</assign>
+						<assign name="records">#page.firestorm_api_tree</assign>
 					</x:widget>
 				</content>
 			</tab>

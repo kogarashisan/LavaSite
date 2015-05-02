@@ -193,12 +193,12 @@ module.exports = function(grunt) {
 
 			self.putEntry(parts, reference_descriptor);
 
-			LavaBuild.registerLink(link_prefix + ':' + full_name, {
-				hash: link_prefix + '=' + full_name,
-				page: page,
+			var link_descriptor = {
 				title: article_title,
 				type: link_prefix
-			});
+			};
+			link_descriptor[link_prefix] = full_name;
+			LavaBuild.registerLink(link_prefix + ':' + full_name, link_descriptor);
 
 		});
 		return doc_file_contents;
@@ -339,12 +339,13 @@ module.exports = function(grunt) {
 			if (last_dot_index != -1) {
 				title = path.substr(last_dot_index + 1) + '#' + name;
 			}
-			LavaBuild.registerLink(path + '#' + name, { // the name in {@link} directives
-				hash: type + '=' + path + ';member=' + name, // the hash in browser
-				page: 'api',
+			var link_descriptor = {
 				title: title,
-				type: 'member'
-			});
+				member: name,
+				type: "member"
+			};
+			link_descriptor[type] = path;
+			LavaBuild.registerLink(path + '#' + name, link_descriptor);
 		}
 
 		function buildMemberDocs(cd) {
@@ -486,6 +487,7 @@ module.exports = function(grunt) {
 				short_class_descriptor.extends_chain = short_parent_descriptor.extends_chain ? short_parent_descriptor.extends_chain.slice() : [];
 				var extends_block = {
 					extends: cd.extends
+					// implements: null
 				};
 				if (short_parent_descriptor.implements) {
 					extends_block.implements = typeof(short_parent_descriptor.implements) == 'string'
@@ -683,8 +685,7 @@ module.exports = function(grunt) {
 			}
 
 			LavaBuild.registerLink(short_descriptor.name, {
-				hash: 'object=' + short_descriptor.name,
-				page: 'api',
+				object: short_descriptor.name,
 				title: short_descriptor.name,
 				type: 'object'
 			});
@@ -808,8 +809,7 @@ module.exports = function(grunt) {
 			}
 
 			LavaBuild.registerLink(short_descriptor.name, {
-				hash: 'class=' + short_descriptor.name,
-				page: 'api',
+				class: short_descriptor.name,
 				title: short_descriptor.name,
 				type: 'class'
 			});
@@ -1035,8 +1035,8 @@ module.exports = function(grunt) {
 			extended_class_descriptors[name].events = jsdoc_events[name];
 			extended_class_descriptors[name].events.forEach(function(event_descriptor){
 				LavaBuild.registerLink(name + '#event:' + event_descriptor.name, {
-					hash: 'class=' + name + ';event=' + event_descriptor.name,
-					page: 'api',
+					class: name,
+					event: event_descriptor.name,
 					title: event_descriptor.name,
 					type: 'event'
 				});
@@ -1099,8 +1099,8 @@ module.exports = function(grunt) {
 									if (param.name.indexOf('config.') == 0) {
 										config_options.push(param);
 										LavaBuild.registerLink(name + '#config:' + param.name, {
-											hash: 'class=' + name + ';config=' + param.name,
-											page: 'api',
+											class: name,
+											config: param.name,
 											title: param.name,
 											type: 'config'
 										});
@@ -1174,8 +1174,8 @@ module.exports = function(grunt) {
 					properties_result.push(extended_class_descriptor.properties_hash[property_name]);
 					LavaBuild.processDescriptorMarkdown(extended_class_descriptor.properties_hash[property_name]);
 					LavaBuild.registerLink(name + '#property:' + property_name, {
-						hash: 'class=' + name + ';property=' + property_name,
-						page: 'api',
+						class: name,
+						property: property_name,
 						title: property_name,
 						type: 'property'
 					});
@@ -1192,7 +1192,8 @@ module.exports = function(grunt) {
 				}
 			}
 
-			grunt.file.write('www/api/' + name + '.js', JSON.stringify(extended_class_descriptor));
+			grunt.file.write('www/api/' + name + '.js', "var page_json = " + JSON.stringify(extended_class_descriptor));
+			LavaBuild.createItemDocPage("class", name);
 
 		}
 
@@ -1206,7 +1207,8 @@ module.exports = function(grunt) {
 
 		for (name in global_object_extended_descriptors) {
 			postProcessGlobalObject(global_object_extended_descriptors[name]);
-			grunt.file.write('www/api/' + name + '.js', JSON.stringify(global_object_extended_descriptors[name]));
+			grunt.file.write('www/api/' + name + '.js', "var page_json = " + JSON.stringify(global_object_extended_descriptors[name]));
+			LavaBuild.createItemDocPage("object", name);
 		}
 
 		for (i = 0, count = firestorm_nav_root.length; i < count; i++) {
@@ -1215,7 +1217,8 @@ module.exports = function(grunt) {
 
 		for (name in firestorm_extended_descriptors) {
 			postProcessGlobalObject(firestorm_extended_descriptors[name]);
-			grunt.file.write('www/api/' + name + '.js', JSON.stringify(firestorm_extended_descriptors[name]));
+			grunt.file.write('www/api/' + name + '.js', "var page_json = " + JSON.stringify(firestorm_extended_descriptors[name]));
+			LavaBuild.createItemDocPage("object", name);
 		}
 
 		//
@@ -1224,7 +1227,7 @@ module.exports = function(grunt) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// write reference
 
-		function writeDocs(file_contents, dir_path) {
+		function writeDocs(file_contents, type) {
 			for (var relative_path in file_contents) {
 				var content = file_contents[relative_path];
 				var markdown = LavaBuild.processMarkdown(content, true);
@@ -1235,12 +1238,16 @@ module.exports = function(grunt) {
 					container: {type: 'Element', tag_name: 'div'}
 				};
 
-				grunt.file.write(dir_path + relative_path + '.js', Lava.serializer.serialize(widget_config));
+				grunt.file.write(
+					"www/" + type + "/" + relative_path + '.js',
+					"var page_json = " + Lava.serializer.serialize(widget_config)
+				);
+				LavaBuild.createItemDocPage(type, relative_path);
 			}
 		}
 
-		writeDocs(reference_file_contents, 'www/reference/', 'reference/');
-		writeDocs(tutorials_file_contents, 'www/tutorials/', 'tutorials/');
+		writeDocs(reference_file_contents, 'reference');
+		writeDocs(tutorials_file_contents, 'tutorials');
 
 		// end: write reference
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////

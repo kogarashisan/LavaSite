@@ -64,16 +64,24 @@ module.exports = function(grunt) {
 		// height of line in <code> from CSS
 		CSS_CODE_LINE_HEIGHT: 18,
 		links: {}, // target -> descriptor
-		_page_links: {
-			'api': '/www/doc.html',
-			'reference': '/www/doc.html',
-			'tutorials': '/www/doc.html'
-		},
+		DOC_BASE_PATH: '/www/doc.html',
+		DOC_EXT_PATH: "/www/doc/",
 		has_errors: false,
+		doc_page_src: null,
 
 		_serializer: new Lava.system.Serializer({
 			pretty_print_functions: true
 		}),
+
+		createItemDocPage: function(type, name) {
+			var json_dir = (type == "object" || type == "class") ? "api" : type;
+			grunt.file.write(
+				"www/doc/" + type + "/" + name + ".html",
+				this.doc_page_src
+					.replace("_CANONICAL_HREF_PLACEHOLDER_", "http://www.lava-framework.com/www/doc/"  + type + "/" + name + ".html")
+					.replace("_PAGE_JSON_SRC_PLACEHOLDER_", "/www/" + json_dir + "/" + name + ".js")
+			)
+		},
 
 		// old code block with rounded corners and without headers
 		wrapHighlightedCode: function(code, type, line_numbers, overlay_lines, tooltip_lines) {
@@ -246,25 +254,52 @@ module.exports = function(grunt) {
 			}
 		},
 
+		emptyDirectory: function(path) {
+			this.recursiveRemoveDirectory(path);
+			fs.mkdirSync(path);
+		},
+
 		hasLink: function(target) {
 			return (target in this.links);
 		},
 
+		/**
+		 * @param target the name of the link in @link tags
+		 * @param descriptor
+		 * @param descriptor.type not used - prefix of the link in @link tag.
+		 */
 		registerLink: function(target, descriptor) {
-			if (!(descriptor.page in this._page_links)) throw new Error('1');
 			if (target in this.links) throw new Error('link is already registered. probably, missing @ignore:' + target);
 			this.links[target] = descriptor;
 		},
 
-		generateLink: function(type, link_target, linktitle) {
-			if ([':types', 'link'].indexOf(type) == -1) throw new Error();
+		generateLink: function(kind, link_target, linktitle) {
+			if ([':types', 'link'].indexOf(kind) == -1) throw new Error();
 			if (!(link_target in this.links)) {
 				grunt.log.error('doc: link is not registered: ' + link_target);
 				this.has_errors = true;
 				return '[ERROR: INVALID LINK]';
 			}
 			var link_descriptor = this.links[link_target];
-			var href = this._page_links[link_descriptor.page] + (link_descriptor.hash ? '#' + link_descriptor.hash : '');
+			var href = "";
+			if (link_descriptor.tab) {
+				href = this.DOC_BASE_PATH + "#" + "tab=" + link_descriptor.tab;
+			} else {
+				var page_part = null;
+				var hssh_part = "";
+				var PAGE_TYPES = ["object", "class", "reference", "tutorial"];
+				var HASH_TARGETS = ["member", "event", "config", "property"];
+				for (var i = 0; i < 4; i++) {
+					if (PAGE_TYPES[i] in link_descriptor) {
+						page_part = PAGE_TYPES[i] + "/" + link_descriptor[PAGE_TYPES[i]] + ".html"
+					}
+					if (HASH_TARGETS[i] in link_descriptor) {
+						hssh_part = "#" + HASH_TARGETS[i] + "=" + link_descriptor[HASH_TARGETS[i]]
+					}
+				}
+				if (!page_part) throw new Error();
+				href = this.DOC_EXT_PATH + page_part + hssh_part;
+			}
 			linktitle = linktitle || link_descriptor.title || link_target;
 			return '<a href="' + href + '">' + linktitle + '</a>';
 		},
@@ -642,6 +677,7 @@ module.exports = function(grunt) {
 			{path: "src/classes/UtilityWidget.class.js", name: "Lava.widget.UtilityWidget"},
 			{path: "src/classes/EditableTableExample.class.js", name: "Lava.widget.EditableTableExample"},
 			{path: "src/classes/ChangelogPage.class.js", name: "Lava.widget.ChangelogPage"},
+			{path: "src/classes/DocClassView.class.js", name: "Lava.widget.DocClassView"},
 			{path: "src/classes/DocPage.class.js", name: "Lava.widget.DocPage"},
 			{path: "src/classes/QuickStartPage.class.js", name: "Lava.widget.QuickStartPage"},
 			{path: "src/classes/ExamplesPage.class.js", name: "Lava.widget.ExamplesPage"},
@@ -650,11 +686,11 @@ module.exports = function(grunt) {
 
 	});
 
-	LavaBuild.registerLink('page:api', {hash: 'tab=api', page: 'api', title: 'API', type: 'page'});
-	LavaBuild.registerLink('page:reference', {hash: 'tab=reference', page: 'reference', title: 'Reference', type: 'page'});
-	LavaBuild.registerLink('page:tutorials', {hash: 'tab=tutorials', page: 'tutorials', title: 'Tutorials', type: 'page'});
-	LavaBuild.registerLink('page:widgets', {hash: 'object=Widgets', page: 'api', title: 'Widgets', type: 'page'});
-	LavaBuild.registerLink('page:support', {hash: 'object=Support', page: 'api', title: 'Support', type: 'page'});
+	LavaBuild.registerLink('page:api', {tab: 'api', title: 'API', type: "page"});
+	LavaBuild.registerLink('page:reference', {tab: 'reference', title: 'Reference', type: "page"});
+	LavaBuild.registerLink('page:tutorials', {tab: 'tutorials', title: 'Tutorials', type: "page"});
+	LavaBuild.registerLink('page:widgets', {object: 'Widgets', title: 'Widgets', type: "page"});
+	LavaBuild.registerLink('page:support', {object: 'Support', title: 'Support', type: "page"});
 
 	grunt.option('stack', true);
 	grunt.loadNpmTasks('grunt-contrib-concat');
@@ -668,6 +704,7 @@ module.exports = function(grunt) {
 		'buildDemoPageContent',
 		'buildQuickStart',
 		'buildWeb',
+		"prepareDocPage",
 		'buildSiteJS',
 		'concat:site_css',
 		'concat:public_css',
@@ -679,13 +716,13 @@ module.exports = function(grunt) {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// documentation-related
 
-	grunt.registerTask('cleanDoc', function() {
-		LavaBuild.recursiveRemoveDirectory('www/api/');
-		fs.mkdirSync('www/api/');
-		LavaBuild.recursiveRemoveDirectory('www/reference/');
-		fs.mkdirSync('www/reference/');
-		LavaBuild.recursiveRemoveDirectory('www/tutorials/');
-		fs.mkdirSync('www/tutorials/');
+	grunt.registerTask('prepareDoc', function() {
+		LavaBuild.emptyDirectory('www/api/');
+		LavaBuild.emptyDirectory('www/reference/');
+		LavaBuild.emptyDirectory('www/tutorials/');
+		LavaBuild.emptyDirectory('www/doc/');
+
+		LavaBuild.doc_page_src = grunt.file.read("build/temp/doc_page_src.html");
 	});
 
 	grunt.registerTask('finalizeDoc', function() {
@@ -694,7 +731,7 @@ module.exports = function(grunt) {
 
 	// depends on "default"
 	grunt.registerTask('doc', [
-		'cleanDoc',
+		'prepareDoc',
 		'jsdocExport',
 		'buildSugar',
 		'buildDoc',

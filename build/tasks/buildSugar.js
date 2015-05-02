@@ -163,7 +163,7 @@ module.exports = function(grunt) {
 		var fs = require('fs'),
 			Lava = global.Lava,
 			LavaBuild = global.LavaBuild,
-			result = 'See <a href="#reference=Sugar">Sugar</a> reference for info about sugar structure and attributes.\n\n',
+			result = 'See <a href="/www/doc/reference/Sugar.html">Sugar</a> reference for info about sugar structure and attributes.\n\n',
 			associated_widgets_by_controller = {}, // exported
 			widgets_without_sugar = [];
 
@@ -196,7 +196,7 @@ module.exports = function(grunt) {
 			if (!widget_config.real_class) throw new Error();
 			var html = '<h2 id="' + title + '" data-scroll-name="member:' + title + '">' + title + '</h2>\n';
 			if (widget_config.extends) html += '<div>Extends: ' + widget_config.extends + '</div>';
-			html += '<div>Controller: <a href="#object=' + class_path + '">' + class_path + '</a></div>\n';
+			html += '<div>Controller: <a href="/www/doc/class/' + class_path + '.html">' + class_path + '</a></div>\n';
 
 			if (sugar_config['root_resource_name']) {
 				html += '<div>Unknown root attributes: stored as ' + sugar_config['root_resource_name'] + ' resource</div>\n';
@@ -233,8 +233,8 @@ module.exports = function(grunt) {
 				+ '</div>\n\n';
 
 			LavaBuild.registerLink('sugar:' + title, {
-				hash: 'object=Widgets;member=' + title,
-				page: 'api',
+				object: 'Widgets',
+				member: title,
 				title: title,
 				type: 'sugar'
 			});
@@ -249,7 +249,7 @@ module.exports = function(grunt) {
 				var controller_link = '';
 				if (Lava.widgets[title].real_class) {
 					var class_path = getControllerPath(Lava.widgets[title]);
-					controller_link = '<a href="#object=' + class_path + '">' + class_path + '</a>'
+					controller_link = '<a href="/www/doc/class/' + class_path + '.html">' + class_path + '</a>'
 				}
 				result += '<tr>'
 					+ '<td>' + title + '</td>'
@@ -264,7 +264,8 @@ module.exports = function(grunt) {
 		var temp = JSON.stringify({
 			description: result
 		});
-		grunt.file.write('www/api/Widgets.js', temp);
+		grunt.file.write('www/api/Widgets.js', "var page_json = " + temp);
+		LavaBuild.createItemDocPage("object", "Widgets");
 
 	}));
 

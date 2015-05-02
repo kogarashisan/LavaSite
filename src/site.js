@@ -58,6 +58,7 @@ var Site = {
 	page_path: '',
 	pages: {},
 	utility_widget: null,
+	alternative_url_part: '://kogarashisan.github.io/LiquidLava/',
 	page_loaded_callbacks: {
 		index: function() {
 			// twitter
@@ -74,6 +75,17 @@ var Site = {
 		}
 	},
 	bootstrap: function(page_path) {
+
+		// redirect from alternative location
+		var href = window.location.href,
+			_index = href.indexOf(this.alternative_url_part);
+
+		if (_index > 0) {
+			window.location.href = 'http://www.lava-framework.com/' + href.substr(_index + this.alternative_url_part.length);
+			return;
+		}
+		// end
+
 		this.page_path = page_path;
 
 		var self = this;
