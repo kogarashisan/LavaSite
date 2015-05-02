@@ -1227,7 +1227,7 @@ module.exports = function(grunt) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// write reference
 
-		function writeDocs(file_contents, type) {
+		function writeDocs(file_contents, type, doc_page_type) {
 			for (var relative_path in file_contents) {
 				var content = file_contents[relative_path];
 				var markdown = LavaBuild.processMarkdown(content, true);
@@ -1242,12 +1242,12 @@ module.exports = function(grunt) {
 					"www/" + type + "/" + relative_path + '.js',
 					"var page_json = " + Lava.serializer.serialize(widget_config)
 				);
-				LavaBuild.createItemDocPage(type, relative_path);
+				LavaBuild.createItemDocPage(doc_page_type, relative_path);
 			}
 		}
 
-		writeDocs(reference_file_contents, 'reference');
-		writeDocs(tutorials_file_contents, 'tutorials');
+		writeDocs(reference_file_contents, 'reference', 'reference');
+		writeDocs(tutorials_file_contents, 'tutorials', 'tutorial');
 
 		// end: write reference
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
