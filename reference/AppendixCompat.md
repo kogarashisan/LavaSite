@@ -10,7 +10,7 @@ syntax, but that will <b>not</b> work in all browsers, so you should not do it.
 
 ##Release notes
 
-- Framework depends on MooTools. Recommended version: 1.51 and newer, but may work with 1.45, but not older.
+- Framework depends on jQuery. Recommended version: 3.1.1 and newer.
 - Naturally, LiquidLava and Firestorm frameworks can not coexist with code that modifies the native object's ptototype.
 - <b>IE8 and below are not supported, and probably will never be.</b>
 

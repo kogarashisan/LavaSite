@@ -79,10 +79,9 @@ Lava.define(
 				group_name;
 
 			for (; i < count; i++) {
-				group_name = Firestorm.Element.getProperty(highlight_elements[i], 'data-group');
-				Firestorm.Element.setProperty(
+				group_name = Firestorm.Element.getAttribute(highlight_elements[i], 'data-group');
+				Firestorm.Element.setOpacity(
 					highlight_elements[i],
-					'opacity',
 					(active_highlights.indexOf(group_name) != -1) ? 1 : 0
 				);
 			}

@@ -104,19 +104,19 @@ You should not do yourself something that can be done by framework. For example,
 </body>
 	</codeblock>
 	<codeblock title="Javascript" lang="javascript">
-window.addEvent('load', function() {
+Firestorm.onDocumentReady(function() {
 
 	Lava.init();
 
 	// phase 1
 	var instance = Lava.createWidget('CollapsiblePanel');
 	instance.set('title', "Old title");
-	Firestorm.Element.setProperty(document.body, 'html', instance.render());
+	Firestorm.Element.setHtml(document.body, instance.render());
 	instance.broadcastInDOM();
 
 	// phase 2
 	instance.set('title', "New title");
-	Firestorm.Element.setProperty(document.body, 'html', instance.render());
+	Firestorm.Element.setHtml(document.body, instance.render());
 	instance.broadcastInDOM();
 
 });
@@ -144,7 +144,7 @@ a click or other action, which makes this glitch even more noticeable.
 This would not happen, if you used widget's methods, which are designed for this purpose:
 
 ```javascript
-window.addEvent('load', function() {
+Firestorm.onDocumentReady(function() {
 
 	Lava.init();
 

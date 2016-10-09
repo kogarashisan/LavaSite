@@ -9,7 +9,7 @@ This is bundled version of index_raw
 		<title>LiquidLava • TodoMVC</title>
 		<link rel="stylesheet" href="css/app.css">
 
-		<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="bundle.min.js"></script>
 
 		<script>
@@ -17,7 +17,7 @@ This is bundled version of index_raw
 			Lava.init();
 			Lava.focus_manager.enable();
 
-			window.addEvent('load', function() {
+            Firestorm.onDocumentReady(function() {
 
 				var constructor = Lava.ClassManager.getConstructor(page_config['class'] || 'Lava.widget.Standard', 'Lava.widget'),
 					widget;

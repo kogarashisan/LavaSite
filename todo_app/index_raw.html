@@ -5,7 +5,7 @@
 		<title>LiquidLava • TodoMVC</title>
 		<link rel="stylesheet" href="css/app.css">
 
-		<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="node_modules/director/build/director.js"></script>
 
 		<script src="node_modules/lava/node_modules/firestorm/lib/firestorm.js"></script>
@@ -18,7 +18,7 @@
 		<script src="js/Widget/TodoApp.class.js"></script>
 
 		<script>
-			window.addEvent('load', function() {
+            Firestorm.onDocumentReady(function() {
 				Lava.bootstrap();
 			});
 		</script>

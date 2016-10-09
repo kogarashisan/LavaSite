@@ -27,10 +27,10 @@ Let's start with totally blank page:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="http://lava-framework.com/lib/lava-master-DEV.js"></script>
 	<script>
-		window.addEvent('load', function() {
+		Firestorm.onDocumentReady(function() {
 			Lava.bootstrap();
 		});
 	</script>
@@ -43,7 +43,7 @@ Let's start with totally blank page:
 Now we will manually create a widget and insert it into the page:
 
 ```javascript
-window.addEvent('load', function() {
+Firestorm.onDocumentReady(function() {
 	Lava.bootstrap();
 	var widget = new Lava.widget.Standard({
 		is_extended: true,
@@ -71,7 +71,7 @@ view and widget configs, and some other structures which are recognized by Templ
 Let's add an Expression view:
 
 ```javascript
-window.addEvent('load', function() {
+Firestorm.onDocumentReady(function() {
 	Lava.bootstrap();
 	var widget = new Lava.widget.Standard({
 		is_extended: true,
@@ -108,7 +108,7 @@ You need to know how template configs work, but you do not need to write them by
 Configs are parsed by `Lava.TemplateParser`:
 
 ```javascript
-window.addEvent('load', function() {
+Firestorm.onDocumentReady(function() {
 	Lava.bootstrap();
 	var widget = new Lava.widget.Standard({
 		is_extended: true,

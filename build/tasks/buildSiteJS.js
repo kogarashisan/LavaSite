@@ -16,6 +16,10 @@ module.exports = function(grunt) {
 
 		}
 
+        grunt.file.write('build/temp/site-classes.js', src_list.join(''));
+
+		return;
+
 		eval(src_list.join(''));
 		var exported_classes = [];
 

@@ -57,7 +57,7 @@ Lava.define(
 		if (this._properties.selected_version != item) {
 
 			if (this._properties.selected_version.isProperties) this._properties.selected_version.set('is_selected', false);
-			Firestorm.Element.setProperty(example_content_container, 'html', item.get('html'));
+			Firestorm.Element.setHtml(example_content_container, item.get('html'));
 			this._set('selected_version', item);
 			item.set('is_selected', true);
 			Lava.refreshViews();

@@ -1,6 +1,6 @@
 
 All DOM manipulation should be done with Firestorm. If functionality is present in Firestorm - 
-you should use it, rather then calling MooTools directly.
+you should use it, rather then calling iQuery directly.
 
 For example, if property of a DOM element has accessor in Firestorm, like `Firestorm.Element.getOuterHTML()` - 
 then you should use that method. If property has `attributeNode` - then use `Firestorm.Element.getProperty()` - 
@@ -10,11 +10,11 @@ However, there are element fields, that should be accessed directly. They includ
 - `focus()` and `blur()` methods (although, using `blur()` is not recommended by W3C)
 - core DOM properties that work in all browsers, like `offsetHeight`, `parentNode` and `firstChild`
 
-Be aware, that over time framework will become independent from MooTools, and you will not need to include it anymore.
+Be aware, that over time framework will become independent from jQuery, and you will not need to include it anymore.
 
 ##Advanced topics
 
-Some browsers do not iterate over overwritten Object's prototype properties. Example from MooTools:
+Some browsers do not iterate over overwritten Object's prototype properties. Example from MooTools library:
 
 ```javascript
 var enumerables = true;

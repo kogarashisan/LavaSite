@@ -64,18 +64,17 @@ Lava.define(
 		var self = this;
 		this.set('is_loading', true);
 
-		this._request = new SafeRequest({
-			url: this._getFilePath(item),
-			method: 'GET',
-			onSuccess: function(text) {
-				self._onRequestSuccess(text, item);
-			},
-			onFailure: function() {
-				self._onRequestFailure(item);
-			}
-		});
+        this._request = $.ajax({
+            url: this._getFilePath(item),
+            method: 'GET',
+            success:function(text) {
+                self._onRequestSuccess(text, item);
+            },
+            error: function() {
+                self._onRequestFailure(item);
+            }
+        });
 
-		this._request.send();
 		Lava.refreshViews();
 
 	},

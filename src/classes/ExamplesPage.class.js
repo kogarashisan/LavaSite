@@ -46,14 +46,27 @@ Lava.define(
 
 	},
 
+    // @todo method from MooTools Browser
+    execScript: function(text){
+        if (!text) return;
+        if (window.execScript){
+            window.execScript(text);
+        } else {
+            var script = document.createElement('script');
+            script.setAttribute('type', 'text/javascript');
+            script.text = text;
+            document.head.appendChild(script);
+            document.head.removeChild(script);
+        }
+    },
+
 	_onItemLoaded: function(package_json, example) {
 
 		var package_content = eval(package_json),
 			widget_config;
 
 		if (package_content['classes']) {
-			Browser.exec(package_content['classes']);
-			//this._exec(classes);
+			this.execScript(package_content['classes']);
 		}
 
 		example.setProperties(package_content);
@@ -118,7 +131,7 @@ Lava.define(
 
 			} else {
 
-				Firestorm.Element.setProperty(example_content_container, 'html', '');
+				Firestorm.Element.setHtml(example_content_container, '');
 
 			}
 

@@ -1,12 +1,4 @@
 
-// Request class is from MooTools
-var SafeRequest = new Class({
-	Extends: Request,
-	success: function(text, xml) {
-		this.onSuccess(text, xml);
-	}
-});
-
 var Examples = {
 
 	/**
@@ -100,7 +92,7 @@ var Site = {
 			ga('send', 'pageview');
 		}
 
-		window.addEvent('load', function() {
+        Firestorm.onDocumentReady(function() {
 
 			Lava.init();
 			Lava.focus_manager.enable(); // before widgets are in DOM, so it could receive focus event

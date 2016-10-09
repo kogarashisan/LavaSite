@@ -149,18 +149,17 @@ Lava.define(
 		var self = this;
 		this.set('is_loading', true);
 
-		this._request = new SafeRequest({
-			url: item.get("file_path"),
-			method: 'GET',
-			onSuccess: function(text) {
-				self._onRequestSuccess(text, item);
-			},
-			onFailure: function() {
-				self._onRequestFailure(item);
-			}
-		});
+        this._request = $.ajax({
+            url: item.get("file_path"),
+            method: 'GET',
+            success:function(text) {
+                self._onRequestSuccess(text, item);
+            },
+            error: function() {
+                self._onRequestFailure(item);
+            }
+        });
 
-		this._request.send();
 		Lava.refreshViews();
 
 	},
@@ -236,7 +235,7 @@ Lava.define(
 
 		if (target && Firestorm.Element.getTagName(target) == "a") {
 
-			href = Firestorm.Element.getProperty(target, "href");
+			href = Firestorm.Element.getAttribute(target, "href");
 
 			if (
 				href
@@ -532,17 +531,20 @@ Lava.define(
 				if (scroll_target) {
 
 					if (this._scroll_animation) {
-						this._scroll_animation.stop();
+                        $('html, body').stop();
 					}
 
-					this._scroll_animation = new Fx.Scroll(window, {duration: 1000}); // @todo MooTools dependency
-					this._scroll_animation.addEvent('complete', function(){
-						self._color_animation.finish(); // finish with the old target
-						self._color_animation.setTarget(scroll_target);
-						self._color_animation.start();
-						self._scroll_animation = null;
-					});
-					this._scroll_animation.toElementCenter(scroll_target);
+                    this._scroll_animation = true;
+                    $('html, body').animate({
+                        scrollTop: $("#elementtoScrollToID").offset().top,
+                        duration: 1000,
+                        complete: function(){
+                            self._color_animation.finish(); // finish with the old target
+                            self._color_animation.setTarget(scroll_target);
+                            self._color_animation.start();
+                            self._scroll_animation = null;
+                        }
+                    }, 2000);
 
 				}
 

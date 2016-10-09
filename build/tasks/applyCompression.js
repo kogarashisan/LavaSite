@@ -3,6 +3,9 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('applyCompression', global.bug1135(function () {
 
+        grunt.file.write("www/js/site.js", grunt.file.read('build/temp/site.js'));
+        return; // @todo
+
 		var UglifyJS = require('uglify-js');
 
 		var result = UglifyJS.minify(['build/temp/site.js'], {

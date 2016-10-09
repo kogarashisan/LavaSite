@@ -1,4 +1,6 @@
 
+var text_encoding = require('text-encoding');
+
 module.exports = function(grunt) {
 
 	// bug1135 is commented, cause otherwise "this" will not work inside method
@@ -13,6 +15,7 @@ module.exports = function(grunt) {
 			var cmd_string = 'jsdoc --private --destination generated_docs --template ./build/' + template_name + ' ' + filelist_string;
 			grunt.log.ok('Running: ' + cmd_string);
 
+            return;
 			var child = child_process.spawn(
 				'cmd',
 				['/c ' + cmd_string],
@@ -25,7 +28,8 @@ module.exports = function(grunt) {
 				grunt.log.debug('jsdoc output : ' + data);
 			});
 			child.stderr.on('data', function (data) {
-				grunt.log.error('An error occured in jsdoc process:\n' + data);
+                var error_text = new text_encoding.TextDecoder('cp866').decode(data);
+				grunt.log.error('An error occured in jsdoc process:\n' + error_text);
 				grunt.log.error(template_name);
 				grunt.fail.warn('jsdoc failure', 3 /*errorCode.task*/);
 			});

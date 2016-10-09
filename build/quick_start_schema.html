@@ -3,7 +3,7 @@
 		<x:content type="xml"><!DOCTYPE html>
 <html lang="en">
 <head>
-	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="http://lava-framework.com/lib/lava-master-DEV.js"></script>
 	<link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
 </head>
@@ -22,7 +22,7 @@
 		<x:content type="xml"><!DOCTYPE html>
 <html lang="en">
 <head>
-	<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="http://lava-framework.com/lib/lava-master-DEV.js"></script>
 	<link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
 
@@ -31,9 +31,9 @@
 			Extends: 'Lava.widget.Standard'
 		});/*:region*/
 
-		window.addEvent('load', function() {
-			Lava.bootstrap();
-		});
+		Firestorm.onDocumentReady(function() {
+            Lava.bootstrap();
+        });
 	</script>
 </head>
 
@@ -52,8 +52,8 @@
 		<highlight type="span" data-group="bootstrap_call">
 			<search>Lava.bootstrap();</search>
 		</highlight>
-		<highlight type="span" data-group="mootools_call">
-			<search>window.addEvent</search>
+		<highlight type="span" data-group="firestorm_call">
+			<search>Firestorm.onDocumentReady</search>
 		</highlight>
 	</code>
 	<code name="bootstrapped_with_property" extends="bootstrapped">
@@ -207,9 +207,7 @@
 	</step>
 	<step code_name="blank" active_highlights="scripts">
 		<text>
-			<p>First, you include MooTools and Lava framework bundle<br/>
-				(currently Lava depends on MooTools,
-				but in future builds this dependency will be removed)</p>
+			<p>First, you include jQuery and Lava framework bundle</p>
 			<p><i>In real-world applications you will use NPM packages "firestorm" and "lava",<br/>
 				but for educational purposes you can take the bundle from site.</i></p>
 		</text>
@@ -255,9 +253,11 @@
 				You can even write your own bootstrap method, if you want.</p>
 		</text>
 	</step>
-	<step code_name="bootstrapped" active_highlights="mootools_call" text_class_suffix="-compact">
+	<step code_name="bootstrapped" active_highlights="firestorm_call" text_class_suffix="-compact">
 		<text>
-			<p>addEvent is a method from MooTools.</p>
+            <p>You can also see a call to Firestorm library, which is a part of Lava framework.
+                You should prefer Firestorm over jQuery for all similar functionality, like onDocumentReady().</p>
+
 			<p>When page loads - <code>bootstrap</code> method parses content
 				of the &lt;body&gt; tag into widget config. Then it creates an instance of <code>HelloApp</code> class
 				with that config. which is then rendered and inserted into &lt;body&gt;.</p>

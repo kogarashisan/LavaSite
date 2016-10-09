@@ -2,8 +2,9 @@
 /*
  Perfection kills. Even God needs to rest sometimes. Amen.
  */
-global.LAVA_CORE_DIRECTORY = 'D:/LiquidLava/';
-global.FIRESTORM_DIRECTORY = 'D:/Firestorm/';
+global.LAVA_CORE_DIRECTORY = 'C:/@Storage/Dropbox/@GitHub/LiquidLava/';
+global.FIRESTORM_DIRECTORY = 'C:/@Storage/Dropbox/@GitHub/Firestorm/';
+global.FIRESTORM_PATH = global.FIRESTORM_DIRECTORY;
 
 global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS = ['sugar', 'storage', 'storage_schema', 'include'];
 global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS = ['bind', 'assign', 'option', 'property', 'options', 'properties', 'roles', 'resources', 'default_events'];
@@ -579,21 +580,15 @@ module.exports = function(grunt) {
 				files: [
 					{
 						src: [
-							global.FIRESTORM_DIRECTORY + 'lib/firestorm.js',
-							global.LAVA_CORE_DIRECTORY + 'lib/packages/core.js',
-							global.LAVA_CORE_DIRECTORY + 'lib/packages/parsers.js',
-							//global.LAVA_CORE_DIRECTORY + 'lib/packages/core-classes.js',
-							//global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-classes.js',
-							global.LAVA_CORE_DIRECTORY + 'lib/compiled/all-classes.js',
-							global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-templates.js',
-							global.LAVA_CORE_DIRECTORY + 'lib/locale/en.js',
+							global.LAVA_CORE_DIRECTORY + 'lib/export/firestorm.js',
+							global.LAVA_CORE_DIRECTORY + 'lib/export/lava.js',
+							global.LAVA_CORE_DIRECTORY + 'lib/export/widget-templates.js',
 							"src/site.js",
 							"src/sample_data.js",
-							"build/temp/site-compiled-classes.js",
-							"build/temp/site-skeletons.js",
+							//"build/temp/site-compiled-classes.js",
+							//"build/temp/site-skeletons.js",
+							"build/temp/site-classes.js",
 							"src/ApiCommon.js",
-							"src/MooTools/More.js",
-							"src/MooTools/Fx.Scroll.js",
 							"build/temp/site_widgets.js",
 							"build/suffix.js"
 						],
@@ -603,14 +598,9 @@ module.exports = function(grunt) {
 			},
 			main: {
 				src: [
-					global.FIRESTORM_DIRECTORY + 'lib/firestorm.js',
-					global.LAVA_CORE_DIRECTORY + 'lib/packages/core.js',
-					global.LAVA_CORE_DIRECTORY + 'lib/packages/parsers.js',
-					global.LAVA_CORE_DIRECTORY + 'lib/packages/core-classes.js',
-					global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-classes.js',
-					//global.LAVA_CORE_DIRECTORY + 'lib/compiled/all-classes.js',
-					global.LAVA_CORE_DIRECTORY + 'lib/packages/widget-templates.js',
-					global.LAVA_CORE_DIRECTORY + 'lib/locale/en.js'
+					global.LAVA_CORE_DIRECTORY + 'lib/export/firestorm.js',
+					global.LAVA_CORE_DIRECTORY + 'lib/export/lava.js',
+					global.LAVA_CORE_DIRECTORY + 'lib/export/widget-templates.js'
 				],
 				dest: 'lib/lava-master-DEV.js'
 			}

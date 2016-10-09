@@ -17,7 +17,7 @@ You may also open it <a href="/www/demos/blank.html" target="_blank">here</a> an
 First, we include the libraries and styles for standard widgets:
 
 ```xml
-<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.5.1/mootools-yui-compressed.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="http://lava-framework.com/lib/lava-master-DEV.js"></script>
 <link rel="stylesheet" href="http://lava-framework.com/www/css/widgets.css" />
 ```
@@ -25,7 +25,7 @@ First, we include the libraries and styles for standard widgets:
 <i>`lava-master-DEV.js` is a packaged bundle, that you can use for educational purposes. In real projects you 
 should use the <a href="https://www.npmjs.com/package/lava">lava NPM module</a>.</i>
 
-Currently, Lava framework depends on MooTools, but this dependency will be removed later.
+Currently, Lava framework depends on jQuery, but this dependency will be removed later.
 For now there is only one theme available for standard widgets: Bootstrap.
 `widgets.css` includes Bootstrap core, Bootstrap theme and `lava-widgets.css` from framework repository. 
 If you don't plan to use standard widgets, then you can remove the CSS reference.
@@ -33,10 +33,10 @@ If you don't plan to use standard widgets, then you can remove the CSS reference
 Framework initialization is done manually - this gives you total control over the process:
 
 ```javascript
-window.addEvent('load', function() {
+Firestorm.onDocumentReady(function() {
 	Lava.init();
 });
 ```
 
 We must wait before page is fully loaded, cause framework may need the &lt;body&gt; element.
-Here we are using window's "load" event from MooTools.
+DOM ready handler is attached with `Firestorm.onDocumentReady`.
