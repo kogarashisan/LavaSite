@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 			"Parsers/Generated/TemplateParser.js"
 		]);
 		Firestorm.Array.excludeAll(firestorm_groups['firestorm'], [
-			"known_exceptions.js",
+			"error_descriptions.js",
 			"init.js"
 		]);
 

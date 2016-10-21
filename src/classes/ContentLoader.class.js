@@ -100,25 +100,25 @@ Lava.define(
 
 	_getFilePath: function(item) {
 
-		Lava.t('Abstract function call');
+		Lava.t('Abstract method call');
 
 	},
 
 	_getItemByHash: function(path) {
 
-		Lava.t('Abstract function call');
+		Lava.t('Abstract method call');
 
 	},
 
 	_onItemLoaded: function(text, item) {
 
-		Lava.t('Abstract function call');
+		Lava.t('Abstract method call');
 
 	},
 
 	_showItem: function(item) {
 
-		Lava.t('Abstract function call');
+		Lava.t('Abstract method call');
 
 	}
 

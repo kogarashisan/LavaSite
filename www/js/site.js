@@ -3098,7 +3098,14 @@ var Lava = {
 	 */
 	instanceOf: function(instance, class_name) {
 
-		return instance.Class.hierarchy_paths.indexOf(class_name) != -1 || instance.Class.implements.indexOf(class_name) != -1;
+	    if (instance) {
+            var Class = instance.Class;
+            return Class
+                && !instance.hasOwnProperty('Class')
+                && (Class.hierarchy_paths.indexOf(class_name) != -1 || Class.implements.indexOf(class_name) != -1);
+        }
+
+		return false;
 
 	},
 
@@ -18263,8 +18270,9 @@ Lava.define(
 
 });
 
+// @todo This is work-in-progress
+
 /**
- * Virtual focus target has changed @todo
  * @event Lava.system.FocusManager#focus_target_changed
  * @type {Lava.widget.Standard}
  * @lava-type-description New widget that owns the virtual focus
@@ -18317,8 +18325,6 @@ Lava.define(
 			Lava.view_manager.lendEvent("focus");
 			this._focus_stack_changed_listener = Lava.view_manager.on("focus_stack_changed", this._onFocusStackChanged, this);
 			this._blur_listener = Lava.Core.addGlobalHandler('blur', this._onElementBlurred, this);
-
-			// @todo this._keydown_listener = Lava.Core.addGlobalHandler('', this._onKeyboard, this);
 		}
 
 	},
@@ -18341,10 +18347,6 @@ Lava.define(
 
 	},
 
-	//_onKeyboard: function(event_name, event_object) {
-		// @todo
-	//},
-
 	/**
 	 * Does it listen to focus changes and sends keyboard events
 	 * @returns {boolean}
@@ -18357,7 +18359,6 @@ Lava.define(
 
 	/**
 	 * Get the currently focused view, which receives keyboard navigation.
-	 * // @todo это вид или виджет? ! это должен быть виджет! так как виды не умеют отвечать на события
 	 * @returns {Lava.view.Abstract}
 	 */
 	getFocusedView: function() {
@@ -18395,27 +18396,6 @@ Lava.define(
 
 	},
 
-	/**
-	 * Replace old virtual focus target widget with the new one. Fire "focus_target_changed"
-	 * @param new_target
-	 */
-	/*_setTarget: function(new_target) {
-
-		// @todo отправить вверх по иерархии события focus_acquired и _lost
-		//if (this._focused_view && this._focused_view != new_target) {
-		//	this._focused_view.informFocusLost();
-		//}
-
-		// @todo
-		if (this._focused_view != new_target) {
-			this._focused_view = new_target;
-			this._fire('focus_target_changed', new_target);
-		}
-
-		// @todo продолжить поддержку focus_target_changed
-
-	},*/
-
 	_clearTarget: function() {
 
 		var event_object = {
@@ -18430,8 +18410,6 @@ Lava.define(
 
 	},
 
-	// @todo добавить 3 уровня:? element -> view -> widget?
-	// @todo ! нужно отсылать любое событие изменения фокуса, даже внутри одного вида.
 	_onFocusStackChanged: function(view_manager, stack) {
 
 		var focused_element = stack[0] || null,
