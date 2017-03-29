@@ -282,5 +282,3 @@ Lava.define(
 
 }
 ```
-
-Above applies only to classes, created in monomorphic mode ({@link Lava.ClassManager#is_monomorphic} is <kw>true</kw>).

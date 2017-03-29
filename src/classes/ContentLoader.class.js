@@ -39,7 +39,7 @@ Lava.define(
 
 	},
 
-	_selectItem: function(dom_event_name, dom_event, view, template_arguments) {
+	_selectItem: function(dom_event_name, event_object, view, template_arguments) {
 
 		var item = template_arguments[0];
 

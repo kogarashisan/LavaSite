@@ -20,7 +20,7 @@ Lava.define(
 		button_click: '_onButtonClick'
 	},
 
-	_onButtonClick: function(dom_event_name, dom_event, view, template_arguments) {
+	_onButtonClick: function(dom_event_name, event_object, view, template_arguments) {
 
 		this.set("count_clicked", this._properties.count_clicked + 1);
 
@@ -102,7 +102,7 @@ Lava.define(
 		item_click: '_onItemClick'
 	},
 
-	_onItemClick: function(dom_event_name, dom_event, view, template_arguments) {
+	_onItemClick: function(dom_event_name, event_object, view, template_arguments) {
 
 		// template_arguments[0] is the first argument, which was passed to event
 		this.set("selected_person", template_arguments[0]);

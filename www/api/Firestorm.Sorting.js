@@ -1,0 +1,1 @@
+var page_json = {"method_chain":[{"descriptors":[{"name":"mergeSort","is_private":false,"type":"function","description":"<p>Stable sort algorithm. Must not be called recursively</p>\n"}]}]}

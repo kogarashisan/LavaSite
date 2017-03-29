@@ -195,10 +195,10 @@ module.exports = function(grunt) {
 						versions.push(parts);
 					}
 				});
-				versions = Lava.algorithms.sorting[Lava.schema.DEFAULT_UNSTABLE_SORT_ALGORITHM](versions, function(a, b) {
+				versions = Firestorm.Sorting[Firestorm.schema.DEFAULT_UNSTABLE_SORT_ALGORITHM](versions, function(a, b) {
 					return a[0] > b[0] || a[1] > b[1] || a[2] > b[2];
 				});
-				var result = [];
+				var result = [{name: 'next'}];
 				versions.forEach(function (version) {
 					result.push({name: version.join('.')});
 				});

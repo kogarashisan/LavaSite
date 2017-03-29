@@ -125,7 +125,7 @@ Lava.define('Lava.widget.MyWidget', {
 		my_include: '_getMyInclude'
 	},
 
-	_onNodeClick: function(dom_event_name, dom_event, view, template_arguments) {},
+	_onNodeClick: function(dom_event_name, event_object, view, template_arguments) {},
     
 	_handleMyRole: function(view, template_arguments) {},
 

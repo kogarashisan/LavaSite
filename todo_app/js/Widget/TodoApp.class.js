@@ -121,14 +121,14 @@ Lava.define(
 
 	},
 
-	_deleteItemClick: function(dom_event_name, dom_event, view, template_arguments) {
+	_deleteItemClick: function(dom_event_name, event_object, view, template_arguments) {
 
 		this._properties.todo_list.removeValue(template_arguments[0]);
 		this._refreshData();
 
 	},
 
-	_itemDoubleClick: function(dom_event_name, dom_event, view, template_arguments) {
+	_itemDoubleClick: function(dom_event_name, event_object, view, template_arguments) {
 
 		var edited_item = template_arguments[0];
 		this.set('edited_item_text', edited_item.get('title'));
@@ -150,12 +150,12 @@ Lava.define(
 
 	},
 
-	_onKeyDown: function(dom_event_name, dom_event) {
+	_onKeyDown: function(dom_event_name, event_object) {
 
 		var new_todo_input;
 		var focus_target_widget;
 
-		if (dom_event.code == Firestorm.KEY_CODES.ENTER) {
+		if (event_object.code == Firestorm.KEY_CODES.ENTER) {
 
 			new_todo_input = Lava.view_manager.getViewById('new_todo');
 			focus_target_widget = Lava.focus_manager.getFocusedTarget();
@@ -175,7 +175,7 @@ Lava.define(
 
 			}
 
-		} else if (dom_event.code == Firestorm.KEY_CODES.ESCAPE) {
+		} else if (event_object.code == Firestorm.KEY_CODES.ESCAPE) {
 
 			this.set('edited_item', null);
 

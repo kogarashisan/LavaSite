@@ -45,13 +45,13 @@ Lava.define(
 
 	},
 
-	_onMemberRowClick: function(dom_event_name, dom_event, view, template_arguments) {
+	_onMemberRowClick: function(dom_event_name, event_object, view, template_arguments) {
 
 		var member_descriptor = template_arguments[0],
 			may_be_expanded = member_descriptor.get('params') || member_descriptor.get('type_names') || member_descriptor.get('returns');
 
 		// if user clicks a link inside member description - do not expand the description
-		if (Firestorm.Element.getTagName(dom_event.target) != 'a') {
+		if (Firestorm.Element.getTagName(event_object.target) != 'a') {
 
 			if (member_descriptor.isProperties && member_descriptor.get('guid') && may_be_expanded) {
 				var meta_record = this._getMetaRecord(template_arguments[0]);

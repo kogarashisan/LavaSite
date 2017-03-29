@@ -40,7 +40,7 @@ Lava.define(
 
 	},
 
-	_toggleTree: function(dom_event_name, dom_event, view, template_arguments) {
+	_toggleTree: function(dom_event_name, event_object, view, template_arguments) {
 
 		var action = template_arguments[1] ? 'expandAll' : 'collapseAll';
 		Lava.view_manager.getViewById(template_arguments[0])[action]();

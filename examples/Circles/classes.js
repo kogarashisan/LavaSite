@@ -41,7 +41,7 @@ Lava.ClassManager.define(
 
 	},
 
-	_addCircle: function(dom_event_name, dom_event, view, template_arguments) {
+	_addCircle: function(dom_event_name, event_object, view, template_arguments) {
 
 		var circle = new Lava.mixin.Properties({
 			x: 0,
@@ -53,7 +53,7 @@ Lava.ClassManager.define(
 
 	},
 
-	_deleteCircle: function(dom_event_name, dom_event, view, template_arguments) {
+	_deleteCircle: function(dom_event_name, event_object, view, template_arguments) {
 
 		if (this._properties.selected_circle) {
 			this._circles.removeValue(this._properties.selected_circle);
@@ -62,7 +62,7 @@ Lava.ClassManager.define(
 
 	},
 
-	_onCircleMouseDown: function(dom_event_name, dom_event, view, template_arguments) {
+	_onCircleMouseDown: function(dom_event_name, event_object, view, template_arguments) {
 
 		var circle = template_arguments[0];
 		this.set('selected_circle', circle);
@@ -72,13 +72,13 @@ Lava.ClassManager.define(
 			this._mousemove_listener = Lava.Core.addGlobalHandler('mousemove', this._onMouseMove, this);
 			this._mouseup_listener = Lava.Core.addGlobalHandler('mouseup', this._onMouseUp, this);
 
-			this._start_coordinates = dom_event.page;
+			this._start_coordinates = event_object.page;
 			this._current_coordinates.x = circle.get('x');
 			this._current_coordinates.y = circle.get('y');
 
 		}
 
-		dom_event.preventDefault(); // to prevent text selection
+		event_object.preventDefault(); // to prevent text selection
 
 	},
 

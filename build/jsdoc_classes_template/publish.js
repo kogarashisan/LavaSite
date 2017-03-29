@@ -42,8 +42,9 @@ event:
 
 */
 
-global.FIRESTORM_PATH = 'C:/@Storage/Dropbox/@GitHub/Firestorm';
-var Lava = require('C:/@Storage/Dropbox/@GitHub/LiquidLava');
+// @todo move to one place
+global.FIRESTORM_PATH = 'C:/@Cache/Dropbox/@GitHub/Firestorm';
+var Lava = require('C:/@Cache/Dropbox/@GitHub/LiquidLava');
 global.Firestorm = Lava.getFirestorm();
 global.Lava = Lava;
 require("../ApiHelper.js");

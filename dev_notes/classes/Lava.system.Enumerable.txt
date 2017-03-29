@@ -1,5 +1,5 @@
 
-There was a try to make some kind of a "write lock", and some kind of public-read/private-write Enumerable
+There was a try to make some kind of a "write lock", and some kind of "public-read/private-write" Enumerable
 (instance of Enumerable which could be writable by only one instance of another class, 
 and readable by anyone else).
 
@@ -11,7 +11,7 @@ Result:
 	failed, and made a conclusion that having something like this is wrong by design.
 	The right way is "private widget properties" (name starts with underscore).
 
-Discussion:
+Notes:
 	If such write lock existed - it could be implemented with Object.freeze on one of Enumerable arrays.
 	Something like this:
 	lock: function(lock_owner) {

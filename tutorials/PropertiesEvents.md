@@ -64,10 +64,9 @@ var listener = instance.onPropertyChanged('test', demo_responder.onTestChanged, 
 instance.set('test', 'another value');
 // you will see 'test property changed' in console
 
-instance.removePropertyListener(listener);
+// you can remove it in the same way as any other listener
+instance.removeListener(listener);
 ```
 
-Notice how you remove this kind of listeners: you call `removePropertyListener` instead of `removeListener`.
 Property listeners can also be suspended and resumed.
-
 Now you are encouraged to have a look at the source of {@link Lava.mixin.Observable} and {@link Lava.mixin.Properties}.

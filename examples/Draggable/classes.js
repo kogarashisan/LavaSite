@@ -36,18 +36,18 @@ Lava.ClassManager.define(
 		y: 0
 	},
 
-	onMouseDown: function(dom_event_name, dom_event) {
+	onMouseDown: function(dom_event_name, event_object) {
 
 		if (!this._mousemove_listener) {
 
 			this._mousemove_listener = Lava.Core.addGlobalHandler('mousemove', this._onMouseMove, this);
 			this._mouseup_listener = Lava.Core.addGlobalHandler('mouseup', this._onMouseUp, this);
 
-			this._start_coordinates = dom_event.page;
+			this._start_coordinates = event_object.page;
 
 		}
 
-		dom_event.preventDefault(); // to prevent text selection
+		event_object.preventDefault(); // to prevent text selection
 
 	},
 

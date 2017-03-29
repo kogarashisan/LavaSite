@@ -1,71 +1,7 @@
 #Classes
 
-<i>Update 09.03.15: "polymorphic mode" and "full export" features are deprecated.</i>
-
 ClassManager generates class constructors from class bodies. Generated constructor assigns instance properties 
 and calls `init()`, if it exists. Methods and other shared members are assigned to generated constructor's prototype.
-
-##Polymorphism
-
-Depending on value of {@link Lava.ClassManager#is_monomorphic} switch, it can operate in two modes: 
-monomorphic(default) and polymorphic. Polymorphic mode moves all value types from class body to prototype, 
-while monomorphic assigns them explicitly in constructor.
-
-Here is an example of a class and generated code:
-
-```javascript
-Lava.define(
-'Lava.user.MyClass',
-{
-	counter: 0,
-	null_value: null,
-	boolean_value: false,
-
-	instance_array: [],
-	object: {}
-	init: function(){}
-});
-```
-
-Monomorphic mode will assign all value members in constructor:
-
-```javascript
-// equivalent generated class in monomorphic mode
-Lava.user.MyClass = function() {
-	this.counter = 0;
-	this.null_value = null;
-	this.boolean_value = false;
-
-	this.instance_array = [];
-	this.object = {};
-	this.init.apply(this, arguments);
-};
-Lava.user.MyClass.prototype.init = function() {};
-```
-
-While polymorphic mode will move them to prototype:
-
-```javascript
-// equivalent generated class in polymorphic mode
-Lava.user.MyClass = function() {
-	this.instance_array = [];
-	this.object = {};
-	this.init.apply(this, arguments);
-};
-Lava.user.MyClass.prototype.counter = 0;
-Lava.user.MyClass.prototype.null_value = null;
-Lava.user.MyClass.prototype.boolean_value = false;
-Lava.user.MyClass.prototype.init = function() {};
-```
-
-Monomorphic constructors are a bit slower, but they produce class instances with same internal type.
-This means, that method calls to monomorphic class instances will be faster, then calls to polymorphic ones 
-(due to internal optimizations of JavaScript engines). With monomorphic classes your page may take a bit slower to load,
-but overall performance will be better, so it's recommended to leave `is_monomorphic` switch on.
-
-This switch is individual for each class, so you can change it dynamically before calling {@link Lava.ClassManager#define}.
-
-<i>To understand polymorphism better, you are recommended to search for various "V8 optimization" articles.</i>
 
 ##Class structure
 
@@ -73,8 +9,7 @@ Functions and <b>RegExp</b> objects are always assigned to prototype and are sha
 If you want to have different instances of RegExp objects for each class instance - then you can assign it in constructor.
 
 Value types can also be safely moved to prototype, cause they are never assigned by reference
-(this includes strings, nulls, booleans and numbers). In polymorphic mode they are served from prototype,
-in monomorphic mode they are assigned in constructor.
+(this includes strings, nulls, booleans and numbers).
 
 Arrays and objects are not shared by default - arrays are sliced, and objects are recursively copied:
 
@@ -360,67 +295,6 @@ Lava.user.InheritedClass.prototype._shared_array = Lava.user.MyClass.prototype._
 
 When you override a shared object in inherited class - it's merged with parent (child members have priority).
 Several properties can be shared with one directive (`Shared: [/*...*/]`).
-
-##Exporting and loading classes
-
-Classes can be generated on server - this decreases page load time. Also, server-generated classes are faster in Firefox.
-{@link Lava.ClassManager#exportClass} produces lots of excess data, which you should manually delete:
-
-```javascript
-var exported = Lava.ClassManager.exportClass('Lava.mixin.Observable');
-delete exported.skeleton;
-delete exported.source_object;
-delete exported.references;
-//delete exported.own_references;
-result = "Lava.ClassManager.loadClass(" + Lava.serializer.serialize(exported) + ");\n\n";
-```
-
-`source_object` is the original class body: after class was built - it's not needed anymore. 
-Skeletons are needed for inheritance, so if you want to inherit from exported classes - you can either do it on server,
-when skeletons are available, or export just the skeletons you need. For example, you can export skeleton for 
-"Lava.widget.Standard" to be able to create widgets in browser.
-
-```javascript
-result = "Lava.widget.Standard.prototype.Class.skeleton = " 
-	+ Lava.serializer.serialize(Lava.widget.Standard.prototype.Class.skeleton);
-// write result to disk
-```
-
-Also, two arrays with references are exported: `own_references` - just own methods of the class, from it's own body,
-and the full `references` array, which also includes methods from all class parents and mixins.
-If your do not care about monomorphism - you should delete `references` and keep `own_references`.
-
-If you do otherwise (keep `references` and delete `own_references`) - this will allow you to create truly monomorphic 
-classes: each class will have it's own copy of every method it needs. This will produce a <b>huge</b> export file
-with extremely fast classes - you can use this scenario for intranet sites and CMS admin panels. 
-Note, that there is no reason to export full references array for polymorphic classes 
-(those, which were created with {@link Lava.ClassManager#is_monomorphic} = <kw>false</kw>).
-
-###Size of exported classes
-
-Before gzip compression:
-- exported classes (with partial references and without skeletons) are 60% bigger, then originals
-- raw skeletons weight another 110% of original classes.
-
-After compression exported package weights just a bit more then original, but to achieve such result - 
-it needs to be exported in proper way.
-
-To achieve best compression results - all similar data should be gathered in one place. 
-For example: object with all skeletons of the framework weights around 300KiB, 
-but minified and gzipped it weights just around 13KiB. The same skeletons, but scattered around exported file - 
-will weight much more.
-
-<i>Lava build script exports compiled versions of framework classes and their skeletons in proper way: 
-it gathers constructors, prototype generation functions and references in separate arrays.</i> 
-You can study sources of the export script as an example (see the `build/` directory of core Lava repository).
-Exported classes can be found under `lib/compiled/` directory of Lava NPM package.
-
-If you want to export full `references` array - it's highly recommended, that you gather copies of every method in
-one place. If you do such alignment - then gzipped exported file will be just 10-20% bigger (currently, 
-there are no examples that demonstrate it).
-
-Class manager has convenience methods to simplify loading: {@link Lava.ClassManager#loadClasses} and 
-{@link Lava.ClassManager#loadSkeletons}.
 
 ##Limitations
 

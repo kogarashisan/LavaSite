@@ -231,6 +231,7 @@ Lava.define(
 	_onPageClick: function(event_name, event_object) {
 
 		var target = event_object.target,
+            startsWith = Firestorm.String.startsWith,
 			href;
 
 		if (target && Firestorm.Element.getTagName(target) == "a") {
@@ -240,10 +241,10 @@ Lava.define(
 			if (
 				href
 				&& href != "#"
-				&& (href[0] == "#" || this._startsWith(href, this.BASE_PAGE_PATH) || this._startsWith(href, this.EXT_PAGE_PATH))
+				&& (href[0] == "#" || startsWith(href, this.BASE_PAGE_PATH) || startsWith(href, this.EXT_PAGE_PATH))
 			) {
 
-				if (this._startsWith(href, this.BASE_PAGE_PATH + "#tab=")) {
+				if (startsWith(href, this.BASE_PAGE_PATH + "#tab=")) {
 
 					this._doHashAction(href.substr(href.indexOf("#")));
 
@@ -317,7 +318,7 @@ Lava.define(
 				is_invalid: false
 			};
 
-		if (this._startsWith(pathname, this.EXT_PAGE_PATH)) {
+		if (Firestorm.String.startsWith(pathname, this.EXT_PAGE_PATH)) {
 			path_segments = pathname.substr(this.EXT_PAGE_PATH.length).split("/");
 			if (
 				path_segments.length != 2

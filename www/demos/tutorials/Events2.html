@@ -25,7 +25,7 @@
 				item_click: '_onItemClick'
 			},
 
-			_onItemClick: function(dom_event_name, dom_event, view, template_arguments) {
+			_onItemClick: function(dom_event_name, event_object, view, template_arguments) {
 
 				// template_arguments[0] is the first argument, which was passed to event
 				this.set("selected_person", template_arguments[0]);

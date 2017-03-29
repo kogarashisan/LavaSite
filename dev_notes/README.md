@@ -1,11 +1,7 @@
 
-This folder is not published on site. It contains architecture notes for LiquidLava contributors and core developers.
+This folder contains notes for contributors and core developers of Lava framework
+(some complex and unclear questions about framework's internal design are explained here).
+
 Most people will never need to read these documents.
-This is NOT tutorials or reference, most of data in this folder requires very good understanding of the framework.
-
-Every complex and unclear question about internal design of the framework will be eventually answered here, like:
-	- "Why there is a call to Lava.ScopeManager#refresh in widget.Standard#inject?"
-	- "Why there is no #remove() on listeners?"
-	- "Why you can not search templates from parents to children (only from children to parents)?"
-
-Also, here you may find open architectural problems.
+This is NOT tutorials or reference, most of data in this folder requires very good understanding of Lava internals.
+You may also find some open architectural problems here.

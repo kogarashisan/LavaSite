@@ -18,7 +18,7 @@ Lava.define(
 	_click_stack_changed_listener: null,
 	_tbody_container: null,
 
-	_onRowClick: function(dom_event_name, dom_event, view, template_arguments) {
+	_onRowClick: function(dom_event_name, event_object, view, template_arguments) {
 
 		var edit_row = template_arguments[0];
 		if (this._properties._edit_record == null) {

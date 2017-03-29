@@ -2,8 +2,8 @@
 /*
  Perfection kills. Even God needs to rest sometimes. Amen.
  */
-global.LAVA_CORE_DIRECTORY = 'C:/@Storage/Dropbox/@GitHub/LiquidLava/';
-global.FIRESTORM_DIRECTORY = 'C:/@Storage/Dropbox/@GitHub/Firestorm/';
+global.LAVA_CORE_DIRECTORY = 'C:/@Cache/Dropbox/@GitHub/LiquidLava/';
+global.FIRESTORM_DIRECTORY = 'C:/@Cache/Dropbox/@GitHub/Firestorm/';
 global.FIRESTORM_PATH = global.FIRESTORM_DIRECTORY;
 
 global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS = ['sugar', 'storage', 'storage_schema', 'include'];
@@ -47,7 +47,8 @@ global.bug1135 = function(callback) {
 		try {
 			return callback();
 		} catch (e) {
-			throw new Error(e);
+            if (!(e instanceof Error)) e = new Error(e);
+			throw e;
 		}
 	}
 };
@@ -508,7 +509,7 @@ module.exports = function(grunt) {
 			var multiplicity = 'N/A';
 			if (global.DIRECTIVE_MULTIPLICITY[directive_name] == true) multiplicity = 'Allowed';
 			if (global.DIRECTIVE_MULTIPLICITY[directive_name] == false) multiplicity = 'Disallowed';
-			if (global.DIRECTIVE_NAMES.indexOf(directive_name) == -1) throw "unknown directive: " + directive_name;
+			if (global.DIRECTIVE_NAMES.indexOf(directive_name) == -1) throw new Error("unknown directive: " + directive_name);
 			return '<table class="api-member-table doc-directive-quick-facts"><thead><tr><td>Quick facts</td><td></td></tr></thead><tbody>'
 				+ '<tr><td>Has analog in widget definition tags</td><td>' + (global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS.indexOf(directive_name) != -1 ? 'Yes' : 'No')  + '</td></tr>'
 				+ '<tr><td>Produces result</td><td>' + (global.DIRECTIVES_WITH_RESULT.indexOf(directive_name) != -1 ? 'Yes' : 'No') + '</td></tr>'
@@ -522,7 +523,9 @@ module.exports = function(grunt) {
 	marked.Renderer.prototype.code = function(code, lang, escaped) {
 
 		var result = '';
-		if (!lang) throw new Error('highlight: no language specified');
+		if (!lang) {
+            throw new Error('highlight: no language specified');
+        }
 		if (lang == 'text') {
 			result = LavaBuild.wrapHighlightedCode(code, 'text', LavaBuild.createLineNumbers(code), '', '');
 		} else if (lang == 'xml' || lang == 'javascript') {
@@ -585,8 +588,6 @@ module.exports = function(grunt) {
 							global.LAVA_CORE_DIRECTORY + 'lib/export/widget-templates.js',
 							"src/site.js",
 							"src/sample_data.js",
-							//"build/temp/site-compiled-classes.js",
-							//"build/temp/site-skeletons.js",
 							"build/temp/site-classes.js",
 							"src/ApiCommon.js",
 							"build/temp/site_widgets.js",
@@ -661,17 +662,18 @@ module.exports = function(grunt) {
 			'tutorials/WidgetProperties.md'
 		],
 
-		// compiled on server
+        // @todo this needs to be merged with some other list
 		site_classes_list: [
-			{path: "src/classes/ContentLoader.class.js", name: "Lava.widget.ContentLoader"},
-			{path: "src/classes/UtilityWidget.class.js", name: "Lava.widget.UtilityWidget"},
+			{path: "src/classes/ContentLoader.class.js",        name: "Lava.widget.ContentLoader"},
+			{path: "src/classes/UtilityWidget.class.js",        name: "Lava.widget.UtilityWidget"},
 			{path: "src/classes/EditableTableExample.class.js", name: "Lava.widget.EditableTableExample"},
-			{path: "src/classes/ChangelogPage.class.js", name: "Lava.widget.ChangelogPage"},
-			{path: "src/classes/DocClassView.class.js", name: "Lava.widget.DocClassView"},
-			{path: "src/classes/DocPage.class.js", name: "Lava.widget.DocPage"},
-			{path: "src/classes/QuickStartPage.class.js", name: "Lava.widget.QuickStartPage"},
-			{path: "src/classes/ExamplesPage.class.js", name: "Lava.widget.ExamplesPage"},
-			{path: "src/classes/WidgetsPage.class.js", name: "Lava.widget.WidgetsPage"}
+			{path: "src/classes/ChangelogPage.class.js",        name: "Lava.widget.ChangelogPage"},
+			//{path: "src/classes/CodeTabs.class.js",             name: "Lava.widget.CodeTabs"},
+			{path: "src/classes/DocClassView.class.js",         name: "Lava.widget.DocClassView"},
+			{path: "src/classes/DocPage.class.js",              name: "Lava.widget.DocPage"},
+			{path: "src/classes/QuickStartPage.class.js",       name: "Lava.widget.QuickStartPage"},
+			{path: "src/classes/ExamplesPage.class.js",         name: "Lava.widget.ExamplesPage"},
+			{path: "src/classes/WidgetsPage.class.js",          name: "Lava.widget.WidgetsPage"}
 		]
 
 	});
@@ -684,7 +686,7 @@ module.exports = function(grunt) {
 
 	grunt.option('stack', true);
 	grunt.loadNpmTasks('grunt-contrib-concat');
-	//grunt.loadNpmTasks('grunt-contrib-copy');
+
 	grunt.loadTasks('build/tasks/');
 
 	grunt.registerTask('default', [
@@ -706,27 +708,26 @@ module.exports = function(grunt) {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// documentation-related
 
-	grunt.registerTask('prepareDoc', function() {
+	grunt.registerTask('doc_prepareDoc', function() {
 		LavaBuild.emptyDirectory('www/api/');
 		LavaBuild.emptyDirectory('www/reference/');
 		LavaBuild.emptyDirectory('www/tutorials/');
 		LavaBuild.emptyDirectory('www/doc/');
-
 		LavaBuild.doc_page_src = grunt.file.read("build/temp/doc_page_src.html");
 	});
 
-	grunt.registerTask('finalizeDoc', function() {
+	grunt.registerTask('doc_finalizeDoc', function() {
 		if (global.LavaBuild.has_errors) throw new Error("build process has errors, aborting");
 	});
 
 	// depends on "default"
 	grunt.registerTask('doc', [
-		'prepareDoc',
-		'jsdocExport',
-		'buildSugar',
-		'buildDoc',
-		'buildSupport',
-		'finalizeDoc'
+		'doc_prepareDoc',
+		'doc_jsdocExport',
+		'doc_buildSugar',
+		'doc_buildDoc',
+		'doc_buildSupport',
+		'doc_finalizeDoc'
 	]);
 
 };
