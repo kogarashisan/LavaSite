@@ -1,5 +1,5 @@
 
-<i>Term "target" here refers to result of {@link Lava.parsers.Common#parseTargets}, See {@link reference:Targets}</i>
+<i>Term "target" here refers to result of {@link Lava.parsers.Common#parseEventHandlers}, See {@link reference:Targets}</i>
 
 #Event dispatch algorithm clarification
 

@@ -4,7 +4,7 @@
 Lava features declarative bindings of DOM events to controller callbacks. 
 Similar format and mechanism is used to retrieve widget includes and dispatch roles.
 
-"targets" in Lava refers to result of {@link Lava.parsers.Common#parseTargets}. 
+"targets" in Lava refers to result of {@link Lava.parsers.Common#parseEventHandlers}.
 Target always references a widget, and there are two kinds of them:
 
 ```text

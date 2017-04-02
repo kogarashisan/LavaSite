@@ -570,7 +570,7 @@ module.exports = function(grunt) {
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			// describe _properties
 
-			if (cd.hierarchy_paths.indexOf('Lava.view.Abstract') != -1) {
+			if (cd.extends_paths.indexOf('Lava.view.Abstract') != -1) {
 				var proeprties_skeleton = cd.skeleton._properties.skeleton;
 				var property_descriptors = cd.shared ? cd.shared._property_descriptors || {} : {};
 				var properties_export = {};

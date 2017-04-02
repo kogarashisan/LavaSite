@@ -9,7 +9,7 @@ to views and sugar.
 Content of the directive is expected to be any JavaScript type, like strings, objects, arrays or literals.
 
 Directive may have an optional `type` attribute:
-- <str>"targets"</str> - option value is parsed with {@link Lava.parsers.Common#parseTargets}
+- <str>"targets"</str> - option value is parsed with {@link Lava.parsers.Common#parseEventHandlers}
 - <str>"expressions"</str> - option value is parsed with ExpressionParser
 
 ##Example
