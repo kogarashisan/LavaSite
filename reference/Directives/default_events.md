@@ -34,7 +34,7 @@ Widget can temporary enable template event routing by call to {@link Lava.system
 followed by call to `releaseEvent` when you don't need it anymore. If your widget uses mouse events - 
 then it's a good practice to enable them only when you need them (for example, in `broadcastInDOM`).
 
-Note: if you need "mousemove" event - it is better to receive it directly from {@link Lava.Core}, 
+Note: if you need "mousemove" event - it is better to receive it directly from {@link Lava.DOMEvents},
 than route it via templates. See the "Draggable" example.
 
 ##Default events

@@ -45,7 +45,7 @@ Lava.define(
 		this.Standard$init(config, widget, parent_view, template, properties);
 
 		Lava.focus_manager.on('focus_target_changed', this._onFocusTargetChanged, this);
-		Lava.Core.addGlobalHandler('keydown', this._onKeyDown, this);
+		Lava.DOMEvents.addListener('keydown', this._onKeyDown, this);
 
 		new Router({
 			'/:filter': function (filter_name) {

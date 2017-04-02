@@ -69,8 +69,8 @@ Lava.ClassManager.define(
 
 		if (!this._mousemove_listener) {
 
-			this._mousemove_listener = Lava.Core.addGlobalHandler('mousemove', this._onMouseMove, this);
-			this._mouseup_listener = Lava.Core.addGlobalHandler('mouseup', this._onMouseUp, this);
+			this._mousemove_listener = Lava.DOMEvents.addListener('mousemove', this._onMouseMove, this);
+			this._mouseup_listener = Lava.DOMEvents.addListener('mouseup', this._onMouseUp, this);
 
 			this._start_coordinates = event_object.page;
 			this._current_coordinates.x = circle.get('x');
@@ -84,8 +84,8 @@ Lava.ClassManager.define(
 
 	_onMouseUp: function(event_name, event_object) {
 
-		Lava.Core.removeGlobalHandler(this._mousemove_listener);
-		Lava.Core.removeGlobalHandler(this._mouseup_listener);
+		Lava.DOMEvents.removeListener(this._mousemove_listener);
+		Lava.DOMEvents.removeListener(this._mouseup_listener);
 		this._mousemove_listener = null;
 		this._mouseup_listener = null;
 

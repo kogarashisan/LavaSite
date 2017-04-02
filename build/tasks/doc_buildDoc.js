@@ -876,7 +876,7 @@ module.exports = function(grunt) {
 
 		var global_object_names = [
 			'Lava.ClassManager',
-			'Lava.Core',
+			'Lava.DOMEvents',
 			'Lava.Cron',
 			'Lava.ScopeManager',
 			'Lava.parsers.Common',
@@ -904,7 +904,7 @@ module.exports = function(grunt) {
 
 		var global_objects = [
 			Lava.ClassManager,
-			Lava.Core,
+			Lava.DOMEvents,
 			Lava.Cron,
 			Lava.ScopeManager,
 			Lava.parsers.Common,

@@ -76,7 +76,7 @@ For better understanding see remarks for {@link Lava.system.ViewManager}.
 
 Events are routed by {@link Lava.system.ViewManager}.
 Routing of an event is enabled by a call to {@link Lava.system.ViewManager#lendEvent}: this increases internal 
-usage counter for the event, and acquires handler from {@link Lava.Core}. You can {@link Lava.system.ViewManager#releaseEvent}
+usage counter for the event, and acquires handler from {@link Lava.DOMEvents}. You can {@link Lava.system.ViewManager#releaseEvent}
 when you don't need it - this is important for resource-intensive events like "mouseenter".
 
 In it's constructor, ViewManager enables all events from {@link Lava.schema#system.DEFAULT_EVENTS}.
@@ -99,9 +99,9 @@ When you enable "mouse_events" - all four of them will be routed.
 
 Bubbling of mouse events is not cancellable.
 
-Note: if you need "mousemove" event - you can get it directly from {@link Lava.Core}:
+Note: if you need "mousemove" event - you can get it directly from {@link Lava.DOMEvents}:
 ```javascript
-Lava.Core.addGlobalHandler('mousemove', this._onMouseMove, this);
+Lava.DOMEvents.addListener('mousemove', this._onMouseMove, this);
 ```
 
 ##Target handlers

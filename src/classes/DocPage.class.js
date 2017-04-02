@@ -100,9 +100,9 @@ Lava.define(
 
 		this.Standard$init(config, widget, parent_view, template, properties);
 
-		this._hashchange_listener = Lava.Core.addGlobalHandler('hashchange', this._onHashChange, this);
-		Lava.Core.addGlobalHandler("popstate", this._onPopState, this);
-		Lava.Core.addGlobalHandler("click", this._onPageClick, this);
+		this._hashchange_listener = Lava.DOMEvents.addListener('hashchange', this._onHashChange, this);
+		Lava.DOMEvents.addListener("popstate", this._onPopState, this);
+		Lava.DOMEvents.addListener("click", this._onPageClick, this);
 
 	},
 
