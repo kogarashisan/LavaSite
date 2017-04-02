@@ -41,7 +41,7 @@ Lava.define(
 
 	},
 
-	_setMyProperty: function(value, name) {
+	_setMyProperty: function(name, value) {
 
 		// name here equals to "my_property"
 
@@ -89,4 +89,3 @@ The {@link Lava.types#Set} type uses `allowed_values` from descriptor to check f
 Class methods, used to get and set property values.
 
 Property setter will be called only when new property value differs from previous.
-Remember: the order of arguments in setters is reversed (`value, name` instead of `name, value`).

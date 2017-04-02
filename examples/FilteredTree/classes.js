@@ -109,7 +109,7 @@ Lava.define(
 
 	},
 
-	_setFilterText: function(value, name) {
+	_setFilterText: function(name, value) {
 
 		this._lowercase_filter_text = value.toLowerCase();
 		this._filter_reg_exp = this._lowercase_filter_text
