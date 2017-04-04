@@ -8,9 +8,9 @@
 					{#foreach($table._columns) as=column}
 						<td x:type="view">
 							{#if(row == _edit_record)}
-								{>$table.edit_cell(column)}
+								{include> $table.edit_cell(column)}
 							{else}
-								{>$table.cell(column)}
+								{include> $table.cell(column)}
 							{/if}
 						</td>
 					{/foreach}

@@ -121,8 +121,8 @@ Final example:
 <x:define controller="Standard" title="MyPanel">
 	<template>
 		<div class="my-panel">
-			{> $widget.header}
-			{> $widget.content}
+			{include> $widget.header}
+			{include> $widget.content}
 		</div>
 	</template>
 	<include name="header">

@@ -9,7 +9,7 @@
 						<x:assign name="is_indeterminate">node.is_indeterminate</x:assign>
 						<x:roles>$tree_example._checkbox</x:roles>
 					</checkbox>
-					{> $tree.FolderTree$node_body_content}
+					{include> $tree.FolderTree$node_body_content}
 				</include>
 				<script x:equiv="options" type="lava/options">
 					{

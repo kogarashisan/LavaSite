@@ -113,7 +113,7 @@ Widget's sugar tag is defined with `tag_name: 'wrapper'`. You can also define at
 <x:define title="Wrapper" controller="Standard">
 	<template>
 		<div>
-			{>$wrapper.content}
+			{include> $wrapper.content}
 		</div>
 	</template>
 	<script x:equiv="sugar" type="application/json">

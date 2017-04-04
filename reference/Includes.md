@@ -12,9 +12,9 @@ Example include definition and usage:
 <lavabuild:template_result as="single_view">
 <x:widget controller="Standard">
 	<template>
-		{> $widget.header}
+		{include> $widget.header}
 		This is content
-		{> $widget.footer}
+		{include> $widget.footer}
 	</template>
 	<include name="header">
 		This is header
@@ -28,7 +28,7 @@ Example include definition and usage:
 Syntax for using includes:
 
 ```text
-{> target}
+{include> target}
 ```
 
 Include target is parsed by {@link Lava.parsers.Common#parseEventHandlers} and has same format as event or role target.
@@ -64,7 +64,7 @@ Lava.define(
 });
 	</codeblock>
 	<codeblock title="Template" lang="xml">
-{> $my_widget.my_include(item)}
+{include> $my_widget.my_include(item)}
 	</codeblock>
 </lavabuild:codeblocks>
 
@@ -85,7 +85,7 @@ This happens in the process of config extension.
 <lavabuild:template_result as="single_view">
 <x:widget extends="Tree">
 	<include name="node_body_content">
-		{> $tree.Tree$node_body_content}
+		{include> $tree.Tree$node_body_content}
 		<checkbox style="float: right">
 			<x:assign name="is_checked">node.is_checked</x:assign>
 			<x:assign name="is_indeterminate">node.is_indeterminate</x:assign>

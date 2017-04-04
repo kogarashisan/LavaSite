@@ -167,14 +167,14 @@
 			{$if($widget.extended_descriptor.method_chain)}
 				<h2 class="api-member-group-header">Methods</h2>
 				{#foreach($widget.extended_descriptor.method_chain) as=method_group}
-					{> method_group}
+					{include> method_group}
 				{/foreach}
 			{/if}
 
 			{$if($widget.extended_descriptor.member_chain)}
 				<h2 class="api-member-group-header">Members</h2>
 				{#foreach($widget.extended_descriptor.member_chain) as=member_group}
-					{> member_group}
+					{include> member_group}
 				{/foreach}
 			{/if}
 
@@ -198,13 +198,13 @@
 					{#if(object.member_chain)}
 						{#if(object.member_chain && object.method_chain)}<b>Members</b>{/if}
 						{#foreach(object.member_chain) as=member_group}
-							{> member_group}
+							{include> member_group}
 						{/foreach}
 					{/if}
 					{#if(object.method_chain)}
 						{#if(object.member_chain && object.method_chain)}<b>Methods</b>{/if}
 						{#foreach(object.method_chain) as=method_group}
-							{> method_group}
+							{include> method_group}
 						{/foreach}
 					{/if}
 				{/foreach}
@@ -343,7 +343,7 @@
 	<include name="node_body">
 		<div class="lava-tree-node" x:type="view" unselectable="on" x:classes="'level-' + level;
 			node.is_selected ? 'api-node-selected' : ''">
-			{>$tree.node_body_content}
+			{include> $tree.node_body_content}
 		</div>
 	</include>
 </x:define>

@@ -3,7 +3,7 @@
 		<template>
 			<div x:type="container" style="border: 1px solid black">
 				{#foreach($tree_view.tree) as=node}
-					{>$tree_view.node}
+					{include> $tree_view.node}
 				{/foreach}
 			</div>
 		</template>
@@ -16,7 +16,7 @@
 			{$if(node.children.length && node.is_expanded)}
 				<div x:type="container" style="padding-left: 2em">
 					{#foreach(node.children) as=node}
-						{>$tree_view.node}
+						{include> $tree_view.node}
 					{/foreach}
 				</div>
 			{/if}
