@@ -1,6 +1,6 @@
 <lavabuild:title>Appendix C - Development</lavabuild:title>
 
-#Appendix С - Development guidelines
+#Appendix C - Development guidelines
 
 To be able to use Bower and run the following commands in console - you need to have Node.js and Git installed in your system. 
 You may also need to install Node.js packages like "bower" and "grunt".
