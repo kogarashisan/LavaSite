@@ -150,7 +150,7 @@ The above example defined `content_schema` with `type: 'include'` - that means t
 will become widget's include named `name: 'content'`. That include is than used in the main widget's template as
 `{:L:}>$wrapper.content}`.
 
-`type_name` in the attribute descriptor contains a type name from {@link Lava.types}. Also, note how attribute key 
+`type_name` in the attribute descriptor contains a type name from {@link Firestorm.Types}. Also, note how attribute key
 differs from property name: `'is-expanded'` is name of the attribute on &lt;wrapper&gt; tag, while `name: 'is_expanded'`
 defines the name of widget's property for storing the attribute value.
 
@@ -192,7 +192,7 @@ and to define panels at the same time:
 			properties: {
 				title: {type: 'template'},
 				content: {type: 'template'},
-				is_expanded: {type: 'lava_type', type_name: 'Boolean', is_attribute: true}
+				is_expanded: {type: 'known_type', type_name: 'Boolean', is_attribute: true}
 			}
 		}
 	}

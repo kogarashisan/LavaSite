@@ -21,7 +21,7 @@ var config = {
 	// transition_name: 'inSine',
 
 	transition: function(x) {
-		return (x < 0.5) ? Lava.transitions.inOutCubic(x*2) : Lava.transitions.inOutCubic(1 - (x - 0.5)*2);
+		return (x < 0.5) ? Firestorm.Transitions.inOutCubic(x*2) : Firestorm.Transitions.inOutCubic(1 - (x - 0.5)*2);
 	},
 	// properties, that will be animated
 	animators: [

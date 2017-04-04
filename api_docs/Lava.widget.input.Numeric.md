@@ -7,5 +7,5 @@ What this widget does: it converts the text from input into a number (it's `valu
 When the text is not a valid number - it's not assigned to `value`, and widget sets it's `is_valid` property 
 to <kw>false</kw>. 
 
-Widget has `data_type` option, which can be used to set the type which is used for conversion (default is {@link Lava.types#Number}).
+Widget has `data_type` option, which can be used to set the type which is used for conversion (default is {@link Firestorm.Types#Number}).
 For example, you can change it to "Percent". When changing type - you may also need to set `type: 'text'` option.

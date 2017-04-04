@@ -23,7 +23,7 @@
 
 <body lava-app="HelloApp">
 
-	<h1>{#> "Hello " + ucFirst(your_name) + "!"}</h1>
+	<h1>{#> "Hello " + applyFilter(your_name, 'ucFirst') + "!"}</h1>
 
 	{#if(your_name.length < 3)}
 		Error: your name is too short

@@ -51,7 +51,7 @@ objects and classes (extended) // page content
 	properties: [] // widgets only
 		name
 		description
-		lava_type // the name from Lava.types
+        known_type // the name from Firestorm.Types
 		is_nullable
 		is_non_nullable
 		is_readonly
@@ -590,7 +590,7 @@ module.exports = function(grunt) {
 					}
 
 					if (name in property_descriptors) {
-						if (property_descriptors[name].type) export_descriptor.lava_type = property_descriptors[name].type;
+						if (property_descriptors[name].type) export_descriptor.known_type = property_descriptors[name].type;
 						if (property_descriptors[name].is_nullable) export_descriptor.is_nullable = true;
 						if (property_descriptors[name].is_readonly) export_descriptor.is_readonly = true;
 					}
@@ -609,9 +609,9 @@ module.exports = function(grunt) {
 					var child_ext_descriptor = extended_class_descriptor.properties_hash[name];
 					var parent_ext_descriptor = parent_class_ext_descriptor.properties_hash[name];
 					inheritDescription(child_ext_descriptor, parent_ext_descriptor, cd.extends);
-					if (!child_ext_descriptor.lava_type && !child_ext_descriptor.type_names) {
-						if (parent_ext_descriptor.lava_type) {
-							child_ext_descriptor.lava_type = parent_ext_descriptor.lava_type;
+					if (!child_ext_descriptor.known_type && !child_ext_descriptor.type_names) {
+						if (parent_ext_descriptor.known_type) {
+							child_ext_descriptor.known_type = parent_ext_descriptor.known_type;
 						} else if (parent_ext_descriptor.type_names) {
 							child_ext_descriptor.type_names = parent_ext_descriptor.type_names;
 						}
@@ -885,8 +885,6 @@ module.exports = function(grunt) {
 			'Lava.extenders',
 			'Lava.modifiers',
 			'Lava.resources',
-			'Lava.transitions',
-			'Lava.types',
 			'Lava.schema',
 			'Lava.ObjectParser',
 			'Lava.ExpressionParser',
@@ -913,8 +911,6 @@ module.exports = function(grunt) {
 			Lava.extenders,
 			Lava.modifiers,
 			Lava.resources,
-			Lava.transitions,
-			Lava.types,
 			lava_schema_export,
 			{
 				'yy.valid_globals': Lava.ObjectParser.yy.valid_globals,
@@ -977,6 +973,8 @@ module.exports = function(grunt) {
 			'Firestorm.Object',
 			'Firestorm.Date',
 			'Firestorm.Sorting',
+			'Firestorm.Transitions',
+			'Firestorm.Types',
 			'Firestorm.schema'
 		];
 
@@ -989,6 +987,8 @@ module.exports = function(grunt) {
 			Firestorm.Object,
 			Firestorm.Date,
 			Firestorm.Sorting,
+			Firestorm.Transitions,
+			Firestorm.Types,
 			firestorm_schema_export
 		];
 

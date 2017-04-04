@@ -88,9 +88,9 @@
 							</td>
 							<td class="api-name-column">{#>descriptor.name}</td>
 							<td>
-								{#if(descriptor.lava_type)}
-									<a x:type="container" class="api-lava-type-link" x:bind:href="#page.render_link('object','Lava.types','member=' + descriptor.lava_type)">
-										{#>'Lava.types.' + descriptor.lava_type}
+								{#if(descriptor.known_type)}
+									<a x:type="container" class="api-lava-type-link" x:bind:href="#page.render_link('object','Firestorm.Types','member=' + descriptor.known_type)">
+										{#>'Firestorm.Types.' + descriptor.known_type}
 									</a>
 								{elseif(descriptor.type_names)}
 									{#foreach(descriptor.type_names) as=type_name}

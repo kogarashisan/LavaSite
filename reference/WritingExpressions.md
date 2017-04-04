@@ -112,7 +112,7 @@ See the source of {@link Lava.view.Abstract#locateViewByLabel}.
 Modifiers are user-defined functions, which you can call from expressions. Global modifiers are defined in
 {@link Lava.modifiers}. Example:
 ```text
-{#> ucFirst(your_name)}
+{#> applyFilter(your_name, 'ucFirst')}
 ```
 
 You can also define modifiers in widgets:

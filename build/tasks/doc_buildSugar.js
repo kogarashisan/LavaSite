@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 					case 'template':
 						fragment = renderTemplate();
 						break;
-					case 'lava_type':
+					case 'known_type':
 						fragment = '<div class="api-sugar-container-type api-sugar-container">' + descriptor.type_name + '</div>\n';
 						break;
 					default:
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 						tooltip = 'Option\nType: &amp;lt;expressions&amp;gt;';
 						break;
 					// object
-					case 'lava_type':
+					case 'known_type':
 						tooltip = _addAttributeTooltipData('Property', mappings[name], name);
 						break;
 					default:

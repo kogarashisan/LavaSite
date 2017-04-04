@@ -25,7 +25,7 @@ All type objects have the following methods:
 		<tr data-scroll-name="member:_createEventWrapper" class="api-member-row api-member-row-expandable">
 			<td class="api-flag-td"><img title="Public method" src="/www/design/public-method.gif"></td>
 			<td class="api-name-column">isValidValue(value:\*):boolean</td>
-			<td class="api-description-td"><p>Checks if `value` belongs to type. For example: Lava.types.Boolean will accept only <kw>true</kw> and <kw>false</kw></p></td>
+			<td class="api-description-td"><p>Checks if `value` belongs to type. For example: Firestorm.Types.Boolean will accept only <kw>true</kw> and <kw>false</kw></p></td>
 		</tr>
 		<tr data-scroll-name="member:_createEventWrapper" class="api-member-row api-member-row-expandable">
 			<td class="api-flag-td"><img title="Public method" src="/www/design/public-method.gif"></td>

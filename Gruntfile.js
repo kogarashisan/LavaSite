@@ -9,8 +9,9 @@ global.FIRESTORM_PATH = global.FIRESTORM_DIRECTORY;
 global.WIDGET_TAGS_WITHOUT_DIRECTIVE_ANALOGS = ['sugar', 'storage', 'storage_schema', 'include'];
 global.WIDGET_TAGS_WITH_DIRECTIVE_ANALOGS = ['bind', 'assign', 'option', 'property', 'options', 'properties', 'roles', 'resources', 'default_events'];
 global.WIDGET_ONLY_DIRECTIVES = ['bind', 'property', 'properties', 'property_string', 'resources', 'default_events'];
-global.DIRECTIVE_NAMES = ['define', 'define_resources', 'widget', 'static_value', 'static_eval', 'attach_directives',
-	'assign', 'roles', 'container_config', 'refresher', 'option', 'options'].concat(global.WIDGET_ONLY_DIRECTIVES);
+global.DIRECTIVE_NAMES = [
+	'define', 'define_resources', 'widget', 'static_value', 'static_eval', 'attach_directives',
+	'assign', 'roles', 'container_config', 'refresher', 'option', 'options', 'include'].concat(global.WIDGET_ONLY_DIRECTIVES);
 global.DIRECTIVES_WITH_RESULT = ['widget', 'static_value', 'static_eval', 'attach_directives'];
 global.DIRECTIVE_MULTIPLICITY = {
 	// multiple

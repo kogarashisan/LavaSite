@@ -74,7 +74,7 @@ Lava.define(
 		this._color_animation = new Lava.animation.Standard({
 			duration: 1500,
 			transition: function(x) {
-				return (x < 0.5) ? Lava.transitions.inOutCubic(x*2) : Lava.transitions.inOutCubic(1 - (x - 0.5)*2);
+				return (x < 0.5) ? Firestorm.Transitions.inOutCubic(x*2) : Firestorm.Transitions.inOutCubic(1 - (x - 0.5)*2);
 			},
 			animators: [
 				{type: 'Color', from: [255, 255, 255], to: [255, 128, 128], property: 'background-color'}

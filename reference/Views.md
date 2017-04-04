@@ -7,13 +7,13 @@ Expression view allows you to output a value of any JavaScript expression.
 This is commonly used short form:
 
 <lavabuild:template_result as="single_view">
-{#> ucFirst('liquidLava') + " is the best framework ever!" }
+{#> applyFilter('liquidLava', 'ucFirst') + " is the best framework ever!" }
 </lavabuild:template_result>
 
 Standard form example. There must be no content inside the block.
 
 <lavabuild:template_result as="single_view">
-{#expression(ucFirst('liquidLava') + " is the best framework ever!")}{/expression}
+{#expression(applyFilter('liquidLava', 'ucFirst') + " is the best framework ever!")}{/expression}
 </lavabuild:template_result>
 
 Example: turn off escaping of HTML entities

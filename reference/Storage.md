@@ -3,7 +3,7 @@
 #Widget storage
 
 {@link _cWidget#storage} allows you to define a hash of items with flexible structure. 
-It may be arrays and objects with templates and Lava types in them.
+It may be arrays and objects with templates and Firestorm types in them.
 
 You may define storage in x:define and x:widget tags, and also via {@link reference:Sugar|sugar}.
 There are two tags which describe it: 
@@ -90,7 +90,7 @@ Define an object with arbitrary structure. Type of each property is described in
 
 Currently. there are two kinds of properties:
 - <str>"template"</str> - self-explanatory
-- <str>"lava_type"</str> - a type from {@link Lava.types}. You must also provide it's `type_name`.
+- <str>"known_type"</str> - a type from {@link Firestorm.Types}. You must also provide it's `type_name`.
 
 You can allow a property to be defined as object's attribute, by setting `is_attribute` config switch.
 
@@ -102,8 +102,8 @@ You can allow a property to be defined as object's attribute, by setting `is_att
 				type: 'object',
 				properties: {
 					this_is_template: {type: 'template'},
-					is_active: {type: 'lava_type', type_name: 'Boolean', is_attribute: true},
-					this_is_number: {type: 'lava_type', type_name: 'Number'}
+					is_active: {type: 'known_type', type_name: 'Boolean', is_attribute: true},
+					this_is_number: {type: 'known_type', type_name: 'Number'}
 				}
 			}
 		}
@@ -130,8 +130,8 @@ Here applies the same logic as in <str>"object"</str> and <str>"template_collect
 				tag_name: 'this_is_object',
 				properties: {
 					this_is_template: {type: 'template'},
-					is_active: {type: 'lava_type', type_name: 'Boolean', is_attribute: true},
-					this_is_number: {type: 'lava_type', type_name: 'Number'}
+					is_active: {type: 'known_type', type_name: 'Boolean', is_attribute: true},
+					this_is_number: {type: 'known_type', type_name: 'Number'}
 				}
 			}
 		}
@@ -170,8 +170,8 @@ and set it via &lt;name&gt; tag.
 				tag_name: 'this_is_object',
 				properties: {
 					this_is_template: {type: 'template'},
-					is_active: {type: 'lava_type', type_name: 'Boolean', is_attribute: true},
-					this_is_number: {type: 'lava_type', type_name: 'Number'}
+					is_active: {type: 'known_type', type_name: 'Boolean', is_attribute: true},
+					this_is_number: {type: 'known_type', type_name: 'Number'}
 				}
 			}
 		}

@@ -62,7 +62,7 @@
 						{#foreach($todo_app.filter_names) as=filter_name}
 							<li>
 								<a x:type="container" x:classes="filter_name == $todo_app.filter_name ? 'selected' : ''" x:bind:href="'#/' + filter_name">
-									{#> ucFirst(filter_name)}
+									{#> applyFilter(filter_name, 'ucFirst')}
 								</a>
 							</li>
 						{/foreach}

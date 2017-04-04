@@ -96,7 +96,7 @@
 	</code>
 	<code name="hello_with_complex_expression">
 		<x:content><body lava-app="HelloApp">
-	<h1>{$> 'Hello ' + ucFirst(your_name)}!</h1>
+	<h1>{$> 'Hello ' + applyFilter(your_name, 'ucFirst')}!</h1>
 	Your name is {$> your_name.length} characters long.
 </body>
 </x:content>

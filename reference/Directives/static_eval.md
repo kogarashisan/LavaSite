@@ -11,6 +11,6 @@ It's faster that using Expression view, but such string will not refresh it's va
 
 <lavabuild:template_result>
 <x:static_eval>
-	ucFirst('liquidLava') + " is the best framework... ever!"
+	applyFilter('liquidLava', 'ucFirst') + " is the best framework... ever!"
 </x:static_eval>
 </lavabuild:template_result>

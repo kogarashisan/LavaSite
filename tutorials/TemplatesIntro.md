@@ -49,10 +49,10 @@ View arguments can be any JavaScript expressions, that do not modify their opera
 You can also call a set of predefined methods in expressions:
 
 ```xml
-<h1>{#> "Hello " + ucFirst(your_name) + "!"}</h1>
+<h1>{#> "Hello " + applyFilter(your_name, 'ucFirst') + "!"}</h1>
 ```
 
-`ucFirst` is a method from {@link Lava.modifiers} ("Upper Case First Letter").
+`applyFilter` is a method from {@link Lava.modifiers}.
 
 ##If and Foreach views
 

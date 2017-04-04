@@ -69,7 +69,7 @@ cause it does not have a descriptor.
 
 <b>type</b>
 
-A type from {@link Lava.types}, which is used for validation.
+A type from {@link Firestorm.Types}, which is used for validation.
 
 You must assign only valid values to properties: for example, you must not assign numbers to Boolean fields,
 or you will get exception. However, this validation <b>is enabled only in DEBUG mode</b> 
@@ -79,10 +79,10 @@ In the example above, the `gender` property has additional type-specific data in
 When widget checks property value for validity, it passes property descriptor to the type, like this:
 
 ```javascript
-Lava.types.Set.isValidValue("Male", this._property_descriptors.gender);
+Firestorm.Types.Set.isValidValue("Male", this._property_descriptors.gender);
 ```
 
-The {@link Lava.types#Set} type uses `allowed_values` from descriptor to check for allowed strings.
+The {@link Firestorm.Types#Set} type uses `allowed_values` from descriptor to check for allowed strings.
 
 <b>"setter" and "getter"</b>
 
