@@ -23,10 +23,10 @@ module.exports = function(grunt) {
 				}
 			);
 			child.stdout.setEncoding('utf8');
-			child.stdout.on('data', function (data) {
+			child.stdout.on('data', function(data) {
 				grunt.log.debug('jsdoc output : ' + data);
 			});
-			child.stderr.on('data', function (data) {
+			child.stderr.on('data', function(data) {
                 var error_text = new text_encoding.TextDecoder('cp866').decode(data);
 				grunt.log.error('An error occured in jsdoc process:\n' + error_text);
 				grunt.log.error(template_name);

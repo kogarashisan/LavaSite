@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 		}
 
 		var generators = {
-			widgets_page_navigation: function () {
+			widgets_page_navigation: function() {
 				var result = '';
 				var descriptors = grunt.config('www_files').widget_descriptors;
 				for (var i = 0, count = descriptors.length; i < count; i++) {
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 				}
 				return result;
 			},
-			widgets_page: function () {
+			widgets_page: function() {
 
 				function highlight_widget_example(src) {
 					var cut_start_marker = "<!--lavabuild_cut_before-->";
@@ -185,7 +185,7 @@ module.exports = function(grunt) {
 			changelog_versions: function() {
 				var filenames = fs.readdirSync('www/versions');
 				var versions = [];
-				filenames.forEach(function (filename) {
+				filenames.forEach(function(filename) {
 					if (filename.match(/\d+\.(\d+|x)(\.(\d+|x))?\.html/)) {
 						var parts = filename.split('.');
 						if (parts[0].match(/\d+/)) parts[0] = +parts[0];
@@ -199,7 +199,7 @@ module.exports = function(grunt) {
 					return a[0] > b[0] || a[1] > b[1] || a[2] > b[2];
 				});
 				var result = [{name: 'next'}];
-				versions.forEach(function (version) {
+				versions.forEach(function(version) {
 					result.push({name: version.join('.')});
 				});
 				result.push({name: 'older'});

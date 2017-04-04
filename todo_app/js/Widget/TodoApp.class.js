@@ -1,5 +1,5 @@
 /*global Lava, Firestorm, Router */
-(function (Lava, Firestorm, Router) {
+(function(Lava, Firestorm, Router) {
 'use strict';
 
 Lava.define(
@@ -48,7 +48,7 @@ Lava.define(
 		Lava.DOMEvents.addListener('keydown', this._onKeyDown, this);
 
 		new Router({
-			'/:filter': function (filter_name) {
+			'/:filter': function(filter_name) {
 				if (self.get('filter_names').indexOf(filter_name) == -1) {
 					filter_name = 'all';
 				}
@@ -66,7 +66,7 @@ Lava.define(
 		var items = (data && JSON.parse(data)) || [];
 		var self = this;
 
-		items.forEach(function (item) {
+		items.forEach(function(item) {
 			self._addItem(item);
 		});
 
@@ -82,7 +82,7 @@ Lava.define(
 
 	_clearCompletedClick: function() {
 
-		this._properties.todo_list.filter(function (value) {
+		this._properties.todo_list.filter(function(value) {
 			return !value.get('is_completed');
 		});
 		this._refreshData();
@@ -96,7 +96,7 @@ Lava.define(
 		var export_items = [];
 		var completed_state;
 
-		values.forEach(function (value) {
+		values.forEach(function(value) {
 			if (value.get('is_completed')) {
 				completed_count++;
 			}
@@ -112,7 +112,7 @@ Lava.define(
 		this._properties.filtered_list.refresh();
 		if (this._properties.filter_name != 'all') {
 			completed_state = (this._properties.filter_name == 'completed');
-			this._properties.filtered_list.filter(function (value) {
+			this._properties.filtered_list.filter(function(value) {
 				return value.get('is_completed') == completed_state;
 			});
 		}
@@ -195,7 +195,7 @@ Lava.define(
 
 		var new_state = this._toggle_all_checkbox.get('is_checked');
 
-		this._properties.todo_list.getValues().forEach(function (value) {
+		this._properties.todo_list.getValues().forEach(function(value) {
 			value.set('is_completed', new_state);
 		});
 

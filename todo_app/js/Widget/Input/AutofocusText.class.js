@@ -1,5 +1,5 @@
 /*global Lava, Firestorm */
-(function (Lava, Firestorm) {
+(function(Lava, Firestorm) {
 'use strict';
 
 Lava.define(

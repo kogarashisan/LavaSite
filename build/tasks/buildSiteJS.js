@@ -1,7 +1,7 @@
 
 module.exports = function(grunt) {
 
-	grunt.registerTask('buildSiteJS', global.bug1135(function () {
+	grunt.registerTask('buildSiteJS', global.bug1135(function() {
 
 		var Lava = global.Lava,
 			src_list = [];

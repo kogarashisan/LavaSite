@@ -180,7 +180,7 @@ module.exports = function(grunt) {
 
 		},
 
-		_addLineHighlight: function (structure, line_number, options) {
+		_addLineHighlight: function(structure, line_number, options) {
 			if (structure.highlights[line_number]) Lava.t();
 			structure.highlights[line_number] = {
 				type: 'line',
@@ -423,7 +423,7 @@ module.exports = function(grunt) {
 
 	};
 
-	grunt.registerTask('buildQuickStart', global.bug1135(function () {
+	grunt.registerTask('buildQuickStart', global.bug1135(function() {
 
 		var schema_src = grunt.file.read('build/quick_start_schema.html');
 		var content_includes = [];
@@ -474,7 +474,7 @@ module.exports = function(grunt) {
 
 		var code_structures = {};
 		var rendered_codes = {};
-		codes.forEach(function (code) {
+		codes.forEach(function(code) {
 
 			var items_by_type = {};
 			code.content = Lava.parsers.Common.asBlocks(code.content);
