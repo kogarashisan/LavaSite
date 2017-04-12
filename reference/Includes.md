@@ -31,7 +31,7 @@ Syntax for using includes:
 {include> target}
 ```
 
-Include target is parsed by {@link Lava.parsers.Common#parseEventHandlers} and has same format as event or role target.
+Include target is parsed by [TODO Lava.parsers.Common#parseEventHandlers] and has same format as event or role target.
 Includes are processed in {@link Lava.system.Template} in constructor.
 
 Like events, includes can be bubbling. Bubbling include is served by the first widget that has it.

@@ -295,7 +295,7 @@ For example:
 Types of root attributes:
 
 - <str>"expressions_option"</str> - parse attribute value as semicolon-separated expressions and store it into an option
-- <str>"targets_option"</str> - parse attribute as {@link Lava.parsers.Common#parseEventHandlers|targets} and store it as an option
+- <str>"targets_option"</str> - parse attribute as [TODO Lava.parsers.Common#parseEventHandlers|targets] and store it as an option
 - <str>"property"</str> - parse attribute as `type_name` and store it as widget's property value
 - <str>"switch"</str> - attribute value is parsed as Boolean, but empty attributes are evaluated to <kw>true</kw>
 - <str>"option"</str> - parse attribute as `type_name` and store it as widget's option

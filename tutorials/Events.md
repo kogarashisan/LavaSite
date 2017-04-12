@@ -16,9 +16,9 @@ Lava.define(
 		count_clicked: 0
 	},
 
-	_event_handlers: {
-		button_click: '_onButtonClick'
-	},
+	TEMPLATE_METHODS: [
+		'_onButtonClick'
+	],
 
 	_onButtonClick: function(dom_event_name, event_object, view, template_arguments) {
 
@@ -28,7 +28,7 @@ Lava.define(
 });
 ```
 
-`button_click` from `_event_handlers` is the actual event name - that's how you will reference your event in templates.
+`_onButtonClick` from `TEMPLATE_METHODS` is the actual event name - that's how you will reference your event in templates.
 `_onButtonClick` is name of the event handler. Notice, that we can get `count_clicked` variable directly, but we assign it
 using `set` method - it generates "changed" events for the template. <b>You should never set widget properties directly,
 otherwise your templates will not be able to update themselves.</b>
@@ -37,7 +37,7 @@ Let's use this handler in template:
 
 ```xml
 <body lava-app="HelloApp">
-	<div x:type="view" x:event:click="button_click">
+	<div x:type="view" x:dom-event:click="_onButtonClick">
 		I was clicked {#> count_clicked} times
 	</div>
 </body>
@@ -53,11 +53,11 @@ Final result:
 ##Event dispatch algorithm
 
 When you click on the &lt;div&gt; element from the above example - framework discovers that it belongs to a container,
-and that it has event delegation: DOM `click` event should be delegated to `button_click` widget handler.
+and that it has event delegation: DOM `click` event should be delegated to `_onButtonClick` widget handler.
 
 Event is dispatched from the view, which owns the container. 
-Framework dispatches `button_click` to <b>all</b> parent widgets of that view. If they have `button_click` handler in 
-their `_event_handlers` property - then corresponding callback will be executed.
+Framework dispatches `_onButtonClick` to <b>all</b> parent widgets of that view. If they have `button_click` handler in
+their `TEMPLATE_METHODS` property - then corresponding callback will be executed.
 
 View from above example has one parent, which receives the event - the HelloApp instance.
 
@@ -69,11 +69,11 @@ Unlike property references, bubbling events are dispatched to all parent widgets
 Events can be targeted just like property references:
 
 ```xml
-<div x:type="view" x:event:click="$widget.button_click"> ... </div>
-<div x:type="container" x:event:click="#hello_app.button_click"> ... </div>
+<div x:type="view" x:dom-event:click="$widget._onButtonClick"> ... </div>
+<div x:type="container" x:dom-event:click="#hello_app._onButtonClick"> ... </div>
 ```
 
-`$widget.button_click` will target parent widget with name <str>"widget"</str>, 
+`$widget._onButtonClick` will target parent widget with name <str>"widget"</str>,
 and `#hello_app` will target widget with <str>"hello_app"</str> id.
 <b>You should always prefer targeted events over bubbling.</b>
 
@@ -98,9 +98,9 @@ Lava.define(
 		]
 	},
 
-	_event_handlers: {
-		item_click: '_onItemClick'
-	},
+	TEMPLATE_METHODS: [
+		'_onItemClick'
+	],
 
 	_onItemClick: function(dom_event_name, event_object, view, template_arguments) {
 
@@ -114,7 +114,7 @@ Lava.define(
 {#foreach($hello_app.people) as=person}
 	<div x:type="container" 
 		x:style:background="(person == $hello_app.selected_person) ? 'yellow' : null"
-		x:event:click="$hello_app.item_click(person)">
+		x:dom-event:click="$hello_app.item_click(person)">
 		{#> person.title}
 	</div>
 {/foreach}

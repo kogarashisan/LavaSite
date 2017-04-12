@@ -125,16 +125,16 @@ Lava.define(
 	name: 'hello_app',
 
 	_modifiers: {
-		say_hello: '_sayHello'
+		sayHello: true
 	},
 
-	_sayHello: function(str) {
+	sayHello: function(str) {
 		return "Hello " + str;
 	}
 });
 ```
 
-Here we defined a <b>protected</b> function, which we want to call from templates - `_sayHello`. 
+Here we defined a <b>protected</b> function, which we want to call from templates - `sayHello`.
 It can take any number of arguments and return any value. In order ro make it available to templates -
 it must be added to the `_modifiers` map. Keys in it are modifier names in templates, and values are name of 
 class methods. Modifiers are called in context of the widget instance, so they can use other widget methods.
@@ -143,7 +143,7 @@ Widget modifier can be called like this:
 
 ```xml
 <body lava-app="HelloApp">
-	{#> $hello_app.say_hello("World")}
+	{#> $hello_app.sayHello("World")}
 </body>
 ```
 

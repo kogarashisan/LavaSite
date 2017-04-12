@@ -4,7 +4,7 @@
 Lava features declarative bindings of DOM events to controller callbacks. 
 Similar format and mechanism is used to retrieve widget includes and dispatch roles.
 
-"targets" in Lava refers to result of {@link Lava.parsers.Common#parseEventHandlers}.
+"targets" in Lava refers to result of [TODO Lava.parsers.Common#parseEventHandlers].
 Target always references a widget, and there are two kinds of them:
 
 ```text
@@ -35,7 +35,7 @@ Get include named "node" from widget with name "tree"
 Dispatch click event to several widgets:
 
 ```xml
-<div x:type="view" x:event:click="$widget.item_clicked(item, 123, 'test'); #app.item_clicked"></div>
+<div x:type="view" x:dom-event:click="$widget.item_clicked(item, 123, 'test'); #app.item_clicked"></div>
 ```
 
 First target has arguments: `item` refers to a property from view hierarchy, `123` and `'test'` are examples of
@@ -62,15 +62,7 @@ matched by locator. Algorithm for bubbling targets is a bit different:
 - target is first dispatched to all parent widgets
 - then target is dispatched to "global targets"
 
-Global target is a widget, assigned to handle bubbling roles and events. You can add them:
-- for roles - with {@link Lava.system.ViewManager#addGlobalRoleTarget}
-- for events - with {@link Lava.system.ViewManager#addGlobalEventTarget}
-
-Role and event bubbling can be cancelled with a call to {@link Lava.system.ViewManager#cancelBubble}.
-When bubble is cancelled - ViewManager immediately exits the dispatch loop (this may happen before target reaches
-global target handlers). See {@link Lava.system.ViewManager#_dispatchCallback} source for better understanding.
-
-For better understanding see remarks for {@link Lava.system.ViewManager}.
+For additional details, see {@link Lava.system.ViewManager}.
 
 ##Event routing
 
@@ -80,8 +72,6 @@ usage counter for the event, and acquires handler from {@link Lava.DOMEvents}. Y
 when you don't need it - this is important for resource-intensive events like "mouseenter".
 
 In it's constructor, ViewManager enables all events from {@link Lava.schema#system.DEFAULT_EVENTS}.
-
-See also: {@link reference:Directives.default_events}.
 
 ##Mouse events
 
@@ -113,23 +103,11 @@ Lava.define('Lava.widget.MyWidget', {
 	Extends: 'Lava.widget.Standard',
 	name: "my_widget",
 
-	_event_handlers: {
-		node_click: '_onNodeClick'
-	},
+	TEMPLATE_METHODS: [
+		'_onNodeClick'
+	],
 
-	_role_handlers: {
-		my_role: '_handleMyRole'
-	},
-
-	_include_handlers: {
-		my_include: '_getMyInclude'
-	},
-
-	_onNodeClick: function(dom_event_name, event_object, view, template_arguments) {},
-    
-	_handleMyRole: function(view, template_arguments) {},
-
-	_getMyInclude: function(template_arguments) {}
+	_onNodeClick: function() {}
 
 });
 ```

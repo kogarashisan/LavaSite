@@ -60,13 +60,13 @@ You can write several expressions, separated by semicolon.
 Syntax:
 
 ```text
-x:event:event_name="&lt;targets&gt;"
+x:dom-event:event_name="&lt;targets&gt;"
 ```
 
 Example:
 
 <lavabuild:template_result as="single_view">
-<div x:type="view" x:event:click="$widget.my_button_click(1,'test'); #app.my_button_click">
+<div x:type="view" x:dom-event:click="$widget.myButtonClick(1,'test'); #app.myButtonClick">
 	...
 </div>
 </lavabuild:template_result>

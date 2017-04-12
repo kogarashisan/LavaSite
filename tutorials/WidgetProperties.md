@@ -4,7 +4,7 @@
 
 {@link Lava.widget.Standard} overrides the `get()` and `set()` methods to provide validation and give you better control 
 over widget properties. Initial property values are stored in `_properties` class field, while additional behaviour
-can be specified in `_property_descriptors`:
+can be specified in `PROPERTY_DESCRIPTORS`:
 
 ```javascript
 Lava.define(
@@ -12,7 +12,7 @@ Lava.define(
 {
 	Extends: "Lava.widget.Standard",
 
-	_property_descriptors: {
+	PROPERTY_DESCRIPTORS: {
 		readonly_property: {is_readonly: true},
 		boolean_property: {type: 'Boolean'},
 		gender: {type: 'Set', allowed_values: ['Male', 'Female'], is_nullable: true},
@@ -79,7 +79,7 @@ In the example above, the `gender` property has additional type-specific data in
 When widget checks property value for validity, it passes property descriptor to the type, like this:
 
 ```javascript
-Firestorm.Types.Set.isValidValue("Male", this._property_descriptors.gender);
+Firestorm.Types.Set.isValidValue("Male", this.PROPERTY_DESCRIPTORS.gender);
 ```
 
 The {@link Firestorm.Types#Set} type uses `allowed_values` from descriptor to check for allowed strings.

@@ -19,7 +19,7 @@ This is best illustrated by the framework's input widgets. They all have single 
 			x:type="view"
 			x:roles="_input_view"
 
-			x:event:change="$text_input.value_changed"
+			x:dom-event:change="$text_input.value_changed"
 			x:bind:name="$text_input.name"
 			... />
 	</include>

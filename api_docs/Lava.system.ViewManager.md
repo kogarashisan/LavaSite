@@ -1,5 +1,5 @@
 
-<i>Term "target" here refers to result of {@link Lava.parsers.Common#parseEventHandlers}, See {@link reference:Targets}</i>
+<i>Term "target" here refers to result of [TODO Lava.parsers.Common#parseEventHandlers], See {@link reference:Targets}</i>
 
 #Event dispatch algorithm clarification
 
@@ -30,12 +30,12 @@ For example: you can bootstrap &lt;body&gt; as one widget, and then <i>manually<
 		<view>
 			<ul x:type="view">
 				<li>
-					<a x:type="view" x:event:click="on_link_click">Click me!</a>
+					<a x:type="view" x:dom-event:click="on_link_click">Click me!</a>
 				</li>
 			</ul>
 		</view>
 	</x:define>
-	<div x:type="view" id="main_container" x:event:click="on_container_click">
+	<div x:type="view" id="main_container" x:dom-event:click="on_container_click">
 	</div>
 </body>
 	</codeblock>
@@ -72,8 +72,8 @@ Element loop can not be cancelled: both `on_link_click` and `on_container_click`
 Let's look at another example:
 
 ```xml
-<div x:type="view" x:event:click="on_div_click">
-	<span x:type="view" x:event:click="on_span_click; on_title_click">
+<div x:type="view" x:dom-event:click="on_div_click">
+	<span x:type="view" x:dom-event:click="on_span_click; on_title_click">
 		...
 ```
 
@@ -81,22 +81,7 @@ Here, all three targets will be dispatched: first `on_span_click` and `on_title_
 
 ##Cancelling events
 
-In your event handler, you can call {@link Lava.system.ViewManager#cancelBubble} to cancel bubbling of the 
-<b>current</b> target. As for the previous example, you can individually cancel any of the three targets:
-`on_span_click`, `on_title_click` or `on_div_click`. But if you cancel the first one - the second and the third will
-be dispatched anyway. The same applies to cancelling of `on_title_click` and `on_div_click`: 
-you can cancel any of them individually, but after you do it - ViewManager will switch to the next target,
-and then to the next element in the stack.
-
-Note: there is no reason to call `cancelBubble` in <b>targeted</b> event handlers (when you know that event target does not bubble).
-
-The same rules apply to roles.
-
-Summary: when you call `cancelBubble` - you cancel bubbling of the <b>current</b> role or event target. 
-If Element container has multiple targets on it - then they all can be cancelled individually in their handlers,
-but they will be dispatched anyway.
-
-See also: source code of {@link Lava.system.ViewManager}.
+@todo THIS NO LONGER WORKS! (VM.cancelBubble)
 
 ##What else you should know
 

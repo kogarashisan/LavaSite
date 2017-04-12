@@ -9,7 +9,7 @@ to views and sugar.
 Content of the directive is expected to be any JavaScript type, like strings, objects, arrays or literals.
 
 Directive may have an optional `type` attribute:
-- <str>"targets"</str> - option value is parsed with {@link Lava.parsers.Common#parseEventHandlers}
+- <str>"targets"</str> - option value is parsed with [TODO Lava.parsers.Common#parseEventHandlers]
 - <str>"expressions"</str> - option value is parsed with ExpressionParser
 
 ##Example
@@ -17,9 +17,6 @@ Directive may have an optional `type` attribute:
 <lavabuild:template_result as="single_view">
 {#view()}
 	<x:option name="test_option">"option_value"</x:option>
-	<x:option type="targets" name="test_targets_option">
-		$test_target.test_callback("test_argument")
-	</x:option>
 	<x:option type="expressions" name="test_expression_option">
 		var_name + 1
 	</x:option>
